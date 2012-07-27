@@ -14,6 +14,8 @@ git remote add origin URL_TO_GITHUB_REPO
 git push origin master
 ```
 
+THIS DOESNT QUITE WORK perfectly. need to tell git to push to origin master on "git push" -- this setup will still push to the app-template.
+
 Set up a virtualenv, install the requirements, and go nuts.
 ```
 mkvirtualenv your-project-name
