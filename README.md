@@ -9,12 +9,10 @@ Now, copy the code in...
 ```
 git clone git@github.com:npr/app-template.git NAME_OF_NEW_PROJECT_REPO
 cd NAME_OF_NEW_PROJECT_REPO
-git remote rename origin upstream
-git remote add origin URL_TO_GITHUB_REPO
-git push origin master
+git remote rm origin
+git remote add origin URL_TO_A NEW_GITHUB_REPO
+git push -u origin master
 ```
-
-THIS DOESNT QUITE WORK perfectly. need to tell git to push to origin master on "git push" -- this setup will still push to the app-template.
 
 Set up a virtualenv, install the requirements, and go nuts.
 ```
