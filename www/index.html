@@ -18,46 +18,6 @@
     <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-5828686-4']);
-        _gaq.push(['_trackPageview']);
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
-	<!-- DFP TARGET -->
-	<script type="text/javascript">
-        <!--
-            var DFP = {};
-            DFP.tile = 0;
-            DFP.ord = Number(window.ord) || Math.floor(Math.random() * 1E10);
-            DFP.target = 'http://ad.doubleclick.net/adj/n6735.NPR/news_election_2012;agg=139482413;storyid=139482413';
-        // -->
-        </script>
-		           
-        <!-- DFP AD MANAGER -->
-        <script type="text/javascript">
-        <!--
-             DFP[0] = {"utype":null,"sz":"300x250","position":"right_main"};
-             DFP[1] = {"utype":null,"sz":"88x31","position":"search_box"};
-		
-            
-            DFP.renderLocation = function(location) {
-                var params = DFP[location];
-                var toRender = '<scr' + 'ipt src="' 
-                                + DFP.target 
-                                + ';sz=' + params.sz
-                                + ';tile=' + ++DFP.tile
-                                + ';sc='
-                                + ';ord=' + DFP.ord 
-                                + ';" type="text/javascript" language="javascript"></scr' + 'ipt>';
-                document.write(toRender);
-            }
-        // -->
-	</script>
     
 </head>
 <body>
@@ -69,7 +29,6 @@
             <ul class="nav">
               <li class="npr"><a href="http://npr.org">NPR</a></li>
               <li class="news"><a href="http://www.npr.org/sections/news/">News</a></li>
-              <li class="arts"><a href="http://www.npr.org/sections/arts/">Arts &amp; Life</a></li>
               <li class="music"><a href="http://www.npr.org/music/">Music</a></li>
               <li class="donate"><a href="http://www.npr.org/stations/donate/">Donate</a></li>
             </ul>
@@ -81,28 +40,22 @@
 
     <div class="container the-goods">
         <div class="row">
-            <div class="span8">
-                <h1>This is a header</h1>
-                This is content.
+            <div class="span12">
+                <h1>The election, live!</h1>
+                <p><i class="icon-play"></i> Listen live to the stuff</p>
             </div>
-            <div class="span4">
-                <!-- START 300X250 AD -->
-                <div class="adwrapper"><div class="sponsor300">
-				<!-- DFP AD MANAGER -->
-				<script type="text/javascript">
-				<!--
-					try{
-						DFP.renderLocation(0);
-					}catch(e){
-						NPR.messaging.warning('Problem fetching/rendering ad server code.','DFP.renderlocation',NPR.messaging.constants.SPONSORSHIP_ERROR);
-					}
-				// -->
-				</script>                  
-				<!-- END UNDERWRITING -->
-				<p class="left">NPR thanks our sponsors</p>
-				<p class="right"><a href="http://www.npr.org/about/place/corpsupport/">Become an NPR Sponsor </a></p>
-				</div></div>
-				<!-- END 300X250 AD --> 
+            <div id="results" class="span8">
+                <h2>The results so far</h2>
+                
+                <div id="buckets">
+                    <div class="bucket blue"></div>
+                    <div class="bucket red"></div>
+                    <div class="line">270</div>
+                </div>
+                
+            </div>
+            <div id="blog" class="span4">
+                <h2>Live blog or chat or something</h2>
             </div>
         </div>
         
@@ -124,29 +77,5 @@
         
     </div>
     
-    <script type="text/javascript">
-        var _sf_async_config={};
-        /** CONFIGURATION START **/
-        _sf_async_config.uid = 18888;
-        _sf_async_config.domain = "npr.org";
-        /** CONFIGURATION END **/
-        (function(){
-            function loadChartbeat() {
-                window._sf_endpt=(new Date()).getTime();
-                var e = document.createElement("script");
-                e.setAttribute("language", "javascript");
-                e.setAttribute("type", "text/javascript");
-                e.setAttribute("src",
-                    (("https:" == document.location.protocol) ?
-                     "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" :
-                     "http://static.chartbeat.com/") +
-                    "js/chartbeat.js");
-                document.body.appendChild(e);
-            }
-            var oldonload = window.onload;
-            window.onload = (typeof window.onload != "function") ?
-                loadChartbeat : function() { oldonload(); loadChartbeat(); };
-        })();
-    </script>
 </body>
 </html>

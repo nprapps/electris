@@ -1,0 +1,94 @@
+#blog { float:right; }
+#results { float:right; }
+
+@font-face {
+     font-family: 'StateFaceRegular';
+     src: url('../fonts/stateface-regular-webfont.eot');
+     src: url('../fonts/stateface-regular-webfont.eot?#iefix') format('embedded-opentype'),
+          url('../fonts/stateface-regular-webfont.woff') format('woff'),
+          url('../fonts/stateface-regular-webfont.ttf') format('truetype'),
+          url('../fonts/stateface-regular-webfont.svg#StateFaceRegular') format('svg');
+     font-weight: normal;
+     font-style: normal;
+}
+
+
+#buckets {
+    font-size:18px;
+    position:relative;
+}
+
+.line {
+    bottom:26.9em;
+    height:.1em;
+    background-color:yellow;
+    position:absolute;
+    z-index:100;
+    width:23em;
+    text-align:right;
+    line-height:0;
+}
+
+.bucket {
+
+    float:left;
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    -ms-filter: flipv; /*IE*/
+    filter: flipv; /*IE*/
+    
+    width:10em;
+    background-color:#eee;
+}
+
+.bucket i {
+    
+    float:left;
+    font-family:StateFaceRegular;
+    font-style:normal;
+    
+    width:.9em;
+    margin-right:.1em;
+    margin-bottom:.1em;
+    height:.9em;
+    line-height: 1.1em;
+
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    -ms-filter: flipv; /*IE*/
+    filter: flipv; /*IE*/
+
+}
+
+.bucket.blue {
+    margin-right: 1em;
+}
+
+.bucket.blue i {
+    background-color:royalblue;
+    color:lightblue;
+}
+.bucket.red i {
+    background-color:crimson;
+    color:pink;
+}
+
+@media (max-width: 767px) {
+    #results,#blog { width:100%; }
+}
+
+
+@media (max-width: 500px) {
+    #buckets { font-size:12px; }
+}
+@media (min-width: 960px) {
+    #buckets { font-size:20px; }
+}
+@media (min-width: 1200px) {
+    #buckets { font-size:24px; }
+}
+
