@@ -12,10 +12,35 @@
      font-style: normal;
 }
 
+#states {
+    font-size:18px;
+}
 
 #buckets {
-    font-size:18px;
     position:relative;
+    float:left;
+    clear:left;
+}
+
+#states i {
+    float:left;
+    font-family:StateFaceRegular;
+    font-style:normal;
+    
+    width:.9em;
+    margin-right:.1em;
+    margin-bottom:.1em;
+    height:.9em;
+}
+
+#states i span {
+    font-size:.7em;
+}
+
+#undecided {
+    width:21em;
+    float:left;
+    margin-bottom:1em;
 }
 
 .line {
@@ -44,16 +69,6 @@
 }
 
 .bucket i {
-    
-    float:left;
-    font-family:StateFaceRegular;
-    font-style:normal;
-    
-    width:.9em;
-    margin-right:.1em;
-    margin-bottom:.1em;
-    height:.9em;
-    line-height: 1.1em;
 
     -moz-transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
@@ -66,8 +81,13 @@
 
 .bucket.blue {
     margin-right: 1em;
+    clear:left;
 }
 
+#undecided i {
+    background-color:#eee;
+    color:#555;
+}
 .bucket.blue i {
     background-color:royalblue;
     color:lightblue;
@@ -83,12 +103,12 @@
 
 
 @media (max-width: 500px) {
-    #buckets { font-size:12px; }
+    #states { font-size:12px; }
 }
 @media (min-width: 960px) {
-    #buckets { font-size:20px; }
+    #states { font-size:20px; }
 }
 @media (min-width: 1200px) {
-    #buckets { font-size:24px; }
+    #states { font-size:24px; }
 }
 
