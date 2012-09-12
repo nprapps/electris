@@ -27,3 +27,7 @@ Switch visuals into 8-bit mode
 #Rest of the page
 Live player
 Live blog/chat
+
+#NPR.org
+Set up the AP hosted pages on NPR.org? Deploy to apps. instead? Set up fab files either way.
+Do widgets for homepage, etc
