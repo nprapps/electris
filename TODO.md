@@ -2,8 +2,8 @@
 
 ##Normal
 Color states by called/probable/your picks
-Alternate state colors
-Hover over a state
+X Alternate state colors
+X Hover over a state
 Show % reporting
 Show actual votes
 Deal with proportional allocation states
