@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/app.css" />
     <script type="text/javascript" src="js/underscore-min.js"></script>
     <script type="text/javascript" src="js/miso.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -85,7 +86,7 @@
     <script id='state' type='text/template'>
         <div class="state">
             <% _.times(state.votes, function(){ %>
-                <i><span><%= state.stateface %></span></i>
+                <i data-placement="top" data-title="<%= state.name %>" data-content="<%= "blah blah" %>"><span><%= state.stateface %></span></i>
             <% }); %>
         </div>
     </script>

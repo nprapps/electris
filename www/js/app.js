@@ -26,6 +26,11 @@ $(function(){
             var height = Math.max(27, Math.ceil(Math.max(red,blue)/10));
             $("#buckets,.bucket").css("height", height + "em")
             
+            $(".state i").popover({trigger:'manual'}).click(function(){
+                $(".state i").popover('hide');
+                $(this).popover('show');
+            });
+            
             // $("#undecided .state").click(function(){
             //    $("#results .bucket.red").append(this);
             // });
