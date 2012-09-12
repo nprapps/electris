@@ -82,5 +82,13 @@
         
     </div>
     
+    <script id='state' type='text/template'>
+        <div class="state">
+            <% _.times(state.votes, function(){ %>
+                <i><span><%= state.stateface %></span></i>
+            <% }); %>
+        </div>
+    </script>
+    
 </body>
 </html>

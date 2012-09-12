@@ -4,27 +4,31 @@ $(function(){
     // var blue = 537 - red;
     // var height = Math.ceil(Math.max(red,blue)/10);
     
-    var ds = new Miso.Dataset({ url : "states.csv", delimiter: ',' });
+    var ds = new Miso.Dataset({ url : "states.csv?t=" + (new Date()).getTime(), delimiter: ',' });
 
     ds.fetch({
         success: function() {
             var red = 0;
             var blue = 0;
+            var template = $("#state").html();
             this.each(function(row) {
-                //$("#states").append('<li id="state-' + row.abbr + '">' + row.name + ": " + row.winner + "</li>");
-                marker = "<i><span>" + row.stateface + "</span></i>\n"
+                var state = _.template(template,{state:row})
                 if(row.likely === 'r'){
-                    _.times(row.votes, function(){$("#results .bucket.red").append(marker)});
+                    $("#results .bucket.red").append(state);
                     red = red + row.votes;
                 } else if(row.likely ==='d') {
-                    _.times(row.votes, function(){$("#results .bucket.blue").append(marker)});
+                    $("#results .bucket.blue").append(state);
                     blue = blue + row.votes;
                 } else {
-                    _.times(row.votes, function(){$("#results #undecided").append(marker)});
+					$("#undecided").append(state);
                 }
             });
             var height = Math.max(27, Math.ceil(Math.max(red,blue)/10));
             $("#buckets,.bucket").css("height", height + "em")
+            
+            // $("#undecided .state").click(function(){
+            //    $("#results .bucket.red").append(this);
+            // });
         }
     });
 });
