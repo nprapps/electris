@@ -4,17 +4,17 @@ $(function(){
     function add_state(row) {
         var state = _.template(STATE_TEMPLATE, { state: row });
 
-        if (row.likely === 'r'){
+        if (row.likely === "r"){
             $("#results .bucket.red").append(state);
-        } else if(row.likely === 'd') {
+        } else if(row.likely === "d") {
             $("#results .bucket.blue").append(state);
         } else {
             $("#results #undecided").append(state);
         }
 
-        $(".state." + row.id + " i").popover({ trigger: 'manual' }).click(function(){
-            $(".state i").popover('hide');
-            $(this).popover('show');
+        $(".state." + row.id + " i").popover({ trigger: "manual" }).click(function(){
+            $(".state i").popover("hide");
+            $(this).popover("show");
         });
     }
 
@@ -28,15 +28,15 @@ $(function(){
     
     var ds = new Miso.Dataset({
         url : "states.csv?t=" + (new Date()).getTime(),
-        delimiter: ',',
+        delimiter: ",",
         interval: 1000,
-        uniqueAgainst: 'id',
+        uniqueAgainst: "id",
         sync: true
     });
 
     ds.fetch();
 
-    ds.bind('add', function(event) {
+    ds.bind("add", function(event) {
         var red = 0;
         var blue = 0;
 
@@ -45,9 +45,9 @@ $(function(){
 
             add_state(row);
 
-            if(row.likely === 'r'){
+            if(row.likely === "r"){
                 red += row.votes;
-            } else if(row.likely ==='d') {
+            } else if(row.likely ==="d") {
                 blue += row.votes;
             }
         });
@@ -56,20 +56,20 @@ $(function(){
         $("#buckets,.bucket").css("height", height + "em");
     });
 
-    ds.bind('change', function(event) {
+    ds.bind("change", function(event) {
         _.each(event.deltas, function(delta) {
             _.each(_.keys(delta.old), function(key) {
-                if (key === '_id') {
+                if (key === "_id") {
                     return;
                 }
                 
                 if (delta.changed[key] != delta.old[key]) {
-                    console.log('found change');
+                    console.log("found change");
                     console.log(key)
                     console.log(delta.changed[key])
                     console.log(delta.old[key])
 
-                    if (key === 'likely') {
+                    if (key === "likely") {
                         remove_state(delta.old);
                         add_state(delta.changed);
                     }
