@@ -71,6 +71,10 @@ $(function(){
         $("#undecided-votes").text(undecided_votes);
 
         var state_ids = undecided_states.column('id').data;
+
+        // NB: A sorted input list generates a sorted output list
+        // from our combinations algorithm.
+        state_ids.sort(); 
         var combos = combinations(state_ids);
 
         var red_needs = 270 - red_votes;
@@ -83,21 +87,44 @@ $(function(){
             var combo_votes = _.reduce(combo, function(memo, id) { return memo + state_votes[id]; }, 0);
 
             if (combo_votes > red_needs) {
-                red_combos.push({ combo: combo, votes: combo_votes });
+                var is_subset = _.find(red_combos, function(red_combo) {
+                    if (combo.slice(0, red_combo.combo.length).toString() == red_combo.combo.toString()) {
+                        return true;
+                    }
+
+                    return false;
+                });
+
+                if (!is_subset) {
+                    red_combos.push({ combo: combo, votes: combo_votes });
+                }
             }
 
             if (combo_votes > blue_needs) {
-                blue_combos.push({ combo: combo, votes: combo_votes });
+                var is_subset = _.find(blue_combos, function(blue_combo) {
+                    if (combo.slice(0, blue_combo.combo.length).toString() == blue_combo.combo.toString()) {
+                        return true;
+                    }
+
+                    return false;
+                });
+
+                if (!is_subset) {
+                    blue_combos.push({ combo: combo, votes: combo_votes });
+                }
             }
         });
 
-        $("#blue-combos").text(blue_combos.length);
         $("#red-combos").text(red_combos.length);
+        $("#blue-combos").text(blue_combos.length);
     }
 
     function combinations(superset) {
         /*
          * Compute all possible combinations of a given array.
+         *
+         * This solution was pulled from a StackOverflow answer, but I haven't
+         * been able to find it again...
          */
         var result = [];
         var size = 2;
