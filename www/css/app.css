@@ -22,7 +22,17 @@
     clear:left;
 }
 
-#states i {
+#states .state:hover i {
+    -moz-box-shadow: 0px 0px 10px 1px #FF0;
+    -webkit-box-shadow: 0px 0px 10px 1px #FF0;
+    box-shadow: 0px 0px 10px 1px #FF0;
+}
+
+#states .state i:hover{
+    cursor:pointer;
+}
+
+#states .state i {
     float:left;
     font-family:StateFaceRegular;
     font-style:normal;
@@ -33,7 +43,7 @@
     height:.9em;
 }
 
-#states i span {
+#states .state i span {
     font-size:.7em;
 }
 
@@ -41,6 +51,13 @@
     width:21em;
     float:left;
     margin-bottom:1em;
+}
+
+#undecided .state {
+    width: 2em;
+    float: left;
+    margin-right: 1em;
+    margin-bottom: 1em;
 }
 
 .line {
@@ -69,14 +86,12 @@
 }
 
 .bucket i {
-
     -moz-transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
     -o-transform: scaleY(-1);
     transform: scaleY(-1);
     -ms-filter: flipv; /*IE*/
     filter: flipv; /*IE*/
-
 }
 
 .bucket.blue {
@@ -88,13 +103,23 @@
     background-color:#eee;
     color:#555;
 }
-.bucket.blue i {
-    background-color:royalblue;
+.bucket.blue .state i {
     color:lightblue;
 }
-.bucket.red i {
+.bucket.blue .state:nth-child(even) i {
+    background-color:royalblue;
+}
+.bucket.blue .state:nth-child(odd) i {
+    background-color:navy;
+}
+.bucket.red .state i {
+    color:lightpink;
+}
+.bucket.red .state:nth-child(even) i {
     background-color:crimson;
-    color:pink;
+}
+.bucket.red .state:nth-child(odd) i {
+    background-color:darkred;
 }
 
 @media (max-width: 767px) {

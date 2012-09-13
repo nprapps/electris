@@ -1,27 +1,28 @@
-function add_state(row) {
-    var marker = "<i class=" + row.name + "><span>" + row.stateface + "</span></i>\n"
-
-    if (row.likely === 'r'){
-        _.times(row.votes, function(){$("#results .bucket.red").append(marker)});
-    } else if(row.likely === 'd') {
-        _.times(row.votes, function(){$("#results .bucket.blue").append(marker)});
-    } else {
-        _.times(row.votes, function(){$("#results #undecided").append(marker)});
-    }
-}
-
-function remove_state(row) {
-    $("i." + row.name).remove();
-}
-
 $(function(){
+    var STATE_TEMPLATE = $("#state").html();
     
+    function add_state(row) {
+        var state = _.template(STATE_TEMPLATE, { state: row });
+
+        if (row.likely === 'r'){
+            $("#results .bucket.red").append(state);
+        } else if(row.likely === 'd') {
+            $("#results .bucket.blue").append(state);
+        } else {
+            $("#results #undecided").append(state);
+        }
+    }
+
+    function remove_state(row) {
+        $("div.state." + row.name).remove();
+    }
+
     // var red = Math.floor(Math.random()*538) - 1;
     // var blue = 537 - red;
     // var height = Math.ceil(Math.max(red,blue)/10);
     
     var ds = new Miso.Dataset({
-        url : "states.csv",
+        url : "states.csv?t=" + (new Date()).getTime(),
         delimiter: ',',
         interval: 1000,
         uniqueAgainst: 'name',
@@ -48,6 +49,11 @@ $(function(){
 
         var height = Math.max(27, Math.ceil(Math.max(red, blue) / 10));
         $("#buckets,.bucket").css("height", height + "em");
+
+        $(".state i").popover({trigger:'manual'}).click(function(){
+            $(".state i").popover('hide');
+            $(this).popover('show');
+        });
     });
 
     ds.bind('change', function(event) {
