@@ -1,20 +1,24 @@
 $(function(){
     var STATE_TEMPLATE = $("#state").html();
-    var red_states = [];
-    var blue_states = [];
-    var undecided_states = [];
+
+    var red_states = null;
+    var red_votes = null;
+    var blue_states = null;
+    var blue_votes = null;
+    var undecided_states = null;
+    var undecided_votes = null;
     
     function add_state(state) {
+        /*
+         * Add the HTML for a state to the correct location.
+         */
         var html = _.template(STATE_TEMPLATE, { state: state });
 
         if (state.likely === "r"){
-            red_states.push(state);
             $("#results .bucket.red").append(html);
         } else if(state.likely === "d") {
-            blue_states.push(state);
             $("#results .bucket.blue").append(html);
         } else {
-            undecided_states.push(state);
             $("#results #undecided").append(html);
         }
 
@@ -24,28 +28,108 @@ $(function(){
         });
     }
 
-    function remove_state_from_array(states, state) {
-        var index = 0;
+    function remove_state(state) {
+        /*
+         * Remove the HTML for a state.
+         */
+        $("div.state." + state.id).remove();
+    }
 
-        _.each(states, function(arr_state, i) {
-            if (arr_state.id === state.id) {
-                index = i;
+    function compute_stats() {
+        /*
+         * Compute and display vote stats.
+         */
+        red_states = ds.where({
+            columns: ['id', 'name', 'votes'],
+            rows: function(row) {
+                return row.likely === 'r';
             }
         });
 
-        states.splice(index, 1);
+        red_votes = red_states.sum("votes").val();
+        $("#red-votes").text(red_votes);
+
+        blue_states = ds.where({
+            columns: ['id', 'name', 'votes'],
+            rows: function(row) {
+                return row.likely === 'd';
+            }
+        });
+
+        blue_votes = blue_states.sum("votes").val();
+        $("#blue-votes").text(blue_votes);
+
+        undecided_states = ds.where({
+            columns: ['id', 'name', 'votes'],
+            rows: function(row) {
+                return row.likely !== 'r' && row.likely !== 'd';
+            }
+        });
+
+        undecided_votes = undecided_states.sum("votes").val();
+        $("#undecided-votes").text(undecided_votes);
+
+        //var states = undecided_states.column('name').data;
+        //console.log(combinations(states));
     }
 
-    function remove_state(state) {
-        if (state.likely === "r") {
-            remove_state_from_array(red_states, state);
-        } else if (state.likely === "d") {
-            remove_state_from_array(blue_states, state);
-        } else {
-            remove_state_from_array(undecided_states, state);
+    function combinations(superset) {
+        /*
+         * Compute all possible combinations of a given array.
+         */
+        var result = [];
+        var size = 2;
+
+        while (size < superset.length) {          
+            var done = false;
+            var current_combo = null;
+            var distance_back = null;
+            var new_last_index = null;
+            var indexes = [];
+            var indexes_last = size - 1;
+            var superset_last = superset.length - 1;
+
+            // initialize indexes to start with leftmost combo
+            for (var i = 0; i < size; ++i) {
+                indexes[i] = i;
+            }
+
+            while (!done) {
+                current_combo = [];
+                for (i = 0; i < size; ++i) {
+                current_combo.push(superset[indexes[i]]);
+            }
+
+            result.push(current_combo);
+
+            if (indexes[indexes_last] == superset_last) {
+                done = true;
+                for (i = indexes_last - 1; i > -1 ; --i) {
+                    distance_back = indexes_last - i;
+                    new_last_index = indexes[indexes_last - distance_back] + distance_back + 1;
+
+                    if (new_last_index <= superset_last) {
+                        indexes[indexes_last] = new_last_index;
+                        done = false;
+                        break;
+                    }
+                }
+
+                if (!done) {
+                    ++indexes[indexes_last - distance_back];
+                    --distance_back;
+                    for (; distance_back; --distance_back) {
+                        indexes[indexes_last - distance_back] = indexes[indexes_last - distance_back - 1] + 1;
+                    }
+                }
+            }
+                else {++indexes[indexes_last]}
+            }
+
+            size++;
         }
 
-        $("div.state." + state.id).remove();
+        return result;
     }
 
     // var red = Math.floor(Math.random()*538) - 1;
@@ -60,23 +144,26 @@ $(function(){
         sync: true
     });
 
-    ds.fetch();
-
-    ds.bind("add", function(event) {
-        _.each(event.deltas, function(delta) {
-            add_state(delta.changed);
+    ds.fetch().then(function() {
+        /*
+         * After initial data load, setup stats and such.
+         */
+        ds.each(function(row) {
+            add_state(row);
         });
 
-        // Sum votes
-        var red_votes = _.reduce(red_states, function(memo, state) { return memo + state.votes; }, 0);
-        var blue_votes = _.reduce(blue_states, function(memo, state) { return memo + state.votes; }, 0);
-        var undecided_votes = _.reduce(undecided_states, function(memo, state) { return memo + state.votes; }, 0);
+        compute_stats();
 
         //var height = Math.max(27, Math.ceil(Math.max(red_votes, blue_votes) / 10));
         $("#buckets,.bucket").css("height", 27 + "em");
     });
 
     ds.bind("change", function(event) {
+        /*
+         * Process changes to state data from polling.
+         */
+        var real_changes = false;
+
         _.each(event.deltas, function(delta) {
             _.each(_.keys(delta.old), function(key) {
                 if (key === "_id") {
@@ -92,9 +179,15 @@ $(function(){
                     if (key === "likely") {
                         remove_state(delta.old);
                         add_state(delta.changed);
+
+                        real_changes = true;
                     }
                 }
             });
         });
+
+        if (real_changes) {
+            compute_stats();
+        };
     });
 });
