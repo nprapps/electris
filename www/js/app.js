@@ -1,6 +1,7 @@
 $(function(){
     var STATE_TEMPLATE = $("#state").html();
 
+    var state_votes = {};
     var red_states = null;
     var red_votes = null;
     var blue_states = null;
@@ -69,8 +70,29 @@ $(function(){
         undecided_votes = undecided_states.sum("votes").val();
         $("#undecided-votes").text(undecided_votes);
 
-        //var states = undecided_states.column('name').data;
-        //console.log(combinations(states));
+        var state_ids = undecided_states.column('id').data;
+        var combos = combinations(state_ids);
+
+        var red_needs = 270 - red_votes;
+        var blue_needs = 270 - blue_votes;
+
+        var red_combos = [];
+        var blue_combos = [];
+
+        _.each(combos, function(combo) {
+            var combo_votes = _.reduce(combo, function(memo, id) { return memo + state_votes[id]; }, 0);
+
+            if (combo_votes > red_needs) {
+                red_combos.push({ combo: combo, votes: combo_votes });
+            }
+
+            if (combo_votes > blue_needs) {
+                blue_combos.push({ combo: combo, votes: combo_votes });
+            }
+        });
+
+        $("#blue-combos").text(blue_combos.length);
+        $("#red-combos").text(red_combos.length);
     }
 
     function combinations(superset) {
@@ -150,6 +172,9 @@ $(function(){
          */
         ds.each(function(row) {
             add_state(row);
+
+            // Build vote lookup table
+            state_votes[row.id] = row.votes;
         });
 
         compute_stats();
