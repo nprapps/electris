@@ -11,6 +11,11 @@ $(function(){
         } else {
             $("#results #undecided").append(state);
         }
+
+        $(".state." + row.id + " i").popover({ trigger: 'manual' }).click(function(){
+            $(".state i").popover('hide');
+            $(this).popover('show');
+        });
     }
 
     function remove_state(row) {
@@ -49,11 +54,6 @@ $(function(){
 
         var height = Math.max(27, Math.ceil(Math.max(red, blue) / 10));
         $("#buckets,.bucket").css("height", height + "em");
-
-        $(".state i").popover({trigger:'manual'}).click(function(){
-            $(".state i").popover('hide');
-            $(this).popover('show');
-        });
     });
 
     ds.bind('change', function(event) {
@@ -64,14 +64,15 @@ $(function(){
                 }
                 
                 if (delta.changed[key] != delta.old[key]) {
-                    if (key === 'likely') {
-                        remove_state(delta.old);
-                        add_state(delta.changed);
-                    }
                     console.log('found change');
                     console.log(key)
                     console.log(delta.changed[key])
                     console.log(delta.old[key])
+
+                    if (key === 'likely') {
+                        remove_state(delta.old);
+                        add_state(delta.changed);
+                    }
                 }
             });
         });
