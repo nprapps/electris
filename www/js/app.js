@@ -14,7 +14,7 @@ $(function(){
     }
 
     function remove_state(row) {
-        $("div.state." + row.name).remove();
+        $("div.state." + row.id).remove();
     }
 
     // var red = Math.floor(Math.random()*538) - 1;
@@ -25,7 +25,7 @@ $(function(){
         url : "states.csv?t=" + (new Date()).getTime(),
         delimiter: ',',
         interval: 1000,
-        uniqueAgainst: 'name',
+        uniqueAgainst: 'id',
         sync: true
     });
 

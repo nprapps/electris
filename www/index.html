@@ -84,7 +84,7 @@
     </div>
     
     <script id="state" type='text/template'>
-        <div class="state <%= state.name %>">
+        <div class="state <%= state.id %>">
             <% _.times(state.votes, function(){ %>
                 <i data-placement="top" data-title="<%= state.name %>" data-content="<%= "blah blah" %>"><span><%= state.stateface %></span></i>
             <% }); %>
