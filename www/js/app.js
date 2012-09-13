@@ -83,33 +83,27 @@ $(function(){
         var red_combos = [];
         var blue_combos = [];
 
+        function is_subset(combos_so_far, new_combo) {
+            return _.find(combos_so_far, function(old_combo) {
+                if (new_combo.slice(0, old_combo.combo.length).toString() == old_combo.combo.toString()) {
+                    return true;
+                }
+
+                return false;
+            });
+        }
+
         _.each(combos, function(combo) {
             var combo_votes = _.reduce(combo, function(memo, id) { return memo + state_votes[id]; }, 0);
 
             if (combo_votes > red_needs) {
-                var is_subset = _.find(red_combos, function(red_combo) {
-                    if (combo.slice(0, red_combo.combo.length).toString() == red_combo.combo.toString()) {
-                        return true;
-                    }
-
-                    return false;
-                });
-
-                if (!is_subset) {
+                if (!is_subset(red_combos, combo)) {
                     red_combos.push({ combo: combo, votes: combo_votes });
                 }
             }
 
             if (combo_votes > blue_needs) {
-                var is_subset = _.find(blue_combos, function(blue_combo) {
-                    if (combo.slice(0, blue_combo.combo.length).toString() == blue_combo.combo.toString()) {
-                        return true;
-                    }
-
-                    return false;
-                });
-
-                if (!is_subset) {
+                if (!is_subset(blue_combos, combo)) {
                     blue_combos.push({ combo: combo, votes: combo_votes });
                 }
             }
