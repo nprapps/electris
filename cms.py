@@ -19,8 +19,11 @@ def push_to_s3():
     bucket = conn.get_bucket(settings.S3_BUCKET)
     key = Key(bucket)
     key.key = settings.S3_KEY
-    key.set_contents_from_filename(settings.STATES_FILENAME)
-    key.set_acl('public-read')
+    key.set_contents_from_filename(
+        settings.STATES_FILENAME,
+        policy='public-read',
+        headers={'Cache-Control': 'max-age=0 no-cache no-store must-revalidate'}
+    )
 
 def push_live(event, data):
     pusher.app_id = settings.PUSHER_APP_ID

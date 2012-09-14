@@ -1,6 +1,6 @@
 id,stateface,name,votes,likely,called,actual
-al,B,Alabama,9,sd,,
-ak,A,Alaska,3,lr,,
+al,B,Alabama,9,,,
+ak,A,Alaska,3,,,
 az,D,Arizona,11,sd,,
 ar,C,Arkansas,6,sd,,
 ca,E,California,55,sd,,
