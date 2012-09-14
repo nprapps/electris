@@ -124,20 +124,24 @@ $(function(){
             }
         });
 
+        $("#red-needs").text(red_needs);
         $("#red-combos-count").text(red_combos.length);
         $("#red-combos").empty();
 
         _.each(red_combos, function(combo) {
-            var names = _.map(combo.combo, function(c) { return state_names[c]; });
-            $("#red-combos").append("<li>" + names.join(", ") + "</li>");
+            var names = _.map(combo.combo, function(id) { return state_names[id] + " (" + state_votes[id] + ")"; });
+            var total = _.reduce(combo.combo, function(memo, id) { return memo + state_votes[id]; }, 0);
+            $("#red-combos").append("<li>" + names.join(" + ") + " = " + total + "</li>");
         });
 
+        $("#blue-needs").text(blue_needs);
         $("#blue-combos-count").text(blue_combos.length);
         $("#blue-combos").empty();
 
         _.each(blue_combos, function(combo) {
-            var names = _.map(combo.combo, function(c) { return state_names[c]; });
-            $("#blue-combos").append("<li>" + names.join(", ") + "</li>");
+            var names = _.map(combo.combo, function(id) { return state_names[id] + " (" + state_votes[id] + ")"; });
+            var total = _.reduce(combo.combo, function(memo, id) { return memo + state_votes[id]; }, 0);
+            $("#blue-combos").append("<li>" + names.join(" + ") + " = " + total + "</li>");
         });
     }
 
