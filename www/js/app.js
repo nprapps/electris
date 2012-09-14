@@ -1,4 +1,6 @@
 $(function(){
+    var MIN_VOTES_FOR_COMBOS = 40;
+    var MIN_STATES_FOR_COMBOS = 5;
     var STATE_TEMPLATE = $("#state").html();
 
     var state_votes = {};
@@ -69,6 +71,21 @@ $(function(){
 
         undecided_votes = undecided_states.sum("votes").val();
         $("#undecided-votes").text(undecided_votes);
+        
+        generate_winning_combinations();
+    }
+
+    function generate_winning_combinations() {
+        /*
+         * Generate combinations of states that can win the election.
+         */
+        var red_needs = 270 - red_votes;
+        var blue_needs = 270 - blue_votes;
+
+        if (_.min([red_needs, blue_needs]) > MIN_VOTES_FOR_COMBOS && undecided_states.length > MIN_STATES_FOR_COMBOS) {
+            $("#combos").hide();
+            return;
+        }
 
         var state_ids = undecided_states.column('id').data;
 
@@ -76,9 +93,6 @@ $(function(){
         // from our combinations algorithm.
         state_ids.sort(); 
         var combos = combinations(state_ids);
-
-        var red_needs = 270 - red_votes;
-        var blue_needs = 270 - blue_votes;
 
         var red_combos = [];
         var blue_combos = [];
@@ -109,8 +123,19 @@ $(function(){
             }
         });
 
-        $("#red-combos").text(red_combos.length);
-        $("#blue-combos").text(blue_combos.length);
+        $("#red-combos-count").text(red_combos.length);
+        $("#red-combos").empty();
+
+        _.each(red_combos, function(combo) {
+            $("#red-combos").append("<li>" + combo.combo.join(", ") + "</li>");
+        });
+
+        $("#blue-combos-count").text(blue_combos.length);
+        $("#blue-combos").empty();
+
+        _.each(blue_combos, function(combo) {
+            $("#blue-combos").append("<li>" + combo.combo.join(", ") + "</li>");
+        });
     }
 
     function combinations(superset) {
