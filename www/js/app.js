@@ -15,9 +15,9 @@ $(function(){
          */
         var html = _.template(STATE_TEMPLATE, { state: state });
 
-        if (state.likely === "r"){
+        if (state.likely === "sr" || state.likely === "lr"){
             $("#results .bucket.red").append(html);
-        } else if(state.likely === "d") {
+        } else if(state.likely === "sd" || state.likely === "ld") {
             $("#results .bucket.blue").append(html);
         } else {
             $("#results #undecided").append(html);
@@ -43,7 +43,7 @@ $(function(){
         red_states = ds.where({
             columns: ['id', 'name', 'votes'],
             rows: function(row) {
-                return row.likely === 'r';
+                return (row.likely === "sr" || row.likely === "lr");
             }
         });
 
@@ -53,7 +53,7 @@ $(function(){
         blue_states = ds.where({
             columns: ['id', 'name', 'votes'],
             rows: function(row) {
-                return row.likely === 'd';
+                return (row.likely === "sd" || row.likely === "ld");
             }
         });
 
@@ -63,7 +63,7 @@ $(function(){
         undecided_states = ds.where({
             columns: ['id', 'name', 'votes'],
             rows: function(row) {
-                return row.likely !== 'r' && row.likely !== 'd';
+                return (_.indexOf(["sr", "lr", "ld", "sd"], row.likely) < 0);
             }
         });
 

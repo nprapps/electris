@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+      <link rel="stylesheet" href="{{ STATIC_URL }}/bootstrap/css/bootstrap.css">
+      <title>{% block title %}{% endblock %}</title>
+    
+      {% block extra_head %}
+      {% endblock %}
+  </head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div id="content" class="span12">
+                {% block content %}{% endblock %}
+            </div>
+        <div>
+    </div>
+    
+    <script type="text/javascript" src="{{ STATIC_URL }}/bootstrap/js/bootstrap.min.js">
+    {% block extra_foot %}
+    {% endblock %}
+</body>
+

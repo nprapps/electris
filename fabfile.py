@@ -3,7 +3,7 @@ from fabric.api import *
 """
 Base configuration
 """
-env.project_name = 'change-this-project-name-please'
+env.project_name = 'electris'
 
 """
 Environments
@@ -51,7 +51,7 @@ def _deploy_to_s3():
     """
     Deploy the gzipped stuff to
     """
-    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --recursive sync gzip/ s3://%(s3_bucket)s/%(project_name)s/') % env)
+    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --recursive --exclude states.csv sync gzip/ s3://%(s3_bucket)s/%(project_name)s/') % env)
 
 def _gzip_www():
     """
@@ -72,3 +72,4 @@ def shiva_the_destroyer():
     """
     with settings(warn_only=True):
         local('s3cmd del --recursive s3://%(s3_bucket)s/%(project_name)s' % env)
+

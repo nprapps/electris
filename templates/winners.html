@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Mark state winners{% endblock %}
+{% block content %}
+    <h1>Mark state winners</h1>
+
+    <form id="state-winners" method="POST">
+        <input type="submit" class="btn btn-primary" value="Submit" />
+
+        {% for state in states %}
+        <div class="control-group well">
+            <h4>{{ state.name }}</h4>
+
+            <h5>Likely outcome</h5>
+
+            {% for option in LIKELY_OPTIONS %}
+            <label class="control-label radio inline">
+                <input type="radio" name="likely-{{ state.id }}" value="{{ option.0 }}" {% if state.likely == option.0 %}checked="checked"{% endif %} />{{ option.1 }}
+            </label>
+            {% endfor %}
+
+            {% for type in RESULT_TYPES %}
+                <h5>{{ type|capitalize }}</h5>
+
+                {% for option in RESULT_OPTIONS %}
+                <label class="control-label radio inline">
+                    <input type="radio" name="{{ type }}-{{ state.id }}" value="{{ option.0 }}" {% if state[type] == option.0 %}checked="checked"{% endif %} />{{ option.1 }}
+                </label>
+                {% endfor %}
+
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </form>
+{% endblock %}
