@@ -4,6 +4,7 @@ $(function(){
     var STATE_TEMPLATE = $("#state").html();
 
     var state_votes = {};
+    var state_names = {};
     var red_states = null;
     var red_votes = null;
     var blue_states = null;
@@ -127,14 +128,16 @@ $(function(){
         $("#red-combos").empty();
 
         _.each(red_combos, function(combo) {
-            $("#red-combos").append("<li>" + combo.combo.join(", ") + "</li>");
+            var names = _.map(combo.combo, function(c) { return state_names[c]; });
+            $("#red-combos").append("<li>" + names.join(", ") + "</li>");
         });
 
         $("#blue-combos-count").text(blue_combos.length);
         $("#blue-combos").empty();
 
         _.each(blue_combos, function(combo) {
-            $("#blue-combos").append("<li>" + combo.combo.join(", ") + "</li>");
+            var names = _.map(combo.combo, function(c) { return state_names[c]; });
+            $("#blue-combos").append("<li>" + names.join(", ") + "</li>");
         });
     }
 
@@ -219,8 +222,9 @@ $(function(){
         ds.each(function(row) {
             add_state(row);
 
-            // Build vote lookup table
+            // Build lookup tables
             state_votes[row.id] = row.votes;
+            state_names[row.id] = row.name;
         });
 
         compute_stats();
