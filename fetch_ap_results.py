@@ -1,40 +1,111 @@
 #!/usr/bin/env python
 
-import json
+from cStringIO import StringIO
+import csv
+from ftplib import FTP
 import os
 
-from elections import AP
+STATES = ['al', 'ak', 'az', 'ar', 'ca', 'co', 'ct', 'de', 'dc', 'fl', 'ga', 'hi', 'id', 'il', 'in', 'ia', 'ks', 'ky', 'la', 'me', 'md', 'ma', 'mi', 'mn', 'ms', 'mo', 'mt', 'ne', 'nv', 'nh', 'nj', 'nm', 'ny', 'nc', 'nd', 'oh', 'ok', 'or', 'pa', 'ri', 'sc', 'sd', 'tn', 'tx', 'ut', 'vt', 'va', 'wa', 'wv', 'wi', 'wy']
 
-STATES = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
+STATE_FIELDS = [
+    'is_test',
+    'election_date',
+    'state_postal',
+    'county_number',
+    'fips',
+    'county_name',
+    'race_number',
+    'office_id',
+    'race_type_id',
+    'seat_number',
+    'office_name',
+    'seat_name',
+    'race_type_party',
+    'race_type',
+    'office_description',
+    'number_of_winners',
+    'number_in_runoff',
+    'precincts_reporting',
+    'total_precincts'
+]
 
-output = {}
+CANDIDATE_FIELDS = [
+    'candidate_number',
+    'order',
+    'party',
+    'first_name',
+    'middle_name',
+    'last_name',
+    'junior',
+    'use_junior',
+    'incumbent',
+    'vote_count',
+    'is_winner',
+    'national_politician_id',
+]
 
-client = AP(os.environ['AP_USERNAME'], os.environ['AP_PASSWORD'])
-print client.get_topofticket('2012-11-06')
+NUM_STATE_FIELDS = len(STATE_FIELDS)
+NUM_CANDIDATE_FIELDS = len(CANDIDATE_FIELDS)
+
+OUTPUT_FIELDS = ['state', 'total_precincts', 'precincts_reporting', 'rep_vote_count', 'dem_vote_count', 'winner']
+
+data = StringIO()
+
+ftp = FTP('electionsonline.ap.org')
+ftp.login(os.environ['AP_USERNAME'], os.environ['AP_PASSWORD'])
+ftp.retrbinary('RETR US_topofticket/flat/US.txt', data.write)
+ftp.quit()
+
+# Rebuffer data
+data = StringIO(data.getvalue())
+output_data = {}
+
+for row in data:
+    row_data = row.split(';')
+
+    state_data = dict(zip(STATE_FIELDS, row_data[:NUM_STATE_FIELDS]))
+
+    if state_data['office_name'] != 'President':
+        continue
+
+    candidate_count = (len(row_data) - NUM_STATE_FIELDS) / NUM_CANDIDATE_FIELDS 
+
+    i = 0
+    obama_data = None
+    romney_data = None
+
+    while i < candidate_count:
+        first_field = NUM_STATE_FIELDS + (i * NUM_CANDIDATE_FIELDS)
+        last_field = first_field + NUM_CANDIDATE_FIELDS
+        candidate_data = dict(zip(CANDIDATE_FIELDS, row_data[first_field:last_field]))
+
+        if candidate_data['last_name'] == 'Obama':
+            obama_data = candidate_data
+        elif candidate_data['last_name'] == 'Romney':
+            romney_data = candidate_data
+
+        if obama_data and romney_data:
+            break
+
+        i += 1
+
+    assert obama_data and romney_data
+
+    state = state_data['state_postal'].lower()
+    winner = 'r' if romney_data['is_winner'] else 'd' if obama_data['is_winner'] else ''
+    output_row = [state, state_data['total_precincts'], state_data['precincts_reporting'], romney_data['vote_count'], obama_data['vote_count'], winner]
+
+    output_data[state] = output_row
+
+output = []
 
 for state in STATES:
-    print 'Fetching %s' % state
-    ap_state = client.get_state('IA')
+    output.append(output_data.get(state, [state, '', '', '', '']))
 
-    ap_races = ap_state.filter_races(office_name='President')
+assert(len(output) == 51)
 
-    assert len(ap_races) == 1
-
-    ap_race = ap_races[0]
-
-    result = {}
-    
-    for ap_result in ap_race.state.results:
-        if ap_result.candidate.last_name not in ['Obama', 'Romney']:
-            continue
-
-        result[ap_result.candidate.last_name] = {
-            'vote_total': ap_result.vote_total,
-            'vote_total_percent': ap_result.vote_total_percent
-        }
-
-    output[state] = result
-
-with open('results.js', 'w') as f:
-    f.write(json.dumps(output))
+with open('www/ap.csv', 'w') as f:
+    writer = csv.writer(f)
+    writer.writerow(OUTPUT_FIELDS)
+    writer.writerows(output)
 
