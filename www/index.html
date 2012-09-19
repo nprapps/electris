@@ -184,7 +184,7 @@
             <div class="span9" id="results">
             
             	<ul id="offices">
-            		<li class="o-president active">
+            		<li id="o-president">
             			<div>
 	            			<h3>President</h3>
 	            			<!--
@@ -196,18 +196,27 @@
 		        	        -->
 		        	    </div>
             		</li>
-            		<li class="o-senate">
+            		<li id="o-senate">
             			<div>
             				<h3>Senate</h3>
+            				<p>
+            					<strong>Democrats:</strong> 50<br />
+            					<strong>Republicans:</strong> 50<br />
+            					<strong>Races outstanding:</strong> 0
+            				</p>
             			</div>
             		</li>
-            		<li class="o-house">
+            		<li id="o-house">
             			<div>
             				<h3>House</h3>
+            				<p>
+            					<strong>Democrats:</strong> 200<br />
+            					<strong>Republicans:</strong> 200<br />
+            					<strong>Races outstanding:</strong> 35
+            				</p>
             			</div>
             		</li>
             	</ul>
-            	<!-- TODO: Hook up to JS -->
             
             	<div class="row" id="president">
             		<div class="span6">
@@ -259,6 +268,24 @@
 	            	    </div>
 		            </div>
                 </div>
+                
+            	<div class="row" id="senate">
+            		<div class="span3">
+	            		Col 1 of Senate results
+            		</div>
+            		<div class="span3">
+	            		Col 2 of Senate results
+            		</div>
+            	</div>
+
+            	<div class="row" id="house">
+            		<div class="span3">
+	            		Col 1 of KEY House results
+	            	</div>
+            		<div class="span3">
+	            		Col 2 of KEY House results
+	            	</div>
+            	</div>
                 
             </div>
             <div id="blog" class="span3">

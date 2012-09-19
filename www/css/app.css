@@ -201,7 +201,7 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	padding: 0 12px;
 	cursor: pointer;
 }
-#offices li.o-president div {
+#offices li#o-president div {
 	border-left: 1px solid #dadada;
 }
 #offices li.active div {
