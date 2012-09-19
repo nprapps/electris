@@ -1,6 +1,3 @@
-#blog { float:right; }
-#results { float:right; }
-
 @font-face {
      font-family: 'StateFaceRegular';
      src: url('../fonts/stateface-regular-webfont.eot');
@@ -12,6 +9,49 @@
      font-style: normal;
 }
 
+/* STRUCTURAL */
+#blog { float:right; }
+#results { float:right; }
+
+
+/* GENERAL STYLES */
+h2 {
+	font-size: 1.3em;
+	margin-bottom: 3px;
+	text-transform: lowercase;
+}
+
+/* COLORS */
+/*
+.d_safe { background-color: #3d7fa6; color: #FFF; }
+.d_favored { background-color: #7dbfe6; color: #28556f; }
+.r_safe { background-color: #a23520; color: #FFF; }
+.r_favored { background-color: #e27560; color: #6c2315; }
+.i_safe { background-color: #999; color: #fff; }
+.i_favored { background-color: #ccc; color: #333; }
+.tossup { background-color: #f7e39b; color: #77631b; }
+*/
+.bucket.blue .state i {
+    color: #fff;
+}
+.bucket.blue .state:nth-child(even) i {
+    background-color: #7dbfe6;
+}
+.bucket.blue .state:nth-child(odd) i {
+    background-color: #3d7fa6;
+}
+.bucket.red .state i {
+    color: #fff;
+}
+.bucket.red .state:nth-child(even) i {
+    background-color: #e27560;
+}
+.bucket.red .state:nth-child(odd) i {
+    background-color: #a23520;
+}
+
+
+/* ELECTRIS */
 #states {
     font-size:18px;
 }
@@ -23,9 +63,12 @@
 }
 
 #states .state:hover i {
+	color: #F7E39B;
+/*
     -moz-box-shadow: 0px 0px 10px 1px #FF0;
     -webkit-box-shadow: 0px 0px 10px 1px #FF0;
     box-shadow: 0px 0px 10px 1px #FF0;
+*/
 }
 
 #states .state i:hover{
@@ -36,6 +79,7 @@
     float:left;
     font-family:StateFaceRegular;
     font-style:normal;
+    text-align: center;
     
     width:.9em;
     margin-right:.1em;
@@ -100,35 +144,93 @@
 }
 
 #undecided i {
-    background-color:#eee;
+    background-color:#f1f1f1;
     color:#555;
 }
-.bucket.blue .state i {
-    color:lightblue;
+
+
+/* HEADER AND PLAYER */
+#header { margin-bottom: 18px; }
+#header .span12 { background-color: #111; padding-bottom: 12px; }
+
+#header h1 { font-size: 28px; line-height: 30px; font-weight: normal; padding-top: 15px; margin: 0 0 3px 15px; color: #FFF; text-shadow: 2px 2px #000000; }
+#maincontent #header h3 { font-weight: normal; margin: 0 0 3px 15px; color: #999; }
+
+#playercon { color: #FFF; margin-left: 15px; margin-top: 15px; padding-right: 15px; height: 70px; border: 1px solid rgba(51,51,51,.8); position: relative; display: inline-block; }
+#playercon #theplayer { padding: 4px; float: left; }
+#playercon .speaking { font: 16px Arial;  margin: 0px 0 0 6px;  float: left; line-height: 22px;}
+#playercon .slug { font: 12px Arial; color: #666; }
+#playercon #eq_gfx { float:left }
+#playerdisp { font: 12px Arial; color: #666; margin-left: 12px; float: left; }
+#playercon #playerstatus { background-color: rgb(51,51,51); background-color: rgba(51,51,51,.8); position: absolute; top: 48px; width: 100%; height: 19px; padding-top: 4px;}
+#playercon #playerstatus img { vertical-align: top; padding: 0px 0px 0px 4px; }
+
+#comingsoon { position: relative; height: 62px; margin: 6px 0 0 -12px; display: none; float: left; }
+#comingsoon b { position: absolute; top: 0; left: 0; display: block; width: 12px; height: 6px; overflow: hidden; background: url('../images/coming-soon-upper-tab.png') no-repeat right bottom; }
+#comingsoon .message { font: bold 12px Arial; text-transform: uppercase; color: #FFF; padding: 20px 35px 0 30px; white-space: nowrap; }
+
+/* hide both player and comingsoon initially 
+body.comingSoon #playercon { position: absolute; top: -2000px; }
+#playercon, #comingsoon { visibility: hidden; } */
+
+
+/* LIVEBLOG */
+#blog_river_alert {
+	background-color: #FAFDFF;
+	border: 1px solid #D3E1EA;
+	padding: 12px;
+	margin-bottom: 6px;
 }
-.bucket.blue .state:nth-child(even) i {
-    background-color:royalblue;
+#blog_river_alert p {
+	margin: 0;
+	font-size: 13px;
+	font-weight: bold;
+	color: #36c;
 }
-.bucket.blue .state:nth-child(odd) i {
-    background-color:navy;
+#blog_river_alert p:hover {
+	cursor: pointer;
+	text-decoration: underline;
 }
-.bucket.red .state i {
-    color:lightpink;
+#blog_river ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
-.bucket.red .state:nth-child(even) i {
-    background-color:crimson;
+#blog_river ul li {
+	font-size: 13px;
+	line-height: 1.35em;
+	color: #333;
+	background-color: #f1f1f1;
+	padding: 12px;
+	margin-bottom: 6px;
 }
-.bucket.red .state:nth-child(odd) i {
-    background-color:darkred;
+#blog_river ul li.sticky {
+	background-color: #FFF;
+	border: 1px dotted #999;
 }
+#blog_river .date {
+	font-size: 11px;
+	font-style: normal;
+	white-space: nowrap;
+	padding-left: 5px;
+	color: #999;
+}
+#blog_river a {
+	font-weight: bold;
+	color: #36C;
+}
+#blog_river_hold, #blog_river_alert {
+	display: none;
+}
+
+
 
 @media (max-width: 767px) {
     #results,#blog { width:100%; }
 }
-
-
 @media (max-width: 500px) {
     #states { font-size:12px; }
+    .nav .arts, .nav .music { display: none; }
 }
 @media (min-width: 960px) {
     #states { font-size:20px; }
