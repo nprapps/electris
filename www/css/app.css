@@ -20,6 +20,10 @@ h2 {
 	margin-bottom: 3px;
 	text-transform: lowercase;
 }
+h3 {
+	font: bold 1.1em Arial, Helvetica, sans-serif;
+	color: #333;
+}
 
 /* COLORS */
 /*
@@ -31,24 +35,12 @@ h2 {
 .i_favored { background-color: #ccc; color: #333; }
 .tossup { background-color: #f7e39b; color: #77631b; }
 */
-.bucket.blue .state i {
-    color: #fff;
-}
-.bucket.blue .state:nth-child(even) i {
-    background-color: #7dbfe6;
-}
-.bucket.blue .state:nth-child(odd) i {
-    background-color: #3d7fa6;
-}
-.bucket.red .state i {
-    color: #fff;
-}
-.bucket.red .state:nth-child(even) i {
-    background-color: #e27560;
-}
-.bucket.red .state:nth-child(odd) i {
-    background-color: #a23520;
-}
+.bucket.blue .state i { color: #fff; }
+.bucket.blue .state:nth-child(even) i { background-color: #7dbfe6; }
+.bucket.blue .state:nth-child(odd) i { background-color: #3d7fa6; }
+.bucket.red .state i { color: #fff; }
+.bucket.red .state:nth-child(even) i { background-color: #e27560; }
+.bucket.red .state:nth-child(odd) i { background-color: #a23520; }
 
 
 /* ELECTRIS */
@@ -62,7 +54,10 @@ h2 {
     clear:left;
 }
 
-#states .state:hover i {
+.stateblock .state:hover {
+    cursor:pointer;
+}
+.stateblock .state:hover i {
 	color: #F7E39B;
 /*
     -moz-box-shadow: 0px 0px 10px 1px #FF0;
@@ -71,11 +66,7 @@ h2 {
 */
 }
 
-#states .state i:hover{
-    cursor:pointer;
-}
-
-#states .state i {
+.stateblock .state i {
     float:left;
     font-family:StateFaceRegular;
     font-style:normal;
@@ -87,21 +78,8 @@ h2 {
     height:.9em;
 }
 
-#states .state i span {
+.stateblock .state i span {
     font-size:.7em;
-}
-
-#undecided {
-    width:21em;
-    float:left;
-    margin-bottom:1em;
-}
-
-#undecided .state {
-    width: 2em;
-    float: left;
-    margin-right: 1em;
-    margin-bottom: 1em;
 }
 
 .line {
@@ -116,7 +94,6 @@ h2 {
 }
 
 .bucket {
-
     float:left;
     -moz-transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
@@ -143,10 +120,25 @@ h2 {
     clear:left;
 }
 
-#undecided i {
-    background-color:#f1f1f1;
-    color:#555;
+#undecided {
+    margin-bottom:1em;
+    font-size: 24px;
 }
+
+#undecided .state {
+	padding-bottom: 6px;
+}
+#undecided i { 
+	background-color:#F7E39B;
+	color:#77631B;
+}
+#undecided .state:hover {
+	cursor: move;
+}
+#undecided .state:hover i {
+	color: #B39429;
+}
+#undecided:after, #undecided .state:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 
 
 /* HEADER AND PLAYER */
@@ -172,6 +164,43 @@ h2 {
 /* hide both player and comingsoon initially 
 body.comingSoon #playercon { position: absolute; top: -2000px; }
 #playercon, #comingsoon { visibility: hidden; } */
+
+
+/* TABS */
+#offices {
+	margin: 0 0 24px 0;
+	padding: 0;
+	list-style: none;
+	border-bottom: 1px solid #dadada;
+}
+#offices li { 
+	width: 33.3%;
+	float: left;
+	margin-bottom: -1px;
+}
+#offices div {
+	background-color: #f1f1f1;
+	border: 1px solid #dadada;
+	border-left: none;
+	height: 100px; overflow: hidden;
+	padding: 0 12px;
+	cursor: pointer;
+}
+#offices li.o-president div {
+	border-left: 1px solid #dadada;
+}
+#offices li.active div {
+	border-bottom: 1px solid #FFF;
+	background-color: #FFF;
+}
+#offices h3 {
+	margin: 0 0 .3em 0;
+	padding-top: 12px;
+}
+#offices li:hover h3 {
+	text-decoration: underline;
+}
+#offices:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 
 
 /* LIVEBLOG */

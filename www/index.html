@@ -181,28 +181,59 @@
 
 
         <div class="row">
-            <div id="results" class="span8">
-                <h2>The results so far</h2>
-                
-                
-                <div id="states">
-                    <div id="undecided"></div>
-                    <div id="buckets">
-                        <div class="bucket blue"></div>
-                        <div class="bucket red"></div>
-                        <div class="line">270</div>
-                    </div>
+            <div class="span9" id="results">
+            
+            	<ul id="offices">
+            		<li class="o-president active">
+            			<div>
+	            			<h3>President</h3>
+	            			<p>
+			                	<strong>Obama:</strong> <span id="red-votes"></span><br />
+        			        	<strong>Romney:</strong> <span id="blue-votes"></span><br />
+            	    			<strong>Electoral Votes Remaining:</strong> <span id="undecided-votes"></span>
+		        	        </p>
+		        	    </div>
+            		</li>
+            		<li class="o-senate">
+            			<div>
+            				<h3>Senate</h3>
+            			</div>
+            		</li>
+            		<li class="o-house">
+            			<div>
+            				<h3>House</h3>
+            			</div>
+            		</li>
+            	</ul>
+            	<!-- TODO: Hook up to JS -->
+            
+            	<div class="row" id="president">
+            		<div class="span6">
+		                <div id="states" class="stateblock">
+	    	                <div id="buckets">
+            		            <div class="bucket blue"></div>
+                    		    <div class="bucket red"></div>
+		                        <div class="line">270</div>
+		                    </div>
+		                </div>
+		            </div>
+
+		            <div class="span3">
+		            	<div class="well">
+			            	<h3>Game It Out</h3>
+			            	<p>Drag each state into a red or blue bucket to predict how it will go on election night.</p>
+	            	        <div class="stateblock" id="undecided"></div>
+			            	<p>
+			            		<button class="btn btn-small btn-info" type="button">See All Possible Outcomes</button>
+			            		<button class="btn btn-small" type="button">Reset</button>
+		    	        	</p>
+	            	    </div>
+		            </div>
                 </div>
                 
             </div>
-            <div id="blog" class="span4">
+            <div id="blog" class="span3">
                 <h2>Probabilities</h2>
-                
-                <ul>
-                	<li><strong>Republican votes:</strong> <span id="red-votes"></span></li>
-                	<li><strong>Democratic votes:</strong> <span id="blue-votes"></span></li>
-                	<li><strong>Undecided votes:</strong> <span id="undecided-votes"></span></li>
-                </ul>
 
                 <div id="combos">
                     Republicans need <span id="red-needs"></span> votes to win. There are <span id="red-combos-count"></span> ways for them to get them:  <br />
