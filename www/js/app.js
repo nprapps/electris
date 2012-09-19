@@ -207,4 +207,13 @@ $(function(){
             compute_stats();
         };
     });
+    
+    
+    /* MODALS
+    
+    $('#probabilities').modal( {
+    	backdrop: false,
+    	show: false
+    });
+    */
 });

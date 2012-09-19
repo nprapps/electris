@@ -140,6 +140,21 @@ h3 {
 }
 #undecided:after, #undecided .state:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 
+#resetBtn {
+	float: right;
+	margin-top: -32px;
+}
+
+#probabilities {
+	display: none;
+}
+#probabilities .dem {
+	width: 45%; float: left;
+}
+#probabilities .rep {
+	width: 45%; float: right;
+}
+
 
 /* HEADER AND PLAYER */
 #header { margin-bottom: 18px; }
@@ -196,6 +211,7 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 #offices h3 {
 	margin: 0 0 .3em 0;
 	padding-top: 12px;
+	color: #000;
 }
 #offices li:hover h3 {
 	text-decoration: underline;
