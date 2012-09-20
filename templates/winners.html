@@ -50,3 +50,15 @@
         {% endfor %}
     </form>
 {% endblock %}
+
+{% block extra_foot %}
+<script type="text/javascript">
+$(function() {
+    $.getJSON("/data", function(data) {
+        $.each(data, function(i, state) {
+            console.log(state.id);
+        });
+    });
+});
+</script>
+{% endblock %}

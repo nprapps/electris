@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import json
+
 from flask import Flask
 from flask import render_template, request
 
@@ -44,6 +46,13 @@ def winners():
     }
 
     return render_template('winners.html', **context)
+
+@app.route('/data', methods=['GET', 'POST'])
+def data():
+    db = get_database()
+    states = get_states(db)
+
+    return json.dumps([dict(zip(s.keys(), s)) for s in states])
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=settings.DEBUG)
