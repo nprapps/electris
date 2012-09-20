@@ -12,7 +12,7 @@ The following environment variables must be defined:
 * ``AP_USERNAME`` (for FTP)
 * ``AP_PASSWORD`` (for FTP)
 
-Notes on using AP data
+Polling AP data
 ----------------------
 
 From 2012 FTP docs:
@@ -20,4 +20,8 @@ From 2012 FTP docs:
 * Data is updated every 4-6 minutes.
 * Clients may connect once per minute.
 * Clients must disconnect after each request.
+
+Cron job:
+
+```* * * * * [SERVER_PATH]/fetch_ap_results.py```
 
