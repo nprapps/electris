@@ -20,6 +20,7 @@ STATES_HEADER = ['id', 'stateface', 'name', 'electoral_votes', 'prediction', 'ap
 
 STATIC_URL = 'http://%s/%s' % (S3_BUCKET, PROJECT_NAME)
 
+POLLING_INTERVAL = 5
 PREDICTION_OPTIONS = [('sd', 'Solid Democrat'), ('ld', 'Leaning Democrat'), ('', 'Tossup'), ('lr', 'Leaning Republican'), ('sr', 'Solid Republican')]
 RESULT_OPTIONS = [('d', 'Democrat'), ('', 'Undecided'), ('r', 'Republican')]
 

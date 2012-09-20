@@ -16,7 +16,7 @@
 
             <h5>Predicted outcome</h5>
 
-            {% for option in PREDICTION_OPTIONS %}
+            {% for option in settings.PREDICTION_OPTIONS %}
             <label class="control-label radio inline">
                 <input type="radio" name="prediction-{{ state.id }}" value="{{ option.0 }}" {% if state.prediction == option.0 %}checked="checked"{% endif %} />{{ option.1 }}
             </label>
@@ -24,7 +24,7 @@
 
             <h5>AP call</h5>
 
-            {% for option in RESULT_OPTIONS %}
+            {% for option in settings.RESULT_OPTIONS %}
             <label class="control-label radio inline">
                 <input type="radio" name="ap-{{ state.id }}" value="{{ option.0 }}" {% if state.ap_call == option.0 %}checked="checked"{% endif %} disabled="disabled"/>{{ option.1 }}
             </label>
@@ -36,7 +36,7 @@
 
             <h5>NPR call <small>(overrides AP call)</small></h5>
 
-            {% for option in RESULT_OPTIONS %}
+            {% for option in settings.RESULT_OPTIONS %}
             <label class="control-label radio inline">
                 <input type="radio" name="npr-{{ state.id }}" value="{{ option.0 }}" {% if state.npr_call == option.0 %}checked="checked"{% endif %} />{{ option.1 }}
             </label>
@@ -44,8 +44,8 @@
 
             <br />
             &nbsp;<br />
-            <input type="submit" class="btn btn-primary" value="Save all" />
-            <a href="#" class="btn">Back to top</a><br />
+            <input type="submit" class="btn btn-primary" value="Save all" />&nbsp;
+            <a href="#">Back to top</a><br />
         </div>
         {% endfor %}
     </form>
@@ -54,11 +54,19 @@
 {% block extra_foot %}
 <script type="text/javascript">
 $(function() {
-    $.getJSON("/data", function(data) {
-        $.each(data, function(i, state) {
-            console.log(state.id);
+    function update_data() {     
+        $.getJSON("/data", function(data) {
+            $.each(data, function(i, state) {
+                $(":radio[name=prediction-" + state.id + "][value=" + state.prediction + "]").attr("checked", true);
+                $(":checkbox[name=accept-ap-call-" + state.id + "]").attr("checked", state.accept_ap_call == "y");
+                $(":radio[name=npr-" + state.id + "][value=" + state.npr_call + "]").attr("checked", true);
+            });
+
+            console.log("Updated data from server.");
         });
-    });
+    }
+
+    setInterval(update_data, {{ settings.POLLING_INTERVAL }} * 1000);
 });
 </script>
 {% endblock %}

@@ -39,10 +39,8 @@ def winners():
     db.close()
 
     context = {
-        'states': states, 
-        'PREDICTION_OPTIONS': settings.PREDICTION_OPTIONS,
-        'RESULT_OPTIONS': settings.RESULT_OPTIONS,
-        'STATIC_URL': settings.STATIC_URL
+        'settings': settings,
+        'states': states
     }
 
     return render_template('winners.html', **context)
