@@ -184,7 +184,7 @@
             <div class="span9" id="results">
             
             	<ul id="offices">
-            		<li class="o-president active">
+            		<li id="o-president">
             			<div>
 	            			<h3>President</h3>
 	            			<p>
@@ -194,18 +194,27 @@
 		        	        </p>
 		        	    </div>
             		</li>
-            		<li class="o-senate">
+            		<li id="o-senate">
             			<div>
             				<h3>Senate</h3>
+            				<p>
+            					<strong>Democrats:</strong> 50<br />
+            					<strong>Republicans:</strong> 50<br />
+            					<strong>Races outstanding:</strong> 0
+            				</p>
             			</div>
             		</li>
-            		<li class="o-house">
+            		<li id="o-house">
             			<div>
             				<h3>House</h3>
+            				<p>
+            					<strong>Democrats:</strong> 200<br />
+            					<strong>Republicans:</strong> 200<br />
+            					<strong>Races outstanding:</strong> 35
+            				</p>
             			</div>
             		</li>
             	</ul>
-            	<!-- TODO: Hook up to JS -->
             
             	<div class="row" id="president">
             		<div class="span6">
@@ -221,31 +230,58 @@
 		            <div class="span3">
 		            	<div class="well">
 			            	<h3>Game It Out</h3>
+		            		<button id="resetBtn" class="btn btn-mini" type="button">Reset</button>
 			            	<p>Drag each state into a red or blue bucket to predict how it will go on election night.</p>
+			            	<p><button type="button" data-toggle="modal" data-target="#probabilities" data-backdrop="false" class="btn btn-small btn-info">See All Possible Outcomes</button></p>
+			            	<hr />
 	            	        <div class="stateblock" id="undecided"></div>
-			            	<p>
-			            		<button class="btn btn-small btn-info" type="button">See All Possible Outcomes</button>
-			            		<button class="btn btn-small" type="button">Reset</button>
-		    	        	</p>
+		    	        	
+		    	        	<div class="modal" id="probabilities" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    	        		<div class="modal-header">
+		    	        			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    	        			<h3 id="myModalLabel">Probabilities</h3>
+		    	        		</div>
+		    	        		<div class="modal-body">
+		    	        			<div id="combos">
+		    	        				<div class="dem">
+		    	        					<p><strong>Democrats need <span id="blue-needs"></span> votes to win.</strong> There are <span id="blue-combos-count"></span> ways for them to get them:</p>
+		    	        					<ul id="blue-combos"></ul>
+		    	        				</div>
+		    	        				<div class="rep">
+		    	        					<p><strong>Republicans need <span id="red-needs"></span> votes to win.</strong> There are <span id="red-combos-count"></span> ways for them to get them:</p>
+		    	        					<ul id="red-combos"></ul>
+		    	        				</div>
+		    	        			</div>
+			    	        	</div>
+			    	        	<div class="modal-footer">
+		    		        		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			    		        </div>
+							</div>
+
 	            	    </div>
 		            </div>
                 </div>
                 
+            	<div class="row" id="senate">
+            		<div class="span3">
+	            		Col 1 of Senate results
+            		</div>
+            		<div class="span3">
+	            		Col 2 of Senate results
+            		</div>
+            	</div>
+
+            	<div class="row" id="house">
+            		<div class="span3">
+	            		Col 1 of KEY House results
+	            	</div>
+            		<div class="span3">
+	            		Col 2 of KEY House results
+	            	</div>
+            	</div>
+                
             </div>
             <div id="blog" class="span3">
-                <h2>Probabilities</h2>
-
-                <div id="combos">
-                    Republicans need <span id="red-needs"></span> votes to win. There are <span id="red-combos-count"></span> ways for them to get them:  <br />
-
-                    <ul id="red-combos"></ul>
-
-                    Democrats need <span id="blue-needs"></span> votes to win. There are <span id="blue-combos-count"></span> ways for them to get them:  <br />
-
-                    <ul id="blue-combos"></ul>
-
-                </div>
-                
                 <h2>This Just In</h2>
                 <div id="blog_river_alert"></div>
                 <div id="blog_river">
