@@ -11,6 +11,11 @@ $(function(){
     var blue_votes = null;
     var undecided_states = null;
     var undecided_votes = null;
+
+    /* FOR POPOVERS */
+    var popActive;
+    var popIsVisible = false;
+    var popClickedAway = false;
     
     function add_state(state) {
         /*
@@ -26,9 +31,12 @@ $(function(){
             $("#results #undecided").append(html);
         }
 
-        $(".state." + state.id + " i").popover({ trigger: "manual" }).click(function(){
+        $(".state." + state.id + " i").popover({ trigger: "manual" }).click(function(e){
             $(".state i").popover("hide");
             $(this).popover("show");
+            popActive = $(this);
+	        popClickedAway = false;
+	        popIsVisible = true;
         });
     }
 
@@ -72,6 +80,12 @@ $(function(){
 
         undecided_votes = undecided_states.sum("electoral_votes").val();
         $("#undecided-votes").text(undecided_votes);
+
+        total_votes = red_votes + blue_votes + undecided_votes;
+        $('#o-president').find('.blue b').width(((blue_votes / total_votes) * 100) + '%');
+        $('#o-president').find('.red b').width(((red_votes / total_votes) * 100) + '%');
+        $('#o-president').find('.undecided b').width(((undecided_votes / total_votes) * 100) + '%');
+        
         
         generate_winning_combinations();
     }
@@ -207,6 +221,18 @@ $(function(){
         if (real_changes) {
             compute_stats();
         };
+    });
+    
+    
+    /* POPOVERS */
+    /* via stackoverflow, but modified: http://stackoverflow.com/questions/8947749/how-can-i-close-a-twitter-bootstrap-popover-with-a-click-from-anywhere-else-on */
+    $(document).click(function(e) {
+    	if(popIsVisible && popClickedAway) {
+    		popActive.popover('hide');
+    		popIsVisible = popClickedAway = false;
+    	} else {
+    		popClickedAway = true;
+    	}
     });
     
     

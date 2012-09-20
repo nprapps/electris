@@ -42,6 +42,10 @@ h3 {
 .bucket.red .state:nth-child(even) i { background-color: #e27560; }
 .bucket.red .state:nth-child(odd) i { background-color: #a23520; }
 
+#offices li li.blue .bar b { background-color: #3d7fa6; }
+#offices li li.red .bar b { background-color: #a23520; }
+#offices li li.undecided .bar b { background-color: #ccc; }
+
 
 /* ELECTRIS */
 #states {
@@ -102,8 +106,9 @@ h3 {
     -ms-filter: flipv; /*IE*/
     filter: flipv; /*IE*/
     
-    width:10em;
-    background-color:#eee;
+/*    width:10em; */
+    background: rgb(241,241,241);
+    background: rgba(241,241,241,1);
 }
 
 .bucket i {
@@ -115,10 +120,12 @@ h3 {
     filter: flipv; /*IE*/
 }
 
+/*
 .bucket.blue {
     margin-right: 1em;
     clear:left;
 }
+*/
 
 #undecided {
     margin-bottom:1em;
@@ -186,23 +193,24 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	margin: 0 0 24px 0;
 	padding: 0;
 	list-style: none;
-	border-bottom: 1px solid #dadada;
 }
 #offices li { 
 	width: 33.3%;
 	float: left;
-	margin-bottom: -1px;
+}
+#offices ul {
+	margin: 0; padding: 0; list-style: none;
 }
 #offices div {
 	background-color: #f1f1f1;
-	border: 1px solid #dadada;
+	border: 1px solid #ccc;
 	border-left: none;
 	height: 100px; overflow: hidden;
 	padding: 0 12px;
 	cursor: pointer;
 }
 #offices li#o-president div {
-	border-left: 1px solid #dadada;
+	border-left: 1px solid #ccc;
 }
 #offices li.active div {
 	border-bottom: 1px solid #FFF;
@@ -215,6 +223,31 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 }
 #offices li:hover h3 {
 	text-decoration: underline;
+}
+#offices li li {
+	width: auto;
+	float: none;
+	margin-bottom: 0;
+	white-space: nowrap;
+	overflow: hidden;
+}
+#offices li li strong, #offices li li span, #offices li li b {
+	display: inline-block;
+}
+#offices li li strong {
+	white-space: nowrap;
+	width: 6em;
+}
+#offices li li .bar {
+	width: 55%;
+	overflow: hidden;
+}
+#offices li li .bar b {
+	height: 1em;
+}
+#offices li li votes {
+	width: 25px;
+	width: 10%;
 }
 #offices:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 
