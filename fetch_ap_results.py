@@ -5,6 +5,8 @@ import csv
 from ftplib import FTP
 import os
 
+from util import get_database, get_states
+
 STATES = ['al', 'ak', 'az', 'ar', 'ca', 'co', 'ct', 'de', 'dc', 'fl', 'ga', 'hi', 'id', 'il', 'in', 'ia', 'ks', 'ky', 'la', 'me', 'md', 'ma', 'mi', 'mn', 'ms', 'mo', 'mt', 'ne', 'nv', 'nh', 'nj', 'nm', 'ny', 'nc', 'nd', 'oh', 'ok', 'or', 'pa', 'ri', 'sc', 'sd', 'tn', 'tx', 'ut', 'vt', 'va', 'wa', 'wv', 'wi', 'wy']
 
 STATE_FIELDS = [
@@ -58,7 +60,8 @@ ftp.quit()
 
 # Rebuffer data
 data = StringIO(data.getvalue())
-output_data = {}
+
+db = get_database()
 
 for row in data:
     row_data = row.split(';')
@@ -93,19 +96,8 @@ for row in data:
 
     state = state_data['state_postal'].lower()
     winner = 'r' if romney_data['is_winner'] else 'd' if obama_data['is_winner'] else ''
-    output_row = [state, state_data['total_precincts'], state_data['precincts_reporting'], romney_data['vote_count'], obama_data['vote_count'], winner]
 
-    output_data[state] = output_row
+    db.execute('UPDATE states SET ap_call=?, total_precincts=?, precincts_reporting=?, rep_vote_count=?, dem_vote_count=? WHERE id=?', (winner, state_data['total_precincts'], state_data['precincts_reporting'], romney_data['vote_count'], obama_data['vote_count'], state)) 
 
-output = []
-
-for state in STATES:
-    output.append(output_data.get(state, [state, '', '', '', '', '']))
-
-assert(len(output) == 51)
-
-with open('www/ap.csv', 'w') as f:
-    writer = csv.writer(f)
-    writer.writerow(OUTPUT_FIELDS)
-    writer.writerows(output)
+db.commit()
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import csv
-import sqlite3 as sqlite
 
 import boto
 from boto.s3.key import Key
@@ -9,28 +8,9 @@ from flask import Flask
 from flask import render_template, request
 
 import cms_settings as settings
+from util import get_database, get_states
 
 app = Flask(__name__)
-
-def bootstrap_database(db):
-    """
-    Create the sqlite DB and a populate it with data.
-    """
-    db.execute('CREATE TABLE states (id text, stateface text, name text, electoral_votes integer, prediction text, ap_call text, npr_call text, total_precincts, precincts_reporting, rep_vote_count, dem_vote_count)') 
-
-    with open('states_bootstrap.csv') as f:
-        reader = csv.reader(f)
-        reader.next()
-
-        db.executemany('INSERT INTO states VALUES(?,?,?,?,?,?,?,?,?,?,?)', reader)
-
-    db.commit()
-
-def get_states(db):
-    """
-    Fetch states from sqlite as a list.
-    """
-    return db.execute('SELECT * FROM states').fetchall()
 
 def push_to_s3():
     """
@@ -51,12 +31,7 @@ def winners():
     """
     Read/update list of state winners.
     """
-    db = sqlite.connect('electris.db')
-    db.row_factory = sqlite.Row
-
-    if not db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='states'").fetchone():
-        bootstrap_database(db)
-
+    db = get_database()
     states = get_states(db)
         
     if request.method == 'POST':
