@@ -2,29 +2,14 @@
 
 import csv
 
-import boto
-from boto.s3.key import Key
 from flask import Flask
 from flask import render_template, request
 
 import cms_settings as settings
+from push_results_to_s3 import push_results_to_s3
 from util import get_database, get_states
 
 app = Flask(__name__)
-
-def push_to_s3():
-    """
-    Push current states CSV file to S3.
-    """
-    conn = boto.connect_s3()
-    bucket = conn.get_bucket(settings.S3_BUCKET)
-    key = Key(bucket)
-    key.key = settings.S3_KEY
-    key.set_contents_from_filename(
-        settings.STATES_FILENAME,
-        policy='public-read',
-        headers={'Cache-Control': 'max-age=0 no-cache no-store must-revalidate'}
-    )
 
 @app.route('/', methods=['GET', 'POST'])
 def winners():
@@ -52,7 +37,7 @@ def winners():
             for state in states:
                 writer.writerow([f for f in state])
 
-        push_to_s3()
+        push_results_to_s3()
 
     db.close()
 
