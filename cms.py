@@ -1,13 +1,10 @@
 #!/usr/bin/env python
 
-import csv
-
 from flask import Flask
 from flask import render_template, request
 
 import cms_settings as settings
-from push_results_to_s3 import push_results_to_s3
-from util import get_database, get_states
+from util import get_database, get_states, regenerate_csv, push_results_to_s3
 
 app = Flask(__name__)
 
@@ -27,16 +24,10 @@ def winners():
             db.execute('UPDATE states SET prediction=?, npr_call=? WHERE id=?', (new_prediction, new_npr_call, state['id']))
 
         db.commit()
-        
+
         states = get_states(db)
 
-        with open(settings.STATES_FILENAME, 'w') as f:
-            writer = csv.writer(f)
-            writer.writerow(settings.STATES_HEADER)
-
-            for state in states:
-                writer.writerow([f for f in state])
-
+        regenerate_csv(states)
         push_results_to_s3()
 
     db.close()

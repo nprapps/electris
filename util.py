@@ -3,13 +3,16 @@
 import csv
 import sqlite3 as sqlite
 
-from cms_settings import DATABASE_FILENAME
+import boto
+from boto.s3.key import Key
+
+import cms_settings as settings 
 
 def get_database():
     """
     Fetch the sqlite DB being used for state data.
     """
-    db = sqlite.connect(DATABASE_FILENAME)
+    db = sqlite.connect(settings.DATABASE_FILENAME)
     db.row_factory = sqlite.Row
 
     if not db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='states'").fetchone():
@@ -36,4 +39,29 @@ def get_states(db):
     Fetch states from sqlite as a list.
     """
     return db.execute('SELECT * FROM states').fetchall()
+
+def regenerate_csv(states):
+    """
+    Regenerate the states CSV from DB states.
+    """
+    with open(settings.STATES_FILENAME, 'w') as f:
+        writer = csv.writer(f)
+        writer.writerow(settings.STATES_HEADER)
+
+        for state in states:
+            writer.writerow([f for f in state])
+
+def push_results_to_s3():
+    """
+    Push current states CSV file to S3.
+    """
+    conn = boto.connect_s3()
+    bucket = conn.get_bucket(settings.S3_BUCKET)
+    key = Key(bucket)
+    key.key = settings.S3_KEY
+    key.set_contents_from_filename(
+        settings.STATES_FILENAME,
+        policy='public-read',
+        headers={'Cache-Control': 'max-age=0 no-cache no-store must-revalidate'}
+    )
 
