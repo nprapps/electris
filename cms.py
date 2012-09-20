@@ -27,8 +27,10 @@ def winners():
 
         states = get_states(db)
 
-        regenerate_csv(states)
-        push_results_to_s3()
+        # When deployed, the CMS does not update the data files to prevent bad interactions with the AP cron job.
+        if settings.DEBUG:
+            regenerate_csv(states)
+            push_results_to_s3()
 
     db.close()
 
