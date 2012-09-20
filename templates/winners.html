@@ -30,7 +30,11 @@
             </label>
             {% endfor %}
 
-            <h5>NPR call</h5>
+            <label class="control-label checkbox" style="margin-top: 5px;">
+                <input type="checkbox" name="accept-ap-call-{{ state.id }}" {% if state.accept_ap_call == "y" %}checked="checked"{% endif %} /> Automatically publish AP call?
+            </label>
+
+            <h5>NPR call <small>(overrides AP call)</small></h5>
 
             {% for option in RESULT_OPTIONS %}
             <label class="control-label radio inline">

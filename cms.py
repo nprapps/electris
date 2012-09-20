@@ -18,10 +18,12 @@ def winners():
         
     if request.method == 'POST':
         for state in states:
-            new_prediction = request.form.get('prediction-%s' % state['id'], '')
-            new_npr_call = request.form.get('npr-%s' % state['id'], '')
+            prediction = request.form.get('prediction-%s' % state['id'], '')
+            accept_ap_call = 'y' if request.form.get('accept-ap-call-%s' % state['id'], '') == 'on' else 'n'
+            npr_call = request.form.get('npr-%s' % state['id'], '')
+            
 
-            db.execute('UPDATE states SET prediction=?, npr_call=? WHERE id=?', (new_prediction, new_npr_call, state['id']))
+            db.execute('UPDATE states SET prediction=?, accept_ap_call=?, npr_call=? WHERE id=?', (prediction, accept_ap_call, npr_call, state['id']))
 
         db.commit()
 

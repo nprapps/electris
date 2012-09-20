@@ -16,7 +16,7 @@ DATABASE_FILENAME = 'electris.db'
 S3_KEY = '%s/states.csv' % PROJECT_NAME
 
 STATES_FILENAME = 'www/states.csv'
-STATES_HEADER = ['id', 'stateface', 'name', 'electoral_votes', 'prediction', 'ap_call', 'npr_call', 'total_precincts', 'precincts_reporting', 'rep_vote_count', 'dem_vote_count']
+STATES_HEADER = ['id', 'stateface', 'name', 'electoral_votes', 'prediction', 'ap_call', 'accept_ap_call', 'npr_call', 'total_precincts', 'precincts_reporting', 'rep_vote_count', 'dem_vote_count']
 
 STATIC_URL = 'http://%s/%s' % (S3_BUCKET, PROJECT_NAME)
 

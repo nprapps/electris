@@ -24,13 +24,13 @@ def bootstrap_database(db):
     """
     Create the sqlite DB and a populate it with data.
     """
-    db.execute('CREATE TABLE states (id text, stateface text, name text, electoral_votes integer, prediction text, ap_call text, npr_call text, total_precincts, precincts_reporting, rep_vote_count, dem_vote_count)') 
+    db.execute('CREATE TABLE states (id text, stateface text, name text, electoral_votes integer, prediction text, ap_call text, accept_ap_call text, npr_call text, total_precincts, precincts_reporting, rep_vote_count, dem_vote_count)') 
 
     with open('states_bootstrap.csv') as f:
         reader = csv.reader(f)
         reader.next()
 
-        db.executemany('INSERT INTO states VALUES(?,?,?,?,?,?,?,?,?,?,?)', reader)
+        db.executemany('INSERT INTO states VALUES(?,?,?,?,?,?,?,?,?,?,?,?)', reader)
 
     db.commit()
 
