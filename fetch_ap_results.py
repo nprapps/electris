@@ -47,7 +47,7 @@ CANDIDATE_FIELDS = [
 NUM_STATE_FIELDS = len(STATE_FIELDS)
 NUM_CANDIDATE_FIELDS = len(CANDIDATE_FIELDS)
 
-OUTPUT_FIELDS = ['state', 'total_precincts', 'precincts_reporting', 'rep_vote_count', 'dem_vote_count', 'winner']
+OUTPUT_FIELDS = ['id', 'total_precincts', 'precincts_reporting', 'rep_vote_count', 'dem_vote_count', 'winner']
 
 data = StringIO()
 
@@ -100,7 +100,7 @@ for row in data:
 output = []
 
 for state in STATES:
-    output.append(output_data.get(state, [state, '', '', '', '']))
+    output.append(output_data.get(state, [state, '', '', '', '', '']))
 
 assert(len(output) == 51)
 

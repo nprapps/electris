@@ -43,7 +43,7 @@ $(function(){
         /*
          * Compute and display vote stats.
          */
-        red_states = ds.where({
+        red_states = states_dataset.where({
             columns: ['id', 'name', 'votes'],
             rows: function(row) {
                 return (row.likely === "sr" || row.likely === "lr");
@@ -53,7 +53,7 @@ $(function(){
         red_votes = red_states.sum("votes").val();
         $("#red-votes").text(red_votes);
 
-        blue_states = ds.where({
+        blue_states = states_dataset.where({
             columns: ['id', 'name', 'votes'],
             rows: function(row) {
                 return (row.likely === "sd" || row.likely === "ld");
@@ -63,7 +63,7 @@ $(function(){
         blue_votes = blue_states.sum("votes").val();
         $("#blue-votes").text(blue_votes);
 
-        undecided_states = ds.where({
+        undecided_states = states_dataset.where({
             columns: ['id', 'name', 'votes'],
             rows: function(row) {
                 return (_.indexOf(["sr", "lr", "ld", "sd"], row.likely) < 0);
@@ -93,7 +93,7 @@ $(function(){
         // NB: A sorted input list generates a sorted output list
         // from our combinations algorithm.
         state_ids.sort(); 
-        var combos = combinations(state_ids);
+        var combos = combinations(state_ids, 2);
 
         var red_combos = [];
         var blue_combos = [];
@@ -149,7 +149,7 @@ $(function(){
     // var blue = 537 - red;
     // var height = Math.ceil(Math.max(red,blue)/10);
     
-    var ds = new Miso.Dataset({
+    var states_dataset = new Miso.Dataset({
         url : "states.csv?t=" + (new Date()).getTime(),
         delimiter: ",",
         interval: 1000,
@@ -157,11 +157,19 @@ $(function(){
         sync: true
     });
 
-    ds.fetch().then(function() {
+    var ap_dataset = new Miso.Dataset({
+        url : "ap.csv?t=" + (new Date()).getTime(),
+        delimiter: ",",
+        interval: 1000,
+        uniqueAgainst: "id",
+        sync: true
+    });
+
+    states_dataset.fetch().then(function() {
         /*
          * After initial data load, setup stats and such.
          */
-        ds.each(function(row) {
+        states_dataset.each(function(row) {
             add_state(row);
 
             // Build lookup tables
@@ -169,13 +177,15 @@ $(function(){
             state_names[row.id] = row.name;
         });
 
+        ap_dataset.fetch();
+
         compute_stats();
 
         //var height = Math.max(27, Math.ceil(Math.max(red_votes, blue_votes) / 10));
         $("#buckets,.bucket").css("height", 27 + "em");
     });
 
-    ds.bind("change", function(event) {
+    states_dataset.bind("change", function(event) {
         /*
          * Process changes to state data from polling.
          */

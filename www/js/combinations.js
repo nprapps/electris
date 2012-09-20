@@ -1,14 +1,14 @@
-function combinations(superset) {
+function combinations(superset, min_size, max_size) {
     /*
      * Compute all possible combinations of a given array.
      *
-     * This solution was pulled from a StackOverflow answer, but I haven't
-     * been able to find it again...
+     * Algorithm via http://stackoverflow.com/a/4061167 
      */
     var result = [];
-    var size = 2;
+    var size = min_size || 1;
+    var max_size = max_size || superset.length
 
-    while (size <= superset.length) {          
+    while (size <= max_size) {          
         var done = false;
         var current_combo = null;
         var distance_back = null;
