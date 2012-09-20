@@ -14,14 +14,13 @@ else:
 S3_KEY = '%s/states.csv' % PROJECT_NAME
 
 STATES_FILENAME = 'www/states.csv'
-STATES_HEADER = ['id', 'stateface', 'name', 'votes', 'likely', 'called', 'actual']
+STATES_HEADER = ['id', 'stateface', 'name', 'electoral_votes', 'prediction', 'ap_call', 'npr_call', 'total_precincts', 'precincts_reporting', 'rep_vote_count', 'dem_vote_count']
 
 STATIC_URL = 'http://%s/%s' % (S3_BUCKET, PROJECT_NAME)
 
 PUSHER_APP_ID = '27515'
 PUSHER_CHANNEL = 'elections-test'
 
-LIKELY_OPTIONS = [('sd', 'Solid Democrat'), ('ld', 'Leaning Democrat'), ('', 'Tossup'), ('lr', 'Leaning Republican'), ('sr', 'Solid Republican')]
-RESULT_TYPES = ['called', 'actual']
+PREDICTION_OPTIONS = [('sd', 'Solid Democrat'), ('ld', 'Leaning Democrat'), ('', 'Tossup'), ('lr', 'Leaning Republican'), ('sr', 'Solid Republican')]
 RESULT_OPTIONS = [('d', 'Democrat'), ('', 'Undecided'), ('r', 'Republican')]
 

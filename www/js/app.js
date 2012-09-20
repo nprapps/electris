@@ -18,9 +18,9 @@ $(function(){
          */
         var html = _.template(STATE_TEMPLATE, { state: state });
 
-        if (state.likely === "sr" || state.likely === "lr"){
+        if (state.prediction === "sr" || state.prediction === "lr"){
             $("#results .bucket.red").append(html);
-        } else if(state.likely === "sd" || state.likely === "ld") {
+        } else if(state.prediction === "sd" || state.prediction === "ld") {
             $("#results .bucket.blue").append(html);
         } else {
             $("#results #undecided").append(html);
@@ -44,33 +44,33 @@ $(function(){
          * Compute and display vote stats.
          */
         red_states = states_dataset.where({
-            columns: ['id', 'name', 'votes'],
+            columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
-                return (row.likely === "sr" || row.likely === "lr");
+                return (row.prediction === "sr" || row.prediction === "lr");
             }
         });
 
-        red_votes = red_states.sum("votes").val();
+        red_votes = red_states.sum("electoral_votes").val();
         $("#red-votes").text(red_votes);
 
         blue_states = states_dataset.where({
-            columns: ['id', 'name', 'votes'],
+            columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
-                return (row.likely === "sd" || row.likely === "ld");
+                return (row.prediction === "sd" || row.prediction === "ld");
             }
         });
 
-        blue_votes = blue_states.sum("votes").val();
+        blue_votes = blue_states.sum("electoral_votes").val();
         $("#blue-votes").text(blue_votes);
 
         undecided_states = states_dataset.where({
-            columns: ['id', 'name', 'votes'],
+            columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
-                return (_.indexOf(["sr", "lr", "ld", "sd"], row.likely) < 0);
+                return (_.indexOf(["sr", "lr", "ld", "sd"], row.prediction) < 0);
             }
         });
 
-        undecided_votes = undecided_states.sum("votes").val();
+        undecided_votes = undecided_states.sum("electoral_votes").val();
         $("#undecided-votes").text(undecided_votes);
         
         generate_winning_combinations();
@@ -157,14 +157,6 @@ $(function(){
         sync: true
     });
 
-    var ap_dataset = new Miso.Dataset({
-        url : "ap.csv?t=" + (new Date()).getTime(),
-        delimiter: ",",
-        interval: 1000,
-        uniqueAgainst: "id",
-        sync: true
-    });
-
     states_dataset.fetch().then(function() {
         /*
          * After initial data load, setup stats and such.
@@ -173,11 +165,10 @@ $(function(){
             add_state(row);
 
             // Build lookup tables
-            state_votes[row.id] = row.votes;
+            state_votes[row.id] = row.electoral_votes;
             state_names[row.id] = row.name;
         });
 
-        ap_dataset.fetch();
 
         compute_stats();
 
@@ -203,7 +194,7 @@ $(function(){
                     console.log(delta.changed[key])
                     console.log(delta.old[key])
 
-                    if (key === "likely") {
+                    if (key === "prediction") {
                         remove_state(delta.old);
                         add_state(delta.changed);
 

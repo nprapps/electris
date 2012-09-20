@@ -14,24 +14,30 @@
         <div id="{{ state.id}}" class="control-group well">
             <h4>{{ state.name }}</h4>
 
-            <h5>Likely outcome</h5>
+            <h5>Predicted outcome</h5>
 
-            {% for option in LIKELY_OPTIONS %}
+            {% for option in PREDICTION_OPTIONS %}
             <label class="control-label radio inline">
-                <input type="radio" name="likely-{{ state.id }}" value="{{ option.0 }}" {% if state.likely == option.0 %}checked="checked"{% endif %} />{{ option.1 }}
+                <input type="radio" name="prediction-{{ state.id }}" value="{{ option.0 }}" {% if state.prediction == option.0 %}checked="checked"{% endif %} />{{ option.1 }}
             </label>
             {% endfor %}
 
-            {% for type in RESULT_TYPES %}
-                <h5>{{ type|capitalize }}</h5>
+            <h5>AP call</h5>
 
-                {% for option in RESULT_OPTIONS %}
-                <label class="control-label radio inline">
-                    <input type="radio" name="{{ type }}-{{ state.id }}" value="{{ option.0 }}" {% if state[type] == option.0 %}checked="checked"{% endif %} />{{ option.1 }}
-                </label>
-                {% endfor %}
-
+            {% for option in RESULT_OPTIONS %}
+            <label class="control-label radio inline">
+                <input type="radio" name="ap-{{ state.id }}" value="{{ option.0 }}" {% if state.ap_call == option.0 %}checked="checked"{% endif %} disabled="disabled"/>{{ option.1 }}
+            </label>
             {% endfor %}
+
+            <h5>NPR call</h5>
+
+            {% for option in RESULT_OPTIONS %}
+            <label class="control-label radio inline">
+                <input type="radio" name="npr-{{ state.id }}" value="{{ option.0 }}" {% if state.npr_call == option.0 %}checked="checked"{% endif %} />{{ option.1 }}
+            </label>
+            {% endfor %}
+
             <br />
             &nbsp;<br />
             <input type="submit" class="btn btn-primary" value="Save all" />

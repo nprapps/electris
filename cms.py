@@ -1,20 +1,41 @@
 #!/usr/bin/env python
 
-from copy import copy
 import csv
-import os
+import sqlite3 as sqlite
 
 import boto
 from boto.s3.key import Key
 from flask import Flask
 from flask import render_template, request
-import pusher
 
 import cms_settings as settings
 
 app = Flask(__name__)
 
+def bootstrap_database(db):
+    """
+    Create the sqlite DB and a populate it with data.
+    """
+    db.execute('CREATE TABLE states (id text, stateface text, name text, electoral_votes integer, prediction text, ap_call text, npr_call text, total_precincts, precincts_reporting, rep_vote_count, dem_vote_count)') 
+
+    with open('states_bootstrap.csv') as f:
+        reader = csv.reader(f)
+        reader.next()
+
+        db.executemany('INSERT INTO states VALUES(?,?,?,?,?,?,?,?,?,?,?)', reader)
+
+    db.commit()
+
+def get_states(db):
+    """
+    Fetch states from sqlite as a list.
+    """
+    return db.execute('SELECT * FROM states').fetchall()
+
 def push_to_s3():
+    """
+    Push current states CSV file to S3.
+    """
     conn = boto.connect_s3()
     bucket = conn.get_bucket(settings.S3_BUCKET)
     key = Key(bucket)
@@ -25,59 +46,44 @@ def push_to_s3():
         headers={'Cache-Control': 'max-age=0 no-cache no-store must-revalidate'}
     )
 
-def push_live(event, data):
-    pusher.app_id = settings.PUSHER_APP_ID
-    pusher.key = os.environ['PUSHER_KEY']
-    pusher.secret = os.environ['PUSHER_SECRET']
-
-    p = pusher.Pusher()
-
-    p[settings.PUSHER_CHANNEL].trigger(event, data)
-
 @app.route('/', methods=['GET', 'POST'])
-def login():
-    with open(settings.STATES_FILENAME, 'r') as f:
-        reader = csv.DictReader(f)
+def winners():
+    """
+    Read/update list of state winners.
+    """
+    db = sqlite.connect('electris.db')
+    db.row_factory = sqlite.Row
+
+    if not db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='states'").fetchone():
+        bootstrap_database(db)
+
+    states = get_states(db)
         
-        states = [row for row in reader]
-
     if request.method == 'POST':
-        new_states = []
-        changes = {
-            'likely': [],
-            'called': [],
-            'actual': []
-        }
-
         for state in states:
-            new_state = copy(state)
-            new_state['likely'] = request.form['likely-%s' % state['id']]
-            new_state['called'] = request.form['called-%s' % state['id']]
-            new_state['actual'] = request.form['actual-%s' % state['id']]
-            new_states.append(new_state)
+            new_prediction = request.form.get('prediction-%s' % state['id'], '')
+            new_npr_call = request.form.get('npr-%s' % state['id'], '')
 
-            for edit_type in settings.RESULT_TYPES:
-                if state[edit_type] != new_state[edit_type]:
-                    changes[edit_type].append(new_state)
+            db.execute('UPDATE states SET prediction=?, npr_call=? WHERE id=?', (new_prediction, new_npr_call, state['id']))
+
+        db.commit()
+        
+        states = get_states(db)
 
         with open(settings.STATES_FILENAME, 'w') as f:
-            writer = csv.DictWriter(f, settings.STATES_HEADER)
-            writer.writeheader()
-            writer.writerows(new_states)
+            writer = csv.writer(f)
+            writer.writerow(settings.STATES_HEADER)
+
+            for state in states:
+                writer.writerow([f for f in state])
 
         push_to_s3()
 
-        for edit_type in settings.RESULT_TYPES:
-            if changes[edit_type]:
-                #push_live('%s-change' % edit_type, changes[edit_type])
-                pass
-
-        states = new_states
+    db.close()
 
     context = {
         'states': states, 
-        'LIKELY_OPTIONS': settings.LIKELY_OPTIONS,
-        'RESULT_TYPES': settings.RESULT_TYPES,
+        'PREDICTION_OPTIONS': settings.PREDICTION_OPTIONS,
         'RESULT_OPTIONS': settings.RESULT_OPTIONS,
         'STATIC_URL': settings.STATIC_URL
     }

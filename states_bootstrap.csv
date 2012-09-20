@@ -1,0 +1,52 @@
+id,stateface,name,electoral_votes,prediction,ap_call,npr_call,total_precincts,precincts_reporting,rep_vote_count,dem_vote_count
+al,B,Alabama,9,sr,,,,,,
+ak,A,Alaska,3,sr,,,183,18,22455,18372
+az,D,Arizona,11,lr,,,1664,452,218802,238896
+ar,C,Arkansas,6,sr,,,2342,0,0,0
+ca,E,California,55,sd,,,21993,0,0,0
+co,F,Colorado,9,t,,,9231,2615,109160,104277
+ct,G,Connecticut,7,sd,,,695,0,0,0
+de,H,Delaware,3,sd,,,,,,
+dc,y,District Of Columbia,3,sd,,,143,0,0,0
+fl,I,Florida,29,t,,,6153,0,0,0
+ga,J,Georgia,16,sr,,,2855,539,203121,240066
+hi,K,Hawaii,4,sd,,,250,45,43327,47189
+id,M,Idaho,4,sr,,,943,161,43956,48630
+il,N,Illinois,20,sd,,,10448,0,0,0
+in,O,Indiana,11,lr,,,5330,0,0,0
+ia,L,Iowa,6,t,,,1688,205,54703,83235
+ks,P,Kansas,6,sr,,,3206,429,60619,73734
+ky,Q,Kentucky,8,sr,,,3634,0,0,0
+la,R,Louisiana,8,sr,,,4267,0,0,0
+me,U,Maine,4,sd,,,599,0,0,0
+md,T,Maryland,10,sd,,,1892,0,0,0
+ma,S,Massachusetts,11,sd,,,0,0,0,0
+mi,V,Michigan,16,ld,,,4937,0,0,0
+mn,W,Minnesota,10,ld,,,4102,889,139497,150534
+ms,Y,Mississippi,6,sr,,,1889,0,0,0
+mo,X,Missouri,10,lr,,,3428,0,0,0
+mt,Z,Montana,3,sr,,,794,0,0,0
+ne,c,Nebraska,5,sr,,,1387,440,72175,83558
+nv,g,Nevada,6,t,,,1845,450,97845,108896
+nh,d,New Hampshire,4,t,,,,,,
+nj,e,New Jersey,14,sd,,,6330,760,12982,12110
+nm,f,New Mexico,5,ld,,,1541,0,0,0
+ny,h,New York,29,sd,,,,,,
+nc,a,North Carolina,15,lr,,,2895,137,83705,77872
+nd,b,North Dakota,3,sr,,,426,224,40200,54651
+oh,i,Ohio,18,t,,,9319,0,0,0
+ok,j,Oklahoma,7,sr,,,1960,0,0,0
+or,k,Oregon,7,sd,,,1000,0,0,0
+pa,l,Pennsylvania,20,ld,,,9252,0,0,0
+ri,m,Rhode Island,4,sd,,,,,,
+sc,n,South Carolina,9,sr,,,2136,0,0,0
+sd,o,South Dakota,3,sr,,,710,351,35973,46009
+tn,p,Tennessee,11,sr,,,2071,0,0,0
+tx,q,Texas,38,sr,,,9092,0,0,0
+ut,r,Utah,6,sr,,,2114,581,88452,104043
+vt,t,Vermont,3,t,,,258,81,25601,31226
+va,s,Virginia,13,t,,,2542,0,0,0
+wa,u,Washington,12,sd,,,2001,0,0,0
+wv,w,West Virginia,5,sr,,,1846,0,0,0
+wi,v,Wisconsin,10,t,,,3516,1163,395512,384970
+wy,x,Wyoming,3,sr,,,481,0,0,0
