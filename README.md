@@ -23,5 +23,5 @@ From 2012 FTP docs:
 
 Cron job:
 
-```* * * * * [SERVER_PATH]/fetch_ap_results.py```
+```* * * * * $ENV_PATH/bin/python $REPO_PATH/fetch_ap_results.py```
 
