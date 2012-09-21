@@ -3,6 +3,9 @@
 {% block content %}
     <h1>Mark state winners</h1>
 
+    <div id="alerts">
+    </div>
+
     <p>
     {% for state in states %}
     <a href="#{{ state.id }}">{{ state.name }}</a>{% if not loop.last %},{% endif %} 
@@ -54,12 +57,48 @@
 {% block extra_foot %}
 <script type="text/javascript">
 $(function() {
+    var PREDICTION_TYPES = {
+        {% for option in settings.PREDICTION_OPTIONS %}
+        "{{ option.0 }}": "{{ option.1 }}"{% if not loop.last %},{% endif %}
+        {% endfor %}
+    };
+
+    var RESULT_OPTIONS = {
+        {% for option in settings.RESULT_OPTIONS %}
+        "{{ option.0 }}": "{{ option.1 }}"{% if not loop.last %},{% endif %}
+        {% endfor %}
+    };
+
     function update_data() {     
         $.getJSON("/data", function(data) {
             $.each(data, function(i, state) {
-                $(":radio[name=prediction-" + state.id + "][value=" + state.prediction + "]").attr("checked", true);
-                $(":checkbox[name=accept-ap-call-" + state.id + "]").attr("checked", state.accept_ap_call == "y");
-                $(":radio[name=npr-" + state.id + "][value=" + state.npr_call + "]").attr("checked", true);
+                var prediction_radio = $(":radio[name=prediction-" + state.id + "][value=" + state.prediction + "]");
+                var ap_call_radio = $(":radio[name=ap-" + state.id + "][value=" + state.ap_call + "]");
+                var accept_app_call_checkbox = $(":checkbox[name=accept-ap-call-" + state.id + "]");
+                var npr_call_radio = $(":radio[name=npr-" + state.id + "][value=" + state.npr_call + "]");
+
+                if (prediction_radio.attr("checked") != "checked") {
+                    prediction_radio.attr("checked", true);
+
+                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> prediction changed to ' + PREDICTION_TYPES[state.prediction] + '.</div>'); 
+                }
+
+                if (ap_call_radio.attr("checked") != "checked") {
+                    ap_call_radio.attr("checked", true);
+                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> AP call changed to ' + RESULT_OPTIONS[state.ap_call] + '.</div>'); 
+                }
+
+                var accept_ap_call = (state.accept_ap_call == "y") ? "checked" : undefined;
+
+                if (accept_app_call_checkbox.attr("checked") != accept_ap_call) {
+                    accept_app_call_checkbox.attr("checked", accept_ap_call);
+                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> flag for automatically accepting AP call changed to ' + (state.accept_ap_call == "y" ? "True" : "False") + '.</div>'); 
+                }
+                
+                if (npr_call_radio.attr("checked") != "checked") {
+                    npr_call_radio.attr("checked", true);
+                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> NPR call changed to ' + RESULT_OPTIONS[state.ap_call] + '.</div>'); 
+                }
             });
 
             console.log("Updated data from server.");
