@@ -99,13 +99,27 @@ $(function() {
                     npr_call_radio.attr("checked", true);
                     $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> NPR call changed to ' + RESULT_OPTIONS[state.ap_call] + '.</div>'); 
                 }
-            });
 
-            console.log("Updated data from server.");
+                window.scrollTo(0, 0);
+            });
         });
     }
 
-    setInterval(update_data, {{ settings.POLLING_INTERVAL }} * 1000);
+    var polling_interval = {{ settings.POLLING_INTERVAL }};
+    var countdown = polling_interval;
+
+    function refresh_countdown() {
+        countdown -= 1;
+        
+        $("#refreshing").html("<strong>Refreshing in " + countdown + " seconds."); 
+
+        if (countdown == 0) {
+            update_data();
+            countdown = polling_interval + 1;
+        }
+    }
+
+    setInterval(refresh_countdown, 1000);
 });
 </script>
 {% endblock %}
