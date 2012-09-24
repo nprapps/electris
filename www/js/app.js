@@ -222,6 +222,58 @@ $(function() {
             compute_stats();
         };
     });
+
+    var dragging = false;
+    var dragging_state = null;
+    var dragging_offset_x = 0;
+    var dragging_offset_y = 0;
+
+    $("#undecided .state").live("mousedown", function(e) {
+        e = e || window.event;
+
+        dragging = true;
+        dragging_state = $(this);
+
+        dragging_offset_x = e.pageX - dragging_state.offset().left;
+        dragging_offset_y = e.pageY - dragging_state.offset().top;
+    });
+
+    $(document).mouseup(function(e) {
+        e = e || window.event;
+
+        dragging = false;
+
+        function is_within(element) {
+            var left = element.offset().left;
+            var right = left + element.width();
+            var top = element.offset().top;
+            var bottom = top + element.height();
+
+            if ((e.pageX > left) && (e.pageX < right) && (e.pageY > top) && (e.pageY < bottom)) {
+                return true;
+            }
+            
+            return false;
+        }
+
+        if (is_within($("div.blue"))) {
+            console.log("blue drop");
+        } else if (is_within($("div.red"))) {
+            console.log("red drop");
+        } else if (is_within($("div#undecided"))) {
+            console.log("undecided drop");
+        }
+    });
+
+    $(document).mousemove(function(e) {
+        e = e || window.event;
+
+        if (dragging) {
+            dragging_state.css("position", "absolute");
+            dragging_state.css("left", e.pageX - dragging_offset_x);
+            dragging_state.css("top", e.pageY - dragging_offset_y);
+        }
+    });
     
     
     /* POPOVERS */
