@@ -30,3 +30,5 @@ pip-log.txt
 gzip
 *.swp
 *.swo
+
+electris.db

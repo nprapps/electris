@@ -39,6 +39,10 @@
 
             <h5>NPR call <small>(overrides AP call)</small></h5>
 
+            <label class="control-label radio inline">
+                <input type="radio" name="npr-{{ state.id }}" value="n" {% if state.npr_call == "n" %}checked="checked"{% endif %} />None
+            </label>
+
             {% for option in settings.RESULT_OPTIONS %}
             <label class="control-label radio inline">
                 <input type="radio" name="npr-{{ state.id }}" value="{{ option.0 }}" {% if state.npr_call == option.0 %}checked="checked"{% endif %} />{{ option.1 }}
@@ -64,6 +68,7 @@ $(function() {
     };
 
     var RESULT_OPTIONS = {
+        "n": "None",
         {% for option in settings.RESULT_OPTIONS %}
         "{{ option.0 }}": "{{ option.1 }}"{% if not loop.last %},{% endif %}
         {% endfor %}
@@ -97,7 +102,7 @@ $(function() {
                 
                 if (npr_call_radio.attr("checked") != "checked") {
                     npr_call_radio.attr("checked", true);
-                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> NPR call changed to ' + RESULT_OPTIONS[state.ap_call] + '.</div>'); 
+                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> NPR call changed to ' + RESULT_OPTIONS[state.npr_call] + '.</div>'); 
                 }
 
                 window.scrollTo(0, 0);
