@@ -30,11 +30,14 @@ $(function() {
          */
         var html = _.template(STATE_TEMPLATE, { state: state });
 
-        if (state.prediction === "sr" || state.prediction === "lr"){
+        if ((state.id in user_predictions && user_predictions[state.id] === "r")
+            || (state.prediction === "sr" || state.prediction === "lr")) {
             $("#results .bucket.red").append(html);
-        } else if (state.prediction === "sd" || state.prediction === "ld") {
+        } else if ((state.id in user_predictions && user_predictions[state.id] === "d")
+            || (state.prediction === "sd" || state.prediction === "ld")) {
             $("#results .bucket.blue").append(html);
-        } else if (state.prediction === "t") {
+        } else if ((state.id in user_predictions && user_predictions[state.id] === "t") 
+            || (state.prediction === "t")) {
             $("#results #undecided").append(html);
         }
 
@@ -204,7 +207,7 @@ $(function() {
         compute_stats();
 
         //var height = Math.max(27, Math.ceil(Math.max(red_votes, blue_votes) / 10));
-        $("#buckets,.bucket").css("height", 27 + "em");
+        $("#buckets,.red,.blue").css("height", 27 + "em");
     });
 
     states_dataset.bind("change", function(event) {
@@ -247,9 +250,23 @@ $(function() {
 
         dragging = true;
         dragging_state = $(this);
+        
+        var x = dragging_state.offset().left;
+        var y = dragging_state.children("i").first().offset().top;
+        var background_color = dragging_state.children("i").first().css("background-color");
+        var color = dragging_state.children("i").first().css("color");
 
-        dragging_offset_x = e.pageX - dragging_state.offset().left;
-        dragging_offset_y = e.pageY - dragging_state.offset().top;
+        dragging_state.detach();
+        $("#states").append(dragging_state);
+        
+        dragging_state.css("position", "absolute");
+        dragging_state.css("left", x);
+        dragging_state.css("top", y);
+        dragging_state.children("i").css("color", color);
+        dragging_state.children("i").css("background-color", background_color);
+
+        dragging_offset_x = e.pageX - x;
+        dragging_offset_y = e.pageY - y;
     });
 
     $(document).mouseup(function(e) {
@@ -270,34 +287,28 @@ $(function() {
             return false;
         }
 
-        function drop_in(element) {
-            dragging_state.css("position", "inherit");
-            dragging_state.detach();
-            element.append(dragging_state);
-        }
-
         var state_id = dragging_state.data("id");
+        var state = states_dataset.where({ rows: function(row) {
+            return (row.id == state_id);
+        }}).rowByPosition(0);
 
         if (is_within($("div.blue"))) {
-            drop_in($("div.blue"));
             user_predictions[state_id] = "d";
-            compute_stats();
         } else if (is_within($("div.red"))) {
-            drop_in($("div.red"));
             user_predictions[state_id] = "r";
-            compute_stats();
         } else if (is_within($("div#undecided"))) {
-            drop_in($("div#undecided"));
             user_predictions[state_id] = "t";
-            compute_stats();
         }
+
+        dragging_state.remove();
+        add_state(state);
+        compute_stats();
     });
 
     $(document).mousemove(function(e) {
         e = e || window.event;
 
         if (dragging) {
-            dragging_state.css("position", "absolute");
             dragging_state.css("left", e.pageX - dragging_offset_x);
             dragging_state.css("top", e.pageY - dragging_offset_y);
         }

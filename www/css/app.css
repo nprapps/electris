@@ -35,10 +35,9 @@ h3 {
 .i_favored { background-color: #ccc; color: #333; }
 .tossup { background-color: #f7e39b; color: #77631b; }
 */
-.bucket.blue .state i { color: #fff; }
+.state i { color: #fff; }
 .bucket.blue .state:nth-child(even) i { background-color: #7dbfe6; }
 .bucket.blue .state:nth-child(odd) i { background-color: #3d7fa6; }
-.bucket.red .state i { color: #fff; }
 .bucket.red .state:nth-child(even) i { background-color: #e27560; }
 .bucket.red .state:nth-child(odd) i { background-color: #a23520; }
 
@@ -58,10 +57,10 @@ h3 {
     clear:left;
 }
 
-.stateblock .state:hover {
+.state:hover {
     cursor:pointer;
 }
-.stateblock .state:hover i {
+.state:hover i {
 	color: #F7E39B;
 /*
     -moz-box-shadow: 0px 0px 10px 1px #FF0;
@@ -70,7 +69,7 @@ h3 {
 */
 }
 
-.stateblock .state i {
+.state i {
     float:left;
     font-family:StateFaceRegular;
     font-style:normal;
@@ -82,7 +81,7 @@ h3 {
     height:.9em;
 }
 
-.stateblock .state i span {
+.state i span {
     font-size:.7em;
 }
 
@@ -106,12 +105,12 @@ h3 {
     -ms-filter: flipv; /*IE*/
     filter: flipv; /*IE*/
     
-/*    width:10em; */
+    width:10em;
     background: rgb(241,241,241);
     background: rgba(241,241,241,1);
 }
 
-.bucket i {
+.state i {
     -moz-transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
     -o-transform: scaleY(-1);
