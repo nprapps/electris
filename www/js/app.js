@@ -246,7 +246,7 @@ $(function() {
     /* DRAG AND DROP */
 
     $(".state").live("mousedown", function(e) {
-        e = e || window.event;
+        e = e || window.event
 
         dragging = true;
         dragging_state = $(this);
@@ -272,37 +272,39 @@ $(function() {
     $(document).mouseup(function(e) {
         e = e || window.event;
 
-        dragging = false;
+        if (dragging) {
+            dragging = false;
 
-        function is_within(element) {
-            var left = element.offset().left;
-            var right = left + element.width();
-            var top = element.offset().top;
-            var bottom = top + element.height();
+            function is_within(element) {
+                var left = element.offset().left;
+                var right = left + element.width();
+                var top = element.offset().top;
+                var bottom = top + element.height();
 
-            if ((e.pageX > left) && (e.pageX < right) && (e.pageY > top) && (e.pageY < bottom)) {
-                return true;
+                if ((e.pageX > left) && (e.pageX < right) && (e.pageY > top) && (e.pageY < bottom)) {
+                    return true;
+                }
+                
+                return false;
             }
-            
-            return false;
+
+            var state_id = dragging_state.data("id");
+            var state = states_dataset.where({ rows: function(row) {
+                return (row.id == state_id);
+            }}).rowByPosition(0);
+
+            if (is_within($("div.blue"))) {
+                user_predictions[state_id] = "d";
+            } else if (is_within($("div.red"))) {
+                user_predictions[state_id] = "r";
+            } else if (is_within($("div#undecided"))) {
+                user_predictions[state_id] = "t";
+            }
+
+            dragging_state.remove();
+            add_state(state);
+            compute_stats();
         }
-
-        var state_id = dragging_state.data("id");
-        var state = states_dataset.where({ rows: function(row) {
-            return (row.id == state_id);
-        }}).rowByPosition(0);
-
-        if (is_within($("div.blue"))) {
-            user_predictions[state_id] = "d";
-        } else if (is_within($("div.red"))) {
-            user_predictions[state_id] = "r";
-        } else if (is_within($("div#undecided"))) {
-            user_predictions[state_id] = "t";
-        }
-
-        dragging_state.remove();
-        add_state(state);
-        compute_stats();
     });
 
     $(document).mousemove(function(e) {
