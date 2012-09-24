@@ -325,7 +325,7 @@
     </div>
     
     <script id="state" type='text/template'>
-        <div class="state <%= state.id %>">
+        <div class="state <%= state.id %>" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
                 <i data-placement="top" data-title="<%= state.name %>" data-content="Obama: <%= state.dem_vote_count %><br />Romney: <%= state.rep_vote_count %><br />Precincts: <%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>%"><span><%= state.stateface %></span></i>
             <% }); %>

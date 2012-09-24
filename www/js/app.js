@@ -12,6 +12,8 @@ $(function() {
     var undecided_states = null;
     var undecided_votes = null;
 
+    var user_predictions = {};
+
     var dragging = false;
     var dragging_state = null;
     var dragging_offset_x = 0;
@@ -30,9 +32,9 @@ $(function() {
 
         if (state.prediction === "sr" || state.prediction === "lr"){
             $("#results .bucket.red").append(html);
-        } else if(state.prediction === "sd" || state.prediction === "ld") {
+        } else if (state.prediction === "sd" || state.prediction === "ld") {
             $("#results .bucket.blue").append(html);
-        } else {
+        } else if (state.prediction === "t") {
             $("#results #undecided").append(html);
         }
 
@@ -59,6 +61,10 @@ $(function() {
         red_states = states_dataset.where({
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
+                if (row.id in user_predictions && user_predictions[row.id] === "r") {
+                    return true;
+                }
+
                 return (row.prediction === "sr" || row.prediction === "lr");
             }
         });
@@ -69,6 +75,10 @@ $(function() {
         blue_states = states_dataset.where({
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
+                if (row.id in user_predictions && user_predictions[row.id] === "d") {
+                    return true;
+                }
+
                 return (row.prediction === "sd" || row.prediction === "ld");
             }
         });
@@ -79,7 +89,11 @@ $(function() {
         undecided_states = states_dataset.where({
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
-                return (_.indexOf(["sr", "lr", "ld", "sd"], row.prediction) < 0);
+                if (row.id in user_predictions && user_predictions[row.id] !== "t") {
+                    return false;
+                }
+
+                return (row.prediction === "t");
             }
         });
 
@@ -90,8 +104,7 @@ $(function() {
         $('#o-president').find('.blue b').width(((blue_votes / total_votes) * 100) + '%');
         $('#o-president').find('.red b').width(((red_votes / total_votes) * 100) + '%');
         $('#o-president').find('.undecided b').width(((undecided_votes / total_votes) * 100) + '%');
-        
-        
+
         generate_winning_combinations();
     }
 
@@ -188,7 +201,6 @@ $(function() {
             state_names[row.id] = row.name;
         });
 
-
         compute_stats();
 
         //var height = Math.max(27, Math.ceil(Math.max(red_votes, blue_votes) / 10));
@@ -264,12 +276,20 @@ $(function() {
             element.append(dragging_state);
         }
 
+        var state_id = dragging_state.data("id");
+
         if (is_within($("div.blue"))) {
             drop_in($("div.blue"));
+            user_predictions[state_id] = "d";
+            compute_stats();
         } else if (is_within($("div.red"))) {
             drop_in($("div.red"));
+            user_predictions[state_id] = "r";
+            compute_stats();
         } else if (is_within($("div#undecided"))) {
             drop_in($("div#undecided"));
+            user_predictions[state_id] = "t";
+            compute_stats();
         }
     });
 
