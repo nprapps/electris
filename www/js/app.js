@@ -12,6 +12,11 @@ $(function() {
     var undecided_states = null;
     var undecided_votes = null;
 
+    var dragging = false;
+    var dragging_state = null;
+    var dragging_offset_x = 0;
+    var dragging_offset_y = 0;
+
     /* FOR POPOVERS */
     var popActive;
     var popIsVisible = false;
@@ -223,12 +228,9 @@ $(function() {
         };
     });
 
-    var dragging = false;
-    var dragging_state = null;
-    var dragging_offset_x = 0;
-    var dragging_offset_y = 0;
+    /* DRAG AND DROP */
 
-    $("#undecided .state").live("mousedown", function(e) {
+    $(".state").live("mousedown", function(e) {
         e = e || window.event;
 
         dragging = true;
@@ -256,12 +258,18 @@ $(function() {
             return false;
         }
 
+        function drop_in(element) {
+            dragging_state.css("position", "inherit");
+            dragging_state.detach();
+            element.append(dragging_state);
+        }
+
         if (is_within($("div.blue"))) {
-            console.log("blue drop");
+            drop_in($("div.blue"));
         } else if (is_within($("div.red"))) {
-            console.log("red drop");
+            drop_in($("div.red"));
         } else if (is_within($("div#undecided"))) {
-            console.log("undecided drop");
+            drop_in($("div#undecided"));
         }
     });
 
