@@ -30,15 +30,22 @@ $(function() {
          */
         var html = _.template(STATE_TEMPLATE, { state: state });
 
-        if ((state.id in user_predictions && user_predictions[state.id] === "r")
-            || (state.prediction === "sr" || state.prediction === "lr")) {
-            $("#results .bucket.red").append(html);
-        } else if ((state.id in user_predictions && user_predictions[state.id] === "d")
-            || (state.prediction === "sd" || state.prediction === "ld")) {
-            $("#results .bucket.blue").append(html);
-        } else if ((state.id in user_predictions && user_predictions[state.id] === "t") 
-            || (state.prediction === "t")) {
-            $("#results #undecided").append(html);
+        if (state.id in user_predictions) {
+            if (user_predictions[state.id] === "r") {
+                $("#results .bucket.red").append(html);
+            } else if (user_predictions[state.id] === "d") {
+                $("#results .bucket.blue").append(html);
+            } else if (user_predictions[state.id] === "t") {
+                $("#results #undecided").append(html);
+            }
+        } else {
+            if (state.prediction === "sr" || state.prediction === "lr") {
+                $("#results .bucket.red").append(html);
+            } else if (state.prediction === "sd" || state.prediction === "ld") {
+                $("#results .bucket.blue").append(html);
+            } else if (state.prediction === "t") {
+                $("#results #undecided").append(html);
+            }
         }
 
         $(".state." + state.id + " i").popover({ trigger: "manual" }).click(function(e){
