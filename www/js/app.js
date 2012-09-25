@@ -15,6 +15,7 @@ $(function() {
     var user_predictions = {};
 
     var dragging = false;
+    var dragging_new = true;
     var dragging_state = null;
     var dragging_offset_x = 0;
     var dragging_offset_y = 0;
@@ -257,8 +258,6 @@ $(function() {
 
     /* DRAG AND DROP */
 
-    var dragging_new = true;
-
     $(".state").live("mousedown", function(e) {
         e = e || window.event
 
@@ -330,6 +329,7 @@ $(function() {
                 $("#states").append(dragging_state);
                 
                 dragging_state.css("position", "absolute");
+                dragging_state.css("width", "10em");
                 dragging_state.children("i").css("color", color);
                 dragging_state.children("i").css("background-color", background_color);
             }
