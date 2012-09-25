@@ -259,14 +259,18 @@ $(function() {
 
     /* DRAG AND DROP */
 
-    function disable_text_selection(node) {
+    function disable_text_selection() {
         /*
          * Disable all text selection.
          */
         document.onselectstart = function() { return false; }
     }
 
-    function enable_text_selection(node) {
+    if ($.browser.msie) {
+        disable_text_selection();
+    }
+
+    function enable_text_selection() {
         /*
          * Reenable all text selection.
          */
@@ -290,7 +294,7 @@ $(function() {
         dragging_offset_x = 0;
         dragging_offset_y = 0;
                 
-        disable_text_selection($("body")[0]);
+        disable_text_selection();
     });
 
     $(document).mouseup(function(e) {
@@ -298,7 +302,10 @@ $(function() {
 
         if (dragging) {
             dragging = false;
-            enable_text_selection($("body")[0]);
+            
+            if (!$.browser.msie) {
+                enable_text_selection();
+            }
 
             // Bail out if state was not moved
             if (dragging_new) {
