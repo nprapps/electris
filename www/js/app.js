@@ -57,11 +57,11 @@ $(function() {
                 blue_bucket.append(html);
             } else if (state.npr_call === "t") {
                 undecided_bucket.append(html);
-            } else if (state.accept_ap_call === "y" && state.ap_call === "r") {
+            } else if (state.ap_call === "r" && state.accept_ap_call === "y") {
                 red_bucket.append(html);
-            } else if (state.accept_ap_call === "y" && state.ap_call === "d") {
+            } else if (state.ap_call === "d" && state.accept_ap_call === "y") {
                 blue_bucket.append(html);
-            } else if (state.accept_ap_call === "y" && state.ap_call === "t") {
+            } else if (state.ap_call === "t" && state.accept_ap_call === "y") {
                 undecided_bucket.append(html);
             } else if (user_predictions[state.id] === "r") {
                 red_bucket.append(html);
@@ -115,11 +115,23 @@ $(function() {
         red_states = states_dataset.where({
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
-                if (row.id in user_predictions && user_predictions[row.id] === "r") {
-                    return true;
-                }
+                if (IS_ELECTION_NIGHT) {
+                    if (row.npr_call === "r") {
+                        return true;
+                    } else if (row.ap_call === "r" && row.accept_ap_call === "y") {
+                        return true;
+                    } else if (row.id in user_predictions && user_predictions[row.id] === "r") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (row.id in user_predictions && user_predictions[row.id] === "r") {
+                        return true;
+                    }
 
-                return (row.prediction === "sr" || row.prediction === "lr");
+                    return (row.prediction === "sr" || row.prediction === "lr");
+                }
             }
         });
 
@@ -129,11 +141,23 @@ $(function() {
         blue_states = states_dataset.where({
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
-                if (row.id in user_predictions && user_predictions[row.id] === "d") {
-                    return true;
-                }
+                if (IS_ELECTION_NIGHT) {
+                    if (row.npr_call === "d") {
+                        return true;
+                    } else if (row.ap_call === "d" && row.accept_ap_call === "y") {
+                        return true;
+                    } else if (row.id in user_predictions && user_predictions[row.id] === "d") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (row.id in user_predictions && user_predictions[row.id] === "d") {
+                        return true;
+                    }
 
-                return (row.prediction === "sd" || row.prediction === "ld");
+                    return (row.prediction === "sd" || row.prediction === "ld");
+                }
             }
         });
 
@@ -143,11 +167,23 @@ $(function() {
         undecided_states = states_dataset.where({
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
-                if (row.id in user_predictions && user_predictions[row.id] !== "t") {
-                    return false;
-                }
+                if (IS_ELECTION_NIGHT) {
+                    if (row.npr_call !== "n" && row.npr_call !== "t") {
+                        return false;
+                    } else if (row.ap_call !== "t" && row.accept_ap_call === "y") {
+                        return false;
+                    } else if (row.id in user_predictions && user_predictions[row.id] !== "t") {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else {
+                    if (row.id in user_predictions && user_predictions[row.id] === "t") {
+                        return true;
+                    }
 
-                return (row.prediction === "t");
+                    return (row.prediction === "t");
+                }
             }
         });
 
