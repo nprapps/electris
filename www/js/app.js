@@ -214,7 +214,7 @@ $(function() {
         compute_stats();
 
         //var height = Math.max(27, Math.ceil(Math.max(red_votes, blue_votes) / 10));
-        $("#buckets,.red,.blue").css("height", 27 + "em");
+        $("#buckets,#buckets .red,#buckets .blue").css("height", 27 + "em");
     });
 
     states_dataset.bind("change", function(event) {
