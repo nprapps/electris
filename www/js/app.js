@@ -280,11 +280,15 @@ $(function() {
         dragging_new = true;
         dragging_state = $(this);
 
-        var x = dragging_state.offset().left;
-        var y = dragging_state.children("i").first().offset().top;
+        // Mouse position dragging behavior is not consistent
+        //var x = dragging_state.offset().left;
+        //var y = dragging_state.children("i").first().offset().top;
 
-        dragging_offset_x = e.pageX - x;
-        dragging_offset_y = e.pageY - y;
+        //dragging_offset_x = e.pageX - x;
+        //dragging_offset_y = e.pageY - y;
+
+        dragging_offset_x = 0;
+        dragging_offset_y = 0;
                 
         disable_text_selection($("body")[0]);
     });
