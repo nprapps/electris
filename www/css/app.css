@@ -36,9 +36,9 @@ h3 {
 .tossup { background-color: #f7e39b; color: #77631b; }
 */
 .state i { color: #fff; }
-.bucket.blue .state:nth-child(even) i { background-color: #7dbfe6; }
+.bucket.blue .state i { background-color: #7dbfe6; }
 .bucket.blue .state:nth-child(odd) i { background-color: #3d7fa6; }
-.bucket.red .state:nth-child(even) i { background-color: #e27560; }
+.bucket.red .state i { background-color: #e27560; }
 .bucket.red .state:nth-child(odd) i { background-color: #a23520; }
 
 #offices li li.blue .bar b { background-color: #3d7fa6; }
@@ -47,13 +47,6 @@ h3 {
 
 
 /* ELECTRIS */
-#president.row {
-    -moz-user-select: none; 
-    -khtml-user-select: none; 
-    -webkit-user-select: none; 
-    -o-user-select: none; 
-}
-
 #states {
     font-size:18px;
 }
@@ -74,6 +67,13 @@ h3 {
     -webkit-box-shadow: 0px 0px 10px 1px #FF0;
     box-shadow: 0px 0px 10px 1px #FF0;
 */
+}
+
+.state {
+    -moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none; 
 }
 
 .state i {
@@ -126,13 +126,6 @@ h3 {
     filter: flipv; /*IE*/
 }
 
-/*
-.bucket.blue {
-    margin-right: 1em;
-    clear:left;
-}
-*/
-
 #undecided {
     margin-bottom:1em;
     font-size: 24px;
@@ -141,13 +134,16 @@ h3 {
 #undecided .state {
 	padding-bottom: 6px;
 }
+
 #undecided i { 
 	background-color:#F7E39B;
 	color:#77631B;
 }
+
 #undecided .state:hover i {
 	color: #B39429;
 }
+
 #undecided:after, #undecided .state:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 
 #resetBtn {
