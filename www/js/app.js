@@ -40,19 +40,19 @@ $(function() {
 
         if (state.id in user_predictions) {
             if (user_predictions[state.id] === "r") {
-                $("#results .bucket.red").append(html);
+                $(".bucket.red").append(html);
             } else if (user_predictions[state.id] === "d") {
-                $("#results .bucket.blue").append(html);
+                $(".bucket.blue").append(html);
             } else if (user_predictions[state.id] === "t") {
-                $("#results #undecided").append(html);
+                $(".bucket.undecided").append(html);
             }
         } else {
             if (state.prediction === "sr" || state.prediction === "lr") {
-                $("#results .bucket.red").append(html);
+                $(".bucket.red").append(html);
             } else if (state.prediction === "sd" || state.prediction === "ld") {
-                $("#results .bucket.blue").append(html);
+                $(".bucket.blue").append(html);
             } else if (state.prediction === "t") {
-                $("#results #undecided").append(html);
+                $(".bucket.undecided").append(html);
             }
         }
 
@@ -69,7 +69,7 @@ $(function() {
         /*
          * Remove the HTML for a state.
          */
-        $("div.state." + state.id).remove();
+        $(".state." + state.id).remove();
     }
 
     function compute_stats() {
@@ -336,11 +336,11 @@ $(function() {
                 return (row.id == state_id);
             }}).rowByPosition(0);
 
-            if (is_within($("div.blue"))) {
+            if (is_within($(".bucket.blue"))) {
                 user_predictions[state_id] = "d";
-            } else if (is_within($("div.red"))) {
+            } else if (is_within($(".bucket.red"))) {
                 user_predictions[state_id] = "r";
-            } else if (is_within($("div#undecided"))) {
+            } else if (is_within($(".bucket.undecided"))) {
                 user_predictions[state_id] = "t";
             }
 
@@ -391,7 +391,7 @@ $(function() {
     /* RESET PICKS */
 
     $('#resetBtn').click(function() {
-    	$('#undecided').prepend($('#buckets').find('.state'));
+    	$('.bucket.undecided').prepend($('#buckets').find('.state'));
     });
     /* TODO: only the picks that are based on predictions should be reset.
     	picks based on actual live results should not move. */
