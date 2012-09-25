@@ -1,8 +1,10 @@
 $(function() {
+    /* Settings */
     var MIN_VOTES_FOR_COMBOS = 40;
     var MIN_STATES_FOR_COMBOS = 5;
     var STATE_TEMPLATE = $("#state").html();
 
+    /* State data */
     var state_votes = {};
     var state_names = {};
     var red_states = null;
@@ -12,8 +14,10 @@ $(function() {
     var undecided_states = null;
     var undecided_votes = null;
 
+    /* User data */
     var user_predictions = {};
 
+    /* Drag and drop */
     var original_selectstart = document.onselectstart;
     var dragging = false;
     var dragging_new = true;
@@ -21,10 +25,12 @@ $(function() {
     var dragging_offset_x = 0;
     var dragging_offset_y = 0;
 
-    /* FOR POPOVERS */
+    /* Popovers */
     var popActive;
     var popIsVisible = false;
     var popClickedAway = false;
+
+    /* DATA PROCESSING & RENDERING */
     
     function add_state(state) {
         /*
@@ -199,7 +205,7 @@ $(function() {
         $("#buckets,#buckets .red,#buckets .blue").css("height", height + "em");
     }
 
-    /* Dataset loading/polling */
+    /* DATASET LOADING/POLLING */
 
     var states_dataset = new Miso.Dataset({
         url : "states.csv?t=" + (new Date()).getTime(),
@@ -370,6 +376,7 @@ $(function() {
     
     
     /* POPOVERS */
+
     /* via stackoverflow, but modified: http://stackoverflow.com/questions/8947749/how-can-i-close-a-twitter-bootstrap-popover-with-a-click-from-anywhere-else-on */
     $(document).click(function(e) {
     	if(popIsVisible && popClickedAway) {
@@ -382,6 +389,7 @@ $(function() {
     
     
     /* RESET PICKS */
+
     $('#resetBtn').click(function() {
     	$('#undecided').prepend($('#buckets').find('.state'));
     });
