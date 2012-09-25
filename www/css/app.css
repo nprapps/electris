@@ -35,27 +35,27 @@ h3 {
 .i_favored { background-color: #ccc; color: #333; }
 .tossup { background-color: #f7e39b; color: #77631b; }
 */
-.state i { color: #fff; }
+.state i { background-color: #f7e39b; color: #77631b; }
+.state:hover i { color: #b39429; }
 
 /* Before election night: shade by forecast */
-.state.prediction-sd i { background-color: #3d7fa6; }
-.state.prediction-ld i { background-color: #7dbfe6; }
+.state.prediction-sd i { background-color: #3d7fa6; color: #fff; }
+.state.prediction-ld i { background-color: #7dbfe6; color: #fff; }
 .state.prediction-t i { background-color: #f7e39b; color: #77631b; }
 .state.prediction-t:hover i { color: #b39429; }
-.state.prediction-lr i { background-color: #e27560; }
-.state.prediction-sr i { background-color: #a23520; }
+.state.prediction-lr i { background-color: #e27560; color: #fff; }
+.state.prediction-sr i { background-color: #a23520; color: #fff; }
 
 /* On election night: shade by call */
-.state.accept-ap-call-y.ap-call-d i { background-color: #3d7fa6; }
-.state.accept-ap-call-y.ap-call-u i { background-color: #f7e39b; color: #77631b; }
-.state.accept-ap-call-y.ap-call-u:hover i { color: #b39429; }
-.state.accept-ap-call-y.ap-call-r i { background-color: #a23520; }
+.state.ap-call-d i { background-color: #3d7fa6; color: #fff; }
+.state.ap-call-u i { background-color: #f7e39b; color: #77631b; }
+.state.ap-call-u:hover i { color: #b39429; }
+.state.ap-call-r i { background-color: #a23520; color: #fff; }
 
-/* NPR calls override AP calls */
-.state.npr-call-d i { background-color: #3d7fa6; }
+.state.npr-call-d i { background-color: #3d7fa6; color: #fff; }
 .state.npr-call-u i { background-color: #f7e39b; color: #77631b; }
 .state.npr-call-u:hover i { color: #b39429; }
-.state.npr-call-r i { background-color: #a23520; }
+.state.npr-call-r i { background-color: #a23520; color: #fff; }
 
 #offices li li.blue .bar b { background-color: #3d7fa6; }
 #offices li li.red .bar b { background-color: #a23520; }
