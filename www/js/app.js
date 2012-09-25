@@ -257,25 +257,17 @@ $(function() {
 
     /* DRAG AND DROP */
 
+    var dragging_new = true;
+
     $(".state").live("mousedown", function(e) {
         e = e || window.event
 
         dragging = true;
+        dragging_new = true;
         dragging_state = $(this);
-        
+
         var x = dragging_state.offset().left;
         var y = dragging_state.children("i").first().offset().top;
-        var background_color = dragging_state.children("i").first().css("background-color");
-        var color = dragging_state.children("i").first().css("color");
-
-        dragging_state.detach();
-        $("#states").append(dragging_state);
-        
-        dragging_state.css("position", "absolute");
-        dragging_state.css("left", x);
-        dragging_state.css("top", y);
-        dragging_state.children("i").css("color", color);
-        dragging_state.children("i").css("background-color", background_color);
 
         dragging_offset_x = e.pageX - x;
         dragging_offset_y = e.pageY - y;
@@ -286,6 +278,11 @@ $(function() {
 
         if (dragging) {
             dragging = false;
+
+            // Bail out if state was not moved
+            if (dragging_new) {
+                return;
+            }
 
             function is_within(element) {
                 var left = element.offset().left;
@@ -323,6 +320,21 @@ $(function() {
         e = e || window.event;
 
         if (dragging) {
+            if (dragging_new) {
+                console.log("drag new");
+                dragging_new = false;
+
+                var background_color = dragging_state.children("i").first().css("background-color");
+                var color = dragging_state.children("i").first().css("color");
+
+                dragging_state.detach();
+                $("#states").append(dragging_state);
+                
+                dragging_state.css("position", "absolute");
+                dragging_state.children("i").css("color", color);
+                dragging_state.children("i").css("background-color", background_color);
+            }
+
             dragging_state.css("left", e.pageX - dragging_offset_x);
             dragging_state.css("top", e.pageY - dragging_offset_y);
         }
