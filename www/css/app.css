@@ -47,6 +47,13 @@ h3 {
 
 
 /* ELECTRIS */
+#president.row {
+    -moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none; 
+}
+
 #states {
     font-size:18px;
 }

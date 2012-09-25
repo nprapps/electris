@@ -14,6 +14,7 @@ $(function() {
 
     var user_predictions = {};
 
+    var original_selectstart = document.onselectstart;
     var dragging = false;
     var dragging_new = true;
     var dragging_state = null;
@@ -258,6 +259,20 @@ $(function() {
 
     /* DRAG AND DROP */
 
+    function disable_text_selection(node) {
+        /*
+         * Disable all text selection.
+         */
+        document.onselectstart = function() { return false; }
+    }
+
+    function enable_text_selection(node) {
+        /*
+         * Reenable all text selection.
+         */
+        document.onselectstart = original_selectstart;
+    }
+
     $(".state").live("mousedown", function(e) {
         e = e || window.event
 
@@ -270,6 +285,8 @@ $(function() {
 
         dragging_offset_x = e.pageX - x;
         dragging_offset_y = e.pageY - y;
+                
+        disable_text_selection($("body")[0]);
     });
 
     $(document).mouseup(function(e) {
@@ -277,6 +294,7 @@ $(function() {
 
         if (dragging) {
             dragging = false;
+            enable_text_selection($("body")[0]);
 
             // Bail out if state was not moved
             if (dragging_new) {
