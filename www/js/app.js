@@ -3,10 +3,13 @@ $(function() {
     var MIN_VOTES_FOR_COMBOS = 40;
     var MIN_STATES_FOR_COMBOS = 5;
     var STATE_TEMPLATE = $("#state").html();
+    var IS_ELECTION_NIGHT = true;
+    var POLLING_INTERVAL = 1000;
 
     /* State data */
     var state_votes = {};
     var state_names = {};
+    var state_predictions = {};
     var red_states = null;
     var red_votes = null;
     var blue_states = null;
@@ -36,7 +39,11 @@ $(function() {
         /*
          * Add the HTML for a state to the correct location.
          */
-        var html = _.template(STATE_TEMPLATE, { state: state, user_prediction: user_predictions[state.id] });
+        var html = _.template(STATE_TEMPLATE, {
+            state: state,
+            user_prediction: user_predictions[state.id],
+            is_election_night: IS_ELECTION_NIGHT
+        });
 
         if (state.id in user_predictions) {
             if (user_predictions[state.id] === "r") {
@@ -210,7 +217,7 @@ $(function() {
     var states_dataset = new Miso.Dataset({
         url : "states.csv?t=" + (new Date()).getTime(),
         delimiter: ",",
-        interval: 1000,
+        interval: IS_ELECTION_NIGHT ? POLLING_INTERVAL : null,
         uniqueAgainst: "id",
         sync: true
     });
@@ -220,6 +227,13 @@ $(function() {
          * After initial data load, setup stats and such.
          */
         states_dataset.each(function(row) {
+            // On election night we save the prediction,
+            // but don't use it right away
+            if (IS_ELECTION_NIGHT) {
+                state_predictions[row.id] = row.prediction;
+                row.prediction = "t";
+            }
+
             add_state(row);
 
             // Build lookup tables
@@ -307,7 +321,7 @@ $(function() {
         e = e || window.event;
 
         if (dragging) {
-            dragging = false;
+            dragging = false
             
             if (!$.browser.msie) {
                 enable_text_selection();

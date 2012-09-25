@@ -36,12 +36,26 @@ h3 {
 .tossup { background-color: #f7e39b; color: #77631b; }
 */
 .state i { color: #fff; }
+
+/* Before election night: shade by forecast */
 .state.prediction-sd i { background-color: #3d7fa6; }
 .state.prediction-ld i { background-color: #7dbfe6; }
 .state.prediction-t i { background-color: #f7e39b; color: #77631b; }
 .state.prediction-t:hover i { color: #b39429; }
 .state.prediction-lr i { background-color: #e27560; }
 .state.prediction-sr i { background-color: #a23520; }
+
+/* On election night: shade by call */
+.state.accept-ap-call-y.ap-call-d i { background-color: #3d7fa6; }
+.state.accept-ap-call-y.ap-call-u i { background-color: #f7e39b; color: #77631b; }
+.state.accept-ap-call-y.ap-call-u:hover i { color: #b39429; }
+.state.accept-ap-call-y.ap-call-r i { background-color: #a23520; }
+
+/* NPR calls override AP calls */
+.state.npr-call-d i { background-color: #3d7fa6; }
+.state.npr-call-u i { background-color: #f7e39b; color: #77631b; }
+.state.npr-call-u:hover i { color: #b39429; }
+.state.npr-call-r i { background-color: #a23520; }
 
 #offices li li.blue .bar b { background-color: #3d7fa6; }
 #offices li li.red .bar b { background-color: #a23520; }
