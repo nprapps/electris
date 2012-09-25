@@ -70,6 +70,8 @@ h3 {
 }
 
 .state {
+    z-index: 100;
+
     -moz-user-select: none; 
     -khtml-user-select: none; 
     -webkit-user-select: none; 
