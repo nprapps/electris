@@ -36,10 +36,12 @@ h3 {
 .tossup { background-color: #f7e39b; color: #77631b; }
 */
 .state i { color: #fff; }
-.bucket.blue .state i { background-color: #7dbfe6; }
-.bucket.blue .state:nth-child(odd) i { background-color: #3d7fa6; }
-.bucket.red .state i { background-color: #e27560; }
-.bucket.red .state:nth-child(odd) i { background-color: #a23520; }
+.state.prediction-sd i { background-color: #3d7fa6; }
+.state.prediction-ld i { background-color: #7dbfe6; }
+.state.prediction-t i { background-color: #f7e39b; color: #77631b; }
+.state.prediction-t:hover i { color: #b39429; }
+.state.prediction-lr i { background-color: #e27560; }
+.state.prediction-sr i { background-color: #a23520; }
 
 #offices li li.blue .bar b { background-color: #3d7fa6; }
 #offices li li.red .bar b { background-color: #a23520; }
@@ -133,15 +135,6 @@ h3 {
 
 #undecided .state {
 	padding-bottom: 6px;
-}
-
-#undecided i { 
-	background-color:#F7E39B;
-	color:#77631B;
-}
-
-#undecided .state:hover i {
-	color: #B39429;
 }
 
 #undecided:after, #undecided .state:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }

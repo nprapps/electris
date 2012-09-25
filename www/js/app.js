@@ -36,7 +36,7 @@ $(function() {
         /*
          * Add the HTML for a state to the correct location.
          */
-        var html = _.template(STATE_TEMPLATE, { state: state });
+        var html = _.template(STATE_TEMPLATE, { state: state, user_prediction: user_predictions[state.id] });
 
         if (state.id in user_predictions) {
             if (user_predictions[state.id] === "r") {
