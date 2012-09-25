@@ -47,8 +47,8 @@ h3 {
 
 
 /* ELECTRIS */
-#states {
-    font-size:18px;
+#states,#undecided {
+    font-size:20px;
 }
 
 #buckets {
@@ -128,7 +128,6 @@ h3 {
 
 #undecided {
     margin-bottom:1em;
-    font-size: 24px;
 }
 
 #undecided .state {
@@ -306,13 +305,13 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
     #results,#blog { width:100%; }
 }
 @media (max-width: 500px) {
-    #states { font-size:12px; }
+    #states,#undecided { font-size:12px; }
     .nav .arts, .nav .music { display: none; }
 }
 @media (min-width: 960px) {
-    #states { font-size:20px; }
+    #states,#undecided { font-size:20px; }
 }
 @media (min-width: 1200px) {
-    #states { font-size:24px; }
+    #states,#undecided { font-size:24px; }
 }
 
