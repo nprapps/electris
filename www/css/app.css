@@ -58,7 +58,7 @@ h3 {
 }
 
 .state:hover {
-    cursor:pointer;
+    cursor:move;
 }
 .state:hover i {
 	color: #F7E39B;
@@ -137,9 +137,6 @@ h3 {
 #undecided i { 
 	background-color:#F7E39B;
 	color:#77631B;
-}
-#undecided .state:hover {
-	cursor: move;
 }
 #undecided .state:hover i {
 	color: #B39429;
