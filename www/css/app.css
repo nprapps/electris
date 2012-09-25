@@ -113,8 +113,7 @@ h3 {
     filter: flipv; /*IE*/
     
     width:10em;
-    background: rgb(241,241,241);
-    background: rgba(241,241,241,1);
+    background-color: whiteSmoke;
 }
 
 .state i {
