@@ -321,7 +321,6 @@ $(function() {
 
         if (dragging) {
             if (dragging_new) {
-                console.log("drag new");
                 dragging_new = false;
 
                 var background_color = dragging_state.children("i").first().css("background-color");
