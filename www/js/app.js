@@ -115,6 +115,7 @@ $(function() {
         $('#o-president').find('.red b').width(((red_votes / total_votes) * 100) + '%');
         $('#o-president').find('.undecided b').width(((undecided_votes / total_votes) * 100) + '%');
 
+        update_bucket_height();
         generate_winning_combinations();
     }
 
@@ -187,10 +188,17 @@ $(function() {
         });
     }
 
-    // var red = Math.floor(Math.random()*538) - 1;
-    // var blue = 537 - red;
-    // var height = Math.ceil(Math.max(red,blue)/10);
-    
+    function update_bucket_height() {
+        /*
+         * Set the height of the tetris buckets to either 270 votes or higher if
+         * we've already passed 270.
+         */
+        var height = Math.max(27, Math.ceil(Math.max(red_votes, blue_votes) / 10));
+        $("#buckets,#buckets .red,#buckets .blue").css("height", height + "em");
+    }
+
+    /* Dataset loading/polling */
+
     var states_dataset = new Miso.Dataset({
         url : "states.csv?t=" + (new Date()).getTime(),
         delimiter: ",",
@@ -212,9 +220,6 @@ $(function() {
         });
 
         compute_stats();
-
-        //var height = Math.max(27, Math.ceil(Math.max(red_votes, blue_votes) / 10));
-        $("#buckets,#buckets .red,#buckets .blue").css("height", 27 + "em");
     });
 
     states_dataset.bind("change", function(event) {
