@@ -1,52 +1,57 @@
 id,stateface,name,electoral_votes,prediction,ap_call,accept_ap_call,npr_call,total_precincts,precincts_reporting,rep_vote_count,dem_vote_count
 al,B,Alabama,9,sr,u,y,n,,,,
-ak,A,Alaska,3,sr,u,y,n,183,18,22455,18372
-az,D,Arizona,11,lr,u,y,n,1664,452,218802,238896
-ar,C,Arkansas,6,sr,u,y,n,2342,0,0,0
-ca,E,California,55,sd,u,y,n,21993,0,0,0
-co,F,Colorado,9,t,u,n,n,9231,2615,109160,104277
-ct,G,Connecticut,7,sd,u,y,n,695,0,0,0
+ak,A,Alaska,3,sr,u,y,n,,,,
+az,D,Arizona,11,lr,u,y,n,,,,
+ar,C,Arkansas,6,sr,u,y,n,,,,
+ca,E,California,55,sd,u,y,n,,,,
+co,F,Colorado,9,t,u,n,n,,,,
+ct,G,Connecticut,7,sd,u,y,n,,,,
 de,H,Delaware,3,sd,u,y,n,,,,
-dc,y,District Of Columbia,3,sd,u,y,n,143,0,0,0
-fl,I,Florida,29,t,u,n,n,6153,0,0,0
-ga,J,Georgia,16,sr,u,y,n,2855,539,203121,240066
-hi,K,Hawaii,4,sd,u,y,n,250,45,43327,47189
-id,M,Idaho,4,sr,u,y,n,943,161,43956,48630
-il,N,Illinois,20,sd,u,y,n,10448,0,0,0
-in,O,Indiana,11,lr,u,y,n,5330,0,0,0
-ia,L,Iowa,6,t,u,n,n,1688,205,54703,83235
-ks,P,Kansas,6,sr,u,y,n,3206,429,60619,73734
-ky,Q,Kentucky,8,sr,u,y,n,3634,0,0,0
-la,R,Louisiana,8,sr,u,y,n,4267,0,0,0
-me,U,Maine,4,sd,u,y,n,599,0,0,0
-md,T,Maryland,10,sd,u,y,n,1892,0,0,0
-ma,S,Massachusetts,11,sd,u,y,n,0,0,0,0
-mi,V,Michigan,16,ld,u,y,n,4937,0,0,0
-mn,W,Minnesota,10,ld,u,y,n,4102,889,139497,150534
-ms,Y,Mississippi,6,sr,u,y,n,1889,0,0,0
-mo,X,Missouri,10,lr,u,y,n,3428,0,0,0
-mt,Z,Montana,3,sr,u,y,n,794,0,0,0
-ne,c,Nebraska,5,sr,u,y,n,1387,440,72175,83558
-nv,g,Nevada,6,t,u,n,n,1845,450,97845,108896
+dc,y,District Of Columbia,3,sd,u,y,n,,,,
+fl,I,Florida,29,t,u,n,n,,,,
+ga,J,Georgia,16,sr,u,y,n,,,,
+hi,K,Hawaii,4,sd,u,y,n,,,,
+id,M,Idaho,4,sr,u,y,n,,,,
+il,N,Illinois,20,sd,u,y,n,,,,
+in,O,Indiana,11,lr,u,y,n,,,,
+ia,L,Iowa,6,t,u,n,n,,,,
+ks,P,Kansas,6,sr,u,y,n,,,,
+ky,Q,Kentucky,8,sr,u,y,n,,,,
+la,R,Louisiana,8,sr,u,y,n,,,,
+me,U,Maine Statewide,2,sd,u,y,n,,,,
+me1,U,Maine District 1,1,sd,u,y,n,,,,
+me2,U,Maine District 2,1,ld,u,y,n,,,,
+md,T,Maryland,10,sd,u,y,n,,,,
+ma,S,Massachusetts,11,sd,u,y,n,,,,
+mi,V,Michigan,16,ld,u,y,n,,,,
+mn,W,Minnesota,10,ld,u,y,n,,,,
+ms,Y,Mississippi,6,sr,u,y,n,,,,
+mo,X,Missouri,10,lr,u,y,n,,,,
+mt,Z,Montana,3,sr,u,y,n,,,,
+ne,c,Nebraska Statewide,2,sr,u,y,n,,,,
+ne1,c,Nebraska District 1,1,sr,u,y,n,,,,
+ne2,c,Nebraska District 2,1,lr,u,y,n,,,,
+ne3,c,Nebraska District 3,1,sr,u,y,n,,,,
+nv,g,Nevada,6,t,u,n,n,,,,
 nh,d,New Hampshire,4,t,u,n,n,,,,
-nj,e,New Jersey,14,sd,u,y,n,6330,760,12982,12110
-nm,f,New Mexico,5,ld,u,y,n,1541,0,0,0
+nj,e,New Jersey,14,sd,u,y,n,,,,
+nm,f,New Mexico,5,ld,u,y,n,,,,
 ny,h,New York,29,sd,u,y,n,,,,
-nc,a,North Carolina,15,lr,u,y,n,2895,137,83705,77872
-nd,b,North Dakota,3,sr,u,y,n,426,224,40200,54651
-oh,i,Ohio,18,t,u,n,n,9319,0,0,0
-ok,j,Oklahoma,7,sr,u,y,n,1960,0,0,0
-or,k,Oregon,7,sd,u,y,n,1000,0,0,0
-pa,l,Pennsylvania,20,ld,u,y,n,9252,0,0,0
+nc,a,North Carolina,15,lr,u,y,n,,,,
+nd,b,North Dakota,3,sr,u,y,n,,,,
+oh,i,Ohio,18,t,u,n,n,,,,
+ok,j,Oklahoma,7,sr,u,y,n,,,,
+or,k,Oregon,7,sd,u,y,n,,,,
+pa,l,Pennsylvania,20,ld,u,y,n,,,,
 ri,m,Rhode Island,4,sd,u,y,n,,,,
-sc,n,South Carolina,9,sr,u,y,n,2136,0,0,0
-sd,o,South Dakota,3,sr,u,y,n,710,351,35973,46009
-tn,p,Tennessee,11,sr,u,y,n,2071,0,0,0
-tx,q,Texas,38,sr,u,y,n,9092,0,0,0
-ut,r,Utah,6,sr,u,y,n,2114,581,88452,104043
-vt,t,Vermont,3,t,u,n,n,258,81,25601,31226
-va,s,Virginia,13,t,u,n,n,2542,0,0,0
-wa,u,Washington,12,sd,u,y,n,2001,0,0,0
-wv,w,West Virginia,5,sr,u,y,n,1846,0,0,0
-wi,v,Wisconsin,10,t,u,n,n,3516,1163,395512,384970
-wy,x,Wyoming,3,sr,u,y,n,481,0,0,0
+sc,n,South Carolina,9,sr,u,y,n,,,,
+sd,o,South Dakota,3,sr,u,y,n,,,,
+tn,p,Tennessee,11,sr,u,y,n,,,,
+tx,q,Texas,38,sr,u,y,n,,,,
+ut,r,Utah,6,sr,u,y,n,,,,
+vt,t,Vermont,3,t,u,n,n,,,,
+va,s,Virginia,13,t,u,n,n,,,,
+wa,u,Washington,12,sd,u,y,n,,,,
+wv,w,West Virginia,5,sr,u,y,n,,,,
+wi,v,Wisconsin,10,t,u,n,n,,,,
+wy,x,Wyoming,3,sr,u,y,n,,,,
