@@ -280,6 +280,26 @@ $(function() {
         $("#buckets,#buckets .red,#buckets .blue").css("height", height + "em");
     }
 
+    $("#add-predictions").click(function() {
+        /*
+         * Add NPR's predictions for how states will be called.
+         */
+        states_dataset.each(function(state) {
+            var prediction = state_predictions[state.id];
+
+            if (prediction === "sr" || prediction === "lr") {
+                user_predictions[state.id] = "r";
+            } else if (prediction === "sd" || prediction === "ld") {
+                user_predictions[state.id] = "d";
+            } else {
+                user_predictions[state.id] = "t";
+            }
+
+            remove_state(state);
+            add_state(state);
+        });
+    });
+
     /* DATASET LOADING/POLLING */
 
     var states_dataset = new Miso.Dataset({
