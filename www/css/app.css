@@ -63,7 +63,7 @@ h3 {
 
 
 /* ELECTRIS */
-#states,.undecided {
+#states,.bucket.undecided {
     font-size:20px;
 }
 
@@ -143,15 +143,15 @@ h3 {
     filter: flipv; /*IE*/
 }
 
-.undecided {
+.bucket.undecided {
     margin-bottom:1em;
 }
 
-.undecided .state {
+.bucket.undecided .state {
 	padding-bottom: 6px;
 }
 
-.undecided:after, .undecided .state:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.bucket.undecided:after, .bucket.undecided .state:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 
 #resetBtn {
 	float: right;
@@ -313,13 +313,13 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
     #results,#blog { width:100%; }
 }
 @media (max-width: 500px) {
-    #states,.undecided { font-size:12px; }
+    #states,.bucket.undecided { font-size:12px; }
     .nav .arts, .nav .music { display: none; }
 }
 @media (min-width: 960px) {
-    #states,.undecided { font-size:20px; }
+    #states,.bucket.undecided { font-size:20px; }
 }
 @media (min-width: 1200px) {
-    #states,.undecided { font-size:24px; }
+    #states,.bucket.undecided { font-size:24px; }
 }
 
