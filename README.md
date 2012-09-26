@@ -25,3 +25,8 @@ Cron job:
 
 ```* * * * * $ENV_PATH/bin/python $REPO_PATH/fetch_ap_results.py```
 
+Modes
+-----
+
+Electris can run in two modes: Forecasting and Election Night. Currently the mode can be set by toggling the ``IS_ELECTION_NIGHT`` variable at the top of ``app.js``.
+

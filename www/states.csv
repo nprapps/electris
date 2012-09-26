@@ -1,5 +1,5 @@
 id,stateface,name,electoral_votes,prediction,ap_call,accept_ap_call,npr_call,total_precincts,precincts_reporting,rep_vote_count,dem_vote_count
-al,B,Alabama,9,sr,u,y,d,,,,
+al,B,Alabama,9,sr,u,y,n,,,,
 ak,A,Alaska,3,sr,u,y,n,183,18,22455,18372
 az,D,Arizona,11,lr,u,y,n,1664,452,218802,238896
 ar,C,Arkansas,6,sr,u,y,n,2342,0,0,0
@@ -41,12 +41,12 @@ pa,l,Pennsylvania,20,ld,u,y,n,9252,0,0,0
 ri,m,Rhode Island,4,sd,u,y,n,,,,
 sc,n,South Carolina,9,sr,u,y,n,2136,0,0,0
 sd,o,South Dakota,3,sr,u,y,n,710,351,35973,46009
-tn,p,Tennessee,11,sr,u,y,r,2071,0,0,0
+tn,p,Tennessee,11,sr,u,y,n,2071,0,0,0
 tx,q,Texas,38,sr,u,y,n,9092,0,0,0
 ut,r,Utah,6,sr,u,y,n,2114,581,88452,104043
 vt,t,Vermont,3,t,u,n,n,258,81,25601,31226
 va,s,Virginia,13,t,u,n,n,2542,0,0,0
 wa,u,Washington,12,sd,u,y,n,2001,0,0,0
-wv,w,West Virginia,5,t,u,y,d,1846,0,0,0
+wv,w,West Virginia,5,sr,u,y,n,1846,0,0,0
 wi,v,Wisconsin,10,t,u,n,n,3516,1163,395512,384970
 wy,x,Wyoming,3,sr,u,y,n,481,0,0,0
