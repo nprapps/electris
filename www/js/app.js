@@ -298,6 +298,8 @@ $(function() {
             remove_state(state);
             add_state(state);
         });
+
+        compute_stats();
     });
 
     /* DATASET LOADING/POLLING */
