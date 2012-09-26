@@ -324,11 +324,6 @@ $(function() {
                 }
                 
                 if (delta.changed[key] != delta.old[key]) {
-                    console.log("found change");
-                    console.log(key)
-                    console.log(delta.changed[key])
-                    console.log(delta.old[key])
-
                     if (key === "ap_call" || key === "accept_ap_call" || key === "npr_call" ||
                         key === "dem_vote_count" || key === "rep_vote_count" || key === "precints_reporting") {
                         remove_state(delta.old);
