@@ -187,68 +187,61 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 #playercon, #comingsoon { visibility: hidden; } */
 
 
-/* TABS */
-#offices {
-	margin: 0 0 24px 0;
-	padding: 0;
-	list-style: none;
-}
-#offices li { 
-	width: 33.3%;
-	float: left;
-}
-#offices ul {
-	margin: 0; padding: 0; list-style: none;
-}
-#offices div {
+/* TOPLINE */
+#topline {
 	background-color: #f1f1f1;
-	border: 1px solid #ccc;
-	border-left: none;
-	height: 100px; overflow: hidden;
-	padding: 0 12px;
-	cursor: pointer;
+	margin: 0 -10px 2em -10px;
 }
-#offices li#o-president div {
-	border-left: 1px solid #ccc;
+#topline .wrap {
+	padding: 0 1em 1em 1em;
+	border-right: 2px solid #fff;
 }
-#offices li.active div {
-	border-bottom: 1px solid #FFF;
-	background-color: #FFF;
+#topline #o-house .wrap {
+	border-right: none;
 }
-#offices h3 {
+#topline h3 {
 	margin: 0 0 .3em 0;
 	padding-top: 12px;
 	color: #000;
 }
-#offices li:hover h3 {
-	text-decoration: underline;
+#topline h6 {
+	font: normal .85em Arial, Helvetica, sans-serif;
+	color: #999;
+	margin: 0;
 }
-#offices li li {
-	width: auto;
-	float: none;
-	margin-bottom: 0;
-	white-space: nowrap;
+#topline ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#topline ul li {
+	margin: 0 0 .2em 0;
+	padding: 0;
+	whitespace: nowrap;
 	overflow: hidden;
 }
-#offices li li strong, #offices li li span, #offices li li b {
+#topline .full { display: inline; }
+#topline .abbr { display: none; }
+#topline strong {
 	display: inline-block;
 }
-#offices li li strong {
-	white-space: nowrap;
-	width: 6em;
-}
-#offices li li .bar {
+/*
+#topline .bar {
 	width: 55%;
 	overflow: hidden;
 }
-#offices li li .bar b {
+#topline .bar b {
 	height: 1em;
 }
-#offices li li votes {
-	width: 25px;
-	width: 10%;
+*/
+#topline .votes, #topline .pickups {
+	width: 20%;
+	text-align: right;
+	display: inline-block;
+	float: right;
+	padding-right: 2px;
 }
-#offices:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+#topline:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 
 
 /* LIVEBLOG */
@@ -315,4 +308,19 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 @media (min-width: 1200px) {
     #states,.bucket.undecided { font-size:24px; }
 }
-
+@media (max-width: 480px) {
+	#header { margin-left: -10px; margin-right: -10px; margin-bottom: 0; }
+	#header h1 { font-size: 1.5em; line-height: 1.2em; padding-top: 21px; }
+	#header h3 { font-size: .9em; font-family: Arial, Helvetica, sans-serif; font-style: normal; }
+	#playercon { height: 80px }
+	#playercon #playerstatus { bottom: 0; top: auto; }
+	#playercon .speaking { font: 13px Arial;  margin: 3px 0 0 52px; float: none; line-height: 17px; max-width: auto; white-space: normal; padding-bottom: 12px; display: block; }
+	#playercon #attrOnStageBio { display: block; }
+	
+	#topline .span4 { width: 33%; float: left; }
+	#topline h3 { font-size: 1em; }
+	#topline h6 { margin-bottom: .5em; }
+	#topline .full { display: none; }
+	#topline .abbr { display: inline; }
+	#topline ul li { margin-bottom: 0; font-size: .9em; }
+}
