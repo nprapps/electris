@@ -3,8 +3,13 @@ $(function() {
     var MIN_VOTES_FOR_COMBOS = 40;
     var MIN_STATES_FOR_COMBOS = 5;
     var STATE_TEMPLATE = $("#state").html();
-    var IS_ELECTION_NIGHT = true;
+    var IS_ELECTION_NIGHT = false;
     var POLLING_INTERVAL = 1000;
+
+    /* Elements */
+    var red_bucket = $(".bucket.red");
+    var blue_bucket = $(".bucket.blue");
+    var undecided_bucket = $(".bucket.undecided");
 
     /* State data */
     var state_votes = {};
@@ -45,21 +50,45 @@ $(function() {
             is_election_night: IS_ELECTION_NIGHT
         });
 
-        if (state.id in user_predictions) {
-            if (user_predictions[state.id] === "r") {
-                $(".bucket.red").append(html);
+        if (IS_ELECTION_NIGHT) {
+            if (state.npr_call === "r") {
+                red_bucket.append(html);
+            } else if (state.npr_call === "d") {
+                blue_bucket.append(html);
+            } else if (state.npr_call === "t") {
+                undecided_bucket.append(html);
+            } else if (state.ap_call === "r" && state.accept_ap_call === "y") {
+                red_bucket.append(html);
+            } else if (state.ap_call === "d" && state.accept_ap_call === "y") {
+                blue_bucket.append(html);
+            } else if (state.ap_call === "t" && state.accept_ap_call === "y") {
+                undecided_bucket.append(html);
+            } else if (user_predictions[state.id] === "r") {
+                red_bucket.append(html);
             } else if (user_predictions[state.id] === "d") {
-                $(".bucket.blue").append(html);
+                blue_bucket.append(html);
             } else if (user_predictions[state.id] === "t") {
-                $(".bucket.undecided").append(html);
+                undecided_bucket.append(html);
+            } else {
+                undecided_bucket.append(html);
             }
         } else {
-            if (state.prediction === "sr" || state.prediction === "lr") {
-                $(".bucket.red").append(html);
-            } else if (state.prediction === "sd" || state.prediction === "ld") {
-                $(".bucket.blue").append(html);
-            } else if (state.prediction === "t") {
-                $(".bucket.undecided").append(html);
+            if (state.id in user_predictions) {
+                if (user_predictions[state.id] === "r") {
+                    red_bucket.append(html);
+                } else if (user_predictions[state.id] === "d") {
+                    blue_bucket.append(html);
+                } else if (user_predictions[state.id] === "t") {
+                    undecided_bucket.append(html);
+                }
+            } else {
+                if (state.prediction === "sr" || state.prediction === "lr") {
+                    red_bucket.append(html);
+                } else if (state.prediction === "sd" || state.prediction === "ld") {
+                    blue_bucket.append(html);
+                } else {
+                    undecided_bucket.append(html);
+                }
             }
         }
 
@@ -86,11 +115,23 @@ $(function() {
         red_states = states_dataset.where({
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
-                if (row.id in user_predictions && user_predictions[row.id] === "r") {
-                    return true;
-                }
+                if (IS_ELECTION_NIGHT) {
+                    if (row.npr_call === "r") {
+                        return true;
+                    } else if (row.ap_call === "r" && row.accept_ap_call === "y") {
+                        return true;
+                    } else if (row.id in user_predictions && user_predictions[row.id] === "r") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (row.id in user_predictions && user_predictions[row.id] === "r") {
+                        return true;
+                    }
 
-                return (row.prediction === "sr" || row.prediction === "lr");
+                    return (row.prediction === "sr" || row.prediction === "lr");
+                }
             }
         });
 
@@ -100,11 +141,23 @@ $(function() {
         blue_states = states_dataset.where({
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
-                if (row.id in user_predictions && user_predictions[row.id] === "d") {
-                    return true;
-                }
+                if (IS_ELECTION_NIGHT) {
+                    if (row.npr_call === "d") {
+                        return true;
+                    } else if (row.ap_call === "d" && row.accept_ap_call === "y") {
+                        return true;
+                    } else if (row.id in user_predictions && user_predictions[row.id] === "d") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (row.id in user_predictions && user_predictions[row.id] === "d") {
+                        return true;
+                    }
 
-                return (row.prediction === "sd" || row.prediction === "ld");
+                    return (row.prediction === "sd" || row.prediction === "ld");
+                }
             }
         });
 
@@ -114,11 +167,23 @@ $(function() {
         undecided_states = states_dataset.where({
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
-                if (row.id in user_predictions && user_predictions[row.id] !== "t") {
-                    return false;
-                }
+                if (IS_ELECTION_NIGHT) {
+                    if (row.npr_call !== "n" && row.npr_call !== "t") {
+                        return false;
+                    } else if (row.ap_call !== "t" && row.accept_ap_call === "y") {
+                        return false;
+                    } else if (row.id in user_predictions && user_predictions[row.id] !== "t") {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else {
+                    if (row.id in user_predictions && user_predictions[row.id] === "t") {
+                        return true;
+                    }
 
-                return (row.prediction === "t");
+                    return (row.prediction === "t");
+                }
             }
         });
 
@@ -201,6 +266,8 @@ $(function() {
             var total = _.reduce(combo.combo, function(memo, id) { return memo + state_votes[id]; }, 0);
             $("#blue-combos").append("<li>" + names.join(" + ") + " = " + total + "</li>");
         });
+
+        $("#combos").show();
     }
 
     function update_bucket_height() {
@@ -262,7 +329,7 @@ $(function() {
                     console.log(delta.changed[key])
                     console.log(delta.old[key])
 
-                    if (key === "prediction") {
+                    if (key === "ap_call" || key === "accept_ap_call" || key === "npr_call") {
                         remove_state(delta.old);
                         add_state(delta.changed);
 
@@ -350,11 +417,11 @@ $(function() {
                 return (row.id == state_id);
             }}).rowByPosition(0);
 
-            if (is_within($(".bucket.blue"))) {
+            if (is_within(blue_bucket)) {
                 user_predictions[state_id] = "d";
-            } else if (is_within($(".bucket.red"))) {
+            } else if (is_within(red_bucket)) {
                 user_predictions[state_id] = "r";
-            } else if (is_within($(".bucket.undecided"))) {
+            } else if (is_within(undecided_bucket)) {
                 user_predictions[state_id] = "t";
             }
 
@@ -405,7 +472,7 @@ $(function() {
     /* RESET PICKS */
 
     $('#resetBtn').click(function() {
-    	$('.bucket.undecided').prepend($('#buckets').find('.state'));
+    	undecided_bucket.prepend($('#buckets').find('.state'));
     });
     /* TODO: only the picks that are based on predictions should be reset.
     	picks based on actual live results should not move. */
