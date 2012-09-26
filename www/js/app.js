@@ -61,7 +61,7 @@ $(function() {
                 red_bucket.append(html);
             } else if (state.ap_call === "d" && state.accept_ap_call === "y") {
                 blue_bucket.append(html);
-            // User predictions override AP "undecided"
+            // User predictions supercede AP "undecided"
             //} else if (state.ap_call === "u" && state.accept_ap_call === "y") {
             //    undecided_bucket.append(html);
             } else if (user_predictions[state.id] === "r") {
@@ -289,7 +289,7 @@ $(function() {
         uniqueAgainst: "id",
         sync: true
     });
-
+    
     states_dataset.fetch().then(function() {
         /*
          * After initial data load, setup stats and such.
@@ -327,8 +327,37 @@ $(function() {
                 if (delta.changed[key] != delta.old[key]) {
                     if (key === "ap_call" || key === "accept_ap_call" || key === "npr_call" ||
                         key === "dem_vote_count" || key === "rep_vote_count" || key === "precints_reporting") {
-                        remove_state(delta.old);
-                        add_state(delta.changed);
+                        var old_state = delta.old;
+                        var state = delta.changed;
+
+                        remove_state(old_state);
+                        add_state(state);
+
+                        if (key === "ap_call" && state.accept_ap_call === "y") {
+                            // Uncalled!
+                            if (state.ap_call === "u") {
+                                alert("The Associated Press has reversed its call for " + state.name + ". This state's result is undecided.");
+                            } else {
+                                // Called
+                                if (old_state.ap_call === "u") {
+                                    alert("The Associated Press has called " + state.name + " for the " + (state.ap_call ==="r" ? "Republicans" : "Democrats") + ".");
+                                } else {
+                                    alert("The Associated Press has changed its call for " + state.name + ". This state is now called for the " + (state.ap_call ==="r" ? "Republicans" : "Democrats") + ".");
+                                }
+                            }
+                        } else if (key === "npr_call") {
+                            // Uncalled!
+                            if (state.npr_call === "u" || state.npr_call === "n") {
+                                alert("NPR has reversed its call for " + state.name + ". This state's result is undecided.");
+                            } else {
+                                // Called
+                                if (old_state.npr_call === "u" || old_state.npr_call === "n") {
+                                    alert("NPR has called " + state.name + " for the " + (state.npr_call ==="r" ? "Republicans" : "Democrats") + ".");
+                                } else {
+                                    alert("NPR has changed its call for " + state.name + ". This state is now called for the " + (state.npr_call ==="r" ? "Republicans" : "Democrats") + ".");
+                                }
+                            }
+                        }
 
                         real_changes = true;
                     }
