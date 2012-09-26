@@ -3,7 +3,7 @@ $(function() {
     var MIN_VOTES_FOR_COMBOS = 40;
     var MIN_STATES_FOR_COMBOS = 5;
     var STATE_TEMPLATE = $("#state").html();
-    var IS_ELECTION_NIGHT = false;
+    var IS_ELECTION_NIGHT = true;
     var POLLING_INTERVAL = 1000;
 
     /* Elements */
