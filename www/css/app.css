@@ -35,32 +35,6 @@ h3 {
 .i_favored { background-color: #ccc; color: #333; }
 .tossup { background-color: #f7e39b; color: #77631b; }
 */
-.state i { background-color: #f7e39b; color: #77631b; }
-.state:hover i { color: #b39429; }
-
-/* Before election night: shade by forecast */
-.state.prediction-sd i { background-color: #3d7fa6; color: #fff; }
-.state.prediction-ld i { background-color: #7dbfe6; color: #fff; }
-.state.prediction-t i { background-color: #f7e39b; color: #77631b; }
-.state.prediction-t:hover i { color: #b39429; }
-.state.prediction-lr i { background-color: #e27560; color: #fff; }
-.state.prediction-sr i { background-color: #a23520; color: #fff; }
-
-/* On election night: shade by call */
-.state.ap-call-d i { background-color: #3d7fa6; color: #fff; }
-.state.ap-call-u i { background-color: #f7e39b; color: #77631b; }
-.state.ap-call-u:hover i { color: #b39429; }
-.state.ap-call-r i { background-color: #a23520; color: #fff; }
-
-.state.npr-call-d i { background-color: #3d7fa6; color: #fff; }
-.state.npr-call-u i { background-color: #f7e39b; color: #77631b; }
-.state.npr-call-u:hover i { color: #b39429; }
-.state.npr-call-r i { background-color: #a23520; color: #fff; }
-
-#offices li li.blue .bar b { background-color: #3d7fa6; }
-#offices li li.red .bar b { background-color: #a23520; }
-#offices li li.undecided .bar b { background-color: #ccc; }
-
 
 /* ELECTRIS */
 #states,.bucket.undecided {
@@ -71,18 +45,6 @@ h3 {
     position:relative;
     float:left;
     clear:left;
-}
-
-.state:hover {
-    cursor:move;
-}
-.state:hover i {
-	color: #F7E39B;
-/*
-    -moz-box-shadow: 0px 0px 10px 1px #FF0;
-    -webkit-box-shadow: 0px 0px 10px 1px #FF0;
-    box-shadow: 0px 0px 10px 1px #FF0;
-*/
 }
 
 .state {
@@ -104,11 +66,42 @@ h3 {
     margin-right:.1em;
     margin-bottom:.1em;
     height:.9em;
+
+    background-color: #f7e39b;
+    color: #77631b;
 }
+
+.state:hover { cursor: move; }
+.state:hover i { color: #b39429; }
 
 .state i span {
     font-size:.7em;
 }
+
+/* Before election night: shade by forecast */
+.state.prediction-sd i { background-color: #3d7fa6; color: #fff; }
+.state.prediction-ld i { background-color: #7dbfe6; color: #fff; }
+.state.prediction-t i { background-color: #f7e39b; color: #77631b; }
+.state.prediction-t:hover i { color: #b39429; }
+.state.prediction-lr i { background-color: #e27560; color: #fff; }
+.state.prediction-sr i { background-color: #a23520; color: #fff; }
+
+/* On election night: shade by call */
+.state.called:hover { cursor: default; }
+
+.state.ap-call-d i { background-color: #3d7fa6; color: #fff; }
+.state.ap-call-u i { background-color: #f7e39b; color: #77631b; }
+.state.ap-call-u:hover i { color: #b39429; }
+.state.ap-call-r i { background-color: #a23520; color: #fff; }
+
+.state.npr-call-d i { background-color: #3d7fa6; color: #fff; }
+.state.npr-call-u i { background-color: #f7e39b; color: #77631b; }
+.state.npr-call-u:hover i { color: #b39429; }
+.state.npr-call-r i { background-color: #a23520; color: #fff; }
+
+#offices li li.blue .bar b { background-color: #3d7fa6; }
+#offices li li.red .bar b { background-color: #a23520; }
+#offices li li.undecided .bar b { background-color: #ccc; }
 
 .line {
     bottom:26.9em;

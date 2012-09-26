@@ -55,14 +55,15 @@ $(function() {
                 red_bucket.append(html);
             } else if (state.npr_call === "d") {
                 blue_bucket.append(html);
-            } else if (state.npr_call === "t") {
+            } else if (state.npr_call === "u") {
                 undecided_bucket.append(html);
             } else if (state.ap_call === "r" && state.accept_ap_call === "y") {
                 red_bucket.append(html);
             } else if (state.ap_call === "d" && state.accept_ap_call === "y") {
                 blue_bucket.append(html);
-            } else if (state.ap_call === "t" && state.accept_ap_call === "y") {
-                undecided_bucket.append(html);
+            // User predictions override AP "undecided"
+            //} else if (state.ap_call === "u" && state.accept_ap_call === "y") {
+            //    undecided_bucket.append(html);
             } else if (user_predictions[state.id] === "r") {
                 red_bucket.append(html);
             } else if (user_predictions[state.id] === "d") {
@@ -168,9 +169,9 @@ $(function() {
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
                 if (IS_ELECTION_NIGHT) {
-                    if (row.npr_call !== "n" && row.npr_call !== "t") {
+                    if (row.npr_call !== "n" && row.npr_call !== "u") {
                         return false;
-                    } else if (row.ap_call !== "t" && row.accept_ap_call === "y") {
+                    } else if (row.ap_call !== "u" && row.accept_ap_call === "y") {
                         return false;
                     } else if (row.id in user_predictions && user_predictions[row.id] !== "t") {
                         return false;
@@ -362,10 +363,16 @@ $(function() {
 
     $(".state").live("mousedown", function(e) {
         e = e || window.event
+        
+        dragging_state = $(this);
+
+        // Called states can't be moved
+        if (dragging_state.hasClass("called")) {
+            return;
+        }
 
         dragging = true;
         dragging_new = true;
-        dragging_state = $(this);
 
         // Mouse position dragging behavior is not consistent
         //var x = dragging_state.offset().left;
