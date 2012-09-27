@@ -307,9 +307,23 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 
 
 /* PRESIDENTIAL RESULTS */
+#pres-nav li { cursor: pointer; }
+#pres-nav li, #pres-results #pres-closing span { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+
 #pres-results { margin-bottom: 24px; }
 #pres-results h2 { margin-bottom: 12px; }
 #pres-results .results { margin: 0; padding: 0; list-style: none; }
+#pres-results .results li {
+	border-bottom: 1px dotted #CCC;
+	padding: 6px 0;
+	font-size: 13px
+}
+#pres-results #pres-watching li:first-child,
+#pres-results #pres-called li:first-child { 
+	padding-top: 0;
+	font-weight: bold;
+}
+
 #pres-results b {
 	font: normal 1em StateFaceRegular;
     text-align: center;
@@ -323,30 +337,54 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
     background-color: #f7e39b;
     color: #77631b;
 }
-#pres-results #pres-closing li {
-}
 #pres-results #pres-closing strong {
-	display: inline-block;
-	white-space: nowrap;
-	width: 72px;
+	display: block;
+	float: left;
+	width: 75px;
 }
 #pres-results #pres-closing span {
 	padding: 3px 6px;
 	border-radius: 6px;
 	white-space: nowrap;
-	display: inline-block;
+	display: block;
+	float: left;
+	cursor: move;
+	margin: 0 3px 3px 0;
+}
+#pres-results .note {
+	display: block;
+	clear: both;
+	color: #666;
+	font-size: 11px;
+	line-height: 1.2em;
+	padding-top: 6px;
 }
 
 #pres-results #pres-called b { color: #333; }
 
-#pres-results .results li {
-	border-bottom: 1px dotted #CCC;
-	padding: 6px 0;
-	font-size: 13px
-}
-#pres-results .results li:first-child { padding-top: 0; }
 #pres-results .s, #pres-results .blue, #pres-results .red { width: 33%; float: left; }
-#pres-results .blue, #pres-results .red { text-align: right; }
+#pres-results .blue,
+#pres-results .red { text-align: center; }
+
+#pres-results .blue.winner {
+	font-weight: bold;
+	color: #fff;
+	background-color: #3d7fa6;
+}
+#pres-results .red.winner {
+	font-weight: bold;
+	color: #fff;
+	background-color: #a23520;
+}
+
+/*
+.d_safe { background-color: #3d7fa6; color: #FFF; }
+.d_favored { background-color: #7dbfe6; color: #28556f; }
+.r_safe { background-color: #a23520; color: #FFF; }
+.r_favored { background-color: #e27560; color: #6c2315; }
+*/
+
+
 #pres-results .s i {
 	display: block;
 	color: #666;
