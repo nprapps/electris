@@ -283,30 +283,6 @@
 	            	    				Romney (R)
 	            	    			</span>
 	            	    		</li>
-	            	    		<li>
-	            	    			<span class="s">
-	            	    				<b>B</b><strong>Alabama</strong>
-	            	    				<i>20% reporting</i>
-	            	    			</span>
-	            	    			<span class="blue">
-	            	    				50%
-	            	    			</span>
-	            	    			<span class="red">
-	            	    				50%
-	            	    			</span>
-	            	    		</li>
-	            	    		<li>
-	            	    			<span class="s">
-	            	    				<b>q</b><strong>Texas</strong>
-	            	    				<i>20% reporting</i>
-	            	    			</span>
-	            	    			<span class="blue">
-	            	    				50%
-	            	    			</span>
-	            	    			<span class="red">
-	            	    				50%
-	            	    			</span>
-	            	    		</li>
 	            	    	</ul>
 	            	    	
 	            	    	<ul id="pres-called" class="results">
@@ -317,18 +293,6 @@
 	            	    			</span>
 	            	    			<span class="red">
 	            	    				Romney (R)
-	            	    			</span>
-	            	    		</li>
-	            	    		<li>
-	            	    			<span class="s">
-	            	    				<b>B</b><strong>Alabama</strong>
-	            	    				<i>20% reporting</i>
-	            	    			</span>
-	            	    			<span class="blue">
-	            	    				50%
-	            	    			</span>
-	            	    			<span class="red" class="winner">
-	            	    				50%
 	            	    			</span>
 	            	    		</li>
 	            	    		<li>
@@ -415,12 +379,34 @@
         
     </div>
     
-    <script id="state" type='text/template'>
+    <script id="state-template" type="text/template">
         <div class="state <%= state.id %> <% if (is_election_night) { %><% if (state.npr_call !== 'n') { %>npr-call-<%= state.npr_call %> called<% } else if (state.accept_ap_call === 'y' && state.ap_call !== 'u') { %>ap-call-<%= state.ap_call %> called<% } %><% } else { %> prediction-<%= state.prediction %><% } %>" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
                 <i data-placement="top" data-title="<%= state.name %>" data-content="Electoral votes: <%= state.electoral_votes %><br />Polls close: <%= state.polls_close.format('h:mm a') %><% if (is_election_night) { %><br />Obama: <%= state.dem_vote_count %><br />Romney: <%= state.rep_vote_count %><br />Precincts: <%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>%<% } %>"><span><%= state.stateface %></span></i>
             <% }); %>
         </div>
+    </script>
+
+    <script id="reporting-template" type="text/template">
+        <li>
+            <span class="s">
+                <b><%= state.stateface %></b><strong><%= state.name %></strong>
+                <i><span class="reporting"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %></span>% reporting</i>
+            </span>
+            <span class="blue">
+                <span class="votes"><%= Math.round(state.dem_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %></span>%
+            </span>
+            <span class="red">
+                <span class="votes"><%= Math.round(state.rep_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %></span>%
+            </span>
+        </li>
+    </script>
+
+    <script id="coming-up-template" type="text/template">
+ 		<li>
+            <strong><%= state.polls_close.format("h:mm a") %> ET</strong>
+            <span><b><%= state.stateface %></b><%= state.name %> (<%= state.electoral_votes %>)</span>
+        </li>
     </script>
 
     <!--[if lt IE 9]>

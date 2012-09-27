@@ -2,7 +2,9 @@ $(function() {
     /* Settings */
     var MIN_VOTES_FOR_COMBOS = 40;
     var MIN_STATES_FOR_COMBOS = 5;
-    var STATE_TEMPLATE = $("#state").html();
+    var STATE_TEMPLATE = $("#state-template").html();
+    var REPORTING_TEMPLATE = $("#reporting-template").html();
+    var COMING_UP_TEMPLATE = $("#coming-up-template").html();
     var IS_ELECTION_NIGHT = true;
     var POLLING_INTERVAL = 1000;
     var MIN_TETRIS_WIDTH = 480;
@@ -332,19 +334,43 @@ $(function() {
         /*
          * After initial data load, setup stats and such.
          */
-        states_dataset.each(function(row) {
+        states_dataset.each(function(state) {
             // On election night we save the prediction,
             // but don't use it right away
             if (IS_ELECTION_NIGHT) {
-                state_predictions[row.id] = row.prediction;
-                row.prediction = "t";
+                state_predictions[state.id] = state.prediction;
+                state.prediction = "t";
             }
 
-            add_state(row);
+            add_state(state);
+
+            // Called!
+            if (state.npr_call === "r" || state.npr_call === "d" || (state.accept_ap_call && (state.ap_call === "r" || state.ap_call === "d"))) {
+                 var html = _.template(REPORTING_TEMPLATE, {
+                    state: state
+                });
+
+                $("#pres-called").append(html);
+               // TODO
+            // Coming in!
+            } else if (state.precincts_reporting > 0) {
+                var html = _.template(REPORTING_TEMPLATE, {
+                    state: state
+                });
+
+                $("#pres-watching").append(html);
+            // Coming up!
+            } else {
+                var html = _.template(COMING_UP_TEMPLATE, {
+                    state: state
+                });
+
+                $("#pres-closing").append(html);
+            }
 
             // Build lookup tables
-            state_votes[row.id] = row.electoral_votes;
-            state_names[row.id] = row.name;
+            state_votes[state.id] = state.electoral_votes;
+            state_names[state.id] = state.name;
         });
 
         compute_stats();
@@ -557,7 +583,7 @@ $(function() {
 	$('#pres-nav').find('li').click(function() {
 		$('#' + $(this).attr('id').substr(4)).show().siblings('.results').hide();
 		$(this).addClass('active').siblings('li').removeClass('active');
-		return false();
+		return false;
 	});
 	$('#pres-nav li:eq(0)').trigger('click');
 });
