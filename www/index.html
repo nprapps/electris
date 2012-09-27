@@ -229,7 +229,7 @@
 		            </div>
 
 		            <div class="span3">
-		            	<div class="well">
+		            	<div class="well" id="game-info">
 
 			            	<h3>Game It Out</h3>
 		            		<button id="resetBtn" class="btn btn-mini" type="button">Reset</button>
@@ -263,26 +263,112 @@
 							</div>
 
 	            	    </div>
+	            	    
+	            	    <div id="pres-results">
+			                <h2>Presidential Results</h2>
+
+	            	    	<ul class="nav nav-tabs" id="pres-nav">
+	            	    		<li id="nav-pres-watching"><a>Coming In</a></li>
+	            	    		<li id="nav-pres-called"><a>Called</a></li>
+	            	    		<li id="nav-pres-closing"><a>Coming Up</a></li>
+	            	    	</ul>
+	            	    	
+	            	    	<ul id="pres-watching" class="results">
+	            	    		<li>
+	            	    			<span class="s">&nbsp;</span>
+	            	    			<span class="blue">
+	            	    				Obama (D)
+	            	    			</span>
+	            	    			<span class="red">
+	            	    				Romney (R)
+	            	    			</span>
+	            	    		</li>
+	            	    		<li>
+	            	    			<span class="s">
+	            	    				<b>B</b><strong>Alabama</strong>
+	            	    				<i>20% reporting</i>
+	            	    			</span>
+	            	    			<span class="blue">
+	            	    				50%
+	            	    			</span>
+	            	    			<span class="red">
+	            	    				50%
+	            	    			</span>
+	            	    		</li>
+	            	    		<li>
+	            	    			<span class="s">
+	            	    				<b>q</b><strong>Texas</strong>
+	            	    				<i>20% reporting</i>
+	            	    			</span>
+	            	    			<span class="blue">
+	            	    				50%
+	            	    			</span>
+	            	    			<span class="red">
+	            	    				50%
+	            	    			</span>
+	            	    		</li>
+	            	    	</ul>
+	            	    	
+	            	    	<ul id="pres-called" class="results">
+	            	    		<li>
+	            	    			<span class="s">&nbsp;</span>
+	            	    			<span class="blue">
+	            	    				Obama (D)
+	            	    			</span>
+	            	    			<span class="red">
+	            	    				Romney (R)
+	            	    			</span>
+	            	    		</li>
+	            	    		<li>
+	            	    			<span class="s">
+	            	    				<b>B</b><strong>Alabama</strong>
+	            	    				<i>20% reporting</i>
+	            	    			</span>
+	            	    			<span class="blue">
+	            	    				50%
+	            	    			</span>
+	            	    			<span class="red" class="winner">
+	            	    				50%
+	            	    			</span>
+	            	    		</li>
+	            	    		<li>
+	            	    			<span class="s">
+	            	    				<b>q</b><strong>Texas</strong>
+	            	    				<i>20% reporting</i>
+	            	    			</span>
+	            	    			<span class="blue" class="winner">
+	            	    				50%
+	            	    			</span>
+	            	    			<span class="red">
+	            	    				50%
+	            	    			</span>
+	            	    		</li>
+	            	    	</ul>
+	            	    	
+	            	    	<ul id="pres-closing" class="results">
+	            	    		<li>
+	            	    			<strong>8 p.m. ET</strong>
+	            	    			<span><b>q</b>Texas (30)</span>
+	            	    			<span><b>B</b>Alabama (8)</span>
+	            	    			<span><b>D</b>Arizona (8)</span>
+	            	    		</li>
+	            	    		<li>
+	            	    			<strong>9 p.m. ET</strong>
+	            	    			<span><b>q</b>Texas (30)</span>
+	            	    			<span><b>B</b>Alabama (8)</span>
+	            	    			<span><b>D</b>Arizona (8)</span>
+	            	    		</li>
+	            	    		<li>
+	            	    			<strong>10 p.m. ET</strong>
+	            	    			<span><b>q</b>Texas (30)</span>
+	            	    			<span><b>B</b>Alabama (8)</span>
+	            	    			<span><b>D</b>Arizona (8)</span>
+	            	    		</li>
+	            	    	</ul>
+	            	    
+	            	    </div>
 		            </div>
                 </div>
-                
-            	<div class="row" id="senate">
-            		<div class="span3">
-	            		Col 1 of Senate results
-            		</div>
-            		<div class="span3">
-	            		Col 2 of Senate results
-            		</div>
-            	</div>
-
-            	<div class="row" id="house">
-            		<div class="span3">
-	            		Col 1 of KEY House results
-	            	</div>
-            		<div class="span3">
-	            		Col 2 of KEY House results
-	            	</div>
-            	</div>
                 
             </div>
             <div id="blog" class="span3">
@@ -306,7 +392,7 @@
                 </div>
                 <div id="blog_river_hold"></div>
                 
-                <!-- TODO: What happens when this list gets super-long? (Mark would have 100+ updates in a night during primary season.) Show the whole list, length be damned? Jump to another page? -->
+                <!-- TODO: Do we care if this list gets super-long? (Mark would have 100+ updates in a night during primary season.) -->
 
             </div>
         </div>

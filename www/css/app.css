@@ -24,6 +24,7 @@ h3 {
 	font: bold 1.1em Arial, Helvetica, sans-serif;
 	color: #333;
 }
+a.btn { color: #fff; cursor: pointer; }
 
 /* COLORS */
 /*
@@ -189,7 +190,7 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 /* TOPLINE */
 #topline {
 	background-color: #f1f1f1;
-	margin: 0 0 2em 0;
+	margin: 0 0 24px 0;
 }
 #topline .wrap {
 	padding-right: 20px;
@@ -255,6 +256,7 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 
 
 /* LIVEBLOG */
+#blog h2 { padding-left: 10px; }
 #blog_river_alert {
 	background-color: #FAFDFF;
 	border: 1px solid #D3E1EA;
@@ -304,6 +306,56 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 }
 
 
+/* PRESIDENTIAL RESULTS */
+#pres-results { margin-bottom: 24px; }
+#pres-results h2 { margin-bottom: 12px; }
+#pres-results .results { margin: 0; padding: 0; list-style: none; }
+#pres-results b {
+	font: normal 1em StateFaceRegular;
+    text-align: center;
+    display: inline-block;
+    width:1em;
+    margin-right: 4px;
+    height:1em;
+}
+#pres-results #pres-watching b, 
+#pres-results #pres-closing span {
+    background-color: #f7e39b;
+    color: #77631b;
+}
+#pres-results #pres-closing li {
+}
+#pres-results #pres-closing strong {
+	display: inline-block;
+	white-space: nowrap;
+	width: 72px;
+}
+#pres-results #pres-closing span {
+	padding: 3px 6px;
+	border-radius: 6px;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+#pres-results #pres-called b { color: #333; }
+
+#pres-results .results li {
+	border-bottom: 1px dotted #CCC;
+	padding: 6px 0;
+	font-size: 13px
+}
+#pres-results .results li:first-child { padding-top: 0; }
+#pres-results .s, #pres-results .blue, #pres-results .red { width: 33%; float: left; }
+#pres-results .blue, #pres-results .red { text-align: right; }
+#pres-results .s i {
+	display: block;
+	color: #666;
+	font-size: 11px;
+	font-style: normal;
+}
+#pres-nav:after, #pres-results .results li:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+
+
 
 @media (min-width: 960px) {
     #states,.bucket.undecided { font-size:20px; }
@@ -331,7 +383,7 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
     .nav .arts, .nav .music { display: none; }
 }
 @media (max-width: 480px) {
-	#header { margin-left: -10px; margin-right: -10px; margin-bottom: 0; }
+	#header { margin-left: -10px; margin-right: -10px; margin-bottom: 2px; }
 	#header h1 { font-size: 1.5em; line-height: 1.2em; padding-top: 21px; }
 	#header h3 { font-size: .9em; font-family: Arial, Helvetica, sans-serif; font-style: normal; }
 	#playercon { height: 80px }
@@ -343,6 +395,9 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	#topline h3 { font-size: 1em; }
 	#topline ul li { margin-bottom: 0; font-size: .9em; }
 	
+	#blog { margin-left: -10px; margin-right: -10px; float: none; width: auto; }
+	
 	/* HIDE ELECTRIS (also some corresponding code in the JS) */
-	#results { display: none; }
+	#states { display: none; }
+	#game-info { display: none; }
 }

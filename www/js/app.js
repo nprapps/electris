@@ -548,4 +548,13 @@ $(function() {
 
         compute_stats();
     });
+    
+    
+    /* PRESIDENTIAL RESULTS TABS */
+	$('#pres-nav').find('li').click(function() {
+		$('#' + $(this).attr('id').substr(4)).show().siblings('.results').hide();
+		$(this).addClass('active').siblings('li').removeClass('active');
+		return false();
+	});
+	$('#pres-nav li:eq(0)').trigger('click');
 });
