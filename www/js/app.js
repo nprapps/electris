@@ -320,6 +320,9 @@ $(function() {
     var states_dataset = new Miso.Dataset({
         url : "states.csv?t=" + (new Date()).getTime(),
         delimiter: ",",
+        columns: [
+            { name: "polls_close", type: "time", format: "YYYY-MM-DD h:mm A" }
+        ],
         interval: IS_ELECTION_NIGHT ? POLLING_INTERVAL : null,
         uniqueAgainst: "id",
         sync: true
