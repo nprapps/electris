@@ -5,6 +5,7 @@ $(function() {
     var STATE_TEMPLATE = $("#state").html();
     var IS_ELECTION_NIGHT = true;
     var POLLING_INTERVAL = 1000;
+    var MIN_TETRIS_WIDTH = 480;
 
     /* Elements */
     var red_bucket = $(".bucket.red");
@@ -44,6 +45,10 @@ $(function() {
         /*
          * Add the HTML for a state to the correct location.
          */
+        if ($(window).width() < MIN_TETRIS_WIDTH ) {
+            return;
+        }
+
         var html = _.template(STATE_TEMPLATE, {
             state: state,
             user_prediction: user_predictions[state.id],
@@ -106,6 +111,10 @@ $(function() {
         /*
          * Remove the HTML for a state.
          */
+        if ($(window).width() < MIN_TETRIS_WIDTH ) {
+            return;
+        }
+
         $(".state." + state.id).remove();
     }
 
@@ -276,6 +285,10 @@ $(function() {
          * Set the height of the tetris buckets to either 270 votes or higher if
          * we've already passed 270.
          */
+        if ($(window).width() < MIN_TETRIS_WIDTH ) {
+            return;
+        }
+
         var height = Math.max(27, Math.ceil(Math.max(red_votes, blue_votes) / 10));
         $("#buckets,#buckets .red,#buckets .blue").css("height", height + "em");
     }
