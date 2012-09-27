@@ -531,12 +531,4 @@ $(function() {
     /* TODO: only the picks that are based on predictions should be reset.
     	picks based on actual live results should not move. */
     	
-    /* TOP TABS */
-    $('#offices').find('li').click(function() {
-    	var tabName = $(this).attr('id').substring(2);
-    	$('#' + tabName).show().siblings('div.row').hide();
-    	$(this).addClass('active').siblings('li').removeClass('active');
-    });
-    $('#o-president').trigger('click');
-    
 });
