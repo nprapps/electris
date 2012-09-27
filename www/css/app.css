@@ -342,4 +342,7 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	#topline { margin-left: -10px; margin-right: -10px; }
 	#topline h3 { font-size: 1em; }
 	#topline ul li { margin-bottom: 0; font-size: .9em; }
+	
+	/* HIDE ELECTRIS (also some corresponding code in the JS) */
+	#results { display: none; }
 }
