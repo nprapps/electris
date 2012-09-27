@@ -539,9 +539,13 @@ $(function() {
     /* RESET PICKS */
 
     $('#resetBtn').click(function() {
-    	undecided_bucket.prepend($('#buckets').find('.state'));
+        user_predictions = {};
+
+        states_dataset.each(function(row) {
+            remove_state(row);
+            add_state(row);
+        });
+
+        compute_stats();
     });
-    /* TODO: only the picks that are based on predictions should be reset.
-    	picks based on actual live results should not move. */
-    	
 });
