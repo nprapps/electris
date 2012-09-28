@@ -9,6 +9,6 @@ latimes-calculate==0.1.8
 pusher==0.6
 pycrypto==2.6
 python-dateutil==1.5
-python-elections==0.35
+pytz==2012f
 ssh==1.7.14
 wsgiref==0.1.2

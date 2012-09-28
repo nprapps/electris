@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
+from datetime import datetime
 import json
 
 from flask import Flask
 from flask import render_template, request
+import pytz
 
 import cms_settings as settings
 from util import get_database, get_states, regenerate_csv, push_results_to_s3
@@ -23,9 +25,13 @@ def winners():
             prediction = request.form.get('prediction-%s' % state['id'], '')
             accept_ap_call = 'y' if request.form.get('accept-ap-call-%s' % state['id'], '') == 'on' else 'n'
             npr_call = request.form.get('npr-%s' % state['id'], '')
-            
+            npr_called_at = state['npr_called_at']
 
-            db.execute('UPDATE states SET prediction=?, accept_ap_call=?, npr_call=? WHERE id=?', (prediction, accept_ap_call, npr_call, state['id']))
+            # If NPR call updated, save time of change
+            if npr_call != state['npr_call']:
+                npr_called_at = datetime.now(tz=pytz.utc).strftime('%Y-%m-%dT%H:%M:%S %z');
+
+            db.execute('UPDATE states SET prediction=?, accept_ap_call=?, npr_call=?, npr_called_at=? WHERE id=?', (prediction, accept_ap_call, npr_call, npr_called_at, state['id']))
 
         db.commit()
 

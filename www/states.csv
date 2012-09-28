@@ -1,57 +1,57 @@
-id,stateface,name,abbr,electoral_votes,polls_close,prediction,ap_call,accept_ap_call,npr_call,total_precincts,precincts_reporting,rep_vote_count,dem_vote_count
-al,B,Alabama,Ala.,9,2012-11-06 08:00 PM,sr,u,y,n,2136,0,0,0
-ak,A,Alaska,Alaska,3,2012-11-76 01:00 AM,sr,u,y,n,183,0,0,0
-az,D,Arizona,Ariz.,11,2012-11-06 10:00 PM,lr,u,y,n,1664,0,0,0
-ar,C,Arkansas,Ark.,6,2012-11-06 08:30 PM,sr,u,y,n,2393,2393,312950,234712
-ca,E,California,Calif.,55,2012-11-06 11:00 PM,sd,u,y,n,21993,0,0,0
-co,F,Colorado,Colo.,9,2012-11-06 09:00 PM,t,u,n,n,9231,0,0,0
-ct,G,Connecticut,Conn.,7,2012-11-06 08:00 PM,sd,u,y,n,695,0,0,0
-de,H,Delaware,Del.,3,2012-11-06 08:00 PM,sd,u,y,n,348,0,0,0
-dc,y,District Of Columbia,D.C.,3,2012-11-06 08:00 PM,sd,u,y,n,143,0,0,0
-fl,I,Florida,Fla.,29,2012-11-06 07:00 PM,t,u,n,n,6153,0,0,0
-ga,J,Georgia,Ga.,16,2012-11-06 07:00 PM,sr,u,y,n,2855,0,0,0
-hi,K,Hawaii,Hawaii,4,2012-11-06 11:00 PM,sd,u,y,n,250,0,0,0
-id,M,Idaho,Idaho,4,2012-11-06 11:00 PM,sr,u,y,n,943,0,0,0
-il,N,Illinois,Ill.,20,2012-11-06 08:00 PM,sd,u,y,n,10448,0,0,0
-in,O,Indiana,Ind.,11,2012-11-06 06:00 PM,lr,r,y,n,5330,5330,984447,875065
-ia,L,Iowa,Iowa,6,2012-11-06 10:00 PM,t,u,n,n,1688,0,0,0
-ks,P,Kansas,Kan.,6,2012-11-06 08:00 PM,sr,u,y,n,3206,0,0,0
-ky,Q,Kentucky,Ky.,8,2012-11-06 06:00 PM,sr,r,y,n,3634,3634,691967,544740
-la,R,Louisiana,La.,8,2012-11-06 09:00 PM,sr,u,y,n,4267,0,0,0
-me,U,Maine Statewide,Maine,2,2012-11-06 08:00 PM,sd,u,y,n,599,0,0,0
-me1,U,Maine District 1,Maine,1,2012-11-06 08:00 PM,sd,u,y,n,,,,
-me2,U,Maine District 2,Maine,1,2012-11-06 08:00 PM,ld,u,y,n,,,,
-md,T,Maryland,Md.,10,2012-11-06 08:00 PM,sd,u,y,n,1892,0,0,0
-ma,S,Massachusetts,Mass.,11,2012-11-06 08:00 PM,sd,u,y,n,2172,0,0,0
-mi,V,Michigan,Mich.,16,2012-11-06 08:00 PM,ld,u,y,n,4937,0,0,0
-mn,W,Minnesota,Minn.,10,2012-11-06 09:00 PM,ld,u,y,n,4102,0,0,0
-ms,Y,Mississippi,Miss.,6,2012-11-06 08:00 PM,sr,u,y,n,1889,0,0,0
-mo,X,Missouri,Mo.,10,2012-11-06 08:00 PM,lr,u,y,n,3428,0,0,0
-mt,Z,Montana,Mont.,3,2012-11-06 10:00 PM,sr,r,y,n,794,794,177319,145079
-ne,c,Nebraska Statewide,Neb.,2,2012-11-06 09:00 PM,sr,u,y,n,1387,0,0,0
-ne1,c,Nebraska District 1,Neb.,1,2012-11-06 09:00 PM,sr,u,y,n,,,,
-ne2,c,Nebraska District 2,Neb.,1,2012-11-06 09:00 PM,lr,u,y,n,,,,
-ne3,c,Nebraska District 3,Neb.,1,2012-11-06 09:00 PM,sr,u,y,n,,,,
-nv,g,Nevada,Nev.,6,2012-11-06 10:00 PM,t,u,n,n,1845,0,0,0
-nh,d,New Hampshire,N.H.,4,2012-11-06 07:00 PM,t,u,n,n,301,0,0,0
-nj,e,New Jersey,N.J.,14,2012-11-06 08:00 PM,sd,u,y,n,6330,0,0,0
-nm,f,New Mexico,N.M.,5,2012-11-06 09:00 PM,ld,u,y,n,1541,0,0,0
-ny,h,New York,N.Y.,29,2012-11-06 09:00 PM,sd,u,y,n,14902,0,0,0
-nc,a,North Carolina,N.C.,15,2012-11-06 07:30 PM,lr,u,y,n,2895,0,0,0
-nd,b,North Dakota,N.D.,3,2012-11-06 08:00 PM,sr,u,y,n,426,0,0,0
-oh,i,Ohio,Ohio,18,2012-11-06 07:30 PM,t,d,y,n,9363,9363,1853147,2163265
-ok,j,Oklahoma,Okla.,7,2012-11-06 08:00 PM,sr,u,y,n,1960,0,0,0
-or,k,Oregon,Ore.,7,2012-11-06 11:00 PM,sd,u,y,n,1000,0,0,0
-pa,l,Pennsylvania,Pa.,20,2012-11-06 08:00 PM,ld,u,y,n,9252,0,0,0
-ri,m,Rhode Island,R.I.,4,2012-11-06 08:00 PM,sd,u,y,n,400,0,0,0
-sc,n,South Carolina,S.C.,9,2012-11-06 07:00 PM,sr,u,y,n,2136,0,0,0
-sd,o,South Dakota,S.D.,3,2012-11-06 09:00 PM,sr,u,y,n,710,0,0,0
-tn,p,Tennessee,Tenn.,11,2012-11-06 08:00 PM,sr,r,y,n,2071,2071,993080,822395
-tx,q,Texas,Texas,38,2012-11-06 08:00 PM,sr,u,y,n,9092,0,0,0
-ut,r,Utah,Utah,6,2012-11-06 10:00 PM,sr,d,y,n,2114,2114,295599,312753
-vt,t,Vermont,Vt.,3,2012-11-06 07:00 PM,t,u,n,n,258,0,0,0
-va,s,Virginia,Va.,13,2012-11-06 07:00 PM,t,u,n,n,2542,0,0,0
-wa,u,Washington,Wash.,12,2012-11-06 11:00 PM,sd,u,y,n,2001,0,0,0
-wv,w,West Virginia,W.Va.,5,2012-11-06 07:30 PM,sr,u,y,n,1846,0,0,0
-wi,v,Wisconsin,Wis.,10,2012-11-06 09:00 PM,t,u,n,n,3516,0,0,0
-wy,x,Wyoming,Wyo.,3,2012-11-06 09:00 PM,sr,u,y,n,481,0,0,0
+id,stateface,name,abbr,electoral_votes,polls_close,prediction,ap_call,ap_called_at,accept_ap_call,npr_call,npr_called_at,total_precincts,precincts_reporting,rep_vote_count,dem_vote_count
+al,B,Alabama,Ala.,9,2012-11-06 08:00 PM,sr,u,,y,n,,2136,0,0,0
+ak,A,Alaska,Alaska,3,2012-11-76 01:00 AM,sr,u,,y,n,,183,0,0,0
+az,D,Arizona,Ariz.,11,2012-11-06 10:00 PM,lr,u,,y,n,,1664,0,0,0
+ar,C,Arkansas,Ark.,6,2012-11-06 08:30 PM,sr,u,,y,n,,2393,2393,312950,234712
+ca,E,California,Calif.,55,2012-11-06 11:00 PM,sd,u,,y,n,,21993,0,0,0
+co,F,Colorado,Colo.,9,2012-11-06 09:00 PM,t,u,,n,n,,9231,0,0,0
+ct,G,Connecticut,Conn.,7,2012-11-06 08:00 PM,sd,u,,y,n,,695,0,0,0
+de,H,Delaware,Del.,3,2012-11-06 08:00 PM,sd,u,,y,n,,348,0,0,0
+dc,y,District Of Columbia,D.C.,3,2012-11-06 08:00 PM,sd,u,,y,n,,143,0,0,0
+fl,I,Florida,Fla.,29,2012-11-06 07:00 PM,t,u,,n,n,,6153,0,0,0
+ga,J,Georgia,Ga.,16,2012-11-06 07:00 PM,sr,u,,y,n,,2855,0,0,0
+hi,K,Hawaii,Hawaii,4,2012-11-06 11:00 PM,sd,u,,y,n,,250,0,0,0
+id,M,Idaho,Idaho,4,2012-11-06 11:00 PM,sr,u,,y,n,,943,0,0,0
+il,N,Illinois,Ill.,20,2012-11-06 08:00 PM,sd,u,,y,n,,10448,0,0,0
+in,O,Indiana,Ind.,11,2012-11-06 06:00 PM,lr,r,2012-09-28T19:24:40 +0000,y,n,,5330,5330,984447,875065
+ia,L,Iowa,Iowa,6,2012-11-06 10:00 PM,t,u,,n,n,,1688,0,0,0
+ks,P,Kansas,Kan.,6,2012-11-06 08:00 PM,sr,u,,y,n,,3206,0,0,0
+ky,Q,Kentucky,Ky.,8,2012-11-06 06:00 PM,sr,r,2012-09-28T19:24:40 +0000,y,n,,3634,3634,691967,544740
+la,R,Louisiana,La.,8,2012-11-06 09:00 PM,sr,u,,y,n,,4267,0,0,0
+me,U,Maine Statewide,Maine,2,2012-11-06 08:00 PM,sd,u,,y,n,,599,0,0,0
+me1,U,Maine District 1,Maine,1,2012-11-06 08:00 PM,sd,u,,y,n,,,,,
+me2,U,Maine District 2,Maine,1,2012-11-06 08:00 PM,ld,u,,y,n,,,,,
+md,T,Maryland,Md.,10,2012-11-06 08:00 PM,sd,u,,y,n,,1892,0,0,0
+ma,S,Massachusetts,Mass.,11,2012-11-06 08:00 PM,sd,u,,y,n,,2172,0,0,0
+mi,V,Michigan,Mich.,16,2012-11-06 08:00 PM,ld,u,,y,n,,4937,0,0,0
+mn,W,Minnesota,Minn.,10,2012-11-06 09:00 PM,ld,u,,y,n,,4102,0,0,0
+ms,Y,Mississippi,Miss.,6,2012-11-06 08:00 PM,sr,u,,y,n,,1889,0,0,0
+mo,X,Missouri,Mo.,10,2012-11-06 08:00 PM,lr,u,,y,n,,3428,0,0,0
+mt,Z,Montana,Mont.,3,2012-11-06 10:00 PM,sr,r,2012-09-28T19:24:40 +0000,y,n,,794,794,177319,145079
+ne,c,Nebraska Statewide,Neb.,2,2012-11-06 09:00 PM,sr,u,,y,n,,1387,0,0,0
+ne1,c,Nebraska District 1,Neb.,1,2012-11-06 09:00 PM,sr,u,,y,n,,,,,
+ne2,c,Nebraska District 2,Neb.,1,2012-11-06 09:00 PM,lr,u,,y,n,,,,,
+ne3,c,Nebraska District 3,Neb.,1,2012-11-06 09:00 PM,sr,u,,y,n,,,,,
+nv,g,Nevada,Nev.,6,2012-11-06 10:00 PM,t,u,,n,n,,1845,0,0,0
+nh,d,New Hampshire,N.H.,4,2012-11-06 07:00 PM,t,u,,n,n,,301,0,0,0
+nj,e,New Jersey,N.J.,14,2012-11-06 08:00 PM,sd,u,,y,n,,6330,0,0,0
+nm,f,New Mexico,N.M.,5,2012-11-06 09:00 PM,ld,u,,y,n,,1541,0,0,0
+ny,h,New York,N.Y.,29,2012-11-06 09:00 PM,sd,u,,y,n,,14902,0,0,0
+nc,a,North Carolina,N.C.,15,2012-11-06 07:30 PM,lr,u,,y,n,,2895,0,0,0
+nd,b,North Dakota,N.D.,3,2012-11-06 08:00 PM,sr,u,,y,n,,426,0,0,0
+oh,i,Ohio,Ohio,18,2012-11-06 07:30 PM,t,d,2012-09-28T19:24:40 +0000,y,n,,9363,9363,1853147,2163265
+ok,j,Oklahoma,Okla.,7,2012-11-06 08:00 PM,sr,u,,y,n,,1960,0,0,0
+or,k,Oregon,Ore.,7,2012-11-06 11:00 PM,sd,u,,y,n,,1000,0,0,0
+pa,l,Pennsylvania,Pa.,20,2012-11-06 08:00 PM,ld,u,,y,n,,9252,0,0,0
+ri,m,Rhode Island,R.I.,4,2012-11-06 08:00 PM,sd,u,,y,n,,400,0,0,0
+sc,n,South Carolina,S.C.,9,2012-11-06 07:00 PM,sr,u,,y,n,,2136,0,0,0
+sd,o,South Dakota,S.D.,3,2012-11-06 09:00 PM,sr,u,,y,n,,710,0,0,0
+tn,p,Tennessee,Tenn.,11,2012-11-06 08:00 PM,sr,r,2012-09-28T19:24:40 +0000,y,n,,2071,2071,993080,822395
+tx,q,Texas,Texas,38,2012-11-06 08:00 PM,sr,u,,y,n,,9092,0,0,0
+ut,r,Utah,Utah,6,2012-11-06 10:00 PM,sr,d,2012-09-28T19:24:40 +0000,y,n,,2114,2114,295599,312753
+vt,t,Vermont,Vt.,3,2012-11-06 07:00 PM,t,u,,n,n,,258,0,0,0
+va,s,Virginia,Va.,13,2012-11-06 07:00 PM,t,u,,n,n,,2542,0,0,0
+wa,u,Washington,Wash.,12,2012-11-06 11:00 PM,sd,u,,y,n,,2001,0,0,0
+wv,w,West Virginia,W.Va.,5,2012-11-06 07:30 PM,sr,u,,y,n,,1846,0,0,0
+wi,v,Wisconsin,Wis.,10,2012-11-06 09:00 PM,t,u,,n,n,,3516,0,0,0
+wy,x,Wyoming,Wyo.,3,2012-11-06 09:00 PM,sr,u,,y,n,,481,0,0,0
