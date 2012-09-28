@@ -274,8 +274,11 @@
 	            	    	</ul>
 	            	    	
 	            	    	<ul id="pres-watching" class="results">
+	            	    		<li class="instructions">
+	            	    			Click on a state name to predict who will win.
+	            	    		</li>
 	            	    		<li class="hdr">
-	            	    			<span class="s">&nbsp;</span>
+	            	    			<span class="s instructions">&nbsp;</span>
 	            	    			<span class="blue">
 	            	    				Obama (D)
 	            	    			</span>
@@ -286,6 +289,9 @@
 	            	    	</ul>
 	            	    	
 	            	    	<ul id="pres-called" class="results">
+	            	    		<li class="instructions">
+	            	    			Predictions not available for states that have been called.
+	            	    		</li>
 	            	    		<li class="hdr">
 	            	    			<span class="s">&nbsp;</span>
 	            	    			<span class="blue">
@@ -298,6 +304,9 @@
 	            	    	</ul>
 	            	    	
 	            	    	<ul id="pres-closing" class="results">
+	            	    		<li class="instructions">
+	            	    			Click on a state name to predict who will win.
+	            	    		</li>
                                 <li class="time-0700">
                                     <strong>7:00 PM ET</strong>
                                 </li>
@@ -381,7 +390,7 @@
     <script id="reporting-template" type="text/template">
         <li class="<%= state.id %>">
             <span class="s">
-                <span class="st"><b><%= state.stateface %></b><strong><%= state.name %> (<%= state.electoral_votes %>)</strong></span>
+                <span class="st"><b><%= state.stateface %></b><strong><%= state.abbr %> (<%= state.electoral_votes %>)</strong></span>
             </span>
             <span class="blue <% if (state.npr_call === 'd' || (state.accept_ap_call === 'y' && state.ap_call === 'd')) { %>winner<% } %>">
                 <%= Math.round(state.dem_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %>%
@@ -402,7 +411,7 @@
     </script>
 
     <script id="coming-up-template" type="text/template">
-        <span class="<%= state.id %>"><b><%= state.stateface %></b><%= state.name %> (<%= state.electoral_votes %>)</span>
+        <span class="<%= state.id %>"><b><%= state.stateface %></b><%= state.abbr %> (<%= state.electoral_votes %>)</span>
     </script>
 
     <!--[if lt IE 9]>

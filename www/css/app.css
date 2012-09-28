@@ -325,12 +325,16 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	padding: 6px 0;
 	font-size: 13px
 }
-#pres-results #pres-watching li:first-child,
-#pres-results #pres-called li:first-child { 
+#pres-results li.hdr { 
+	font-weight: bold;
+}
+#pres-results li.instructions { 
 	padding-top: 0;
 	font-weight: bold;
 }
-
+#pres-results li.instructions {
+	border-bottom: none;
+}
 #pres-results b {
 	font: normal 1em StateFaceRegular;
     text-align: center;
@@ -350,7 +354,7 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 #pres-results #pres-closing strong {
 	display: block;
 	float: left;
-	width: 75px;
+	width: 90px;
 }
 #pres-results #pres-watching .st,
 #pres-results #pres-closing span {
@@ -381,7 +385,7 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 #pres-results #pres-called b { color: #333; }
 
 #pres-results .s {
-	width: 35%; 
+	width: 25%; 
 	margin-right: 1%;
 	float: left;
 }
@@ -389,12 +393,12 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 #pres-results .red { 
 	text-align: center;
 	background-color: #f1f1f1;
-	width: 24%;
+	width: 28%;
 	float: left;
 	padding: 3px 0;
 }
 #pres-results .precincts { 
-	width: 12%;
+	width: 15%;
 	float: left;
 	margin-left: 2%;
 }
@@ -463,4 +467,5 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	/* HIDE ELECTRIS (also some corresponding code in the JS) */
 	#states { display: none; }
 	#game-info { display: none; }
+	#pres-results li.instructions { display: none; }
 }
