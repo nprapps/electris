@@ -384,10 +384,10 @@
                 <b><%= state.stateface %></b><strong><%= state.name %> (<%= state.electoral_votes %>)</strong>
                 <i><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% reporting</i>
             </span>
-            <span class="blue">
+            <span class="blue <% if (state.npr_call === 'd' || (state.accept_ap_call === 'y' && state.ap_call === 'd')) { %>winner<% } %>">
                 <%= Math.round(state.dem_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %>%
             </span>
-            <span class="red">
+            <span class="red <% if (state.npr_call === 'r' || (state.accept_ap_call === 'y' && state.ap_call === 'r')) { %>winner<% } %>"">
                 <%= Math.round(state.rep_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %>%
             </span>
             <% if (state.id === "ne") { %>
