@@ -295,18 +295,6 @@
 	            	    				Romney (R)
 	            	    			</span>
 	            	    		</li>
-	            	    		<li>
-	            	    			<span class="s">
-	            	    				<b>q</b><strong>Texas</strong>
-	            	    				<i>20% reporting</i>
-	            	    			</span>
-	            	    			<span class="blue" class="winner">
-	            	    				50%
-	            	    			</span>
-	            	    			<span class="red">
-	            	    				50%
-	            	    			</span>
-	            	    		</li>
 	            	    	</ul>
 	            	    	
 	            	    	<ul id="pres-closing" class="results">
@@ -372,7 +360,7 @@
     <script id="reporting-template" type="text/template">
         <li class="<%= state.id %>">
             <span class="s">
-                <b><%= state.stateface %></b><strong><%= state.name %></strong>
+                <b><%= state.stateface %></b><strong><%= state.name %> (<%= state.electoral_votes %>)</strong>
                 <i><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% reporting</i>
             </span>
             <span class="blue">

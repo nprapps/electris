@@ -588,5 +588,5 @@ $(function() {
 		$(this).addClass('active').siblings('li').removeClass('active');
 		return false;
 	});
-	$('#pres-nav li:eq(0)').trigger('click');
+	$('#pres-nav li:eq(1)').trigger('click');
 });
