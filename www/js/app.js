@@ -57,7 +57,7 @@ $(function() {
          * Add the HTML for a state to the correct location.
          */
         // Called!
-        if (state.npr_call === "r" || state.npr_call === "d" || (state.accept_ap_call && (state.ap_call === "r" || state.ap_call === "d"))) {
+        if (state.npr_call === "r" || state.npr_call === "d" || (state.accept_ap_call === "y" && (state.ap_call === "r" || state.ap_call === "d"))) {
              var html = _.template(REPORTING_TEMPLATE, {
                 state: state
             });
