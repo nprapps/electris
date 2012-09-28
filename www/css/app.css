@@ -460,7 +460,6 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 }
 @media (max-width: 500px) {
     #states,.bucket.undecided { font-size:12px; }
-    .nav .arts, .nav .music { display: none; }
 }
 @media (max-width: 480px) {
 	body { padding-left: 10px; padding-right: 10px; }
