@@ -77,7 +77,7 @@ def parse_president(db, row):
     assert obama_data and romney_data
 
     state = state_data['state_postal'].lower()
-    winner = 'r' if romney_data['is_winner'] else 'd' if obama_data['is_winner'] else ''
+    winner = 'r' if romney_data['is_winner'] else 'd' if obama_data['is_winner'] else 'u'
 
     db.execute('UPDATE states SET ap_call=?, total_precincts=?, precincts_reporting=?, rep_vote_count=?, dem_vote_count=? WHERE id=?', (winner, state_data['total_precincts'], state_data['precincts_reporting'], romney_data['vote_count'], obama_data['vote_count'], state)) 
 
