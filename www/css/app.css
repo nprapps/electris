@@ -26,6 +26,18 @@ h3 {
 }
 a.btn { color: #fff; cursor: pointer; }
 
+
+/* ALERTS */
+.alert .st { font-weight: bold; }
+.alert .st b {
+	font: normal 1em StateFaceRegular;
+    text-align: center;
+    display: inline-block;
+    width: 1.2em;
+    height:1em;
+}
+
+
 /* COLORS */
 /*
 .d_safe { background-color: #3d7fa6; color: #FFF; }
@@ -193,7 +205,11 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	background-color: #454545;
 	margin: 0 0 24px 0;
 	color: #f1f1f1;
+	-webkit-border-bottom-left-radius: 4px; -moz-border-radius-bottomleft: 4px; border-bottom-left-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px; -moz-border-radius-bottomright: 4px; border-bottom-right-radius: 4px;
 }
+#topline  #o-president {  }
+#topline  #o-house {  }
 #topline .wrap {
 	padding-right: 20px;
 	padding-bottom: 1em;
