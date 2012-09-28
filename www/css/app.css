@@ -355,6 +355,14 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	cursor: move;
 	margin: 0 3px 3px 0;
 }
+#pres-results .precincts {
+	float: right;
+	color: #666;
+	font-size: 10px;
+	line-height: 11px;
+	font-style: normal;
+	white-space: normal;
+}
 #pres-results .note {
 	display: block;
 	clear: both;
@@ -363,12 +371,33 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	line-height: 1.2em;
 	padding-top: 6px;
 }
-
 #pres-results #pres-called b { color: #333; }
 
-#pres-results .s, #pres-results .blue, #pres-results .red { width: 33%; float: left; }
+#pres-results .s {
+	width: 35%; 
+	margin-right: 1%;
+	float: left;
+}
 #pres-results .blue,
-#pres-results .red { text-align: center; }
+#pres-results .red { 
+	text-align: center;
+	background-color: #f1f1f1;
+	width: 24%;
+	float: left;
+	padding: 3px 0;
+}
+#pres-results .precincts { 
+	width: 12%;
+	float: left;
+	margin-left: 2%;
+}
+#pres-results .blue {
+	margin-right: 1%;
+}
+#pres-results .hdr .blue,
+#pres-results .hdr .red { 
+	background: transparent;
+}
 
 #pres-results .blue.winner {
 	font-weight: bold;
@@ -379,12 +408,6 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	font-weight: bold;
 	color: #fff;
 	background-color: #a23520;
-}
-#pres-results .s i {
-	display: block;
-	color: #666;
-	font-size: 11px;
-	font-style: normal;
 }
 #pres-nav:after, #pres-results .results li:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 

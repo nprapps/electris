@@ -274,7 +274,7 @@
 	            	    	</ul>
 	            	    	
 	            	    	<ul id="pres-watching" class="results">
-	            	    		<li>
+	            	    		<li class="hdr">
 	            	    			<span class="s">&nbsp;</span>
 	            	    			<span class="blue">
 	            	    				Obama (D)
@@ -286,7 +286,7 @@
 	            	    	</ul>
 	            	    	
 	            	    	<ul id="pres-called" class="results">
-	            	    		<li>
+	            	    		<li class="hdr">
 	            	    			<span class="s">&nbsp;</span>
 	            	    			<span class="blue">
 	            	    				Obama (D)
@@ -382,7 +382,6 @@
         <li class="<%= state.id %>">
             <span class="s">
                 <span class="st"><b><%= state.stateface %></b><strong><%= state.name %> (<%= state.electoral_votes %>)</strong></span>
-                <i><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% reporting</i>
             </span>
             <span class="blue <% if (state.npr_call === 'd' || (state.accept_ap_call === 'y' && state.ap_call === 'd')) { %>winner<% } %>">
                 <%= Math.round(state.dem_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %>%
@@ -390,9 +389,13 @@
             <span class="red <% if (state.npr_call === 'r' || (state.accept_ap_call === 'y' && state.ap_call === 'r')) { %>winner<% } %>"">
                 <%= Math.round(state.rep_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %>%
             </span>
+            <span class="precincts">
+				<%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% reporting
+			</span>
+
             <% if (state.id === "ne") { %>
                 <span class="note">Nebraska awards electoral votes proportionally rather than winner-take-all. Romney will receive <strong>TKTK</strong> votes, Obama <strong>TKTK</strong>.</span>
-            <% } else if (state.id === "ME") { %>
+            <% } else if (state.id === "me") { %>
                 <span class="note">Maine awards electoral votes proportionally rather than winner-take-all. Romney will receive <strong>TKTK</strong> votes, Obama <strong>TKTK</strong>.</span>
             <% } %>
         </li>
