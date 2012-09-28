@@ -70,149 +70,159 @@
 
     <div class="container the-goods" id="maincontent">
 		<div id="header" class="row">
-            <div class="span12">
+            <div id="main-header" class="span8">
+            	<div class="row">
+            		<div id="header-title" class="span8">
 
-                <h1>Election Night 2012</h1>
-                
-                <div id="comingsoon">
-                	<b></b>
-                	<div id="attrComingSoon" class="message">NPR's live election night<br />coverage begins at 7 p.m. ET.</div>
-                </div>
-                
-                <div id="playercon">
-	                <div id="theplayer">
-					
-					<div id="jwPlayer_wrapper"></div>
-					<div id="jwplayer_wrapper" style="position: relative; width: 41px; height: 41px; "><object type="application/x-shockwave-flash" data="http://www.npr.org/templates/javascript/jwplayer/player.swf" width="100%" height="100%" bgcolor="#000000" id="jwplayer" name="jwplayer" tabindex="0"><param name="allowfullscreen" value="true"><param name="allowscriptaccess" value="always"><param name="seamlesstabbing" value="true"><param name="wmode" value="opaque"><param name="flashvars" value="netstreambasepath=http%3A%2F%2Fapps.npr.org%2F2012-democratic-national-convention%2F&amp;id=jwplayer&amp;bufferlength=5&amp;autostart=false&amp;skin=http%3A%2F%2Fwww.npr.org%2Fdesign%2Fstage%2FaudioTest%2Flive-convention-controls.zip&amp;playlist=%5B%5BJSON%5D%5D%5B%7B%22file%22%3A%22live3audio%4052188%22%2C%22provider%22%3A%22rtmp%22%2C%22streamer%22%3A%22rtmp%3A%2F%2Fcp150999.live.edgefcs.net%2Flive%2F%22%7D%5D&amp;controlbar.position=bottom"></object></div> 
-						<script>
-							// <![CDATA[
-							try {
-								var jwPlayerAdUrl = 'http://ad.doubleclick.net/pfadx/n6735.NPR.MUSIC/music;theme=1039;storyid=157840374;testserver=true;embed=npr;mediatype=video;sz=400x300;dcmt=text/xml;ord=66802162';
-								var jwPlayerAutoStart = 'false';
-								if (true) {
-									if (NPR.PageInfo.getUrlParameter('autoplay') == 'true') {
-										jwPlayerAutoStart = 'true';
-									}
-								}
-									
-								if (navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad)/)) {
-									$('#playercon').append("<div style='display: none'><audio id='livestreamer' src='http://npr.ic.llnwd.net/stream/npr_live3' controls='false'></audio></div>");
-									$('#theplayer').append("<div id='playcon5'><img src='img/playButtonOver.png' onclick='play5Audio();' /></div>");
-				
-								} else {
-									jwplayer('jwplayer').setup({
-										modes: [{
-											type: 'flash',
-											src: 'http://www.npr.org/templates/javascript/jwplayer/player.swf',
-											config: {
-												skin: 'http://www.npr.org/design/stage/audioTest/live-convention-controls.zip',
-												playlist: [{
-													file: 'live3audio@52188',
-													provider: 'rtmp',
-													streamer: 'rtmp://cp150999.live.edgefcs.net/live/'
-												}
-				
-												]
-											}
-										}, {
-											type: 'html5',
-											config: {
-												playlist: [{
-													
-												}
-				
-												]
-											}
-										}],
-										bufferlength: '5',
-										controlbar: 'bottom',
-										autostart: jwPlayerAutoStart,
-										width: '41',
-										height: '41',
-										plugins: {
-											'gapro-2': {
-												'trackingobject': '_gaq',
-												'trackstarts': 'true',
-												'trackpercentage': 'true',
-												'tracktime': 'true'
-											}
-										},
-										events: {
-											onBuffer: function () {
-												if ($("#playerdisp .loading").length == 0) {
-													$('#playerdisp .playing').remove();
-													$('#playerdisp').append('<div class="loading loading-live"><p>Loading...</p></div>');
-												}
-											},
-											onPlay: function () {
-												if ($("#playerdisp .loading").length > 0) {
-													$('#playerdisp .loading').remove();
-												}
-												if ($("#playerdisp .playing").length == 0) {
-													$('#playerdisp').append('<div class="playing"><p>Live</p></div>');
-													$('#eq_gfx').html('<img src="img/eq2.gif" />');
-												}
-											},
-											onPause: function() {
-												$('#eq_gfx').html('<img src="img/eq-none.gif" />');
-												$('#playerdisp .playing').remove();
-												$('#playerdisp').append('<div class="loading loading-live"><p></p></div>');
+						<h1>Election Night 2012</h1>
+						
+						<div id="comingsoon">
+							<b></b>
+							<div id="attrComingSoon" class="message">NPR's live election night<br />coverage begins at 7 p.m. ET.</div>
+						</div>
+						
+						<div id="playercon">
+							<div id="theplayer">
+							
+							<div id="jwPlayer_wrapper"></div>
+							<div id="jwplayer_wrapper" style="position: relative; width: 41px; height: 41px; "><object type="application/x-shockwave-flash" data="http://www.npr.org/templates/javascript/jwplayer/player.swf" width="100%" height="100%" bgcolor="#000000" id="jwplayer" name="jwplayer" tabindex="0"><param name="allowfullscreen" value="true"><param name="allowscriptaccess" value="always"><param name="seamlesstabbing" value="true"><param name="wmode" value="opaque"><param name="flashvars" value="netstreambasepath=http%3A%2F%2Fapps.npr.org%2F2012-democratic-national-convention%2F&amp;id=jwplayer&amp;bufferlength=5&amp;autostart=false&amp;skin=http%3A%2F%2Fwww.npr.org%2Fdesign%2Fstage%2FaudioTest%2Flive-convention-controls.zip&amp;playlist=%5B%5BJSON%5D%5D%5B%7B%22file%22%3A%22live3audio%4052188%22%2C%22provider%22%3A%22rtmp%22%2C%22streamer%22%3A%22rtmp%3A%2F%2Fcp150999.live.edgefcs.net%2Flive%2F%22%7D%5D&amp;controlbar.position=bottom"></object></div> 
+								<script>
+									// <![CDATA[
+									try {
+										var jwPlayerAdUrl = 'http://ad.doubleclick.net/pfadx/n6735.NPR.MUSIC/music;theme=1039;storyid=157840374;testserver=true;embed=npr;mediatype=video;sz=400x300;dcmt=text/xml;ord=66802162';
+										var jwPlayerAutoStart = 'false';
+										if (true) {
+											if (NPR.PageInfo.getUrlParameter('autoplay') == 'true') {
+												jwPlayerAutoStart = 'true';
 											}
 										}
-										   
-									  
-				
-									});
-								}
-				
-							} catch (e) {
-								NPR.messaging.exception(e, 'jw player javascript', 'look in CommonJwPlayer.inc', NPR.messaging.constants.PLAYER_JS_ERROR);
-							}; // ]]>
-						</script>
-	                </div>
-	                <div class="speaking"><span class="slug" id="attrOnStageIntro">On The Air</span><br><strong id="attrOnStageName">Live Special Coverage</strong>, <span id="attrOnStageBio">from NPR News</span></div>
-	                <div id="playerstatus">
-	                	<div id="eq_gfx"><img src="img/eq-none.gif"></div> 
-	                	<div id="playerdisp"></div>
-	                </div>
-	            </div>
-            </div>
-        </div>
+											
+										if (navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad)/)) {
+											$('#playercon').append("<div style='display: none'><audio id='livestreamer' src='http://npr.ic.llnwd.net/stream/npr_live3' controls='false'></audio></div>");
+											$('#theplayer').append("<div id='playcon5'><img src='img/playButtonOver.png' onclick='play5Audio();' /></div>");
+						
+										} else {
+											jwplayer('jwplayer').setup({
+												modes: [{
+													type: 'flash',
+													src: 'http://www.npr.org/templates/javascript/jwplayer/player.swf',
+													config: {
+														skin: 'http://www.npr.org/design/stage/audioTest/live-convention-controls.zip',
+														playlist: [{
+															file: 'live3audio@52188',
+															provider: 'rtmp',
+															streamer: 'rtmp://cp150999.live.edgefcs.net/live/'
+														}
+						
+														]
+													}
+												}, {
+													type: 'html5',
+													config: {
+														playlist: [{
+															
+														}
+						
+														]
+													}
+												}],
+												bufferlength: '5',
+												controlbar: 'bottom',
+												autostart: jwPlayerAutoStart,
+												width: '41',
+												height: '41',
+												plugins: {
+													'gapro-2': {
+														'trackingobject': '_gaq',
+														'trackstarts': 'true',
+														'trackpercentage': 'true',
+														'tracktime': 'true'
+													}
+												},
+												events: {
+													onBuffer: function () {
+														if ($("#playerdisp .loading").length == 0) {
+															$('#playerdisp .playing').remove();
+															$('#playerdisp').append('<div class="loading loading-live"><p>Loading...</p></div>');
+														}
+													},
+													onPlay: function () {
+														if ($("#playerdisp .loading").length > 0) {
+															$('#playerdisp .loading').remove();
+														}
+														if ($("#playerdisp .playing").length == 0) {
+															$('#playerdisp').append('<div class="playing"><p>Live</p></div>');
+															$('#eq_gfx').html('<img src="img/eq2.gif" />');
+														}
+													},
+													onPause: function() {
+														$('#eq_gfx').html('<img src="img/eq-none.gif" />');
+														$('#playerdisp .playing').remove();
+														$('#playerdisp').append('<div class="loading loading-live"><p></p></div>');
+													}
+												}
+												   
+											  
+						
+											});
+										}
+						
+									} catch (e) {
+										NPR.messaging.exception(e, 'jw player javascript', 'look in CommonJwPlayer.inc', NPR.messaging.constants.PLAYER_JS_ERROR);
+									}; // ]]>
+								</script>
+							</div>
+							<div class="speaking"><span class="slug" id="attrOnStageIntro">On The Air</span><br><strong id="attrOnStageName">Live Special Coverage</strong>, <span id="attrOnStageBio">from NPR News</span></div>
+							<div id="playerstatus">
+								<div id="eq_gfx"><img src="img/eq-none.gif"></div> 
+								<div id="playerdisp"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row" id="topline">
+					<div class="span4" id="o-president">
+						<div class="wrap">
+							<h3>President</h3>
+							<h6>270 to win</h6>
+							<ul>
+								<li class="blue"><strong><span class="full">Barack Obama</span><span class="abbr">Obama</span>:</strong> <span id="blue-votes" class="votes"></span> <span class="bar"><b></b></span></li>
+								<li class="red"><strong><span class="full">Mitt Romney</span><span class="abbr">Romney</span>:</strong> <span id="red-votes" class="votes"></span> <span class="bar"><b></b></span></li>
+								<li class="undecided"><strong><span class="full">Outstanding</span><span class="abbr">Remain.</span>:</strong> <span id="undecided-votes" class="votes"></span> <span class="bar"><b></b></span></li>
+							</ul>
+						</div>
+					</div>
+					<div class="span4" id="o-senate">
+						<div class="wrap">
+							<h3>Senate</h3>
+							<h6>51 for majority</h6>
+							<ul>
+								<li class="blue"><strong><span class="full">Democrats</span><span class="abbr">Dem.</span>:</strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="blue-votes" class="votes">50</span></li>
+								<li class="red"><strong><span class="full">Republicans</span><span class="abbr">GOP</span>:</strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="red-votes" class="votes">50</span></li>
+								<li class="undecided"><strong><span class="full">Outstanding</span><span class="abbr">Remain.</span>:</strong> <span class="bar"><b></b></span> <span id="undecided-votes" class="votes">0</span></li>
+							</ul>
+						</div>
+					</div>
+					<div class="span4" id="o-house">
+						<div class="wrap">
+							<h3>House</h3>
+							<h6>218 for majority</h6>
+							<ul>
+								<li class="blue"><strong><span class="full">Democrats</span><span class="abbr">Dem.</span>:</strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="blue-votes" class="votes">200</span></li>
+								<li class="red"><strong><span class="full">Republicans</span><span class="abbr">GOP</span>:</strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="red-votes" class="votes">200</span></li>
+								<li class="undecided"><strong><span class="full">Outstanding</span><span class="abbr">Remain.</span>:</strong> <span class="bar"><b></b></span> <span id="undecided-votes" class="votes">35</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
         
-        <div class="row" id="topline">
-        	<div class="span4" id="o-president">
-        		<div class="wrap">
-					<h3>President</h3>
-					<h6>270 to win</h6>
-					<ul>
-						<li class="blue"><strong><span class="full">Barack Obama</span><span class="abbr">Obama</span>:</strong> <span id="blue-votes" class="votes"></span> <span class="bar"><b></b></span></li>
-						<li class="red"><strong><span class="full">Mitt Romney</span><span class="abbr">Romney</span>:</strong> <span id="red-votes" class="votes"></span> <span class="bar"><b></b></span></li>
-						<li class="undecided"><strong><span class="full">Outstanding</span><span class="abbr">Remain.</span>:</strong> <span id="undecided-votes" class="votes"></span> <span class="bar"><b></b></span></li>
-					</ul>
-				</div>
-        	</div>
-        	<div class="span4" id="o-senate">
-        		<div class="wrap">
-					<h3>Senate</h3>
-					<h6>51 for majority</h6>
-					<ul>
-						<li class="blue"><strong><span class="full">Democrats</span><span class="abbr">Dem.</span>:</strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="blue-votes" class="votes">50</span></li>
-						<li class="red"><strong><span class="full">Republicans</span><span class="abbr">GOP</span>:</strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="red-votes" class="votes">50</span></li>
-						<li class="undecided"><strong><span class="full">Outstanding</span><span class="abbr">Remain.</span>:</strong> <span class="bar"><b></b></span> <span id="undecided-votes" class="votes">0</span></li>
-					</ul>
-				</div>
-        	</div>
-        	<div class="span4" id="o-house">
-        		<div class="wrap">
-					<h3>House</h3>
-					<h6>218 for majority</h6>
-					<ul>
-						<li class="blue"><strong><span class="full">Democrats</span><span class="abbr">Dem.</span>:</strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="blue-votes" class="votes">200</span></li>
-						<li class="red"><strong><span class="full">Republicans</span><span class="abbr">GOP</span>:</strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="red-votes" class="votes">200</span></li>
-						<li class="undecided"><strong><span class="full">Outstanding</span><span class="abbr">Remain.</span>:</strong> <span class="bar"><b></b></span> <span id="undecided-votes" class="votes">35</span></li>
-					</ul>
-				</div>
-        	</div>
+            </div> <!-- end #mainheader -->
+
+			<div class="span4" id="bigbox">
+			 <p>[AD GOES HERE]</p>
+			</div>
+			
         </div>
         
         <div class="row" id="alert-msg">
@@ -416,7 +426,7 @@
     </script>
 
     <script id="coming-up-template" type="text/template">
-        <span class="<%= state.id %>"><b><%= state.stateface %></b><%= state.abbr %> (<%= state.electoral_votes %>)</span>
+        <span class="st <%= state.id %>"><b><%= state.stateface %></b><%= state.abbr %> (<%= state.electoral_votes %>)</span>
     </script>
 
     <script id="call-alert-template" type="text/template">
