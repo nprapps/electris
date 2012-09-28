@@ -380,7 +380,7 @@
     </div>
     
     <script id="state-template" type="text/template">
-        <div class="state <%= state.id %> <% if (is_election_night) { %><% if (state.npr_call !== 'n') { %>npr-call-<%= state.npr_call %> called<% } else if (state.accept_ap_call === 'y' && state.ap_call !== 'u') { %>ap-call-<%= state.ap_call %> called<% } %><% } else { %> prediction-<%= state.prediction %><% } %>" data-id="<%= state.id %>">
+        <div class="state <%= state.id %> <% if (is_election_night) { %><% if (state.call !== '') { %>call-<%= state.call %> calledi<% } %><% } else { %> prediction-<%= state.prediction %><% } %>" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
                 <i data-placement="top" data-title="<%= state.name %>" data-content="Electoral votes: <%= state.electoral_votes %><br />Polls close: <%= state.polls_close.format('h:mm a') %><% if (is_election_night) { %><br />Obama: <%= state.dem_vote_count %><br />Romney: <%= state.rep_vote_count %><br />Precincts: <%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>%<% } %>"><span><%= state.stateface %></span></i>
             <% }); %>
@@ -392,10 +392,10 @@
             <span class="s">
                 <span class="st"><b><%= state.stateface %></b><strong><%= state.abbr %> (<%= state.electoral_votes %>)</strong></span>
             </span>
-            <span class="blue <% if (state.npr_call === 'd' || (state.accept_ap_call === 'y' && state.ap_call === 'd')) { %>winner<% } %>">
+            <span class="blue <% if (state.call === 'd') { %>winner<% } %>">
                 <%= Math.round(state.dem_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %>%
             </span>
-            <span class="red <% if (state.npr_call === 'r' || (state.accept_ap_call === 'y' && state.ap_call === 'r')) { %>winner<% } %>"">
+            <span class="red <% if (state.call === 'r') { %>winner<% } %>"">
                 <%= Math.round(state.rep_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %>%
             </span>
             <span class="precincts">
