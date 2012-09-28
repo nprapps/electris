@@ -57,7 +57,7 @@ $(function() {
          * Add the HTML for a state to the correct location.
          */
         // Called!
-        if (state.npr_call === "r" || state.npr_call === "d" || (state.accept_ap_call === "y" && (state.ap_call === "r" || state.ap_call === "d"))) {
+        if (state.call) {
              var html = _.template(REPORTING_TEMPLATE, {
                 state: state
             });
@@ -92,19 +92,10 @@ $(function() {
         });
 
         if (IS_ELECTION_NIGHT) {
-            if (state.npr_call === "r") {
+            if (state.call === "r") {
                 red_bucket.append(html);
-            } else if (state.npr_call === "d") {
+            } else if (state.call === "d") {
                 blue_bucket.append(html);
-            } else if (state.npr_call === "u") {
-                undecided_bucket.append(html);
-            } else if (state.ap_call === "r" && state.accept_ap_call === "y") {
-                red_bucket.append(html);
-            } else if (state.ap_call === "d" && state.accept_ap_call === "y") {
-                blue_bucket.append(html);
-            // User predictions supercede AP "undecided"
-            //} else if (state.ap_call === "u" && state.accept_ap_call === "y") {
-            //    undecided_bucket.append(html);
             } else if (user_predictions[state.id] === "r") {
                 red_bucket.append(html);
             } else if (user_predictions[state.id] === "d") {
@@ -164,9 +155,7 @@ $(function() {
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
                 if (IS_ELECTION_NIGHT) {
-                    if (row.npr_call === "r") {
-                        return true;
-                    } else if (row.ap_call === "r" && row.accept_ap_call === "y") {
+                    if (row.call === "r") {
                         return true;
                     } else if (row.id in user_predictions && user_predictions[row.id] === "r") {
                         return true;
@@ -190,9 +179,7 @@ $(function() {
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
                 if (IS_ELECTION_NIGHT) {
-                    if (row.npr_call === "d") {
-                        return true;
-                    } else if (row.ap_call === "d" && row.accept_ap_call === "y") {
+                    if (row.call === "d") {
                         return true;
                     } else if (row.id in user_predictions && user_predictions[row.id] === "d") {
                         return true;
@@ -216,9 +203,7 @@ $(function() {
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
                 if (IS_ELECTION_NIGHT) {
-                    if (row.npr_call !== "n" && row.npr_call !== "u") {
-                        return false;
-                    } else if (row.ap_call !== "u" && row.accept_ap_call === "y") {
+                    if (row.call === "") {
                         return false;
                     } else if (row.id in user_predictions && user_predictions[row.id] !== "t") {
                         return false;
@@ -401,36 +386,31 @@ $(function() {
                 }
                 
                 if (delta.changed[key] != delta.old[key]) {
-                    if (key === "ap_call" || key === "accept_ap_call" || key === "npr_call" ||
-                        key === "dem_vote_count" || key === "rep_vote_count" || key === "precints_reporting") {
+                    if (key === "call" || key === "dem_vote_count" || key === "rep_vote_count" || key === "precints_reporting") {
                         var old_state = delta.old;
                         var state = delta.changed;
 
                         remove_state(old_state);
                         add_state(state);
 
-                        if (key === "ap_call" && state.accept_ap_call === "y") {
-                            // Uncalled!
-                            if (state.ap_call === "u") {
-                                alert("The Associated Press has reversed its call for " + state.name + ". This state's result is undecided.");
-                            } else {
-                                // Called
-                                if (old_state.ap_call === "u") {
-                                    alert("The Associated Press has called " + state.name + " for the " + (state.ap_call ==="r" ? "Republicans" : "Democrats") + ".");
-                                } else {
-                                    alert("The Associated Press has changed its call for " + state.name + ". This state is now called for the " + (state.ap_call ==="r" ? "Republicans" : "Democrats") + ".");
-                                }
+                        if (key === "call") {
+                            var caller = "NPR";
+
+                            if (state.called_by === "ap") {
+                                caller = "The Associated Press";
                             }
-                        } else if (key === "npr_call") {
+
                             // Uncalled!
-                            if (state.npr_call === "u" || state.npr_call === "n") {
-                                alert("NPR has reversed its call for " + state.name + ". This state's result is undecided.");
+                            if (!state.call) {
+                                alert(caller +" has revoked its call for " + state.name + ". This state's result is undecided.");
                             } else {
+                                var called_for = (state.call === "r" ? "Republicans" : "Democrats"); 
+
                                 // Called
-                                if (old_state.npr_call === "u" || old_state.npr_call === "n") {
-                                    alert("NPR has called " + state.name + " for the " + (state.npr_call ==="r" ? "Republicans" : "Democrats") + ".");
+                                if (!old_state.call) {
+                                    alert(caller + " has called " + state.name + " for the " + called_for + ".");
                                 } else {
-                                    alert("NPR has changed its call for " + state.name + ". This state is now called for the " + (state.npr_call ==="r" ? "Republicans" : "Democrats") + ".");
+                                    alert(caller + " has reversed its call for " + state.name + ". This state is now called for the " + called_for + ".");
                                 }
                             }
                         }

@@ -24,7 +24,7 @@ def bootstrap_database(db):
     """
     Create the sqlite DB and a populate it with data.
     """
-    db.execute('CREATE TABLE states (id text, stateface text, name text, abbr text, electoral_votes integer, closing_time text, prediction text, ap_call text, ap_called_at text, accept_ap_call text, npr_call text, npr_called_at text, total_precincts integer, precincts_reporting integer, rep_vote_count integer, dem_vote_count integer)') 
+    db.execute('CREATE TABLE states (id text, stateface text, name text, abbr text, electoral_votes integer, polls_close text, prediction text, ap_call text, ap_called_at text, accept_ap_call text, npr_call text, npr_called_at text, total_precincts integer, precincts_reporting integer, rep_vote_count integer, dem_vote_count integer)') 
 
     with open('states_bootstrap.csv') as f:
         reader = csv.reader(f)
@@ -51,7 +51,22 @@ def regenerate_csv(states):
         writer.writerow(settings.STATES_HEADER)
 
         for state in states:
-            writer.writerow([f for f in state])
+            state = dict(state)
+
+            if state['npr_call'] != 'n' and state['npr_call'] != 'u':
+                state['call'] = state['npr_call']
+                state['called_at'] = state['npr_called_at']
+                state['called_by'] = 'npr'
+            elif state['accept_ap_call'] == 'y'  and state['ap_call'] != 'u':
+                state['call'] = state['ap_call']
+                state['called_at'] = state['ap_called_at']
+                state['called_by'] = 'ap'
+            else:
+                state['call'] = None
+                state['called_at'] = None
+                state['called_by'] = None
+
+            writer.writerow([state[f] for f in settings.STATES_HEADER])
 
 def push_results_to_s3():
     """
