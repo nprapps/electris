@@ -332,16 +332,20 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
     margin-right: 4px;
     height:1em;
 }
-#pres-results #pres-watching b, 
+#pres-results #pres-watching .st, 
 #pres-results #pres-closing span {
     background-color: #f7e39b;
     color: #77631b;
+}
+#pres-results #pres-watching .st strong {
+	font-weight: normal;
 }
 #pres-results #pres-closing strong {
 	display: block;
 	float: left;
 	width: 75px;
 }
+#pres-results #pres-watching .st,
 #pres-results #pres-closing span {
 	padding: 3px 6px;
 	border-radius: 6px;
@@ -376,15 +380,6 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	color: #fff;
 	background-color: #a23520;
 }
-
-/*
-.d_safe { background-color: #3d7fa6; color: #FFF; }
-.d_favored { background-color: #7dbfe6; color: #28556f; }
-.r_safe { background-color: #a23520; color: #FFF; }
-.r_favored { background-color: #e27560; color: #6c2315; }
-*/
-
-
 #pres-results .s i {
 	display: block;
 	color: #666;

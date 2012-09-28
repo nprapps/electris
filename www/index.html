@@ -381,7 +381,7 @@
     <script id="reporting-template" type="text/template">
         <li class="<%= state.id %>">
             <span class="s">
-                <b><%= state.stateface %></b><strong><%= state.name %> (<%= state.electoral_votes %>)</strong>
+                <span class="st"><b><%= state.stateface %></b><strong><%= state.name %> (<%= state.electoral_votes %>)</strong></span>
                 <i><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% reporting</i>
             </span>
             <span class="blue <% if (state.npr_call === 'd' || (state.accept_ap_call === 'y' && state.ap_call === 'd')) { %>winner<% } %>">
@@ -392,8 +392,8 @@
             </span>
             <% if (state.id === "ne") { %>
                 <span class="note">Nebraska awards electoral votes proportionally rather than winner-take-all. Romney will receive <strong>TKTK</strong> votes, Obama <strong>TKTK</strong>.</span>
-            <% } else if (state.id === "mi") { %>
-                <span class="note">Nebraska awards electoral votes proportionally rather than winner-take-all. Romney will receive <strong>TKTK</strong> votes, Obama <strong>TKTK</strong>.</span>
+            <% } else if (state.id === "ME") { %>
+                <span class="note">Maine awards electoral votes proportionally rather than winner-take-all. Romney will receive <strong>TKTK</strong> votes, Obama <strong>TKTK</strong>.</span>
             <% } %>
         </li>
     </script>
