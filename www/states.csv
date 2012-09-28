@@ -1,7 +1,7 @@
 id,stateface,name,abbr,electoral_votes,polls_close,prediction,call,called_at,called_by,total_precincts,precincts_reporting,rep_vote_count,dem_vote_count
-al,B,Alabama,Ala.,9,2012-11-06 08:00 PM,sr,d,2012-09-28T19:48:24 +0000,npr,2136,0,0,0
-ak,A,Alaska,Alaska,3,2012-11-76 01:00 AM,sr,,,,183,0,0,0
-az,D,Arizona,Ariz.,11,2012-11-06 10:00 PM,lr,,,,1664,0,0,0
+al,B,Alabama,Ala.,9,2012-11-06 08:00 PM,sr,d,2012-09-28T21:54:44 +0000,npr,2136,0,0,0
+ak,A,Alaska,Alaska,3,2012-11-76 01:00 AM,sr,r,2012-09-28T21:54:38 +0000,npr,183,0,0,0
+az,D,Arizona,Ariz.,11,2012-11-06 10:00 PM,lr,r,2012-09-28T21:43:42 +0000,npr,1664,0,0,0
 ar,C,Arkansas,Ark.,6,2012-11-06 08:30 PM,sr,,,,2393,2393,312950,234712
 ca,E,California,Calif.,55,2012-11-06 11:00 PM,sd,,,,21993,0,0,0
 co,F,Colorado,Colo.,9,2012-11-06 09:00 PM,t,,,,9231,0,0,0

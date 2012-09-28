@@ -2,9 +2,10 @@ $(function() {
     /* Settings */
     var MIN_VOTES_FOR_COMBOS = 40;
     var MIN_STATES_FOR_COMBOS = 5;
-    var STATE_TEMPLATE = $("#state-template").html();
-    var REPORTING_TEMPLATE = $("#reporting-template").html();
-    var COMING_UP_TEMPLATE = $("#coming-up-template").html();
+    var STATE_TEMPLATE = _.template($("#state-template").html());
+    var REPORTING_TEMPLATE = _.template($("#reporting-template").html());
+    var COMING_UP_TEMPLATE = _.template($("#coming-up-template").html());
+    var CALL_ALERT_TEMPLATE = _.template($("#call-alert-template").html());
     var IS_ELECTION_NIGHT = true;
     var POLLING_INTERVAL = 1000;
     var MIN_TETRIS_WIDTH = 480;
@@ -22,6 +23,7 @@ $(function() {
     var red_bucket = $(".bucket.red");
     var blue_bucket = $(".bucket.blue");
     var undecided_bucket = $(".bucket.undecided");
+    var alerts = $("#alert-msg div");
 
     /* State data */
     var state_votes = {};
@@ -33,6 +35,10 @@ $(function() {
     var blue_votes = null;
     var undecided_states = null;
     var undecided_votes = null;
+    var alerted_states = {
+        "r": [],
+        "d": []
+    };
 
     /* User data */
     var user_predictions = {};
@@ -58,7 +64,7 @@ $(function() {
          */
         // Called!
         if (state.call) {
-             var html = _.template(REPORTING_TEMPLATE, {
+             var html = REPORTING_TEMPLATE({
                 state: state
             });
 
@@ -66,14 +72,14 @@ $(function() {
            // TODO
         // Coming in!
         } else if (state.precincts_reporting > 0) {
-            var html = _.template(REPORTING_TEMPLATE, {
+            var html = REPORTING_TEMPLATE({
                 state: state
             });
 
             $("#pres-watching").append(html);
         // Coming up!
         } else {
-            var html = _.template(COMING_UP_TEMPLATE, {
+            var html = COMING_UP_TEMPLATE({
                 state: state
             });
 
@@ -85,7 +91,7 @@ $(function() {
             return;
         }
 
-        var html = _.template(STATE_TEMPLATE, {
+        var html = STATE_TEMPLATE({
             state: state,
             user_prediction: user_predictions[state.id],
             is_election_night: IS_ELECTION_NIGHT
@@ -154,7 +160,7 @@ $(function() {
         red_states = states_dataset.where({
             columns: ["id", "name", "electoral_votes"],
             rows: function(row) {
-                if (IS_ELECTION_NIGHT) {
+                 if(IS_ELECTION_NIGHT) {
                     if (row.call === "r") {
                         return true;
                     } else if (row.id in user_predictions && user_predictions[row.id] === "r") {
@@ -373,6 +379,27 @@ $(function() {
         compute_stats();
     });
 
+    function update_call_alert() {
+        /*
+         * Replace current alerts with updated alerts.
+         */
+        $(".call-alert").remove();
+
+        var html = CALL_ALERT_TEMPLATE({
+            states: alerted_states
+        });
+
+        alerts.append(html);
+    }
+
+    $(".call-alert").live("close", function () {
+        /*
+         * Reset calls which have not been dismissed.
+         */
+        alerted_states.r = [];
+        alerted_states.d = [];
+    });
+
     states_dataset.bind("change", function(event) {
         /*
          * Process changes to state data from polling.
@@ -394,23 +421,19 @@ $(function() {
                         add_state(state);
 
                         if (key === "call") {
-                            var caller = "NPR";
-
-                            if (state.called_by === "ap") {
-                                caller = "The Associated Press";
-                            }
-
                             // Uncalled!
                             if (!state.call) {
-                                alert(caller +" has revoked its call for " + state.name + ". This state's result is undecided.");
+                                //TODO -- handle revocations
+                                //alerted_states.push(caller +" has revoked its call for " + state.name + ". This state's result is undecided.");
                             } else {
-                                var called_for = (state.call === "r" ? "Republicans" : "Democrats"); 
-
                                 // Called
                                 if (!old_state.call) {
-                                    alert(caller + " has called " + state.name + " for the " + called_for + ".");
+                                    alerted_states[state.call].push(state);
                                 } else {
-                                    alert(caller + " has reversed its call for " + state.name + ". This state is now called for the " + called_for + ".");
+                                    // TODO -- handle changes
+                                    // TODO -- alert for state may already appear in another list
+                                    //alerted_states.push(caller + " has reversed its call for " + state.name + ". This state is now called for the " + called_for + ".");
+                                    alerted_states[state.call].push(state);
                                 }
                             }
                         }
@@ -423,6 +446,7 @@ $(function() {
 
         if (real_changes) {
             compute_stats();
+            update_call_alert();
         };
     });
 
