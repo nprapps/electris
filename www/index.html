@@ -298,6 +298,27 @@
 	            	    	</ul>
 	            	    	
 	            	    	<ul id="pres-closing" class="results">
+                                <li class="time-0700">
+                                    <strong>7:00 PM ET</strong>
+                                </li>
+	                                <li class="time-0730">
+                                    <strong>7:30 PM ET</strong>
+                                </li>
+	                                <li class="time-0800">
+                                    <strong>8:00 PM ET</strong>
+                                </li>
+	                                <li class="time-0900">
+                                    <strong>9:00 PM ET</strong>
+                                </li>
+	                                <li class="time-1000">
+                                    <strong>10:00 PM ET</strong>
+                                </li>
+	                                <li class="time-1100">
+                                    <strong>11:00 PM ET</strong>
+                                </li>
+	                                <li class="time-0100">
+                                    <strong>1:00 AM ET</strong>
+                                </li>
 	            	    	</ul>
 	            	    
 	            	    </div>
@@ -373,10 +394,7 @@
     </script>
 
     <script id="coming-up-template" type="text/template">
-        <li class="<%= state.id %>">
-            <strong><%= state.polls_close.format("h:mm a") %> ET</strong>
-            <span><b><%= state.stateface %></b><%= state.name %> (<%= state.electoral_votes %>)</span>
-        </li>
+        <span class="<%= state.id %>"><b><%= state.stateface %></b><%= state.name %> (<%= state.electoral_votes %>)</span>
     </script>
 
     <!--[if lt IE 9]>

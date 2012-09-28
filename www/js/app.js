@@ -8,6 +8,15 @@ $(function() {
     var IS_ELECTION_NIGHT = true;
     var POLLING_INTERVAL = 1000;
     var MIN_TETRIS_WIDTH = 480;
+    var POLL_CLOSING_TIMES = [
+        moment("2012-11-06T19:00:00 +0500"),
+        moment("2012-11-06T19:30:00 +0500"),
+        moment("2012-11-06T20:00:00 +0500"),
+        moment("2012-11-06T21:00:00 +0500"),
+        moment("2012-11-06T22:00:00 +0500"),
+        moment("2012-11-06T23:00:00 +0500"),
+        moment("2012-11-07T01:00:00 +0500")
+    ];
 
     /* Elements */
     var red_bucket = $(".bucket.red");
@@ -68,7 +77,7 @@ $(function() {
                 state: state
             });
 
-            $("#pres-closing").append(html);
+            $("#pres-closing .time-" + state.polls_close.format("hhmm")).append(html);
         }
 
         // If not rendering the tetris view then bail out
