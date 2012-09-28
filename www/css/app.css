@@ -436,9 +436,9 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 
 @media (min-width: 1200px) {
 	#bigbox { width: 300px; }
-	#main-header { 840px; }
+	#main-header, #header-title { width: 840px; }
     #states,.bucket.undecided { font-size:24px; }
-    #topline .span4 { width: 236px; margin-left: 20px; }
+    #topline .span4 { width: 260px; margin-left: 20px; }
 }
 @media (max-width: 979px) {
 	#bigbox { display: none; } /* TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
