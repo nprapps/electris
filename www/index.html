@@ -393,7 +393,7 @@
     </div>
     
     <script id="state-template" type="text/template">
-        <div class="state <%= state.id %> <% if (is_election_night) { %><% if (state.call !== '') { %>call-<%= state.call %> calledi<% } %><% } else { %> prediction-<%= state.prediction %><% } %>" data-id="<%= state.id %>">
+        <div class="state <%= state.id %> <% if (is_election_night) { %><% if (state.call) { %>call-<%= state.call %> called<% } %><% } else { %> prediction-<%= state.prediction %><% } %>" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
                 <i data-placement="top" data-title="<%= state.name %>" data-content="Electoral votes: <%= state.electoral_votes %><br />Polls close: <%= state.polls_close.format('h:mm a') %><% if (is_election_night) { %><br />Obama: <%= state.dem_vote_count %><br />Romney: <%= state.rep_vote_count %><br />Precincts: <%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>%<% } %>"><span><%= state.stateface %></span></i>
             <% }); %>
