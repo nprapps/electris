@@ -23,7 +23,7 @@ h2 {
 h3 {
 	font: bold 1.1em Arial, Helvetica, sans-serif;
 	color: #333;
-}
+}s
 a.btn { color: #fff; cursor: pointer; }
 
 
@@ -176,10 +176,9 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* HEADER AND PLAYER */
-#header .span12 { background-color: #111; padding-bottom: 12px; }
-
-#header h1 { font-size: 28px; line-height: 30px; font-weight: normal; padding-top: 15px; margin: 0 0 3px 15px; color: #FFF; text-shadow: 2px 2px #000000; }
-#maincontent #header h3 { font-weight: normal; margin: 0 0 3px 15px; color: #999; }
+#header-title { background-color: #111; padding-bottom: 12px; }
+#header-title h1 { font-size: 28px; line-height: 30px; font-weight: normal; padding-top: 15px; margin: 0 0 3px 15px; color: #FFF; text-shadow: 2px 2px #000000; }
+#header-title h3 { font-weight: normal; margin: 0 0 3px 15px; color: #999; }
 
 #playercon { color: #FFF; margin-left: 15px; margin-top: 15px; padding-right: 15px; height: 70px; border: 1px solid rgba(51,51,51,.8); position: relative; display: inline-block; }
 #playercon #theplayer { padding: 4px; float: left; }
@@ -208,8 +207,10 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	-webkit-border-bottom-left-radius: 4px; -moz-border-radius-bottomleft: 4px; border-bottom-left-radius: 4px;
 	-webkit-border-bottom-right-radius: 4px; -moz-border-radius-bottomright: 4px; border-bottom-right-radius: 4px;
 }
-#topline  #o-president {  }
-#topline  #o-house {  }
+#topline .span4 { /* default viewport: 980px; */
+	width: 186px;
+	margin-left: 20px;
+}
 #topline .wrap {
 	padding-right: 20px;
 	padding-bottom: 1em;
@@ -440,22 +441,25 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 
 
 
+@media (min-width: 1200px) {
+	#bigbox { width: 300px; }
+	#main-header { 840px; }
+    #states,.bucket.undecided { font-size:24px; }
+    #topline .span4 { width: 236px; margin-left: 20px; }
+}
+@media (max-width: 979px) {
+	#bigbox { display: none; } /* TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
+}
 @media (min-width: 960px) {
     #states,.bucket.undecided { font-size:20px; }
-	#topline { margin-left: 0; }
-	#topline .span4 { width: 293px; }
-}
-@media (min-width: 1200px) {
-    #states,.bucket.undecided { font-size:24px; }
-	#topline .span4 { width: 360px; }
-	#topline .wrap { padding-right: 30px; }
 }
 @media (max-width: 979px) and (min-width: 768px) {
-	#topline .span4 { width: 221px; }
+	#main-header, #header-title { width: 724px; }
+    #topline .span4 { width: 221px; }
 }
 @media (max-width: 767px) {
     #results,#blog { width:100%; }
-	#topline .span4 { width: 33%; float: left; }
+	#topline .span4 { width: 33%; float: left; margin-left: 0; }
 	#topline .wrap { padding: 0 1em 1em 1em; }
 	#topline .full { display: none; }
 	#topline .abbr { display: inline; }
@@ -466,15 +470,17 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
     .nav .arts, .nav .music { display: none; }
 }
 @media (max-width: 480px) {
+	body { padding-left: 10px; padding-right: 10px; }
 	#header { margin-left: -10px; margin-right: -10px; }
-	#header h1 { font-size: 1.5em; line-height: 1.2em; padding-top: 21px; }
-	#header h3 { font-size: .9em; font-family: Arial, Helvetica, sans-serif; font-style: normal; }
+	#header-title h1 { font-size: 1.5em; line-height: 1.2em; padding-top: 20px; }
+	#header-title h3 { font-size: .9em; font-family: Arial, Helvetica, sans-serif; font-style: normal; }
+	#header-title { padding-bottom: 20px; }
 	#playercon { height: 80px }
 	#playercon #playerstatus { bottom: 0; top: auto; }
 	#playercon .speaking { font: 13px Arial;  margin: 3px 0 0 52px; float: none; line-height: 17px; max-width: auto; white-space: normal; padding-bottom: 12px; display: block; }
 	#playercon #attrOnStageBio { display: block; }
 	
-	#topline { margin-left: -10px; margin-right: -10px; }
+	#topline { -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
 	#topline h3 { font-size: 1em; }
 	#topline ul li { margin-bottom: 0; font-size: .9em; }
 	
