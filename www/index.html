@@ -310,24 +310,6 @@
 	            	    	</ul>
 	            	    	
 	            	    	<ul id="pres-closing" class="results">
-	            	    		<li>
-	            	    			<strong>8 p.m. ET</strong>
-	            	    			<span><b>q</b>Texas (30)</span>
-	            	    			<span><b>B</b>Alabama (8)</span>
-	            	    			<span><b>D</b>Arizona (8)</span>
-	            	    		</li>
-	            	    		<li>
-	            	    			<strong>9 p.m. ET</strong>
-	            	    			<span><b>q</b>Texas (30)</span>
-	            	    			<span><b>B</b>Alabama (8)</span>
-	            	    			<span><b>D</b>Arizona (8)</span>
-	            	    		</li>
-	            	    		<li>
-	            	    			<strong>10 p.m. ET</strong>
-	            	    			<span><b>q</b>Texas (30)</span>
-	            	    			<span><b>B</b>Alabama (8)</span>
-	            	    			<span><b>D</b>Arizona (8)</span>
-	            	    		</li>
 	            	    	</ul>
 	            	    
 	            	    </div>
@@ -388,22 +370,22 @@
     </script>
 
     <script id="reporting-template" type="text/template">
-        <li>
+        <li class="<%= state.id %>">
             <span class="s">
                 <b><%= state.stateface %></b><strong><%= state.name %></strong>
-                <i><span class="reporting"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %></span>% reporting</i>
+                <i><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% reporting</i>
             </span>
             <span class="blue">
-                <span class="votes"><%= Math.round(state.dem_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %></span>%
+                <%= Math.round(state.dem_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %>%
             </span>
             <span class="red">
-                <span class="votes"><%= Math.round(state.rep_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %></span>%
+                <%= Math.round(state.rep_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %>%
             </span>
         </li>
     </script>
 
     <script id="coming-up-template" type="text/template">
- 		<li>
+        <li class="<%= state.id %>">
             <strong><%= state.polls_close.format("h:mm a") %> ET</strong>
             <span><b><%= state.stateface %></b><%= state.name %> (<%= state.electoral_votes %>)</span>
         </li>

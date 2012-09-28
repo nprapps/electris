@@ -47,6 +47,31 @@ $(function() {
         /*
          * Add the HTML for a state to the correct location.
          */
+        // Called!
+        if (state.npr_call === "r" || state.npr_call === "d" || (state.accept_ap_call && (state.ap_call === "r" || state.ap_call === "d"))) {
+             var html = _.template(REPORTING_TEMPLATE, {
+                state: state
+            });
+
+            $("#pres-called").append(html);
+           // TODO
+        // Coming in!
+        } else if (state.precincts_reporting > 0) {
+            var html = _.template(REPORTING_TEMPLATE, {
+                state: state
+            });
+
+            $("#pres-watching").append(html);
+        // Coming up!
+        } else {
+            var html = _.template(COMING_UP_TEMPLATE, {
+                state: state
+            });
+
+            $("#pres-closing").append(html);
+        }
+
+        // If not rendering the tetris view then bail out
         if ($(window).width() < MIN_TETRIS_WIDTH ) {
             return;
         }
@@ -113,6 +138,8 @@ $(function() {
         /*
          * Remove the HTML for a state.
          */
+        $("#pres-results ." + state.id).remove();
+
         if ($(window).width() < MIN_TETRIS_WIDTH ) {
             return;
         }
@@ -343,30 +370,6 @@ $(function() {
             }
 
             add_state(state);
-
-            // Called!
-            if (state.npr_call === "r" || state.npr_call === "d" || (state.accept_ap_call && (state.ap_call === "r" || state.ap_call === "d"))) {
-                 var html = _.template(REPORTING_TEMPLATE, {
-                    state: state
-                });
-
-                $("#pres-called").append(html);
-               // TODO
-            // Coming in!
-            } else if (state.precincts_reporting > 0) {
-                var html = _.template(REPORTING_TEMPLATE, {
-                    state: state
-                });
-
-                $("#pres-watching").append(html);
-            // Coming up!
-            } else {
-                var html = _.template(COMING_UP_TEMPLATE, {
-                    state: state
-                });
-
-                $("#pres-closing").append(html);
-            }
 
             // Build lookup tables
             state_votes[state.id] = state.electoral_votes;
