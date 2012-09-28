@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 
 from cStringIO import StringIO
+from datetime import datetime
 from ftplib import FTP
 import os
+
+import pytz
 
 from util import get_database, get_states, regenerate_csv, push_results_to_s3
 
@@ -73,11 +76,18 @@ def parse_president(db, row):
         i += 1
 
     assert obama_data and romney_data
+    
+    state_id = state_data['state_postal'].lower()
 
-    state = state_data['state_postal'].lower()
-    winner = 'r' if romney_data['is_winner'] else 'd' if obama_data['is_winner'] else 'u'
+    old_state = db.execute('SELECT * FROM states WHERE id=?', (state_id,)).next()
 
-    db.execute('UPDATE states SET ap_call=?, total_precincts=?, precincts_reporting=?, rep_vote_count=?, dem_vote_count=? WHERE id=?', (winner, state_data['total_precincts'], state_data['precincts_reporting'], romney_data['vote_count'], obama_data['vote_count'], state)) 
+    ap_call = 'r' if romney_data['is_winner'] else 'd' if obama_data['is_winner'] else 'u'
+    ap_called_at = old_state['ap_called_at']
+
+    if ap_call != old_state['ap_call']:
+        ap_called_at = datetime.now(tz=pytz.utc).strftime('%Y-%m-%dT%H:%M:%S %z');
+
+    db.execute('UPDATE states SET ap_call=?, ap_called_at=?, total_precincts=?, precincts_reporting=?, rep_vote_count=?, dem_vote_count=? WHERE id=?', (ap_call, ap_called_at, state_data['total_precincts'], state_data['precincts_reporting'], romney_data['vote_count'], obama_data['vote_count'], state_id)) 
 
 def parse_state_race(db, row):
     state_data = dict(zip(STATE_FIELDS, row[:NUM_STATE_FIELDS]))
