@@ -245,8 +245,8 @@ $(function() {
         var red_needs = 270 - red_votes;
         var blue_needs = 270 - blue_votes;
 
-        if (_.min([red_needs, blue_needs]) > MIN_VOTES_FOR_COMBOS && undecided_states.length > MIN_STATES_FOR_COMBOS) {
-            $("#combos").hide();
+        if (red_needs <= 0 || blue_needs <= 0 || (_.min([red_needs, blue_needs]) > MIN_VOTES_FOR_COMBOS && undecided_states.length > MIN_STATES_FOR_COMBOS)) {
+            $("#show-combos").hide();
             return;
         }
 
@@ -306,7 +306,7 @@ $(function() {
             $("#blue-combos").append("<li>" + names.join(" + ") + " = " + total + "</li>");
         });
 
-        $("#combos").show();
+        $("#show-combos").show();
     }
 
     function update_bucket_height() {

@@ -105,6 +105,8 @@ a.btn { color: #fff; cursor: pointer; }
 .state.call-d i { background-color: #3d7fa6; color: #fff; }
 .state.call-r i { background-color: #a23520; color: #fff; }
 
+#show-combos { display: none; }
+
 #offices li li.blue .bar b { background-color: #3d7fa6; }
 #offices li li.red .bar b { background-color: #a23520; }
 #offices li li.undecided .bar b { background-color: #ccc; }
