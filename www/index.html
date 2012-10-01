@@ -51,10 +51,41 @@
 		}
 	</script>
 
+	<!-- DFP TARGET -->
+	<script type="text/javascript">
+        <!--
+            var DFP = {};
+            DFP.tile = 0;
+            DFP.ord = Number(window.ord) || Math.floor(Math.random() * 1E10);
+            DFP.target = 'http://ad.doubleclick.net/adj/n6735.NPR/news_election_2012;agg=139482413;storyid=139482413';
+        // -->
+        </script>
+		           
+        <!-- DFP AD MANAGER -->
+        <script type="text/javascript">
+        <!--
+             DFP[0] = {"utype":null,"sz":"300x250","position":"right_main"};
+             DFP[1] = {"utype":null,"sz":"88x31","position":"search_box"};
+		
+            
+            DFP.renderLocation = function(location) {
+                var params = DFP[location];
+                var toRender = '<scr' + 'ipt src="' 
+                                + DFP.target 
+                                + ';sz=' + params.sz
+                                + ';tile=' + ++DFP.tile
+                                + ';sc='
+                                + ';ord=' + DFP.ord 
+                                + ';" type="text/javascript" language="javascript"></scr' + 'ipt>';
+                document.write(toRender);
+            }
+        // -->
+	</script>
+	
 </head>
 <body>
     
-    <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-fixed-top navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
             <ul class="nav">
@@ -64,6 +95,13 @@
               <li class="music"><a href="http://www.npr.org/music/">Music</a></li>
               <li class="donate"><a href="http://www.npr.org/stations/donate/">Donate</a></li>
             </ul>
+            <div id="social">
+            	<ul>
+            		<li><span>Share This Page:</span></li>
+            		<li class="twitter"><a rel="external" href="http://twitter.com/share?via=nprnews&amp;text=Live%20From%20The%202012%20Republican%20National%20Convention&amp;url=http%3A%2F%2Fapps.npr.org%2F2012-republican-national-convention%2F" alt="Share on Twitter" target="_blank" onclick="_gaq.push(['_trackEvent', 'Social', 'Click Twitter In Navbar', 'Conventions']);">Share This Page On Twitter</a></li>
+            		<li class="facebook"><a rel="external" href="http://www.facebook.com/sharer/sharer.php?t=Live+From+The+2012+Republican+National+Convention&amp;u=http%3A%2F%2Fapps.npr.org%2F2012-republican-national-convention%2F" alt="Share on Facebook" target="_blank" onclick="_gaq.push(['_trackEvent', 'Social', 'Click Facebook In Navbar', 'Conventions']);">Like This Page On Facebook</a></li>
+            	</ul>
+			</div>
         </div>
       </div>
     </div>
@@ -187,9 +225,9 @@
 							<h3>President</h3>
 							<h6>270 to win</h6>
 							<ul>
-								<li class="blue"><strong><span class="full">Barack Obama</span><span class="abbr">Obama</span>:</strong> <span id="blue-votes" class="votes"></span> <span class="bar"><b></b></span></li>
-								<li class="red"><strong><span class="full">Mitt Romney</span><span class="abbr">Romney</span>:</strong> <span id="red-votes" class="votes"></span> <span class="bar"><b></b></span></li>
-								<li class="undecided"><strong><span class="full">Outstanding</span><span class="abbr">Remain.</span>:</strong> <span id="undecided-votes" class="votes"></span> <span class="bar"><b></b></span></li>
+								<li class="blue"><strong><span class="full">Barack Obama</span><span class="abbr">Obama</span></strong> <span id="blue-votes" class="votes"></span> <span class="bar"><b></b></span></li>
+								<li class="red"><strong><span class="full">Mitt Romney</span><span class="abbr">Romney</span></strong> <span id="red-votes" class="votes"></span> <span class="bar"><b></b></span></li>
+								<li class="undecided"><strong><span class="full">Undecided</span><span class="abbr">Undecided</span></strong> <span id="undecided-votes" class="votes"></span> <span class="bar"><b></b></span></li>
 							</ul>
 						</div>
 					</div>
@@ -198,9 +236,9 @@
 							<h3>Senate</h3>
 							<h6>51 for majority</h6>
 							<ul>
-								<li class="blue"><strong><span class="full">Democrats</span><span class="abbr">Dem.</span>:</strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="blue-votes" class="votes">50</span></li>
-								<li class="red"><strong><span class="full">Republicans</span><span class="abbr">GOP</span>:</strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="red-votes" class="votes">50</span></li>
-								<li class="undecided"><strong><span class="full">Outstanding</span><span class="abbr">Remain.</span>:</strong> <span class="bar"><b></b></span> <span id="undecided-votes" class="votes">0</span></li>
+								<li class="blue"><strong><span class="full">Democrats</span><span class="abbr">Dem.</span></strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="blue-votes" class="votes">50</span></li>
+								<li class="red"><strong><span class="full">Republicans</span><span class="abbr">GOP</span></strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="red-votes" class="votes">50</span></li>
+								<li class="undecided"><strong><span class="full">Undecided</span><span class="abbr">Undecided</span></strong> <span class="bar"><b></b></span> <span id="undecided-votes" class="votes">0</span></li>
 							</ul>
 						</div>
 					</div>
@@ -209,9 +247,9 @@
 							<h3>House</h3>
 							<h6>218 for majority</h6>
 							<ul>
-								<li class="blue"><strong><span class="full">Democrats</span><span class="abbr">Dem.</span>:</strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="blue-votes" class="votes">200</span></li>
-								<li class="red"><strong><span class="full">Republicans</span><span class="abbr">GOP</span>:</strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="red-votes" class="votes">200</span></li>
-								<li class="undecided"><strong><span class="full">Outstanding</span><span class="abbr">Remain.</span>:</strong> <span class="bar"><b></b></span> <span id="undecided-votes" class="votes">35</span></li>
+								<li class="blue"><strong><span class="full">Democrats</span><span class="abbr">Dem.</span></strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="blue-votes" class="votes">200</span></li>
+								<li class="red"><strong><span class="full">Republicans</span><span class="abbr">GOP</span></strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="red-votes" class="votes">200</span></li>
+								<li class="undecided"><strong><span class="full">Undecided</span><span class="abbr">Undecided</span></strong> <span class="bar"><b></b></span> <span id="undecided-votes" class="votes">35</span></li>
 							</ul>
 						</div>
 					</div>
@@ -220,7 +258,27 @@
             </div> <!-- end #mainheader -->
 
 			<div class="span4" id="bigbox">
-			 <p>[AD GOES HERE]</p>
+
+                <!-- START 300X250 AD -->
+                <div class="adwrapper"><div class="sponsor300">
+
+				<!-- DFP AD MANAGER -->
+				<script type="text/javascript">
+				<!--
+					try{
+						DFP.renderLocation(0);
+					}catch(e){
+						NPR.messaging.warning('Problem fetching/rendering ad server code.','DFP.renderlocation',NPR.messaging.constants.SPONSORSHIP_ERROR);
+					}
+				// -->
+				</script>                  
+				<!-- END UNDERWRITING -->
+				
+				<p class="left">NPR thanks our sponsors</p>
+				<p class="right"><a href="http://www.npr.org/about/place/corpsupport/">Become an NPR Sponsor </a></p>
+				</div></div>
+				<!-- END 300X250 AD --> 
+
 			</div>
 			
         </div>

@@ -247,20 +247,15 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	width: 50%; 
 	display: block;
 }
-
 #topline ul li.blue .bar b { background-color: #3d7fa6; }
 #topline ul li.red .bar b { background-color: #a23520; }
 #topline ul li.undecided .bar b { background-color: #777; }
-
-/*#topline ul li.blue .bar b { background-color: #d3eaf7; }
-#topline ul li.red .bar b { background-color: #f5d1ca; }
-#topline ul li.undecided .bar b { background-color: #ccc; } */
-
 #topline .full { display: inline; }
 #topline .abbr { display: none; }
 #topline strong {
 	display: inline-block;
 	padding-left: 4px;
+	font-weight: normal;
 }
 #topline .votes, #topline .pickups {
 	min-width: 2em;
@@ -436,9 +431,9 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 
 @media (min-width: 1200px) {
 	#bigbox { width: 300px; }
-	#main-header { 840px; }
+	#main-header, #header-title { width: 840px; }
     #states,.bucket.undecided { font-size:24px; }
-    #topline .span4 { width: 236px; margin-left: 20px; }
+    #topline .span4 { width: 260px; margin-left: 20px; }
 }
 @media (max-width: 979px) {
 	#bigbox { display: none; } /* TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
@@ -460,7 +455,6 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 }
 @media (max-width: 500px) {
     #states,.bucket.undecided { font-size:12px; }
-    .nav .arts, .nav .music { display: none; }
 }
 @media (max-width: 480px) {
 	body { padding-left: 10px; padding-right: 10px; }
