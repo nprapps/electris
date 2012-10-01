@@ -107,4 +107,5 @@ def shiva_the_destroyer():
     """
     with settings(warn_only=True):
         local('s3cmd del --recursive s3://%(s3_bucket)s/%(project_name)s' % env)
+        run('rm -rf %(path)s')
 

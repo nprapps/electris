@@ -466,10 +466,10 @@
                 <span class="st"><b><%= state.stateface %></b><strong><%= state.abbr %> (<%= state.electoral_votes %>)</strong></span>
             </span>
             <span class="blue <% if (state.call === 'd') { %>winner<% } %>">
-                <%= Math.round(state.dem_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %>%
+                <%= Math.round(state.dem_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) || 0 %>%
             </span>
             <span class="red <% if (state.call === 'r') { %>winner<% } %>"">
-                <%= Math.round(state.rep_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) %>%
+                <%= Math.round(state.rep_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) || 0 %>%
             </span>
             <span class="precincts">
 				<%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% reporting
