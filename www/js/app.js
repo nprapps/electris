@@ -10,13 +10,13 @@ $(function() {
     var POLLING_INTERVAL = 1000;
     var MIN_TETRIS_WIDTH = 480;
     var POLL_CLOSING_TIMES = [
-        moment("2012-11-06T19:00:00 +0500"),
-        moment("2012-11-06T19:30:00 +0500"),
-        moment("2012-11-06T20:00:00 +0500"),
-        moment("2012-11-06T21:00:00 +0500"),
-        moment("2012-11-06T22:00:00 +0500"),
-        moment("2012-11-06T23:00:00 +0500"),
-        moment("2012-11-07T01:00:00 +0500")
+        moment("2012-11-06T19:00:00 -0500"),
+        moment("2012-11-06T19:30:00 -0500"),
+        moment("2012-11-06T20:00:00 -0500"),
+        moment("2012-11-06T21:00:00 -0500"),
+        moment("2012-11-06T22:00:00 -0500"),
+        moment("2012-11-06T23:00:00 -0500"),
+        moment("2012-11-07T01:00:00 -0500")
     ];
 
     /* Elements */
@@ -71,7 +71,7 @@ $(function() {
             $("#pres-called").append(html);
            // TODO
         // Coming in!
-        } else if (state.precincts_reporting > 0) {
+        } else if (state.precincts_reporting > 0 || moment() > state.polls_close) {
             var html = REPORTING_TEMPLATE({
                 state: state
             });
@@ -151,6 +151,24 @@ $(function() {
         }
 
         $(".state." + state.id).remove();
+    }
+
+    function hide_empty_closing_times() {
+        var all_hidden = true;
+
+        _.each(POLL_CLOSING_TIMES, function(t) {
+            var el = $("#pres-closing .time-" + t.format("hhmm"));
+
+            if (el.children().length == 1) {
+                el.hide();
+            } else {
+                all_hidden = false;
+            }
+        });
+
+        if (all_hidden) {
+            $("#pres-closing").hide();
+        }
     }
 
     function compute_stats() {
@@ -376,6 +394,7 @@ $(function() {
             state_names[state.id] = state.name;
         });
 
+        hide_empty_closing_times();
         compute_stats();
     });
 
@@ -445,6 +464,7 @@ $(function() {
         });
 
         if (real_changes) {
+            hide_empty_closing_times();
             compute_stats();
             update_call_alert();
         };
