@@ -38,17 +38,6 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 
-/* COLORS */
-/*
-.d_safe { background-color: #3d7fa6; color: #FFF; }
-.d_favored { background-color: #7dbfe6; color: #28556f; }
-.r_safe { background-color: #a23520; color: #FFF; }
-.r_favored { background-color: #e27560; color: #6c2315; }
-.i_safe { background-color: #999; color: #fff; }
-.i_favored { background-color: #ccc; color: #333; }
-.tossup { background-color: #f7e39b; color: #77631b; }
-*/
-
 /* ELECTRIS */
 #states,.bucket.undecided {
     font-size:20px;
@@ -58,15 +47,13 @@ a.btn { color: #fff; cursor: pointer; }
     position:relative;
     float:left;
     clear:left;
+    margin-left: 0;
+    width: 100%;
 }
 
 .state {
     z-index: 100;
-
-    -moz-user-select: none; 
-    -khtml-user-select: none; 
-    -webkit-user-select: none; 
-    -o-user-select: none; 
+    -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; 
 }
 
 .state i {
@@ -79,6 +66,7 @@ a.btn { color: #fff; cursor: pointer; }
     margin-right:.1em;
     margin-bottom:.1em;
     height:.9em;
+    overflow: hidden;
 
     background-color: #f7e39b;
     color: #77631b;
@@ -87,9 +75,7 @@ a.btn { color: #fff; cursor: pointer; }
 .state:hover { cursor: move; }
 .state:hover i { color: #b39429; }
 
-.state i span {
-    font-size:.7em;
-}
+.state i span { font-size:.7em; }
 
 /* Before election night: shade by forecast */
 .state.prediction-sd i { background-color: #3d7fa6; color: #fff; }
@@ -101,7 +87,6 @@ a.btn { color: #fff; cursor: pointer; }
 
 /* On election night: shade by call */
 .state.called:hover { cursor: default; }
-
 .state.call-d i { background-color: #3d7fa6; color: #fff; }
 .state.call-r i { background-color: #a23520; color: #fff; }
 
@@ -123,7 +108,6 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 .bucket {
-    float:left;
     -moz-transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
     -o-transform: scaleY(-1);
@@ -134,6 +118,8 @@ a.btn { color: #fff; cursor: pointer; }
     width:10em;
     background-color: whiteSmoke;
 }
+#buckets .bucket.blue { float: left; }
+#buckets .bucket.red { float: right; }
 
 .bucket .state i {
     -moz-transform: scaleY(-1);
@@ -144,30 +130,15 @@ a.btn { color: #fff; cursor: pointer; }
     filter: flipv; /*IE*/
 }
 
-.bucket.undecided {
-    margin-bottom:1em;
-}
-
-.bucket.undecided .state {
-	padding-bottom: 6px;
-}
-
+.bucket.undecided { margin-bottom:1em; }
+.bucket.undecided .state { padding-bottom: 6px; }
 .bucket.undecided:after, .bucket.undecided .state:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 
-#resetBtn {
-	float: right;
-	margin-top: -32px;
-}
+#resetBtn { float: right; margin-top: -32px; }
 
-#probabilities {
-	display: none;
-}
-#probabilities .dem {
-	width: 45%; float: left;
-}
-#probabilities .rep {
-	width: 45%; float: right;
-}
+#probabilities { display: none; }
+#probabilities .dem { width: 45%; float: left; }
+#probabilities .rep { width: 45%; float: right; }
 
 
 /* HEADER AND PLAYER */
@@ -431,17 +402,17 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 
 
 
+@media (min-width: 960px) {
+    #states,.bucket.undecided { font-size:20px; }
+}
 @media (min-width: 1200px) {
 	#bigbox { width: 300px; }
 	#main-header, #header-title { width: 840px; }
-    #states,.bucket.undecided { font-size:24px; }
+    #states,.bucket.undecided { font-size:26px; }
     #topline .span4 { width: 260px; margin-left: 20px; }
 }
 @media (max-width: 979px) {
 	#bigbox { display: none; } /* TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
-}
-@media (min-width: 960px) {
-    #states,.bucket.undecided { font-size:20px; }
 }
 @media (max-width: 979px) and (min-width: 768px) {
 	#main-header, #header-title { width: 724px; }
