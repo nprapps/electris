@@ -4,6 +4,11 @@ from fabric.api import *
 Base configuration
 """
 env.project_name = 'electris'
+env.user = 'ubuntu'
+env.python = 'python2.7'
+env.path = '/home/ubuntu/apps/%(project_name)s' % env
+env.repo_path = '%(path)s/repository' % env
+env.virtualenv_path = '%(path)s/virtualenv' % env
 
 """
 Environments
@@ -11,10 +16,12 @@ Environments
 def production():
     env.settings = 'production'
     env.s3_bucket = 'apps.npr.org'
+    env.hosts = ['54.245.114.14']
     
 def staging():
     env.settings = 'staging'
     env.s3_bucket = 'stage-apps.npr.org'
+    env.hosts = ['50.112.92.131']
 
 """
 Branches
@@ -59,12 +66,40 @@ def _gzip_www():
     """
     local('python gzip_www.py')
 
+def setup():
+    require('settings', provided_by=[production, staging])
+    require('branch', provided_by=[stable, master, branch])
+
+    setup_directories()
+    setup_virtualenv()
+    clone_repo()
+    checkout_latest()
+    install_requirements()
+ 
+def setup_directories():
+    run('mkdir -p %(path)s' % env)
+
+def setup_virtualenv():
+    run('virtualenv -p %(python)s --no-site-packages %(virtualenv_path)s' % env)
+    run('source %(virtualenv_path)s/bin/activate' % env)
+
+def clone_repo():
+    run('git clone git@github.com:nprapps/%(project_name)s.git %(repo_path)s' % env)
+
+def checkout_latest():
+    run('cd %(repo_path)s; git checkout %(branch)s; git pull origin %(branch)s' % env)
+
+def install_requirements():
+    run('%(virtualenv_path)s/bin/pip install -r %(repo_path)s/requirements.txt' % env)
+
 def deploy():
     require('settings', provided_by=[production, staging])
     require('branch', provided_by=[stable, master, branch])
     _confirm_branch()
     _gzip_www()
     _deploy_to_s3()
+
+    checkout_latest()
 
 def shiva_the_destroyer():
     """
