@@ -1,7 +1,7 @@
 $(function() {
     /* Settings */
     var MIN_VOTES_FOR_COMBOS = 40;
-    var MIN_STATES_FOR_COMBOS = 5;
+    var MAX_STATES_FOR_COMBOS = 5;
     var STATE_TEMPLATE = _.template($("#state-template").html());
     var REPORTING_TEMPLATE = _.template($("#reporting-template").html());
     var COMING_UP_TEMPLATE = _.template($("#coming-up-template").html());
@@ -245,7 +245,7 @@ $(function() {
         var red_needs = 270 - red_votes;
         var blue_needs = 270 - blue_votes;
 
-        if (red_needs <= 0 || blue_needs <= 0 || (_.min([red_needs, blue_needs]) > MIN_VOTES_FOR_COMBOS && undecided_states.length > MIN_STATES_FOR_COMBOS)) {
+        if (red_needs <= 0 || blue_needs <= 0 || (red_needs > MIN_VOTES_FOR_COMBOS && blue_needs > MIN_VOTES_FOR_COMBOS) || undecided_states.length > MAX_STATES_FOR_COMBOS) {
             $("#show-combos").hide();
             return;
         }
