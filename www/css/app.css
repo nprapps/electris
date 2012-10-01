@@ -454,7 +454,7 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	#topline h6 { margin: 0 0 .5em 0; float: none; }
 }
 @media (max-width: 500px) {
-    #states,.bucket.undecided { font-size:12px; }
+    #states, .bucket.undecided { font-size:12px; }
 }
 @media (max-width: 480px) {
 	body { padding-left: 10px; padding-right: 10px; }
