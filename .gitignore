@@ -32,3 +32,4 @@ gzip
 *.swo
 
 electris.db
+www/states.csv
