@@ -23,7 +23,7 @@ From 2012 FTP docs:
 
 Cron job:
 
-```* * * * * $ENV_PATH/bin/python $REPO_PATH/fetch_ap_results.py```
+```*/1  * * * * cd /home/ubuntu/apps/electris/repository && ../virtualenv/bin/python fetch_ap_results.py```
 
 Modes
 -----
