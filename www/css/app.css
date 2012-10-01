@@ -456,7 +456,7 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	#topline h6 { margin: 0 0 .5em 0; float: none; }
 }
 @media (max-width: 500px) {
-    #states,.bucket.undecided { font-size:12px; }
+    #states, .bucket.undecided { font-size:12px; }
 }
 @media (max-width: 480px) {
 	body { padding-left: 10px; padding-right: 10px; }
@@ -479,4 +479,10 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	#states { display: none; }
 	#game-info { display: none; }
 	#pres-results li.instructions { display: none; }
+}
+@media (max-width: 400px) {
+	#topline ul li { margin-bottom: 2px; }
+	#topline strong { padding-left: 0; display: block; }
+	#topline ul li .bar { top: 20px; left: 0; }
+	#topline ul li .votes, #topline ul li .pickups { z-index: 102; }
 }

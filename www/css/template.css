@@ -56,8 +56,9 @@ a:hover, a:active { color: #36c; }
 	#social .twitter a { background-position: 12px -100px; }
 }
 @media (max-width: 767px) {
-	.navbar-fixed-top .container { width: 724px; position: static; }
-	.navbar-fixed-top .navbar-inner { padding-left: 20px; padding-right: 20px; }
+	.navbar-fixed-top { margin-left: -10px; margin-right: -10px; }
+	.navbar-fixed-top .container { width: auto; position: static; }
+	.navbar-fixed-top .navbar-inner { padding-left: 15px; padding-right: 15px; }
 	#social ul li span { padding: 15px 10px 16px 10px; }
 	#social a { height: 50px; }
 	#social .facebook a { background-position: 19px 15px; }
