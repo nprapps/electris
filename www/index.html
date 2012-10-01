@@ -294,48 +294,61 @@
             	<div class="row" id="president">
 
             		<div class="span6 stateblock" id="states">
+            			<div class="row" id="bucket-headers">
+            				<div class="bucket-header blue">
+            					<h5>Your Prediction</h5> <!-- only show if user has started interacting with bars -->
+            					<h3><i>Barack </i><b>Obama</b></h3>
+            					<h4><b id="p-blue-electoral">00</b> electoral votes</h4>
+            					<p><b id="p-blue-call">00 called</b> | <b id="p-blue-predict">00 still in play</b></p>
+            				</div>
+            				<div class="bucket-header red">
+            					<h5>Your Prediction</h5> <!-- only show if user has started interacting with bars -->
+            					<h3><i>Mitt </i><b>Romney</b></h3>
+            					<h4><b id="p-red-electoral">00</b> electoral votes</h4>
+            					<p><b id="p-red-call">00 called</b> | <b id="p-red-predict">00 still in play</b></p>
+            				</div>
+            			</div>
             			<div class="row" id="buckets">
             				<div class="bucket blue"></div>
             				<div class="bucket red"></div>
-	                        <div class="line">270</div>
+	                        <div class="line"><b>270</b></div>
 		                </div>
 		            </div>
 
 		            <div class="span3">
-		            	<div class="well" id="game-info">
-
-			            	<h3>Game It Out</h3>
-		            		<button id="resetBtn" class="btn btn-mini" type="button">Reset</button>
-			            	<p>Drag each state into a red or blue bucket to predict how it will go on election night.</p>
-			            	<p><button id="show-combos" type="button" data-toggle="modal" data-target="#probabilities" data-backdrop="false" class="btn btn-small btn-inverse">See All Possible Outcomes</button></p>
-                            <p><button id="add-predictions" type="button" class="btn btn-small">Pre-fill with NPR's predictions</button>
-		    	        	
-		    	        	<div class="modal" id="probabilities" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		    	        		<div class="modal-header">
-		    	        			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		    	        			<h3 id="myModalLabel">Probabilities</h3>
-		    	        		</div>
-		    	        		<div class="modal-body">
-		    	        			<div id="combos">
-		    	        				<div class="dem">
-		    	        					<p><strong>Democrats need <span id="blue-needs"></span> votes to win.</strong> There are <span id="blue-combos-count"></span> ways for them to get them:</p>
-		    	        					<ul id="blue-combos"></ul>
-		    	        				</div>
-		    	        				<div class="rep">
-		    	        					<p><strong>Republicans need <span id="red-needs"></span> votes to win.</strong> There are <span id="red-combos-count"></span> ways for them to get them:</p>
-		    	        					<ul id="red-combos"></ul>
-		    	        				</div>
-		    	        			</div>
-			    	        	</div>
-			    	        	<div class="modal-footer">
-		    		        		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-			    		        </div>
-							</div>
-
-	            	    </div>
-	            	    
 	            	    <div id="pres-results">
 			                <h2>Presidential Results</h2>
+			                
+			            	<div class="well" id="game-info">
+				            	<p><strong>GAME IT OUT:</strong> Drag any undecided (yellow) state into a red or blue bucket to predict how it will go on election night.</p>
+				            	
+				            	<button id="show-combos" type="button" data-toggle="modal" data-target="#probabilities" data-backdrop="false" class="btn btn-small btn-inverse">See All Possible Outcomes</button>
+        	                    <button id="add-predictions" type="button" class="btn btn-small">Pre-fill with NPR's predictions</button>
+			            		<button id="resetBtn" class="btn btn-small" type="button">Clear All Predictions</button>
+			    	        	
+			    	        	<div class="modal" id="probabilities" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			    	        		<div class="modal-header">
+			    	        			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    		        			<h3 id="myModalLabel">Probabilities</h3>
+		    		        		</div>
+		    	    	    		<div class="modal-body">
+		    	        				<div id="combos">
+		    	        					<div class="dem">
+		    	        						<p><strong>Democrats need <span id="blue-needs"></span> votes to win.</strong> There are <span id="blue-combos-count"></span> ways for them to get them:</p>
+		    	        						<ul id="blue-combos"></ul>
+		    	        					</div>
+			    	        				<div class="rep">
+			    	        					<p><strong>Republicans need <span id="red-needs"></span> votes to win.</strong> There are <span id="red-combos-count"></span> ways for them to get them:</p>
+			    	        					<ul id="red-combos"></ul>
+		    		        				</div>
+		    		        			</div>
+			    		        	</div>
+			    	    	    	<div class="modal-footer">
+		    		        			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				    		        </div>
+								</div>
+							</div>
+
 
 	            	    	<ul class="nav nav-tabs" id="pres-nav">
 	            	    		<li id="nav-pres-watching"><a>Coming In</a></li>
@@ -344,9 +357,6 @@
 	            	    	</ul>
 	            	    	
 	            	    	<ul id="pres-watching" class="results">
-	            	    		<li class="instructions">
-	            	    			Click on a state name to predict who will win.
-	            	    		</li>
 	            	    		<li class="hdr">
 	            	    			<span class="s instructions">&nbsp;</span>
 	            	    			<span class="blue">
@@ -359,9 +369,6 @@
 	            	    	</ul>
 	            	    	
 	            	    	<ul id="pres-called" class="results">
-	            	    		<li class="instructions">
-	            	    			Predictions not available for states that have been called.
-	            	    		</li>
 	            	    		<li class="hdr">
 	            	    			<span class="s">&nbsp;</span>
 	            	    			<span class="blue">
@@ -374,9 +381,6 @@
 	            	    	</ul>
 	            	    	
 	            	    	<ul id="pres-closing" class="results">
-	            	    		<li class="instructions">
-	            	    			Click on a state name to predict who will win.
-	            	    		</li>
                                 <li class="time-0700">
                                     <strong>7:00 PM ET</strong>
                                 </li>

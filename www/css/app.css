@@ -23,7 +23,7 @@ h2 {
 h3 {
 	font: bold 1.1em Arial, Helvetica, sans-serif;
 	color: #333;
-}s
+}
 a.btn { color: #fff; cursor: pointer; }
 
 
@@ -39,11 +39,10 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* ELECTRIS */
-#states,.bucket.undecided {
-    font-size:20px;
-}
+#states:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+#states,.bucket.undecided { font-size:20px; }
 
-#buckets {
+#buckets, #bucket-headers {
     position:relative;
     float:left;
     clear:left;
@@ -99,12 +98,21 @@ a.btn { color: #fff; cursor: pointer; }
 .line {
     bottom:26.9em;
     height:.1em;
-    background-color:yellow;
+    background-color: #333;
     position:absolute;
     z-index:100;
-    width:23em;
+    width: 100%;
     text-align:right;
     line-height:0;
+}
+.line b {
+	display: block;
+	text-align: center;
+	background-color: #FFF;
+	text-indent: -9999px;
+	background: url('../img/270.gif') no-repeat center center;
+	height: 12px;
+	margin-top: -5px;
 }
 
 .bucket {
@@ -134,7 +142,50 @@ a.btn { color: #fff; cursor: pointer; }
 .bucket.undecided .state { padding-bottom: 6px; }
 .bucket.undecided:after, .bucket.undecided .state:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 
-#resetBtn { float: right; margin-top: -32px; }
+.bucket-header {
+	border-top: 3px solid #000;
+	padding: 15px 0 18px 0;
+	width: 10em;
+	overflow: hidden;
+}
+.bucket-header { width: 10em; }
+.bucket-header.blue { background: url('../img/silo-obama.png') no-repeat left 15px; float: left; }
+.bucket-header.red  { background: url('../img/silo-romney.png') no-repeat left 15px; float: right; }
+.bucket-header h5, .bucket-header h3, .bucket-header h4, .bucket-header p {
+	margin-left: 80px;
+}
+.bucket-header h5 {
+	font: normal 11px Arial, Helvetica, sans-serif;
+	color: #999;
+	text-transform: uppercase;
+	margin-bottom: 3px;
+}
+.bucket-header h3 {
+	font: normal normal 24px Georgia, serif;
+	color: #333;
+	margin-bottom: -3px;
+}
+.bucket-header h3 i, .bucket-header h3 b {
+	font-weight: normal;
+	font-style: normal;
+}
+.bucket-header h4 {
+	font: normal 14px Arial, Helvetica, sans-serif;
+	color: #666;
+	margin-bottom: 3px;
+}
+.bucket-header h4 b { 
+	font: bold 28px Georgia, serif;
+	color: #333;
+}
+.bucket-header p {
+	font-size: 12px;
+	margin-bottom: 0;
+	color: #666;
+}
+.bucket-header #p-blue-call { color: #3D7FA6; }
+.bucket-header #p-red-call { color: #A23520; }
+.bucket-header #p-blue-predict, .bucket-header #p-red-predict { color: #B39429; }
 
 #probabilities { display: none; }
 #probabilities .dem { width: 45%; float: left; }
@@ -412,11 +463,16 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
     #topline .span4 { width: 260px; margin-left: 20px; }
 }
 @media (max-width: 979px) {
+	.bucket-header h3 { font-size: 19px; }
+    .bucket-header h3 i { display: none; }
+    .bucket-header h4 b { display: block; }
 	#bigbox { display: none; } /* TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
 }
 @media (max-width: 979px) and (min-width: 768px) {
 	#main-header, #header-title { width: 724px; }
     #topline .span4 { width: 221px; }
+    .bucket-header, .bucket { width: 9em; }
+    #states,.bucket.undecided { font-size: 18px; }
 }
 @media (max-width: 767px) {
     #results,#blog { width:100%; }
@@ -425,9 +481,11 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	#topline .full { display: none; }
 	#topline .abbr { display: inline; }
 	#topline h6 { margin: 0 0 .5em 0; float: none; }
-}
-@media (max-width: 500px) {
-    #states, .bucket.undecided { font-size:12px; }
+    .bucket-header, .bucket { width: 15em; }
+    #states,.bucket.undecided { font-size: 22px; }
+	.bucket-header h3 { font-size: 24px; }
+    .bucket-header h3 i { display: inline; }
+    .bucket-header h4 b { display: inline; }
 }
 @media (max-width: 480px) {
 	body { padding-left: 10px; padding-right: 10px; }
