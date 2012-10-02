@@ -22,7 +22,7 @@ $(function() {
     /* Elements */
     var red_bucket = $(".bucket.red");
     var blue_bucket = $(".bucket.blue");
-    var undecided_bucket = $(".bucket.undecided");
+    var state_drop_target = $("#state-drop");
     var alerts = $("#alert-msg div");
 
     /* State data */
@@ -100,29 +100,18 @@ $(function() {
                 red_bucket.append(html);
             } else if (user_predictions[state.id] === "d") {
                 blue_bucket.append(html);
-            } else if (user_predictions[state.id] === "t") {
-                undecided_bucket.append(html);
-            } else {
-                undecided_bucket.append(html);
-            }
-        } else {
+            }        } else {
             if (state.id in user_predictions) {
                 if (user_predictions[state.id] === "r") {
                     red_bucket.append(html);
                 } else if (user_predictions[state.id] === "d") {
                     blue_bucket.append(html);
-                } else if (user_predictions[state.id] === "t") {
-                    undecided_bucket.append(html);
-                }
-            } else {
+                }            } else {
                 if (state.prediction === "sr" || state.prediction === "lr") {
                     red_bucket.append(html);
                 } else if (state.prediction === "sd" || state.prediction === "ld") {
                     blue_bucket.append(html);
-                } else {
-                    undecided_bucket.append(html);
-                }
-            }
+                }            }
         }
 
         $(".state." + state.id + " i").popover({ trigger: "manual" }).click(function(e){
@@ -148,6 +137,9 @@ $(function() {
     }
 
     function hide_empty_closing_times() {
+        /*
+         * Hide closing times blocks that are empty.
+         */
         var all_hidden = true;
 
         _.each(POLL_CLOSING_TIMES, function(t) {
@@ -536,7 +528,7 @@ $(function() {
                 user_predictions[state_id] = "d";
             } else if (is_within(red_bucket)) {
                 user_predictions[state_id] = "r";
-            } else if (is_within(undecided_bucket)) {
+            } else if (is_within(state_drop_target)) {
                 user_predictions[state_id] = "t";
             }
 
