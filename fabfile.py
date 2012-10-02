@@ -1,4 +1,8 @@
+#!/usr/bin/env python
+
 from fabric.api import *
+
+import util
 
 """
 Base configuration
@@ -100,6 +104,16 @@ def deploy():
     _deploy_to_s3()
 
     checkout_latest()
+
+def local_reset():
+    with settings(warn_only=True):
+        local('rm www/states.csv')
+        local('rm electris.db')
+    
+    # Bootstrap the database
+    db = util.get_database()
+    states = util.get_states(db)
+    util.regenerate_csv(states)
 
 def shiva_the_destroyer():
     """
