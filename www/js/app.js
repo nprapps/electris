@@ -29,12 +29,6 @@ $(function() {
     var state_votes = {};
     var state_names = {};
     var state_predictions = {};
-    var red_states = null;
-    var red_votes = null;
-    var blue_states = null;
-    var blue_votes = null;
-    var undecided_states = null;
-    var undecided_votes = null;
     var alerted_states = {
         "r": [],
         "d": []
@@ -175,88 +169,88 @@ $(function() {
         /*
          * Compute and display vote stats.
          */
-        red_states = states_dataset.where({
-            columns: ["id", "name", "electoral_votes"],
-            rows: function(row) {
-                 if(IS_ELECTION_NIGHT) {
-                    if (row.call === "r") {
-                        return true;
-                    } else if (row.id in user_predictions && user_predictions[row.id] === "r") {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    if (row.id in user_predictions && user_predictions[row.id] === "r") {
-                        return true;
-                    }
+        var states_called_red = [];
+        var states_called_blue = [];
+        var states_predicted_red = [];
+        var states_predicted_blue = [];
+        var states_not_called = [];
+        var states_undecided = [];
 
-                    return (row.prediction === "sr" || row.prediction === "lr");
+        states_dataset.each(function(state) {
+            if (IS_ELECTION_NIGHT) {
+                if (state.call === "r") {
+                    states_called_red.push(state);
+                } else if (state.call === "d") {
+                    states_called_blue.push(state);
+                } else if (state.id in user_predictions && user_predictions[state.id] === "r") {
+                    states_predicted_red.push(state);
+                    states_not_called.push(state);
+                } else if (state.id in user_predictions && user_predictions[state.id] === "d") {
+                    states_predicted_blue.push(state);
+                    states_not_called.push(state);
+                } else {
+                    states_not_called.push(state);
+                    states_undecided.push(state);
                 }
+            } else {
+                if (state.id in user_predictions && user_predictions[state.id] === "r") {
+                    states_predicted_red.push(state);
+                } else if (state.id in user_predictions && user_predictions[state.id] === "d") {
+                    states_predicted_blue.push(state);
+                } else if (state.prediction === "sr" || state.prediction === "lr") {
+                    states_predicted_red.push(state);
+                } else if (state.prediction === "sd" || state.prediction === "ld") {
+                    states_predicted_blue.push(state);
+                } else {
+                    states_undecided.push(state);
+                }
+
             }
         });
 
-        red_votes = red_states.sum("electoral_votes").val();
-        $("#red-votes").text(red_votes);
+        function sum_votes(states) {
+            return _.reduce(states, function(count, state) { return count + state.electoral_votes; }, 0);
+        }
 
-        blue_states = states_dataset.where({
-            columns: ["id", "name", "electoral_votes"],
-            rows: function(row) {
-                if (IS_ELECTION_NIGHT) {
-                    if (row.call === "d") {
-                        return true;
-                    } else if (row.id in user_predictions && user_predictions[row.id] === "d") {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    if (row.id in user_predictions && user_predictions[row.id] === "d") {
-                        return true;
-                    }
+        var red_votes_called = sum_votes(states_called_red);
+        var red_votes_predicted = sum_votes(states_predicted_red);
+        $("#red-votes").text(red_votes_called);
+        $("#p-red-electoral").text(red_votes_called + red_votes_predicted);
+        $("#p-red-call .value").text(red_votes_called);
+        $("#p-red-predict .value").text(red_votes_predicted);
 
-                    return (row.prediction === "sd" || row.prediction === "ld");
-                }
-            }
-        });
+        var blue_votes_called = sum_votes(states_called_blue);
+        var blue_votes_predicted = sum_votes(states_predicted_blue);
+        $("#blue-votes").text(blue_votes_called);
+        $("#p-blue-electoral").text(blue_votes_called + blue_votes_predicted);
+        $("#p-blue-call .value").text(blue_votes_called);
+        $("#p-blue-predict .value").text(blue_votes_predicted);
 
-        blue_votes = blue_states.sum("electoral_votes").val();
-        $("#blue-votes").text(blue_votes);
+        var not_called_votes = sum_votes(states_not_called);
+        $("#undecided-votes").text(not_called_votes);
 
-        undecided_states = states_dataset.where({
-            columns: ["id", "name", "electoral_votes"],
-            rows: function(row) {
-                if (IS_ELECTION_NIGHT) {
-                    if (row.call === "") {
-                        return false;
-                    } else if (row.id in user_predictions && user_predictions[row.id] !== "t") {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                } else {
-                    if (row.id in user_predictions && user_predictions[row.id] === "t") {
-                        return true;
-                    }
+        total_votes = red_votes_called + blue_votes_called + not_called_votes;
+        $('#o-president').find('.blue b').width(((blue_votes_called / total_votes) * 100) + '%');
+        $('#o-president').find('.red b').width(((red_votes_called / total_votes) * 100) + '%');
 
-                    return (row.prediction === "t");
-                }
-            }
-        });
-
-        undecided_votes = undecided_states.sum("electoral_votes").val();
-        $("#undecided-votes").text(undecided_votes);
-
-        total_votes = red_votes + blue_votes + undecided_votes;
-        $('#o-president').find('.blue b').width(((blue_votes / total_votes) * 100) + '%');
-        $('#o-president').find('.red b').width(((red_votes / total_votes) * 100) + '%');
-        $('#o-president').find('.undecided b').width(((undecided_votes / total_votes) * 100) + '%');
-
-        update_bucket_height();
-        generate_winning_combinations();
+        update_bucket_height(red_votes_called + red_votes_predicted, blue_votes_called + blue_votes_predicted);
+        generate_winning_combinations(red_votes_called + red_votes_predicted, blue_votes_called + blue_votes_predicted, states_undecided);
     }
 
-    function generate_winning_combinations() {
+    function update_bucket_height(red_votes, blue_votes) {
+        /*
+         * Set the height of the tetris buckets to either 270 votes or higher if
+         * we've already passed 270.
+         */
+        if ($(window).width() < MIN_TETRIS_WIDTH ) {
+            return;
+        }
+
+        var height = Math.max(27, Math.ceil(Math.max(red_votes, blue_votes) / 10));
+        $("#buckets,#buckets .red,#buckets .blue").css("height", height + "em");
+    }
+
+    function generate_winning_combinations(red_votes, blue_votes, undecided_states) {
         /*
          * Generate combinations of states that can win the election.
          */
@@ -268,7 +262,9 @@ $(function() {
             return;
         }
 
-        var state_ids = undecided_states.column('id').data;
+        //var state_ids = undecided_states.column('id').data;
+        var state_ids = _.pluck(undecided_states, "id");
+        console.log(state_ids);
 
         // NB: A sorted input list generates a sorted output list
         // from our combinations algorithm.
@@ -325,19 +321,6 @@ $(function() {
         });
 
         $("#show-combos").show();
-    }
-
-    function update_bucket_height() {
-        /*
-         * Set the height of the tetris buckets to either 270 votes or higher if
-         * we've already passed 270.
-         */
-        if ($(window).width() < MIN_TETRIS_WIDTH ) {
-            return;
-        }
-
-        var height = Math.max(27, Math.ceil(Math.max(red_votes, blue_votes) / 10));
-        $("#buckets,#buckets .red,#buckets .blue").css("height", height + "em");
     }
 
     $("#add-predictions").click(function() {
