@@ -1,7 +1,7 @@
 $(function() {
     /* Settings */
-    var MIN_VOTES_FOR_COMBOS = 40;
-    var MAX_STATES_FOR_COMBOS = 5;
+    var MIN_VOTES_FOR_COMBOS = 100;
+    var MAX_STATES_FOR_COMBOS = 10;
     var STATE_TEMPLATE = _.template($("#state-template").html());
     var REPORTING_TEMPLATE = _.template($("#reporting-template").html());
     var COMING_UP_TEMPLATE = _.template($("#coming-up-template").html());
@@ -10,6 +10,7 @@ $(function() {
     var POLLING_INTERVAL = 1000;
     var MIN_TETRIS_WIDTH = 480;
     var POLL_CLOSING_TIMES = [
+        moment("2012-11-06T18:00:00 -0500"),
         moment("2012-11-06T19:00:00 -0500"),
         moment("2012-11-06T19:30:00 -0500"),
         moment("2012-11-06T20:00:00 -0500"),
@@ -100,7 +101,8 @@ $(function() {
                 red_bucket.append(html);
             } else if (user_predictions[state.id] === "d") {
                 blue_bucket.append(html);
-            }        } else {
+            }
+        } else {
             if (state.id in user_predictions) {
                 if (user_predictions[state.id] === "r") {
                     red_bucket.append(html);
@@ -256,7 +258,6 @@ $(function() {
 
         //var state_ids = undecided_states.column('id').data;
         var state_ids = _.pluck(undecided_states, "id");
-        console.log(state_ids);
 
         // NB: A sorted input list generates a sorted output list
         // from our combinations algorithm.
