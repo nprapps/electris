@@ -293,9 +293,37 @@ $(function() {
             }
         });
 
+        function combo_ranker(a, b) {
+            if (a.combo.length > b.combo.length) {
+                // a > b
+                return 1;
+            } else if (a.combo.length < b.combo.length) {
+                // a < b
+                return -1;
+            } else {
+                if (a.votes > b.votes) {
+                    // a > b
+                    return 1;
+                } else if (a.votes < b.votes) {
+                    // a < b
+                    return -1;
+                } else {
+                    // a == b
+                    return 0;
+                }
+            }
+        }
+
+        red_combos.sort(combo_ranker);
+        blue_combos.sort(combo_ranker);
+
+        var red_combo_length_counts = _.countBy(red_combos, function(combo) { return combo.combo.length; });
+        var blue_combo_length_counts = _.countBy(blue_combos, function(combo) { return combo.combo.length; });
+
         $("#red-needs").text(red_needs);
-        $("#red-combos-count").text(red_combos.length);
-        $("#red-combos").empty();
+        $(".red-simple-combo-length").text(red_combos[0].combo.length);
+        $(".red-simple-combos-count").text(red_combo_length_counts[red_combos[0].combo.length]);
+        $("red-combos").empty();
 
         _.each(red_combos, function(combo) {
             var names = _.map(combo.combo, function(id) { return state_names[id] + " (" + state_votes[id] + ")"; });
@@ -304,7 +332,8 @@ $(function() {
         });
 
         $("#blue-needs").text(blue_needs);
-        $("#blue-combos-count").text(blue_combos.length);
+        $(".blue-simple-combo-length").text(blue_combos[0].combo.length);
+        $(".blue-simple-combos-count").text(blue_combo_length_counts[blue_combos[0].combo.length]);
         $("#blue-combos").empty();
 
         _.each(blue_combos, function(combo) {
