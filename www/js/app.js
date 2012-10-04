@@ -1,5 +1,6 @@
 $(function() {
     /* Settings */
+    var ELECTORAL_VOTES_TO_WIN = 270;
     var MIN_VOTES_FOR_COMBOS = 100;
     var MAX_STATES_FOR_COMBOS = 10;
     var STATE_TEMPLATE = _.template($("#state-template").html());
@@ -35,6 +36,7 @@ $(function() {
     };
 
     /* User data */
+    var user_predicted_winner = null;
     var user_predictions = {};
 
     /* Drag and drop */
@@ -56,7 +58,7 @@ $(function() {
         /*
          * Add the HTML for a state to the correct location.
          */
-        // Called!
+        /*// Called!
         if (state.call) {
              var html = REPORTING_TEMPLATE({
                 state: state
@@ -78,7 +80,7 @@ $(function() {
             });
 
             $("#pres-closing .time-" + state.polls_close.format("hhmm")).append(html);
-        }
+        }*/
 
         // If not rendering the tetris view then bail out
         if ($(window).width() < MIN_TETRIS_WIDTH ) {
@@ -87,6 +89,7 @@ $(function() {
 
         var html = STATE_TEMPLATE({
             state: state,
+            user_predicted_winner: user_predicted_winner,
             user_prediction: user_predictions[state.id],
             is_election_night: IS_ELECTION_NIGHT
         });
@@ -198,26 +201,17 @@ $(function() {
         }
     }
 
-    function update_bucket_height() {
-        /*
-         * Set the height of the tetris buckets to either 270 votes or higher if
-         * we've already passed 270.
-         */
-    }
-
     function generate_winning_combinations(red_votes, blue_votes, undecided_states) {
         /*
          * Generate combinations of states that can win the election.
          */
-        var red_needs = 270 - red_votes;
-        var blue_needs = 270 - blue_votes;
+        var red_needs = ELECTORAL_VOTES_TO_WIN - red_votes;
+        var blue_needs = ELECTORAL_VOTES_TO_WIN - blue_votes;
 
         if ((red_needs > MIN_VOTES_FOR_COMBOS && blue_needs > MIN_VOTES_FOR_COMBOS) || undecided_states.length > MAX_STATES_FOR_COMBOS) {
-            //$(".combos").hide();
             return;
         }
 
-        //var state_ids = undecided_states.column('id').data;
         var state_ids = _.pluck(undecided_states, "id");
 
         // NB: A sorted input list generates a sorted output list
@@ -314,12 +308,13 @@ $(function() {
          */
         var combo = $(this).data();
 
+        user_predicted_winner = combo.winner;
         user_predictions = {};
 
         states_dataset.each(function(state) {
             if (state.prediction === "t") {
                 if ($.inArray(state.id, combo.combo) >= 0) {
-                    user_predictions[state.id] = combo.winner; 
+                    user_predictions[state.id] = user_predicted_winner; 
                 } else {
                     if (combo.winner === "r") {
                         user_predictions[state.id] = "d";

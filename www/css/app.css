@@ -71,21 +71,18 @@ a.btn { color: #fff; cursor: pointer; }
     color: #77631b;
 }
 
-.state:hover { cursor: move; }
-.state:hover i { color: #b39429; }
-
+.state:hover { cursor: pointer; }
 .state i span { font-size:.7em; }
 
 /* Before election night: shade by forecast */
 .state.prediction-sd i { background-color: #3d7fa6; color: #fff; }
 .state.prediction-ld i { background-color: #7dbfe6; color: #fff; }
 .state.prediction-t i { background-color: #f7e39b; color: #77631b; }
-.state.prediction-t:hover i { color: #b39429; }
+.state.prediction-t.prediction-loser i { opacity: 0.5; }
 .state.prediction-lr i { background-color: #e27560; color: #fff; }
 .state.prediction-sr i { background-color: #a23520; color: #fff; }
 
 /* On election night: shade by call */
-.state.called:hover { cursor: default; }
 .state.call-d i { background-color: #3d7fa6; color: #fff; }
 .state.call-r i { background-color: #a23520; color: #fff; }
 
@@ -392,7 +389,6 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	white-space: nowrap;
 	display: block;
 	float: left;
-	cursor: move;
 	margin: 0 3px 3px 0;
 }
 #pres-results .precincts {
