@@ -6,7 +6,7 @@ $(function() {
     var REPORTING_TEMPLATE = _.template($("#reporting-template").html());
     var COMING_UP_TEMPLATE = _.template($("#coming-up-template").html());
     var CALL_ALERT_TEMPLATE = _.template($("#call-alert-template").html());
-    var IS_ELECTION_NIGHT = true;
+    var IS_ELECTION_NIGHT = false;
     var POLLING_INTERVAL = 1000;
     var MIN_TETRIS_WIDTH = 480;
     var POLL_CLOSING_TIMES = [
@@ -108,12 +108,14 @@ $(function() {
                     red_bucket.append(html);
                 } else if (user_predictions[state.id] === "d") {
                     blue_bucket.append(html);
-                }            } else {
+                }
+            } else {
                 if (state.prediction === "sr" || state.prediction === "lr") {
                     red_bucket.append(html);
                 } else if (state.prediction === "sd" || state.prediction === "ld") {
                     blue_bucket.append(html);
-                }            }
+                }
+            }
         }
 
         $(".state." + state.id + " i").popover({ trigger: "manual" }).click(function(e){
@@ -129,7 +131,7 @@ $(function() {
         /*
          * Remove the HTML for a state.
          */
-        $("#pres-results ." + state.id).remove();
+        //$("#pres-results ." + state.id).remove();
 
         if ($(window).width() < MIN_TETRIS_WIDTH ) {
             return;
@@ -138,67 +140,27 @@ $(function() {
         $(".state." + state.id).remove();
     }
 
-    function hide_empty_closing_times() {
-        /*
-         * Hide closing times blocks that are empty.
-         */
-        var all_hidden = true;
-
-        _.each(POLL_CLOSING_TIMES, function(t) {
-            var el = $("#pres-closing .time-" + t.format("hhmm"));
-
-            if (el.children().length == 1) {
-                el.hide();
-            } else {
-                all_hidden = false;
-            }
-        });
-
-        if (all_hidden) {
-            $("#pres-closing").hide();
-        }
-    }
-
-    function compute_stats() {
+    function compute_stats(generate_combos) {
         /*
          * Compute and display vote stats.
          */
-        var states_called_red = [];
-        var states_called_blue = [];
-        var states_predicted_red = [];
-        var states_predicted_blue = [];
-        var states_not_called = [];
-        var states_undecided = [];
+        var states_fixed_red = [];
+        var states_fixed_blue = [];
+        var states_user_red = [];
+        var states_user_blue = [];
+        var states_not_predicted = [];
 
         states_dataset.each(function(state) {
-            if (IS_ELECTION_NIGHT) {
-                if (state.call === "r") {
-                    states_called_red.push(state);
-                } else if (state.call === "d") {
-                    states_called_blue.push(state);
-                } else if (state.id in user_predictions && user_predictions[state.id] === "r") {
-                    states_predicted_red.push(state);
-                    states_not_called.push(state);
-                } else if (state.id in user_predictions && user_predictions[state.id] === "d") {
-                    states_predicted_blue.push(state);
-                    states_not_called.push(state);
-                } else {
-                    states_not_called.push(state);
-                    states_undecided.push(state);
-                }
+            if (state.prediction === "sr" || state.prediction === "lr") {
+                states_fixed_red.push(state);
+            } else if (state.prediction === "sd" || state.prediction == "ld") {
+                states_fixed_blue.push(state);
+            } else if (state.id in user_predictions && user_predictions[state.id] === "r") {
+                states_user_red.push(state);
+            } else if (state.id in user_predictions && user_predictions[state.id] === "d") {
+                states_user_blue.push(state);
             } else {
-                if (state.id in user_predictions && user_predictions[state.id] === "r") {
-                    states_predicted_red.push(state);
-                } else if (state.id in user_predictions && user_predictions[state.id] === "d") {
-                    states_predicted_blue.push(state);
-                } else if (state.prediction === "sr" || state.prediction === "lr") {
-                    states_predicted_red.push(state);
-                } else if (state.prediction === "sd" || state.prediction === "ld") {
-                    states_predicted_blue.push(state);
-                } else {
-                    states_undecided.push(state);
-                }
-
+                states_not_predicted.push(state);
             }
         });
 
@@ -206,42 +168,42 @@ $(function() {
             return _.reduce(states, function(count, state) { return count + state.electoral_votes; }, 0);
         }
 
-        var red_votes_called = sum_votes(states_called_red);
-        var red_votes_predicted = sum_votes(states_predicted_red);
-        $("#red-votes").text(red_votes_called);
-        $("#p-red-electoral").text(red_votes_called + red_votes_predicted);
-        $("#p-red-call .value").text(red_votes_called);
-        $("#p-red-predict .value").text(red_votes_predicted);
+        var red_votes_fixed = sum_votes(states_fixed_red)
+        var red_votes_user = sum_votes(states_user_red);
+        //$("#red-votes").text(red_votes_fixed + red_votes_user);
+        $("#p-red-electoral").text(red_votes_fixed + red_votes_user);
+        $("#p-red-call .value").text(red_votes_fixed);
+        $("#p-red-predict .value").text(red_votes_user);
 
-        var blue_votes_called = sum_votes(states_called_blue);
-        var blue_votes_predicted = sum_votes(states_predicted_blue);
-        $("#blue-votes").text(blue_votes_called);
-        $("#p-blue-electoral").text(blue_votes_called + blue_votes_predicted);
-        $("#p-blue-call .value").text(blue_votes_called);
-        $("#p-blue-predict .value").text(blue_votes_predicted);
+        var blue_votes_fixed = sum_votes(states_fixed_blue);
+        var blue_votes_user = sum_votes(states_user_blue);
+        //$("#blue-votes").text(blue_votes_called);
+        $("#p-blue-electoral").text(blue_votes_fixed + blue_votes_user);
+        $("#p-blue-call .value").text(blue_votes_fixed);
+        $("#p-blue-predict .value").text(blue_votes_user);
 
-        var not_called_votes = sum_votes(states_not_called);
-        $("#undecided-votes").text(not_called_votes);
+        //unpredicted_votes = sum_votes(states_not_predicted);
+        //$("#undecided-votes").text();
 
-        total_votes = red_votes_called + blue_votes_called + not_called_votes;
-        $('#o-president').find('.blue b').width(((blue_votes_called / total_votes) * 100) + '%');
-        $('#o-president').find('.red b').width(((red_votes_called / total_votes) * 100) + '%');
+        //total_votes = red_votes_called + blue_votes_called + not_called_votes;
+        //$('#o-president').find('.blue b').width(((blue_votes_called / total_votes) * 100) + '%');
+        //$('#o-president').find('.red b').width(((red_votes_called / total_votes) * 100) + '%');
 
-        update_bucket_height(red_votes_called + red_votes_predicted, blue_votes_called + blue_votes_predicted);
-        generate_winning_combinations(red_votes_called + red_votes_predicted, blue_votes_called + blue_votes_predicted, states_undecided);
+        if ($(window).width() >= MIN_TETRIS_WIDTH ) {
+            var height = Math.max(27, Math.ceil(Math.max(red_votes_fixed + red_votes_user, blue_votes_fixed + blue_votes_user) / 10));
+            $("#buckets,#buckets .red,#buckets .blue").css("height", height + "em");
+        }
+
+        if (generate_combos) {
+            generate_winning_combinations(red_votes_fixed, blue_votes_fixed, states_not_predicted);
+        }
     }
 
-    function update_bucket_height(red_votes, blue_votes) {
+    function update_bucket_height() {
         /*
          * Set the height of the tetris buckets to either 270 votes or higher if
          * we've already passed 270.
          */
-        if ($(window).width() < MIN_TETRIS_WIDTH ) {
-            return;
-        }
-
-        var height = Math.max(27, Math.ceil(Math.max(red_votes, blue_votes) / 10));
-        $("#buckets,#buckets .red,#buckets .blue").css("height", height + "em");
     }
 
     function generate_winning_combinations(red_votes, blue_votes, undecided_states) {
@@ -251,8 +213,8 @@ $(function() {
         var red_needs = 270 - red_votes;
         var blue_needs = 270 - blue_votes;
 
-        if (red_needs <= 0 || blue_needs <= 0 || (red_needs > MIN_VOTES_FOR_COMBOS && blue_needs > MIN_VOTES_FOR_COMBOS) || undecided_states.length > MAX_STATES_FOR_COMBOS) {
-            $("#show-combos").hide();
+        if ((red_needs > MIN_VOTES_FOR_COMBOS && blue_needs > MIN_VOTES_FOR_COMBOS) || undecided_states.length > MAX_STATES_FOR_COMBOS) {
+            //$(".combos").hide();
             return;
         }
 
@@ -282,13 +244,13 @@ $(function() {
 
             if (combo_votes > red_needs) {
                 if (!is_subset(red_combos, combo)) {
-                    red_combos.push({ combo: combo, votes: combo_votes });
+                    red_combos.push({ combo: combo, votes: combo_votes, winner: "r" });
                 }
             }
 
             if (combo_votes > blue_needs) {
                 if (!is_subset(blue_combos, combo)) {
-                    blue_combos.push({ combo: combo, votes: combo_votes });
+                    blue_combos.push({ combo: combo, votes: combo_votes, winner: "d" });
                 }
             }
         });
@@ -323,12 +285,14 @@ $(function() {
         $("#red-needs").text(red_needs);
         $(".red-simple-combo-length").text(red_combos[0].combo.length);
         $(".red-simple-combos-count").text(red_combo_length_counts[red_combos[0].combo.length]);
-        $("red-combos").empty();
+        $("#red-combos").empty();
 
         _.each(red_combos, function(combo) {
             var names = _.map(combo.combo, function(id) { return state_names[id] + " (" + state_votes[id] + ")"; });
             var total = _.reduce(combo.combo, function(memo, id) { return memo + state_votes[id]; }, 0);
-            $("#red-combos").append("<li>" + names.join(" + ") + " = " + total + "</li>");
+            var el = $("<li>" + names.join(" + ") + " = " + total + "</li>"); 
+            el.data(combo);
+            $("#red-combos").append(el);
         });
 
         $("#blue-needs").text(blue_needs);
@@ -339,25 +303,28 @@ $(function() {
         _.each(blue_combos, function(combo) {
             var names = _.map(combo.combo, function(id) { return state_names[id] + " (" + state_votes[id] + ")"; });
             var total = _.reduce(combo.combo, function(memo, id) { return memo + state_votes[id]; }, 0);
-            $("#blue-combos").append("<li>" + names.join(" + ") + " = " + total + "</li>");
+            var el = $("<li>" + names.join(" + ") + " = " + total + "</li>"); 
+            el.data(combo);
+            $("#blue-combos").append(el);
         });
-
-        $("#show-combos").show();
     }
 
-    $("#add-predictions").click(function() {
-        /*
-         * Add NPR's predictions for how states will be called.
-         */
-        states_dataset.each(function(state) {
-            var prediction = state_predictions[state.id];
+    $("#blue-combos li,#red-combos li").live("click", function(event) {
+        var combo = $(this).data();
 
-            if (prediction === "sr" || prediction === "lr") {
-                user_predictions[state.id] = "r";
-            } else if (prediction === "sd" || prediction === "ld") {
-                user_predictions[state.id] = "d";
-            } else {
-                user_predictions[state.id] = "t";
+        user_predictions = {};
+
+        states_dataset.each(function(state) {
+            if (state.prediction === "t") {
+                if ($.inArray(state.id, combo.combo) >= 0) {
+                    user_predictions[state.id] = combo.winner; 
+                } else {
+                    if (combo.winner === "r") {
+                        user_predictions[state.id] = "d";
+                    } else {
+                        user_predictions[state.id] = "r";
+                    }
+                }
             }
 
             remove_state(state);
@@ -399,8 +366,7 @@ $(function() {
             state_names[state.id] = state.name;
         });
 
-        hide_empty_closing_times();
-        compute_stats();
+        compute_stats(true);
     });
 
     function update_call_alert() {
@@ -469,130 +435,11 @@ $(function() {
         });
 
         if (real_changes) {
-            hide_empty_closing_times();
             compute_stats();
             update_call_alert();
         };
     });
 
-    /* DRAG AND DROP */
-
-    function disable_text_selection() {
-        /*
-         * Disable all text selection.
-         */
-        document.onselectstart = function() { return false; }
-    }
-
-    if ($.browser.msie) {
-        disable_text_selection();
-    }
-
-    function enable_text_selection() {
-        /*
-         * Reenable all text selection.
-         */
-        document.onselectstart = original_selectstart;
-    }
-
-    $(".state").live("mousedown", function(e) {
-        e = e || window.event
-        
-        dragging_state = $(this);
-
-        // Called states can't be moved
-        if (dragging_state.hasClass("called")) {
-            return;
-        }
-
-        dragging = true;
-        dragging_new = true;
-
-        // Mouse position dragging behavior is not consistent
-        //var x = dragging_state.offset().left;
-        //var y = dragging_state.children("i").first().offset().top;
-
-        //dragging_offset_x = e.pageX - x;
-        //dragging_offset_y = e.pageY - y;
-
-        dragging_offset_x = 0;
-        dragging_offset_y = 0;
-                
-        disable_text_selection();
-    });
-
-    $(document).mouseup(function(e) {
-        e = e || window.event;
-
-        if (dragging) {
-            dragging = false
-            
-            if (!$.browser.msie) {
-                enable_text_selection();
-            }
-
-            // Bail out if state was not moved
-            if (dragging_new) {
-                return;
-            }
-
-            function is_within(element) {
-                var left = element.offset().left;
-                var right = left + element.width();
-                var top = element.offset().top;
-                var bottom = top + element.height();
-
-                if ((e.pageX > left) && (e.pageX < right) && (e.pageY > top) && (e.pageY < bottom)) {
-                    return true;
-                }
-                
-                return false;
-            }
-
-            var state_id = dragging_state.data("id");
-            var state = states_dataset.where({ rows: function(row) {
-                return (row.id == state_id);
-            }}).rowByPosition(0);
-
-            if (is_within(blue_bucket)) {
-                user_predictions[state_id] = "d";
-            } else if (is_within(red_bucket)) {
-                user_predictions[state_id] = "r";
-            } else if (is_within(state_drop_target)) {
-                user_predictions[state_id] = "t";
-            }
-
-            dragging_state.remove();
-            add_state(state);
-            compute_stats();
-        }
-    });
-
-    $(document).mousemove(function(e) {
-        e = e || window.event;
-
-        if (dragging) {
-            if (dragging_new) {
-                dragging_new = false;
-
-                var background_color = dragging_state.children("i").first().css("background-color");
-                var color = dragging_state.children("i").first().css("color");
-
-                dragging_state.detach();
-                $("#states").append(dragging_state);
-                
-                dragging_state.css("position", "absolute");
-                dragging_state.css("width", "10em");
-                dragging_state.children("i").css("color", color);
-                dragging_state.children("i").css("background-color", background_color);
-            }
-
-            dragging_state.css("left", e.pageX - dragging_offset_x);
-            dragging_state.css("top", e.pageY - dragging_offset_y);
-        }
-    });
-    
-    
     /* POPOVERS */
 
     /* via stackoverflow, but modified: http://stackoverflow.com/questions/8947749/how-can-i-close-a-twitter-bootstrap-popover-with-a-click-from-anywhere-else-on */
@@ -604,27 +451,4 @@ $(function() {
     		popClickedAway = true;
     	}
     });
-    
-    
-    /* RESET PICKS */
-
-    $('#resetBtn').click(function() {
-        user_predictions = {};
-
-        states_dataset.each(function(row) {
-            remove_state(row);
-            add_state(row);
-        });
-
-        compute_stats();
-    });
-    
-    
-    /* PRESIDENTIAL RESULTS TABS */
-	$('#pres-nav').find('li').click(function() {
-		$('#' + $(this).attr('id').substr(4)).show().siblings('.results').hide();
-		$(this).addClass('active').siblings('li').removeClass('active');
-		return false;
-	});
-	$('#pres-nav li:eq(1)').trigger('click');
 });
