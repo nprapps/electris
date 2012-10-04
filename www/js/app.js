@@ -29,7 +29,6 @@ $(function() {
     /* State data */
     var state_votes = {};
     var state_names = {};
-    var state_predictions = {};
     var alerted_states = {
         "r": [],
         "d": []
@@ -310,6 +309,9 @@ $(function() {
     }
 
     $("#blue-combos li,#red-combos li").live("click", function(event) {
+        /*
+         * Add win path to tetris display.
+         */
         var combo = $(this).data();
 
         user_predictions = {};
@@ -325,10 +327,10 @@ $(function() {
                         user_predictions[state.id] = "r";
                     }
                 }
+            
+                remove_state(state);
+                add_state(state);
             }
-
-            remove_state(state);
-            add_state(state);
         });
 
         compute_stats();
@@ -352,13 +354,6 @@ $(function() {
          * After initial data load, setup stats and such.
          */
         states_dataset.each(function(state) {
-            // On election night we save the prediction,
-            // but don't use it right away
-            if (IS_ELECTION_NIGHT) {
-                state_predictions[state.id] = state.prediction;
-                state.prediction = "t";
-            }
-
             add_state(state);
 
             // Build lookup tables
