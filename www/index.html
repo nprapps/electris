@@ -219,42 +219,6 @@
 					</div>
 				</div>
 
-				<div class="row" id="topline">
-					<div class="span4" id="o-president">
-						<div class="wrap">
-							<h3>President</h3>
-							<h6>270 to win</h6>
-							<ul>
-								<li class="blue"><strong><span class="full">Barack Obama</span><span class="abbr">Obama</span></strong> <span id="blue-votes" class="votes"></span> <span class="bar"><b></b></span></li>
-								<li class="red"><strong><span class="full">Mitt Romney</span><span class="abbr">Romney</span></strong> <span id="red-votes" class="votes"></span> <span class="bar"><b></b></span></li>
-								<li class="undecided"><strong><span class="full">Undecided</span><span class="abbr">Undecided</span></strong> <span id="undecided-votes" class="votes"></span> <span class="bar"><b></b></span></li>
-							</ul>
-						</div>
-					</div>
-					<div class="span4" id="o-senate">
-						<div class="wrap">
-							<h3>Senate</h3>
-							<h6>51 for majority</h6>
-							<ul>
-								<li class="blue"><strong><span class="full">Democrats</span><span class="abbr">Dem.</span></strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="blue-votes" class="votes">50</span></li>
-								<li class="red"><strong><span class="full">Republicans</span><span class="abbr">GOP</span></strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="red-votes" class="votes">50</span></li>
-								<li class="undecided"><strong><span class="full">Undecided</span><span class="abbr">Undecided</span></strong> <span class="bar"><b></b></span> <span id="undecided-votes" class="votes">0</span></li>
-							</ul>
-						</div>
-					</div>
-					<div class="span4" id="o-house">
-						<div class="wrap">
-							<h3>House</h3>
-							<h6>218 for majority</h6>
-							<ul>
-								<li class="blue"><strong><span class="full">Democrats</span><span class="abbr">Dem.</span></strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="blue-votes" class="votes">200</span></li>
-								<li class="red"><strong><span class="full">Republicans</span><span class="abbr">GOP</span></strong> <span class="bar"><b></b></span> <span class="pickups">(+2)</span> <span id="red-votes" class="votes">200</span></li>
-								<li class="undecided"><strong><span class="full">Undecided</span><span class="abbr">Undecided</span></strong> <span class="bar"><b></b></span> <span id="undecided-votes" class="votes">35</span></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-        
             </div> <!-- end #mainheader -->
 
 			<div class="span4" id="bigbox">
@@ -329,101 +293,6 @@
                         </div>
                     </div>
 
-
-	            	    <!-- <div id="pres-results">
-			                <h2>Presidential Results</h2>
-			                
-			            	<div class="well" id="game-info">
-				            	<p><strong>GAME IT OUT:</strong> Drag any undecided (yellow) state into a red or blue bucket to predict how it will go on election night.</p>
-				            	
-				            	<button id="show-combos" type="button" data-toggle="modal" data-target="#probabilities" data-backdrop="false" class="btn btn-small btn-inverse">See All Possible Outcomes</button>
-        	                    <button id="add-predictions" type="button" class="btn btn-small">Pre-fill with NPR's predictions</button>
-			            		<button id="resetBtn" class="btn btn-small" type="button">Clear All Predictions</button>
-			    	        	
-			    	        	<div class="modal" id="probabilities" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			    	        		<div class="modal-header">
-			    	        			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		    		        			<h3 id="myModalLabel">Probabilities</h3>
-		    		        		</div>
-		    	    	    		<div class="modal-body">
-		    	        				<div id="combos">
-		    	        					<div class="dem">
-                                                <p><strong>Barack Obama needs <span id="blue-needs">?</span> electoral votes to win.</strong> He must win at least <span class="blue-simple-combo-length">?</span> more states to get those votes. There are <span class="blue-simple-combos-count">?</span> combinations of <span class="blue-simple-combo-length">?</span> states that could get him the votes he needs.</p>
-		    	        						<ul id="blue-combos"></ul>
-		    	        					</div>
-			    	        				<div class="rep">
-                                                <p><strong>Mitt Romney needs <span id="red-needs">?</span> electoral votes to win.</strong> He must win at least <span class="red-simple-combo-length">?</span> more states to to get those votes. There are <span class="red-simple-combos-count">?</span> combinations of <span class="red-simple-combo-length">?</span> states that could get him the votes he needs.</p>
-			    	        					<ul id="red-combos"></ul>
-		    		        				</div>
-		    		        			</div>
-			    		        	</div>
-			    	    	    	<div class="modal-footer">
-		    		        			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-				    		        </div>
-								</div>
-                            </div>
-
-
-	            	    	<ul class="nav nav-tabs" id="pres-nav">
-	            	    		<li id="nav-pres-watching"><a>Coming In</a></li>
-	            	    		<li id="nav-pres-called"><a>Called</a></li>
-	            	    		<li id="nav-pres-closing"><a>Soon</a></li>
-	            	    	</ul>
-	            	    	
-                            <div id="state-drop">
-                                <ul id="pres-watching" class="results">
-                                    <li class="hdr">
-                                        <span class="s instructions">&nbsp;</span>
-                                        <span class="blue">
-                                            Obama (D)
-                                        </span>
-                                        <span class="red">
-                                            Romney (R)
-                                        </span>
-                                    </li>
-                                </ul>
-
-                                <ul id="pres-called" class="results">
-                                    <li class="hdr">
-                                        <span class="s">&nbsp;</span>
-                                        <span class="blue">
-                                            Obama (D)
-                                        </span>
-                                        <span class="red">
-                                            Romney (R)
-                                        </span>
-                                    </li>
-                                </ul>
-                                
-                                <ul id="pres-closing" class="results">
-                                     <li class="time-0600">
-                                        <strong>6:00 PM ET</strong>
-                                    </li>
-                                    <li class="time-0700">
-                                        <strong>7:00 PM ET</strong>
-                                    </li>
-                                        <li class="time-0730">
-                                        <strong>7:30 PM ET</strong>
-                                    </li>
-                                        <li class="time-0800">
-                                        <strong>8:00 PM ET</strong>
-                                    </li>
-                                        <li class="time-0900">
-                                        <strong>9:00 PM ET</strong>
-                                    </li>
-                                        <li class="time-1000">
-                                        <strong>10:00 PM ET</strong>
-                                    </li>
-                                        <li class="time-1100">
-                                        <strong>11:00 PM ET</strong>
-                                    </li>
-                                        <li class="time-0100">
-                                        <strong>1:00 AM ET</strong>
-                                    </li>
-                                </ul>
-                            </div>-->
-
-		            </div>
                 </div>
             </div>
         </div>
@@ -447,46 +316,10 @@
     </div>
     
     <script id="state-template" type="text/template">
-        <div class="state <%= state.id %> <% if (is_election_night) { %><% if (state.call) { %>call-<%= state.call %> called<% } %><% } else { %> prediction-<%= state.prediction %> <% if (user_predicted_winner !== user_prediction) { %>prediction-loser<% } %><% } %>" data-id="<%= state.id %>">
+        <div class="state <%= state.id %> prediction-<%= state.prediction %> <% if (user_predicted_winner !== user_prediction) { %>prediction-loser<% } %>" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
-                <i data-placement="top" data-title="<%= state.name %>" data-content="Electoral votes: <%= state.electoral_votes %><br />Polls close: <%= state.polls_close.format('h:mm a') %><% if (is_election_night) { %><br />Obama: <%= state.dem_vote_count %><br />Romney: <%= state.rep_vote_count %><br />Precincts: <%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>%<% } %>"><span><%= state.stateface %></span></i>
+                <i data-placement="top" data-title="<%= state.name %>" data-content="Electoral votes: <%= state.electoral_votes %><br />Polls close: <%= state.polls_close.format('h:mm a') %>"><span><%= state.stateface %></span></i>
             <% }); %>
-        </div>
-    </script>
-
-    <script id="reporting-template" type="text/template">
-        <li class="<%= state.id %>">
-            <span class="s">
-                <span class="st"><b><%= state.stateface %></b><strong><%= state.abbr %> (<%= state.electoral_votes %>)</strong></span>
-            </span>
-            <span class="blue <% if (state.call === 'd') { %>winner<% } %>">
-                <%= Math.round(state.dem_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) || 0 %>%
-            </span>
-            <span class="red <% if (state.call === 'r') { %>winner<% } %>"">
-                <%= Math.round(state.rep_vote_count / (state.dem_vote_count +  state.rep_vote_count) * 100) || 0 %>%
-            </span>
-            <span class="precincts">
-				<%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% reporting
-			</span>
-
-            <% if (state.id === "ne") { %>
-                <span class="note">Nebraska awards electoral votes proportionally rather than winner-take-all. Romney will receive <strong>TKTK</strong> votes, Obama <strong>TKTK</strong>.</span>
-            <% } else if (state.id === "me") { %>
-                <span class="note">Maine awards electoral votes proportionally rather than winner-take-all. Romney will receive <strong>TKTK</strong> votes, Obama <strong>TKTK</strong>.</span>
-            <% } %>
-        </li>
-    </script>
-
-    <script id="coming-up-template" type="text/template">
-        <span class="st <%= state.id %>"><b><%= state.stateface %></b><%= state.abbr %> (<%= state.electoral_votes %>)</span>
-    </script>
-
-    <script id="call-alert-template" type="text/template">
-  		<div class="alert call-alert">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>New calls:</strong><br />
-            <% if (states.d.length > 0) { %>NPR has called <% _.each(states.d, function(state, i) { %><span class="st"><b><%= state.stateface %></b> <%= state.name %></span><% if (states.d.length > 1) { %><% if (i == states.d.length - 2) { %> and<% } else if (i != states.d.length - 1) { %>,  <% }} %><% }) %> for Barack Obama.<% } %><br />
-            <% if (states.r.length > 0) { %>NPR has called <% _.each(states.r, function(state, i) { %><span class="st"><b><%= state.stateface %></b> <%= state.name %></span><% if (states.r.length > 1) { %><% if (i == states.r.length - 2) { %> and<% } else if (i != states.r.length - 1) { %>, <% }} %><% }) %> for Mitt Romney.<% } %>
         </div>
     </script>
 

@@ -1,15 +1,7 @@
 $(function() {
     /* Settings */
     var ELECTORAL_VOTES_TO_WIN = 270;
-    var MIN_VOTES_FOR_COMBOS = 100;
-    var MAX_STATES_FOR_COMBOS = 10;
     var STATE_TEMPLATE = _.template($("#state-template").html());
-    var REPORTING_TEMPLATE = _.template($("#reporting-template").html());
-    var COMING_UP_TEMPLATE = _.template($("#coming-up-template").html());
-    var CALL_ALERT_TEMPLATE = _.template($("#call-alert-template").html());
-    var IS_ELECTION_NIGHT = false;
-    var POLLING_INTERVAL = 1000;
-    var MIN_TETRIS_WIDTH = 480;
     var POLL_CLOSING_TIMES = [
         moment("2012-11-06T18:00:00 -0500"),
         moment("2012-11-06T19:00:00 -0500"),
@@ -55,68 +47,23 @@ $(function() {
     /* DATA PROCESSING & RENDERING */
     
     function add_state(state) {
-        /*
-         * Add the HTML for a state to the correct location.
-         */
-        /*// Called!
-        if (state.call) {
-             var html = REPORTING_TEMPLATE({
-                state: state
-            });
-
-            $("#pres-called").append(html);
-           // TODO
-        // Coming in!
-        } else if (state.precincts_reporting > 0 || moment() > state.polls_close) {
-            var html = REPORTING_TEMPLATE({
-                state: state
-            });
-
-            $("#pres-watching").append(html);
-        // Coming up!
-        } else {
-            var html = COMING_UP_TEMPLATE({
-                state: state
-            });
-
-            $("#pres-closing .time-" + state.polls_close.format("hhmm")).append(html);
-        }*/
-
-        // If not rendering the tetris view then bail out
-        if ($(window).width() < MIN_TETRIS_WIDTH ) {
-            return;
-        }
-
         var html = STATE_TEMPLATE({
             state: state,
             user_predicted_winner: user_predicted_winner,
-            user_prediction: user_predictions[state.id],
-            is_election_night: IS_ELECTION_NIGHT
+            user_prediction: user_predictions[state.id]
         });
 
-        if (IS_ELECTION_NIGHT) {
-            if (state.call === "r") {
-                red_bucket.append(html);
-            } else if (state.call === "d") {
-                blue_bucket.append(html);
-            } else if (user_predictions[state.id] === "r") {
+        if (state.id in user_predictions) {
+            if (user_predictions[state.id] === "r") {
                 red_bucket.append(html);
             } else if (user_predictions[state.id] === "d") {
                 blue_bucket.append(html);
             }
         } else {
-            if (state.id in user_predictions) {
-                if (user_predictions[state.id] === "r") {
-                    red_bucket.append(html);
-                } else if (user_predictions[state.id] === "d") {
-                    blue_bucket.append(html);
-                }
-            } else {
-                if (state.prediction === "sr" || state.prediction === "lr") {
-                    red_bucket.append(html);
-                } else if (state.prediction === "sd" || state.prediction === "ld") {
-                    blue_bucket.append(html);
-                }
+            if (state.prediction === "sr" || state.prediction === "lr") {
+                red_bucket.append(html);
+            } else if (state.prediction === "sd" || state.prediction === "ld") {
+                blue_bucket.append(html);
             }
         }
 
@@ -129,16 +76,52 @@ $(function() {
         });
     }
 
+    function add_states() {
+        /*
+         * Add states to the tetris graph in an organized fashion.
+         */
+        var red_solid = [];
+        var red_leans = [];
+        var red_predicted = [];
+        var blue_solid = [];
+        var blue_leans = [];
+        var blue_predicted = [];
+
+        // Group states together
+        states_dataset.each(function(state) {
+            if (state.prediction == "sr") {
+                red_solid.push(state);
+            } else if (state.prediction == "sd") {
+                blue_solid.push(state);
+            } else if (state.prediction == "lr") {
+                red_leans.push(state);
+            } else if (state.prediction == "ld") {
+                blue_leans.push(state);
+            } else if (state.id in user_predictions && user_predictions[state.id] === "r") {
+                red_predicted.push(state);
+            } else if (state.id in user_predictions && user_predictions[state.id] === "d") {
+                blue_predicted.push(state);
+            } 
+        });
+
+        // Clear old state graphics
+        $(".state").remove();
+
+        // Add states by groups
+        _.each([red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted], function(states) {
+            // Sort alphabetically from *top to bottom*
+            states.reverse();
+
+            _.each(states, function(state) {
+                add_state(state);
+            });
+        });
+    }
+
     function remove_state(state) {
         /*
          * Remove the HTML for a state.
          */
-        //$("#pres-results ." + state.id).remove();
-
-        if ($(window).width() < MIN_TETRIS_WIDTH ) {
-            return;
-        }
-
         $(".state." + state.id).remove();
     }
 
@@ -172,29 +155,19 @@ $(function() {
 
         var red_votes_fixed = sum_votes(states_fixed_red)
         var red_votes_user = sum_votes(states_user_red);
-        //$("#red-votes").text(red_votes_fixed + red_votes_user);
         $("#p-red-electoral").text(red_votes_fixed + red_votes_user);
         $("#p-red-call .value").text(red_votes_fixed);
         $("#p-red-predict .value").text(red_votes_user);
 
         var blue_votes_fixed = sum_votes(states_fixed_blue);
         var blue_votes_user = sum_votes(states_user_blue);
-        //$("#blue-votes").text(blue_votes_called);
         $("#p-blue-electoral").text(blue_votes_fixed + blue_votes_user);
         $("#p-blue-call .value").text(blue_votes_fixed);
         $("#p-blue-predict .value").text(blue_votes_user);
 
-        //unpredicted_votes = sum_votes(states_not_predicted);
-        //$("#undecided-votes").text();
-
-        //total_votes = red_votes_called + blue_votes_called + not_called_votes;
-        //$('#o-president').find('.blue b').width(((blue_votes_called / total_votes) * 100) + '%');
-        //$('#o-president').find('.red b').width(((red_votes_called / total_votes) * 100) + '%');
-
-        if ($(window).width() >= MIN_TETRIS_WIDTH ) {
-            var height = Math.max(27, Math.ceil(Math.max(red_votes_fixed + red_votes_user, blue_votes_fixed + blue_votes_user) / 10));
-            $("#buckets,#buckets .red,#buckets .blue").css("height", height + "em");
-        }
+        // Resize buckets
+        var height = Math.max(27, Math.ceil(Math.max(red_votes_fixed + red_votes_user, blue_votes_fixed + blue_votes_user) / 10));
+        $("#buckets,#buckets .red,#buckets .blue").css("height", height + "em");
 
         if (generate_combos) {
             generate_winning_combinations(red_votes_fixed, blue_votes_fixed, states_not_predicted);
@@ -207,10 +180,6 @@ $(function() {
          */
         var red_needs = ELECTORAL_VOTES_TO_WIN - red_votes;
         var blue_needs = ELECTORAL_VOTES_TO_WIN - blue_votes;
-
-        if ((red_needs > MIN_VOTES_FOR_COMBOS && blue_needs > MIN_VOTES_FOR_COMBOS) || undecided_states.length > MAX_STATES_FOR_COMBOS) {
-            return;
-        }
 
         var state_ids = _.pluck(undecided_states, "id");
 
@@ -336,10 +305,7 @@ $(function() {
         delimiter: ",",
         columns: [
             { name: "polls_close", type: "time", format: "YYYY-MM-DD h:mm A" }
-        ],
-        interval: IS_ELECTION_NIGHT ? POLLING_INTERVAL : null,
-        uniqueAgainst: "id",
-        sync: true
+        ]
     });
     
     states_dataset.fetch().then(function() {
@@ -354,112 +320,6 @@ $(function() {
 
         add_states();
         compute_stats(true);
-    });
-
-    function add_states() {
-        var red_solid = [];
-        var red_leans = [];
-        var red_predicted = [];
-        var blue_solid = [];
-        var blue_leans = [];
-        var blue_predicted = [];
-
-        states_dataset.each(function(state) {
-            if (state.prediction == "sr") {
-                red_solid.push(state);
-            } else if (state.prediction == "sd") {
-                blue_solid.push(state);
-            } else if (state.prediction == "lr") {
-                red_leans.push(state);
-            } else if (state.prediction == "ld") {
-                blue_leans.push(state);
-            } else if (state.id in user_predictions && user_predictions[state.id] === "r") {
-                red_predicted.push(state);
-            } else if (state.id in user_predictions && user_predictions[state.id] === "d") {
-                blue_predicted.push(state);
-            } 
-        });
-
-        $(".state").remove();
-
-        _.each([red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted], function(states) {
-            states.reverse();
-
-            _.each(states, function(state) {
-                add_state(state);
-            });
-        });
-    }
-
-    function update_call_alert() {
-        /*
-         * Replace current alerts with updated alerts.
-         */
-        $(".call-alert").remove();
-
-        var html = CALL_ALERT_TEMPLATE({
-            states: alerted_states
-        });
-
-        alerts.append(html);
-    }
-
-    $(".call-alert").live("close", function () {
-        /*
-         * Reset calls which have not been dismissed.
-         */
-        alerted_states.r = [];
-        alerted_states.d = [];
-    });
-
-    states_dataset.bind("change", function(event) {
-        /*
-         * Process changes to state data from polling.
-         */
-        var real_changes = false;
-
-        _.each(event.deltas, function(delta) {
-            _.each(_.keys(delta.old), function(key) {
-                if (key === "_id") {
-                    return;
-                }
-                
-                if (delta.changed[key] != delta.old[key]) {
-                    if (key === "call" || key === "dem_vote_count" || key === "rep_vote_count" || key === "precints_reporting") {
-                        var old_state = delta.old;
-                        var state = delta.changed;
-
-                        remove_state(old_state);
-                        add_state(state);
-
-                        if (key === "call") {
-                            // Uncalled!
-                            if (!state.call) {
-                                //TODO -- handle revocations
-                                //alerted_states.push(caller +" has revoked its call for " + state.name + ". This state's result is undecided.");
-                            } else {
-                                // Called
-                                if (!old_state.call) {
-                                    alerted_states[state.call].push(state);
-                                } else {
-                                    // TODO -- handle changes
-                                    // TODO -- alert for state may already appear in another list
-                                    //alerted_states.push(caller + " has reversed its call for " + state.name + ". This state is now called for the " + called_for + ".");
-                                    alerted_states[state.call].push(state);
-                                }
-                            }
-                        }
-
-                        real_changes = true;
-                    }
-                }
-            });
-        });
-
-        if (real_changes) {
-            compute_stats();
-            update_call_alert();
-        };
     });
 
     /* POPOVERS */
