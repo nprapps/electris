@@ -322,12 +322,10 @@ $(function() {
                         user_predictions[state.id] = "r";
                     }
                 }
-            
-                remove_state(state);
-                add_state(state);
             }
         });
 
+        add_states();
         compute_stats();
     });
 
@@ -349,15 +347,49 @@ $(function() {
          * After initial data load, setup stats and such.
          */
         states_dataset.each(function(state) {
-            add_state(state);
-
             // Build lookup tables
             state_votes[state.id] = state.electoral_votes;
             state_names[state.id] = state.name;
         });
 
+        add_states();
         compute_stats(true);
     });
+
+    function add_states() {
+        var red_solid = [];
+        var red_leans = [];
+        var red_predicted = [];
+        var blue_solid = [];
+        var blue_leans = [];
+        var blue_predicted = [];
+
+        states_dataset.each(function(state) {
+            if (state.prediction == "sr") {
+                red_solid.push(state);
+            } else if (state.prediction == "sd") {
+                blue_solid.push(state);
+            } else if (state.prediction == "lr") {
+                red_leans.push(state);
+            } else if (state.prediction == "ld") {
+                blue_leans.push(state);
+            } else if (state.id in user_predictions && user_predictions[state.id] === "r") {
+                red_predicted.push(state);
+            } else if (state.id in user_predictions && user_predictions[state.id] === "d") {
+                blue_predicted.push(state);
+            } 
+        });
+
+        $(".state").remove();
+
+        _.each([red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted], function(states) {
+            states.reverse();
+
+            _.each(states, function(state) {
+                add_state(state);
+            });
+        });
+    }
 
     function update_call_alert() {
         /*
