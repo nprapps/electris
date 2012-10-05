@@ -9,7 +9,7 @@
 {% endblock extra_head %}
 
 {% block content %}
-    <h1>Mark state winners</h1>
+    <h1>Mark {{ race }} winners</h1>
 
     <div id="alerts">
     </div>
@@ -17,7 +17,7 @@
 
     <p>
     {% for state in states %}
-    <a href="#{{ state.id }}">{{ state.name }}</a>{% if not loop.last %},{% endif %} 
+    <a href="#{{ state.id }}">{{ state.name }}</a>{% if not loop.last %},{% endif %}
     {% endfor %}
     </p>
 
@@ -83,8 +83,8 @@ $(function() {
         {% endfor %}
     };
 
-    function update_data() {     
-        $.getJSON("/data", function(data) {
+    function update_data() {
+        $.getJSON("/president/data/", function(data) {
             $.each(data, function(i, state) {
                 var prediction_radio = $(":radio[name=prediction-" + state.id + "][value=" + state.prediction + "]");
                 var ap_call_radio = $(":radio[name=ap-" + state.id + "][value=" + state.ap_call + "]");
@@ -94,24 +94,24 @@ $(function() {
                 if (prediction_radio.attr("checked") != "checked") {
                     prediction_radio.attr("checked", true);
 
-                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> prediction changed to ' + PREDICTION_TYPES[state.prediction] + '.</div>'); 
+                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> prediction changed to ' + PREDICTION_TYPES[state.prediction] + '.</div>');
                 }
 
                 if (ap_call_radio.attr("checked") != "checked") {
                     ap_call_radio.attr("checked", true);
-                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> AP call changed to ' + RESULT_OPTIONS[state.ap_call] + '.</div>'); 
+                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> AP call changed to ' + RESULT_OPTIONS[state.ap_call] + '.</div>');
                 }
 
                 var accept_ap_call = (state.accept_ap_call == "y") ? "checked" : undefined;
 
                 if (accept_app_call_checkbox.attr("checked") != accept_ap_call) {
                     accept_app_call_checkbox.attr("checked", accept_ap_call);
-                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> flag for automatically accepting AP call changed to ' + (state.accept_ap_call == "y" ? "True" : "False") + '.</div>'); 
+                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> flag for automatically accepting AP call changed to ' + (state.accept_ap_call == "y" ? "True" : "False") + '.</div>');
                 }
-                
+
                 if (npr_call_radio.attr("checked") != "checked") {
                     npr_call_radio.attr("checked", true);
-                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> NPR call changed to ' + RESULT_OPTIONS[state.npr_call] + '.</div>'); 
+                    $("#alerts").append('<div class="alert"><button type="button" class="close" data-dismiss="alert">x</button><a href="#' + state.id + '">' + state.name + '</a> NPR call changed to ' + RESULT_OPTIONS[state.npr_call] + '.</div>');
                 }
 
                 if ($("#alerts").children().length > 0) {
@@ -133,8 +133,8 @@ $(function() {
 
     function refresh_countdown() {
         countdown -= 1;
-        
-        $("#refreshing").html("<strong>Refreshing in " + countdown + " seconds."); 
+
+        $("#refreshing").html("<strong>Refreshing in " + countdown + " seconds.");
 
         if (countdown == 0) {
             update_data();

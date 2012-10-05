@@ -6,7 +6,7 @@ import sqlite3 as sqlite
 import boto
 from boto.s3.key import Key
 
-import cms_settings as settings 
+import cms_settings as settings
 
 def get_database():
     """
@@ -24,7 +24,7 @@ def bootstrap_database(db):
     """
     Create the sqlite DB and a populate it with data.
     """
-    db.execute('CREATE TABLE states (id text, stateface text, name text, abbr text, electoral_votes integer, polls_close text, prediction text, ap_call text, ap_called_at text, accept_ap_call text, npr_call text, npr_called_at text, total_precincts integer, precincts_reporting integer, rep_vote_count integer, dem_vote_count integer)') 
+    db.execute('CREATE TABLE states (id text, stateface text, name text, abbr text, electoral_votes integer, polls_close text, prediction text, ap_call text, ap_called_at text, accept_ap_call text, npr_call text, npr_called_at text, total_precincts integer, precincts_reporting integer, rep_vote_count integer, dem_vote_count integer)')
 
     with open('states_bootstrap.csv') as f:
         reader = csv.reader(f)
@@ -32,15 +32,32 @@ def bootstrap_database(db):
 
         db.executemany('INSERT INTO states VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', reader)
 
-    db.execute('CREATE TABLE state_candidates (state_id text, race text, ballot_order integer, party text, first_name text, middle_name text, last_name text, junior text, use_junior text, incumbent text, vote_count integer, is_winner text)') 
+    db.execute('CREATE TABLE state_candidates (state_id text, county_name text, seat_name text, race text, ballot_order integer, party text, first_name text, middle_name text, last_name text, junior text, use_junior text, incumbent text, vote_count integer, is_winner text)')
 
     db.commit()
 
 def get_states(db):
     """
     Fetch states from sqlite as a list.
+    And by states, we mean "state-by-state presidential results from the AP top of ticket file".
     """
     return db.execute('SELECT * FROM states').fetchall()
+
+def get_house_candidates(db):
+    """
+    Fetches candidates from sqlite as a list.
+    Specifically, fetches candidates for US house districts.
+    """
+    return db.execute('SELECT * from state_candidates WHERE county_name = "U.S. House"').fetchall()
+
+def get_senate_candidates(db):
+    """
+    Fetches candidates from sqlite as a list.
+    Specifically, fetches candidates for US senate.
+    """
+
+    # Since the AP test data doesn't have a senate candidate, we're guessing at the county name.
+    return db.execute('SELECT * from state_candidates WHERE county_name = "U.S. Senate"').fetchall()
 
 def regenerate_csv(states):
     """

@@ -46,6 +46,23 @@ CANDIDATE_FIELDS = [
     'national_politician_id',
 ]
 
+CANDIDATE_MODEL_FIELDS = [
+    'state_id',
+    'county_name',
+    'seat_name',
+    'race',
+    'ballot_order',
+    'party',
+    'first_name',
+    'middle_name',
+    'last_name',
+    'junior',
+    'use_junior',
+    'incumbent',
+    'vote_count',
+    'is_winner'
+]
+
 NUM_STATE_FIELDS = len(STATE_FIELDS)
 NUM_CANDIDATE_FIELDS = len(CANDIDATE_FIELDS)
 
@@ -54,7 +71,7 @@ OUTPUT_FIELDS = ['id', 'total_precincts', 'precincts_reporting', 'rep_vote_count
 def parse_president(db, row):
     state_data = dict(zip(STATE_FIELDS, row[:NUM_STATE_FIELDS]))
 
-    candidate_count = (len(row) - NUM_STATE_FIELDS) / NUM_CANDIDATE_FIELDS 
+    candidate_count = (len(row) - NUM_STATE_FIELDS) / NUM_CANDIDATE_FIELDS
 
     i = 0
     obama_data = None
@@ -76,7 +93,7 @@ def parse_president(db, row):
         i += 1
 
     assert obama_data and romney_data
-    
+
     state_id = state_data['state_postal'].lower()
 
     old_state = db.execute('SELECT * FROM states WHERE id=?', (state_id,)).next()
@@ -87,25 +104,51 @@ def parse_president(db, row):
     if ap_call != old_state['ap_call']:
         ap_called_at = datetime.now(tz=pytz.utc).strftime('%Y-%m-%dT%H:%M:%S %z');
 
-    db.execute('UPDATE states SET ap_call=?, ap_called_at=?, total_precincts=?, precincts_reporting=?, rep_vote_count=?, dem_vote_count=? WHERE id=?', (ap_call, ap_called_at, state_data['total_precincts'], state_data['precincts_reporting'], romney_data['vote_count'], obama_data['vote_count'], state_id)) 
+    db.execute('UPDATE states SET ap_call=?, ap_called_at=?, total_precincts=?, precincts_reporting=?, rep_vote_count=?, dem_vote_count=? WHERE id=?', (ap_call, ap_called_at, state_data['total_precincts'], state_data['precincts_reporting'], romney_data['vote_count'], obama_data['vote_count'], state_id))
 
 def parse_state_race(db, row):
+    """
+    Parses and inserts presidential state and house/senate by state/district.
+    """
+
+    # Create a dictionary of state_data based on field names above and values from the AP data.
     state_data = dict(zip(STATE_FIELDS, row[:NUM_STATE_FIELDS]))
 
-    candidate_count = (len(row) - NUM_STATE_FIELDS) / NUM_CANDIDATE_FIELDS 
+    candidate_count = (len(row) - NUM_STATE_FIELDS) / NUM_CANDIDATE_FIELDS
 
     i = 0
-    
+
     state = state_data['state_postal'].lower()
 
     while i < candidate_count:
         first_field = NUM_STATE_FIELDS + (i * NUM_CANDIDATE_FIELDS)
         last_field = first_field + NUM_CANDIDATE_FIELDS
 
+        # Create a dictionary of individual candidate data (e.g., house and senate) from fields above and values from AP.
         candidate_data = dict(zip(CANDIDATE_FIELDS, row[first_field:last_field]))
-        
+
+        # Remove stuff from the existing state_candidates table.
         db.execute('DELETE FROM state_candidates WHERE state_id=? AND ballot_order=?', (state, candidate_data['order']))
-        db.execute('INSERT INTO state_candidates VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', (state, state_data['office_name'], candidate_data['order'], candidate_data['party'], candidate_data['first_name'], candidate_data['middle_name'], candidate_data['last_name'], candidate_data['junior'], candidate_data['use_junior'], candidate_data['incumbent'], candidate_data['vote_count'], candidate_data['is_winner'])) 
+
+        # Insert data from the top-of-ticket file into the state_candidates table.
+        # This will contain data for house and senate races.
+        # NOTE: If you're looking for the race_name, it's called "seat_name".
+        # This is Stiles's fault.
+        db.execute('INSERT INTO state_candidates VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (
+            state,
+            state_data['office_name'],
+            state_data['county_name'],
+            state_data['seat_name'],
+            candidate_data['order'],
+            candidate_data['party'],
+            candidate_data['first_name'],
+            candidate_data['middle_name'],
+            candidate_data['last_name'],
+            candidate_data['junior'],
+            candidate_data['use_junior'],
+            candidate_data['incumbent'],
+            candidate_data['vote_count'],
+            candidate_data['is_winner']))
 
         i += 1
 
@@ -130,9 +173,9 @@ def main():
         if race == 'President':
             parse_president(db, row_data)
         elif race == 'U.S. House':
-            parse_state_race(db, row_data) 
-        elif race == 'U.S. Senate':
-            parse_state_race(db, row_data) 
+            parse_state_race(db, row_data)
+        # elif race == 'U.S. Senate':
+        #     parse_state_race(db, row_data)
 
     db.commit()
 
