@@ -108,118 +108,20 @@
 
     <div class="container the-goods" id="maincontent">
 		<div id="header" class="row">
-            <div id="main-header" class="span8">
-            	<div class="row">
-            		<div id="header-title" class="span8">
 
-						<h1>Election Night 2012</h1>
-						
-						<div id="comingsoon">
-							<b></b>
-							<div id="attrComingSoon" class="message">NPR's live election night<br />coverage begins at 7 p.m. ET.</div>
-						</div>
-						
-						<div id="playercon">
-							<div id="theplayer">
-							
-							<div id="jwPlayer_wrapper"></div>
-							<div id="jwplayer_wrapper" style="position: relative; width: 41px; height: 41px; "><object type="application/x-shockwave-flash" data="http://www.npr.org/templates/javascript/jwplayer/player.swf" width="100%" height="100%" bgcolor="#000000" id="jwplayer" name="jwplayer" tabindex="0"><param name="allowfullscreen" value="true"><param name="allowscriptaccess" value="always"><param name="seamlesstabbing" value="true"><param name="wmode" value="opaque"><param name="flashvars" value="netstreambasepath=http%3A%2F%2Fapps.npr.org%2F2012-democratic-national-convention%2F&amp;id=jwplayer&amp;bufferlength=5&amp;autostart=false&amp;skin=http%3A%2F%2Fwww.npr.org%2Fdesign%2Fstage%2FaudioTest%2Flive-convention-controls.zip&amp;playlist=%5B%5BJSON%5D%5D%5B%7B%22file%22%3A%22live3audio%4052188%22%2C%22provider%22%3A%22rtmp%22%2C%22streamer%22%3A%22rtmp%3A%2F%2Fcp150999.live.edgefcs.net%2Flive%2F%22%7D%5D&amp;controlbar.position=bottom"></object></div> 
-								<script>
-									// <![CDATA[
-									try {
-										var jwPlayerAdUrl = 'http://ad.doubleclick.net/pfadx/n6735.NPR.MUSIC/music;theme=1039;storyid=157840374;testserver=true;embed=npr;mediatype=video;sz=400x300;dcmt=text/xml;ord=66802162';
-										var jwPlayerAutoStart = 'false';
-										if (true) {
-											if (NPR.PageInfo.getUrlParameter('autoplay') == 'true') {
-												jwPlayerAutoStart = 'true';
-											}
-										}
-											
-										if (navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad)/)) {
-											$('#playercon').append("<div style='display: none'><audio id='livestreamer' src='http://npr.ic.llnwd.net/stream/npr_live3' controls='false'></audio></div>");
-											$('#theplayer').append("<div id='playcon5'><img src='img/playButtonOver.png' onclick='play5Audio();' /></div>");
-						
-										} else {
-											jwplayer('jwplayer').setup({
-												modes: [{
-													type: 'flash',
-													src: 'http://www.npr.org/templates/javascript/jwplayer/player.swf',
-													config: {
-														skin: 'http://www.npr.org/design/stage/audioTest/live-convention-controls.zip',
-														playlist: [{
-															file: 'live3audio@52188',
-															provider: 'rtmp',
-															streamer: 'rtmp://cp150999.live.edgefcs.net/live/'
-														}
-						
-														]
-													}
-												}, {
-													type: 'html5',
-													config: {
-														playlist: [{
-															
-														}
-						
-														]
-													}
-												}],
-												bufferlength: '5',
-												controlbar: 'bottom',
-												autostart: jwPlayerAutoStart,
-												width: '41',
-												height: '41',
-												plugins: {
-													'gapro-2': {
-														'trackingobject': '_gaq',
-														'trackstarts': 'true',
-														'trackpercentage': 'true',
-														'tracktime': 'true'
-													}
-												},
-												events: {
-													onBuffer: function () {
-														if ($("#playerdisp .loading").length == 0) {
-															$('#playerdisp .playing').remove();
-															$('#playerdisp').append('<div class="loading loading-live"><p>Loading...</p></div>');
-														}
-													},
-													onPlay: function () {
-														if ($("#playerdisp .loading").length > 0) {
-															$('#playerdisp .loading').remove();
-														}
-														if ($("#playerdisp .playing").length == 0) {
-															$('#playerdisp').append('<div class="playing"><p>Live</p></div>');
-															$('#eq_gfx').html('<img src="img/eq2.gif" />');
-														}
-													},
-													onPause: function() {
-														$('#eq_gfx').html('<img src="img/eq-none.gif" />');
-														$('#playerdisp .playing').remove();
-														$('#playerdisp').append('<div class="loading loading-live"><p></p></div>');
-													}
-												}
-												   
-											  
-						
-											});
-										}
-						
-									} catch (e) {
-										NPR.messaging.exception(e, 'jw player javascript', 'look in CommonJwPlayer.inc', NPR.messaging.constants.PLAYER_JS_ERROR);
-									}; // ]]>
-								</script>
-							</div>
-							<div class="speaking"><span class="slug" id="attrOnStageIntro">On The Air</span><br><strong id="attrOnStageName">Live Special Coverage</strong>, <span id="attrOnStageBio">from NPR News</span></div>
-							<div id="playerstatus">
-								<div id="eq_gfx"><img src="img/eq-none.gif"></div> 
-								<div id="playerdisp"></div>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div class="span8 intro">
+                <h1>Election 2012: Paths To Victory</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-            </div> <!-- end #mainheader -->
+    	        <div class="related">
+	                <h3>Related NPR Stories</h3>
+    	            <ul>
+    	            	<li><a href="http://www.npr.org/blogs/itsallpolitics/2012/09/27/161873074/election-day-expert-says-35-percent-of-all-votes-could-be-cast-before-nov-6">Election Day? Expert Says 35 Percent Of All Votes Could Be Cast Before Nov. 6</a></li>
+        	        	<li><a href="http://www.npr.org/blogs/itsallpolitics/2012/09/27/161830028/iowa-becomes-first-swing-state-to-begin-early-in-person-voting">Iowa Becomes First Swing State To Begin Early In-Person Voting</a></li>
+                	</ul>
+                </div>
+            </div>
+
 
 			<div class="span4" id="bigbox">
 
@@ -252,6 +154,12 @@
         	</div>
         </div>
 
+
+        <div class="row" id="divider">
+        	<div class="span12">
+        		<hr />
+        	</div>
+        </div>
 
         <div class="row">
             <div class="span3">
@@ -298,6 +206,25 @@
         </div>
         
         <div id="footer" class="row">
+            <div class="span12">
+            	<div class="credits" id="attrCredit">
+            		Source: NPR analysis<br />
+            		Credits: Brian Boyer, Christopher Groskopf and Alyson Hurt / NPR
+            	</div>
+            </div>
+            <div class="span12">
+            	<ul class="bottomlist elexLinks">
+            		<li class="elex"><a href="http://www.npr.org/">Election 2012</a></li>
+            		<li><a href="http://www.npr.org/sections/presidential-race">Presidential Race</a></li>
+            		<li><a href="http://www.npr.org/series/139914785/barack-obama">Barack Obama (D)</a></li>
+            		<li><a href="http://www.npr.org/series/139589850/mitt-romney">Mitt Romney (R)</a></li>
+            		<li><a href="http://www.npr.org/series/128364156/the-message-machine">The Message Machine</a></li>
+            		<li><a href="http://apps.npr.org/early-voting-2012/">Early Voting Calendar</a></li>
+            		<li><a href="http://www.npr.org/2011/08/15/139648404/campaign-2012-political-calendar">Political Calendar</a></li>
+            		<li><a href="http://www.npr.org/series/146345736/money-politics">Money &amp; Politics</a></li>
+            		<li><a href="http://www.npr.org/series/128364156/the-message-machine">The Message Machine</a></li>
+            	</ul>
+            </div>
             <div class="span12">
             	<ul class="bottomlist">
             		<li><a href="http://www.npr.org/">Copyright 2012 NPR</a></li>

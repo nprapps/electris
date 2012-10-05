@@ -27,6 +27,25 @@ h3 {
 a.btn { color: #fff; cursor: pointer; }
 
 
+/* INTRO */
+.intro { color: #333; }
+.intro h1 { font-size: 2em; line-height: 1.4em; margin-bottom: .6em; }
+.intro p { line-height: 1.45em; }
+.intro p.date { color: #999; font-style: italic; }
+.intro ul { list-style: none; margin: 0; padding: 0; }
+.intro ul li { margin: 0 0 .5em 0; padding: 0; line-height: 1.2em; }
+.intro ul li a { 
+	padding: 0 0 0 7px;
+	font-size: .9em;
+	background: url(http://media.npr.org/chrome/news/bullet_blk.gif) no-repeat left .1em;
+}
+.credits { font-size: .85em; color: #666; margin-top: 1.5em; }
+.credits p { margin: 0 0 .1em 0; }
+.intro .related { margin-top: 1.5em; }
+.intro .related h3 { margin-top: 0; }
+.intro .credits h4 { font: bold 1em Arial, Helvetica, sans-serif; color: #333; margin: 0 0 .3em 0; text-transform: uppercase; }
+
+
 /* ALERTS */
 .alert .st { font-weight: bold; }
 .alert .st b {
@@ -189,266 +208,13 @@ a.btn { color: #fff; cursor: pointer; }
 #probabilities .rep { width: 45%; float: right; }
 
 
-/* HEADER AND PLAYER */
-#header-title { background-color: #111; padding-bottom: 12px; }
-#header-title h1 { font-size: 28px; line-height: 30px; font-weight: normal; padding-top: 15px; margin: 0 0 3px 15px; color: #FFF; text-shadow: 2px 2px #000000; }
-#header-title h3 { font-weight: normal; margin: 0 0 3px 15px; color: #999; }
-
-#playercon { color: #FFF; margin-left: 15px; margin-top: 15px; padding-right: 15px; height: 70px; border: 1px solid rgba(51,51,51,.8); position: relative; display: inline-block; }
-#playercon #theplayer { padding: 4px; float: left; }
-#playercon .speaking { font: 16px Arial;  margin: 0px 0 0 6px;  float: left; line-height: 22px;}
-#playercon .slug { font: 12px Arial; color: #666; }
-#playercon #eq_gfx { float:left }
-#playerdisp { font: 12px Arial; color: #666; margin-left: 12px; float: left; }
-#playercon #playerstatus { background-color: rgb(51,51,51); background-color: rgba(51,51,51,.8); position: absolute; top: 48px; width: 100%; height: 19px; padding-top: 4px;}
-#playercon #playerstatus img { vertical-align: top; padding: 0px 0px 0px 4px; }
-
-#comingsoon { position: relative; height: 62px; margin: 6px 0 0 -12px; display: none; float: left; }
-#comingsoon b { position: absolute; top: 0; left: 0; display: block; width: 12px; height: 6px; overflow: hidden; background: url('../images/coming-soon-upper-tab.png') no-repeat right bottom; }
-#comingsoon .message { font: bold 12px Arial; text-transform: uppercase; color: #FFF; padding: 20px 35px 0 30px; white-space: nowrap; }
-
-/* hide both player and comingsoon initially 
-body.comingSoon #playercon { position: absolute; top: -2000px; }
-#playercon, #comingsoon { visibility: hidden; } */
+/* FOOTER EXTRAS */
+#footer .credits { font: italic 11px Arial; color: #999; margin-top: 10px; }
+#footer ul.bottomlist.elexLinks { margin-top: 15px; border-bottom: 1px dotted #CCC; border-top: 1px dotted #CCC; }
+#footer ul.bottomlist li.elex a { color: black; font-weight: bold; }
 
 
-/* TOPLINE */
-#topline {
-	border-top: 2px solid #666;
-	background-color: #454545;
-	margin: 0 0 24px 0;
-	color: #f1f1f1;
-	-webkit-border-bottom-left-radius: 4px; -moz-border-radius-bottomleft: 4px; border-bottom-left-radius: 4px;
-	-webkit-border-bottom-right-radius: 4px; -moz-border-radius-bottomright: 4px; border-bottom-right-radius: 4px;
-}
-#topline .span4 { /* default viewport: 980px; */
-	width: 186px;
-	margin-left: 20px;
-}
-#topline .wrap {
-	padding-right: 20px;
-	padding-bottom: 1em;
-	border-right: 2px solid #666;
-}
-#topline #o-house .wrap {
-	border-right: none;
-}
-#topline h3 {
-	margin: 0 0 .3em 0;
-	padding-top: 12px;
-	color: #fff;
-}
-#topline h6 {
-	font: normal .85em Arial, Helvetica, sans-serif;
-	color: #ccc;
-	float: right;
-	margin: -1.75em 0 0 0;
-}
-#topline ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-#topline ul li {
-	margin: 0 0 .2em 0;
-	padding: 0;
-	white-space: nowrap;
-	overflow: hidden;
-	z-index: 1;
-	position: relative;
-}
-#topline ul li .bar {
-	position: absolute;
-	top: 1px; left: 0;
-	width: 100%;
-	z-index: -1;
-}
-#topline ul li .bar b { 
-	height: 1.5em; 
-	width: 50%; 
-	display: block;
-}
-#topline ul li.blue .bar b { background-color: #3d7fa6; }
-#topline ul li.red .bar b { background-color: #a23520; }
-#topline ul li.undecided .bar b { background-color: #777; }
-#topline .full { display: inline; }
-#topline .abbr { display: none; }
-#topline strong {
-	display: inline-block;
-	padding-left: 4px;
-	font-weight: normal;
-}
-#topline .votes, #topline .pickups {
-	min-width: 2em;
-	text-align: right;
-	display: inline-block;
-	float: right;
-	padding-right: 2px;
-}
-#topline:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-
-
-/* LIVEBLOG */
-#blog h2 { padding-left: 10px; }
-#blog_river_alert {
-	background-color: #FAFDFF;
-	border: 1px solid #D3E1EA;
-	padding: 12px;
-	margin-bottom: 6px;
-}
-#blog_river_alert p {
-	margin: 0;
-	font-size: 13px;
-	font-weight: bold;
-	color: #36c;
-}
-#blog_river_alert p:hover {
-	cursor: pointer;
-	text-decoration: underline;
-}
-#blog_river ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-#blog_river ul li {
-	font-size: 13px;
-	line-height: 1.35em;
-	color: #333;
-	background-color: #f1f1f1;
-	padding: 12px;
-	margin-bottom: 6px;
-}
-#blog_river ul li.sticky {
-	background-color: #FFF;
-	border: 1px dotted #999;
-}
-#blog_river .date {
-	font-size: 11px;
-	font-style: normal;
-	white-space: nowrap;
-	padding-left: 5px;
-	color: #999;
-}
-#blog_river a {
-	font-weight: bold;
-	color: #36C;
-}
-#blog_river_hold, #blog_river_alert {
-	display: none;
-}
-
-
-/* PRESIDENTIAL RESULTS */
-#pres-nav li { cursor: pointer; }
-#pres-nav li, #pres-results #pres-closing span { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-
-#pres-results { margin-bottom: 24px; }
-#pres-results h2 { margin-bottom: 12px; }
-#pres-results .results { margin: 0; padding: 0; list-style: none; }
-#pres-results .results li {
-	border-bottom: 1px dotted #CCC;
-	padding: 6px 0;
-	font-size: 13px
-}
-#pres-results li.hdr { 
-	font-weight: bold;
-}
-#pres-results li.instructions { 
-	padding-top: 0;
-	font-weight: bold;
-}
-#pres-results li.instructions {
-	border-bottom: none;
-}
-#pres-results b {
-	font: normal 1em StateFaceRegular;
-    text-align: center;
-    display: inline-block;
-    width:1em;
-    margin-right: 4px;
-    height:1em;
-}
-#pres-results #pres-watching .st, 
-#pres-results #pres-closing span {
-    background-color: #f7e39b;
-    color: #77631b;
-}
-#pres-results #pres-watching .st strong {
-	font-weight: normal;
-}
-#pres-results #pres-closing strong {
-	display: block;
-	float: left;
-	width: 90px;
-}
-#pres-results #pres-watching .st,
-#pres-results #pres-closing span {
-	padding: 3px 6px;
-	border-radius: 6px;
-	white-space: nowrap;
-	display: block;
-	float: left;
-	margin: 0 3px 3px 0;
-}
-#pres-results .precincts {
-	float: right;
-	color: #666;
-	font-size: 10px;
-	line-height: 11px;
-	font-style: normal;
-	white-space: normal;
-}
-#pres-results .note {
-	display: block;
-	clear: both;
-	color: #666;
-	font-size: 11px;
-	line-height: 1.2em;
-	padding-top: 6px;
-}
-#pres-results #pres-called b { color: #333; }
-
-#pres-results .s {
-	width: 25%; 
-	margin-right: 1%;
-	float: left;
-}
-#pres-results .blue,
-#pres-results .red { 
-	text-align: center;
-	background-color: #f1f1f1;
-	width: 28%;
-	float: left;
-	padding: 3px 0;
-}
-#pres-results .precincts { 
-	width: 15%;
-	float: left;
-	margin-left: 2%;
-}
-#pres-results .blue {
-	margin-right: 1%;
-}
-#pres-results .hdr .blue,
-#pres-results .hdr .red { 
-	background: transparent;
-}
-
-#pres-results .blue.winner {
-	font-weight: bold;
-	color: #fff;
-	background-color: #3d7fa6;
-}
-#pres-results .red.winner {
-	font-weight: bold;
-	color: #fff;
-	background-color: #a23520;
-}
-#pres-nav:after, #pres-results .results li:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-
-
-
+/* RESPONSIVE FUN */
 @media (min-width: 960px) {
     #states,.bucket.undecided { font-size:20px; }
 }
@@ -456,7 +222,6 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	#bigbox { width: 300px; }
 	#main-header, #header-title { width: 840px; }
     #states,.bucket.undecided { font-size:26px; }
-    #topline .span4 { width: 260px; margin-left: 20px; }
 }
 @media (max-width: 979px) {
 	.bucket-header h3 { font-size: 19px; }
@@ -466,17 +231,11 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 }
 @media (max-width: 979px) and (min-width: 768px) {
 	#main-header, #header-title { width: 724px; }
-    #topline .span4 { width: 221px; }
     .bucket-header, .bucket { width: 9em; }
     #states,.bucket.undecided { font-size: 18px; }
 }
 @media (max-width: 767px) {
     #results,#blog { width:100%; }
-	#topline .span4 { width: 33%; float: left; margin-left: 0; }
-	#topline .wrap { padding: 0 1em 1em 1em; }
-	#topline .full { display: none; }
-	#topline .abbr { display: inline; }
-	#topline h6 { margin: 0 0 .5em 0; float: none; }
     .bucket-header, .bucket { width: 15em; }
     #states,.bucket.undecided { font-size: 22px; }
 	.bucket-header h3 { font-size: 24px; }
@@ -489,25 +248,11 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 	#header-title h1 { font-size: 1.5em; line-height: 1.2em; padding-top: 20px; }
 	#header-title h3 { font-size: .9em; font-family: Arial, Helvetica, sans-serif; font-style: normal; }
 	#header-title { padding-bottom: 20px; }
-	#playercon { height: 80px }
-	#playercon #playerstatus { bottom: 0; top: auto; }
-	#playercon .speaking { font: 13px Arial;  margin: 3px 0 0 52px; float: none; line-height: 17px; max-width: auto; white-space: normal; padding-bottom: 12px; display: block; }
-	#playercon #attrOnStageBio { display: block; }
-	
-	#topline { -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
-	#topline h3 { font-size: 1em; }
-	#topline ul li { margin-bottom: 0; font-size: .9em; }
 	
 	#blog { margin-left: -10px; margin-right: -10px; float: none; width: auto; }
 	
 	/* HIDE ELECTRIS (also some corresponding code in the JS) */
 	#states { display: none; }
-	#game-info { display: none; }
-	#pres-results li.instructions { display: none; }
 }
 @media (max-width: 400px) {
-	#topline ul li { margin-bottom: 2px; }
-	#topline strong { padding-left: 0; display: block; }
-	#topline ul li .bar { top: 20px; left: 0; }
-	#topline ul li .votes, #topline ul li .pickups { z-index: 102; }
 }
