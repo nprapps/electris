@@ -155,91 +155,91 @@
         </div>
 
 
-        <div class="row" id="divider">
-        	<div class="span12">
-        		<hr />
-        	</div>
-        </div>
-
         <div class="row">
-            <div class="span3">
-                <div class="combos">
-                    <p><strong>Barack Obama needs <span id="blue-needs">?</span> electoral votes to win.</strong> He must win at least <span class="blue-simple-combo-length">?</span> more states to get those votes. There are <span class="blue-simple-combos-count">?</span> combinations of <span class="blue-simple-combo-length">?</span> states that could get him the votes he needs.</p>
-                    <ul id="blue-combos"></ul>
-                </div>
-            </div>
+        	<div id="electris">
+				<div id="toggles">
+	
+					<!-- TODO: GET NPR TOSSUPS (USING NYT NOW) -->
+					<ul id="tossups">
+						<li><b>F</b><span class="full">Colorado</span> <span class="abbr">Colo.</span> (9)</li>
+						<li><b>I</b> <span class="full">Florida</span> <span class="abbr">Fla.</span> (29)</li>
+						<li><b>L</b> <span class="full abbr">Iowa<span> (6)</li>
+						<li><b>g</b> <span class="full">Nevada</span> <span class="abbr">Nev.</span> (6)</li>
+						<li><b>d</b> <span class="full">New Hampshire</span> <span class="abbr">N.H.</span> (4)</li>
+						<li><b>a</b> <span class="full">North Carolina</span> <span class="abbr">N.C.</span> (15)</li>
+						<li><b>i</b> <span class="full abbr">Ohio</span> (18)</li>
+						<li><b>s</b> <span class="full">Virginia</span> <span class="abbr">Va.</span> (13)</li>
+						<li><b>v</b> <span class="full">Wisconsin</span> <span class="abbr">Wis.</span> (10)</li>
+					</ul>
+				
+				</div>
+	
+				<div id="states" class="stateblock">
+					<div id="bucket-headers">
+						<div class="bucket-header blue">
+							<h5>Predictions</h5>
+							<h3><i>Barack </i><b>Obama</b></h3>
+							<h4><b id="p-blue-electoral">00</b> electoral votes* | <b id="blue-needs">?</b> needed to win.</h4>
+							<p class="must-win"><strong>Barack Obama must win at least <span class="blue-simple-combo-length">?</span> more toss-up states.</strong> There are <span class="blue-simple-combos-count">?</span> combinations of <span class="blue-simple-combo-length">?</span> states that could get him the votes he needs.</p>
+							<p id="p-blue-call"><em>*Obama starts with <span class="value">00</span> votes, based on NPR "strong Democrat" or "lean Democrat" predictions.</em></p>
+							<p><a class="btn btn-small btn-inverse btn-combos">See Possible Outcomes</a></p>
+							<ul class="combos" id="blue-combos"></ul>
+						</div>
+						<div class="bucket-header red">
+							<h5>Predictions</h5>
+							<h3><i>Mitt </i><b>Romney</b></h3>
+							<h4><b id="p-red-electoral">00</b> electoral votes* | <b id="red-needs">?</b> needed to win.</h4>
+							<p class="must-win"><strong>Mitt Romney must win at least <span class="red-simple-combo-length">?</span> more toss-up states.</strong> There are <span class="red-simple-combos-count">?</span> combinations of <span class="red-simple-combo-length">?</span> states that could get him the votes he needs.</p>
+							<p id="p-red-call"><em>*Romney starts with <span class="value">00</span> votes, based on NPR "strong Republican" or "lean Republican" predictions.</em></p>
+							<p><a class="btn btn-small btn-inverse btn-combos">See Possible Outcomes</a></p>
+							<ul class="combos" id="red-combos"></ul>
+						</div>
+					</div>
 
-            <div class="span9" id="results">
-            	<div class="row" id="president">
-
-            		<div class="span6 stateblock" id="states">
-            			<div class="row" id="bucket-headers">
-            				<div class="bucket-header blue">
-            					<h5>Your Prediction</h5> <!-- only show if user has started interacting with bars -->
-            					<h3><i>Barack </i><b>Obama</b></h3>
-            					<h4><b id="p-blue-electoral">00</b> electoral votes</h4>
-                                <p><b id="p-blue-call"><span class="value">00</span> based on polling</b> | <b id="p-blue-predict"><span class="value">00</span> predicted by you</b></p>
-            				</div>
-            				<div class="bucket-header red">
-            					<h5>Your Prediction</h5> <!-- only show if user has started interacting with bars -->
-            					<h3><i>Mitt </i><b>Romney</b></h3>
-            					<h4><b id="p-red-electoral">00</b> electoral votes</h4>
-            					<p><b id="p-red-call"><span class="value">00</span> based on polling</b> | <b id="p-red-predict"><span class="value">00</span> predicted by you</b></p>
-            				</div>
-            			</div>
-            			<div class="row" id="buckets">
-            				<div class="bucket blue"></div>
-            				<div class="bucket red"></div>
-	                        <div class="line"><b>270</b></div>
-		                </div>
-		            </div>
-
-                    <div class="span3">
-                        <div class="combos">
-                            <p><strong>Mitt Romney needs <span id="red-needs">?</span> electoral votes to win.</strong> He must win at least <span class="red-simple-combo-length">?</span> more states to to get those votes. There are <span class="red-simple-combos-count">?</span> combinations of <span class="red-simple-combo-length">?</span> states that could get him the votes he needs.</p>
-                            <ul id="red-combos"></ul>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        
-        <div id="footer" class="row">
-            <div class="span12">
-            	<div class="credits" id="attrCredit">
-            		Source: NPR analysis<br />
-            		Credits: Brian Boyer, Christopher Groskopf and Alyson Hurt / NPR
-            	</div>
-            </div>
-            <div class="span12">
-            	<ul class="bottomlist elexLinks">
-            		<li class="elex"><a href="http://www.npr.org/">Election 2012</a></li>
-            		<li><a href="http://www.npr.org/sections/presidential-race">Presidential Race</a></li>
-            		<li><a href="http://www.npr.org/series/139914785/barack-obama">Barack Obama (D)</a></li>
-            		<li><a href="http://www.npr.org/series/139589850/mitt-romney">Mitt Romney (R)</a></li>
-            		<li><a href="http://www.npr.org/series/128364156/the-message-machine">The Message Machine</a></li>
-            		<li><a href="http://apps.npr.org/early-voting-2012/">Early Voting Calendar</a></li>
-            		<li><a href="http://www.npr.org/2011/08/15/139648404/campaign-2012-political-calendar">Political Calendar</a></li>
-            		<li><a href="http://www.npr.org/series/146345736/money-politics">Money &amp; Politics</a></li>
-            		<li><a href="http://www.npr.org/series/128364156/the-message-machine">The Message Machine</a></li>
-            	</ul>
-            </div>
-            <div class="span12">
-            	<ul class="bottomlist">
-            		<li><a href="http://www.npr.org/">Copyright 2012 NPR</a></li>
-            		<li><a href="http://www.npr.org/about/termsofuse.html">Terms of Use</a></li>
-            		<li><a href="http://www.npr.org/about/privacypolicy.html">Privacy Policy</a></li>
-            		<li><a href="http://www.npr.org/about/permissioninfo.html">Permissions</a></li>
-            		<li><a href="http://www.npr.org/corrections/">Corrections</a></li>
-            		<li><a href="http://thin.npr.org">Text-Only Site</a></li>
-            		<li class="help"><a href="http://www.npr.org/help/">Help</a></li>
-            		<li class="contact"><a href="http://www.npr.org/contact/">Contact Us</a></li>
-            		<li class="donate"><a href="http://www.npr.org/stations/donate/">Donate</a></li>
-            	</ul>
-            </div>
-        </div>
-        
+					<div id="buckets">
+						<div class="bucket blue"></div>
+						<div class="bucket red"></div>
+						<div class="line"><b>270</b></div>
+					</div>
+				</div>
+	
+			</div> <!-- end #electris -->
+		</div>
+			
+		<div id="footer" class="row">
+			<div class="span12">
+				<div class="credits" id="attrCredit">
+					Source: NPR analysis<br />
+					Credits: Brian Boyer, Christopher Groskopf and Alyson Hurt / NPR
+				</div>
+			</div>
+			<div class="span12">
+				<ul class="bottomlist elexLinks">
+					<li class="elex"><a href="http://www.npr.org/">Election 2012</a></li>
+					<li><a href="http://www.npr.org/sections/presidential-race">Presidential Race</a></li>
+					<li><a href="http://www.npr.org/series/139914785/barack-obama">Barack Obama (D)</a></li>
+					<li><a href="http://www.npr.org/series/139589850/mitt-romney">Mitt Romney (R)</a></li>
+					<li><a href="http://www.npr.org/series/128364156/the-message-machine">The Message Machine</a></li>
+					<li><a href="http://apps.npr.org/early-voting-2012/">Early Voting Calendar</a></li>
+					<li><a href="http://www.npr.org/2011/08/15/139648404/campaign-2012-political-calendar">Political Calendar</a></li>
+					<li><a href="http://www.npr.org/series/146345736/money-politics">Money &amp; Politics</a></li>
+					<li><a href="http://www.npr.org/series/128364156/the-message-machine">The Message Machine</a></li>
+				</ul>
+			</div>
+			<div class="span12">
+				<ul class="bottomlist">
+					<li><a href="http://www.npr.org/">Copyright 2012 NPR</a></li>
+					<li><a href="http://www.npr.org/about/termsofuse.html">Terms of Use</a></li>
+					<li><a href="http://www.npr.org/about/privacypolicy.html">Privacy Policy</a></li>
+					<li><a href="http://www.npr.org/about/permissioninfo.html">Permissions</a></li>
+					<li><a href="http://www.npr.org/corrections/">Corrections</a></li>
+					<li><a href="http://thin.npr.org">Text-Only Site</a></li>
+					<li class="help"><a href="http://www.npr.org/help/">Help</a></li>
+					<li class="contact"><a href="http://www.npr.org/contact/">Contact Us</a></li>
+					<li class="donate"><a href="http://www.npr.org/stations/donate/">Donate</a></li>
+				</ul>
+			</div>
+		</div>
     </div>
     
     <script id="state-template" type="text/template">

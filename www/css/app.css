@@ -9,9 +9,29 @@
      font-style: normal;
 }
 
-/* STRUCTURAL */
-#blog { float:right; }
-#results { float:right; }
+
+/* STRUCTURE */
+#toggles { width: 219px; float: left; clear: none; }
+#states { width: 697px; float: right; clear: none; font-size: 22px; }
+.bucket, .bucket-header { width: 15em; }
+
+#states .blue { float: left; }
+#states .red { float: right; }
+
+
+/* CLEARFIXES */
+#electris:after,
+#states:after,
+#toggles:after { 
+	content: "."; display: block; height: 0; clear: both; visibility: hidden;
+}
+
+
+/* THINGS WE DON'T WANT TEXT HIGHLIGHTING ON */
+#tossups li,
+.state { 
+	-moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none;
+}
 
 
 /* GENERAL STYLES */
@@ -58,21 +78,11 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* ELECTRIS */
-#states:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-#states,.bucket.undecided { font-size:20px; }
+/*#electris { border-top: 5px solid #eee; margin: 0 0 0 20px; padding-top: 20px; }*/
+#electris { margin-left: 20px; padding-top: 20px; }
+#buckets, #bucket-headers { position:relative; float:left; clear:left; margin-left: 0; width: 100%; }
 
-#buckets, #bucket-headers {
-    position:relative;
-    float:left;
-    clear:left;
-    margin-left: 0;
-    width: 100%;
-}
-
-.state {
-    z-index: 100;
-    -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; 
-}
+.state { z-index: 100; }
 
 .state i {
     float:left;
@@ -105,14 +115,9 @@ a.btn { color: #fff; cursor: pointer; }
 .state.call-d i { background-color: #3d7fa6; color: #fff; }
 .state.call-r i { background-color: #a23520; color: #fff; }
 
-#show-combos { display: none; }
-
-#offices li li.blue .bar b { background-color: #3d7fa6; }
-#offices li li.red .bar b { background-color: #a23520; }
-#offices li li.undecided .bar b { background-color: #ccc; }
-
 .line {
-    bottom:26.9em;
+	bottom: 17.9em;
+/*    bottom:26.9em; */
     height:.1em;
     background-color: #333;
     position:absolute;
@@ -138,9 +143,7 @@ a.btn { color: #fff; cursor: pointer; }
     transform: scaleY(-1);
     -ms-filter: flipv; /*IE*/
     filter: flipv; /*IE*/
-    
-    width:10em;
-    background-color: whiteSmoke;
+    background-color: #f1f1f1;
 }
 #buckets .bucket.blue { float: left; }
 #buckets .bucket.red { float: right; }
@@ -154,17 +157,11 @@ a.btn { color: #fff; cursor: pointer; }
     filter: flipv; /*IE*/
 }
 
-.bucket.undecided { margin-bottom:1em; }
-.bucket.undecided .state { padding-bottom: 6px; }
-.bucket.undecided:after, .bucket.undecided .state:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-
 .bucket-header {
 	border-top: 3px solid #000;
 	padding: 15px 0 18px 0;
-	width: 10em;
 	overflow: hidden;
 }
-.bucket-header { width: 10em; }
 .bucket-header.blue { background: url('../img/silo-obama.png') no-repeat left 15px; float: left; }
 .bucket-header.red  { background: url('../img/silo-romney.png') no-repeat left 15px; float: right; }
 .bucket-header h5, .bucket-header h3, .bucket-header h4, .bucket-header p {
@@ -188,7 +185,7 @@ a.btn { color: #fff; cursor: pointer; }
 .bucket-header h4 {
 	font: normal 14px Arial, Helvetica, sans-serif;
 	color: #666;
-	margin-bottom: 3px;
+	margin-bottom: 12px;
 }
 .bucket-header h4 b { 
 	font: bold 28px Georgia, serif;
@@ -199,13 +196,72 @@ a.btn { color: #fff; cursor: pointer; }
 	margin-bottom: 0;
 	color: #666;
 }
-.bucket-header #p-blue-call { color: #3D7FA6; }
+/*.bucket-header #p-blue-call { color: #3D7FA6; }
 .bucket-header #p-red-call { color: #A23520; }
-.bucket-header #p-blue-predict, .bucket-header #p-red-predict { color: #B39429; }
+.bucket-header #p-blue-predict, .bucket-header #p-red-predict { color: #B39429; } */
 
-#probabilities { display: none; }
-#probabilities .dem { width: 45%; float: left; }
-#probabilities .rep { width: 45%; float: right; }
+.bucket-header p#p-blue-call, 
+.bucket-header p#p-red-call { 
+	margin-bottom: 10px;
+}
+.bucket-header p.must-win { margin-bottom: 10px; }
+.bucket-header p.must-win strong { color: #333; font-weight: bold; }
+
+
+
+
+/* COMBOS */
+/*.combos { display: none; } */
+.combos { 
+	list-style: none; 
+	padding: 10px; 
+	margin: 10px 0 0 0; 
+	height: 10em;
+	overflow: auto;
+	background-color: #eee;
+}
+.combos li { font-size: 12px; margin-bottom: 3px; color: #666;}
+.combos span { font-weight: bold; }
+.combos b {
+	font: normal 1em StateFaceRegular;
+    text-align: center;
+    display: inline-block;
+    width: 1.2em;
+    height:1em;
+    margin-right: 6px;
+	color: #77631b;
+	background-color: #ccc;
+}
+
+
+
+/* TOSSUP COLUMN */
+#tossups { list-style: none; margin: 0; padding: 0; }
+#tossups li {
+	background-color: #f7e39b;
+	color: #77631b;
+	margin-bottom: 1px;
+	padding: 12px;
+	font-weight: bold;
+}
+#tossups li:hover {
+	cursor: pointer;
+	background-color: #77631b;
+	color: #fff;
+}
+#tossups li.active {
+	background-color: #77631b;
+}
+#tossups .abbr { display: none; }
+#tossups .full { display: inline; }
+#tossups b {
+	font: normal 1em StateFaceRegular;
+    text-align: center;
+    display: inline-block;
+    width: 1.2em;
+    height:1em;
+    margin-right: 6px;
+}
 
 
 /* FOOTER EXTRAS */
@@ -216,43 +272,47 @@ a.btn { color: #fff; cursor: pointer; }
 
 /* RESPONSIVE FUN */
 @media (min-width: 960px) {
-    #states,.bucket.undecided { font-size:20px; }
 }
 @media (min-width: 1200px) {
 	#bigbox { width: 300px; }
 	#main-header, #header-title { width: 840px; }
-    #states,.bucket.undecided { font-size:26px; }
+
+	#states { width: 937px; font-size: 25px; }
+	.bucket, .bucket-header { width: 18em; }
 }
 @media (max-width: 979px) {
 	.bucket-header h3 { font-size: 19px; }
     .bucket-header h3 i { display: none; }
     .bucket-header h4 b { display: block; }
+    
+    .intro { width: auto; }
 	#bigbox { display: none; } /* TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
+	#toggles { width: 138px; }
+	#tossups .full { display: none; }
+	#tossups .abbr { display: inline; }
 }
 @media (max-width: 979px) and (min-width: 768px) {
 	#main-header, #header-title { width: 724px; }
-    .bucket-header, .bucket { width: 9em; }
-    #states,.bucket.undecided { font-size: 18px; }
+
+	#states { width: 562px; font-size: 26px; }
+	.bucket, .bucket-header { width: 10em; }
+	.line { bottom:26.9em; }
 }
 @media (max-width: 767px) {
-    #results,#blog { width:100%; }
-    .bucket-header, .bucket { width: 15em; }
-    #states,.bucket.undecided { font-size: 22px; }
 	.bucket-header h3 { font-size: 24px; }
     .bucket-header h3 i { display: inline; }
     .bucket-header h4 b { display: inline; }
+
+	#electris { margin-left: 0; }
+	#toggles { width: 20%; }
+	#states { width: 75%; font-size: 195%; }
+	.bucket, .bucket-header { width: 10em; }
+	.line { bottom:26.9em; }
 }
 @media (max-width: 480px) {
-	body { padding-left: 10px; padding-right: 10px; }
-	#header { margin-left: -10px; margin-right: -10px; }
-	#header-title h1 { font-size: 1.5em; line-height: 1.2em; padding-top: 20px; }
-	#header-title h3 { font-size: .9em; font-family: Arial, Helvetica, sans-serif; font-style: normal; }
-	#header-title { padding-bottom: 20px; }
-	
-	#blog { margin-left: -10px; margin-right: -10px; float: none; width: auto; }
-	
-	/* HIDE ELECTRIS (also some corresponding code in the JS) */
-	#states { display: none; }
-}
-@media (max-width: 400px) {
+	#toggles { width: auto; float: none; margin-bottom: 20px; }
+	#tossups li { width: 32%; float: left; margin: 0 1% 1% 0; padding-left: 0; padding-right: 0; text-align: center; }
+	#states { width: auto; float: none; }
+
+	.bucket-header { width: auto; }
 }

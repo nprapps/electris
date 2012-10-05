@@ -166,6 +166,7 @@ $(function() {
         $("#p-blue-predict .value").text(blue_votes_user);
 
         // Resize buckets
+        /* TODO: min height of the buckets will vary depending on the width of the bucket column -- either 10em or 15em (depends on window width) */
         var height = Math.max(27, Math.ceil(Math.max(red_votes_fixed + red_votes_user, blue_votes_fixed + blue_votes_user) / 10));
         $("#buckets,#buckets .red,#buckets .blue").css("height", height + "em");
 
@@ -250,7 +251,8 @@ $(function() {
         $("#red-combos").empty();
 
         _.each(red_combos, function(combo) {
-            var names = _.map(combo.combo, function(id) { return state_names[id] + " (" + state_votes[id] + ")"; });
+        	/* TODO: Add stateface code between <b></b> tags */
+            var names = _.map(combo.combo, function(id) { return '<span><b></b> ' + state_names[id] + " (" + state_votes[id] + ")</span>"; });
             var total = _.reduce(combo.combo, function(memo, id) { return memo + state_votes[id]; }, 0);
             var el = $("<li>" + names.join(" + ") + " = " + total + "</li>"); 
             el.data(combo);
@@ -263,7 +265,8 @@ $(function() {
         $("#blue-combos").empty();
 
         _.each(blue_combos, function(combo) {
-            var names = _.map(combo.combo, function(id) { return state_names[id] + " (" + state_votes[id] + ")"; });
+        	/* TODO: Add stateface code between <b></b> tags */
+            var names = _.map(combo.combo, function(id) { return '<span><b></b> ' + state_names[id] + " (" + state_votes[id] + ")</span>"; });
             var total = _.reduce(combo.combo, function(memo, id) { return memo + state_votes[id]; }, 0);
             var el = $("<li>" + names.join(" + ") + " = " + total + "</li>"); 
             el.data(combo);
@@ -301,7 +304,9 @@ $(function() {
     /* DATASET LOADING/POLLING */
 
     var states_dataset = new Miso.Dataset({
-        url : "states.csv?t=" + (new Date()).getTime(),
+		url : function() { /* have to call as a function or else the timestamp won't refresh w/ each call */
+			return "states.csv?t=" + (new Date()).getTime();
+		},
         delimiter: ",",
         columns: [
             { name: "polls_close", type: "time", format: "YYYY-MM-DD h:mm A" }
@@ -323,7 +328,6 @@ $(function() {
     });
 
     /* POPOVERS */
-
     /* via stackoverflow, but modified: http://stackoverflow.com/questions/8947749/how-can-i-close-a-twitter-bootstrap-popover-with-a-click-from-anywhere-else-on */
     $(document).click(function(e) {
     	if(popIsVisible && popClickedAway) {
@@ -333,4 +337,10 @@ $(function() {
     		popClickedAway = true;
     	}
     });
+    
+    /* COMBINATION TOGGLES */
+    $('.btn-combos').click(function() {
+    	$('.combos').slideToggle();
+    });
+    $('.combos').hide();
 });
