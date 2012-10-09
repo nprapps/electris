@@ -3,13 +3,14 @@
 from flask import Flask
 from flask import render_template
 
+# Peewee for the models and ORM.
+# Flask-Peewee for the utilities.
 from peewee import *
 from flask_peewee.db import Database
 from flask_peewee.utils import get_object_or_404
-from flask_peewee.rest import RestAPI
 
-from bigboard.models import Race, Candidate
-
+# Set up the connections for the DB.
+# You'd know these as "settings."
 DATABASE = {
     'name': 'house_senate.db',
     'engine': 'peewee.SqliteDatabase',
@@ -18,12 +19,20 @@ DATABASE = {
 DEBUG = True
 SECRET_KEY = 'sad;jsad;jasd98f823123'
 
+# Instantiate the application.
 app = Flask(__name__)
 app.config.from_object(__name__)
 
+# Connect to the DB layer.
 database = Database(app)
 
+# Set up the models.
 class Race(database.Model):
+	"""
+	Represents a single race in a single district for a single side of our bicameral congress.
+	Does not: Have a concept of a year.
+	Still needs: A last-updated field.
+	"""
 	id = PrimaryKeyField(primary_key=True)
 	state = CharField()
 	state_short = CharField()
@@ -42,6 +51,11 @@ class Race(database.Model):
 
 
 class Candidate(database.Model):
+	"""
+	Represents a single candidate in a single race.
+	Does not: Have a relationship to more than one race.
+	Still needs: A last-updated field.
+	"""
 	id = PrimaryKeyField(primary_key=True)
 	race = ForeignKeyField(Race, null=True, blank=True)
 	first_name = CharField()
@@ -56,8 +70,14 @@ class Candidate(database.Model):
 	def __unicode__(self):
 		return u'%s: %s %s' % (self.race, self.first_name, self.last_name)
 
+
+# Views! Remember these?
 @app.route('/races/')
 def race_list():
+	"""
+	All of the races we're tracking.
+	Eventually, these will need to be ordered more interestingly.
+	"""
     races = Race.select().order_by(Race.state, Race.district)
     context = {
         'races': races
@@ -66,6 +86,9 @@ def race_list():
 
 @app.route('/races/<state_short>/<district>/')
 def race_detail(state_short, district):
+	"""
+	A single race with all of the associated candidates.
+	"""
     race = get_object_or_404(Race, state_short=state_short, district=district)
     candidates = Candidate.filter(race=race)
     context = {
@@ -74,5 +97,6 @@ def race_detail(state_short, district):
     }
     return render_template('race_detail.html', **context)
 
+# Shenanigans. This ties the app to a port and executes it.
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
