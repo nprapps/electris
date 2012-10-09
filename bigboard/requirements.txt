@@ -1,0 +1,2 @@
+peewee==2.0.0
+flask-peewee==0.5.6

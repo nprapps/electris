@@ -1,0 +1,5 @@
+<h1>{{ race.state_short }} {{ race.district }}</h1>
+
+<ul>{% for candidate in candidates %}
+	<li>{{ candidate.first_name }} {{ candidate.last_name }} ({{ candidate.party }})</li>
+{% endfor %}</ul>
