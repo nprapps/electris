@@ -1,0 +1,4 @@
+{% for candidate in candidates %}
+    <li><a href="{{ url_for('race_detail', state_id=candidate.state_id, race=candidate.race) }}">
+        {{ candidate.first_name }} {{ candidate.last_name }} ({{ candidate.party }})</a></li>
+{% endfor %}

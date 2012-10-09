@@ -1,4 +1,0 @@
-<ul>{% for race in races %}
-	<li><a href="{{ url_for('race_detail', state_short=race.state_short, district=race.district) }}">
-		{{ race.state_short }} {{ race.district }}</a></li>
-{% endfor %}</ul>
