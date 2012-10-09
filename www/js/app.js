@@ -168,7 +168,7 @@ $(function() {
         // Resize buckets
         /* TODO: min height of the buckets will vary depending on the width of the bucket column -- either 10em or 15em (depends on window width) */
         var height = Math.max(27, Math.ceil(Math.max(red_votes_fixed + red_votes_user, blue_votes_fixed + blue_votes_user) / 10));
-        $("#buckets,#buckets .red,#buckets .blue").css("height", height + "em");
+        $("#buckets .bucket.red,#buckets .bucket.blue").css("height", height + "em");
 
         if (generate_combos) {
             generate_winning_combinations(red_votes_fixed, blue_votes_fixed, states_not_predicted);
@@ -341,14 +341,4 @@ $(function() {
     	}
     });
     
-    /* COMBINATION TOGGLES */
-    $('.btn-combos').click(function() {
-    	$('.combos').slideToggle();
-    	if ($(this).text() == 'Show Possible Outcomes') {
-    		$('.btn-combos').text('Hide Possible Outcomes');
-    	} else {
-    		$('.btn-combos').text('Show Possible Outcomes');
-    	}
-    });
-    $('.combos').hide();
 });

@@ -159,6 +159,7 @@
         <div class="row">
         	<div id="electris">
 				<div id="toggles">
+					<h5>Toss-Ups</h5>
 	
 					<!-- TODO: GET NPR TOSSUPS (USING NYT NOW) -->
 					<ul id="tossups">
@@ -174,34 +175,40 @@
 					</ul>
 				
 				</div>
-	
-				<div id="states" class="stateblock">
-					<div id="bucket-headers">
-						<div class="bucket-header blue">
-							<h5>Predictions</h5>
-							<h3><i>Barack </i><b>Obama</b></h3>
-							<h4><b id="p-blue-electoral">00</b> electoral votes* | <b id="blue-needs">?</b> needed to win.</h4>
-							<p class="must-win"><strong>Barack Obama must win at least <span class="blue-simple-combo-length">?</span> more toss-up states.</strong> There are <span class="blue-simple-combos-count">?</span> combinations of <span class="blue-simple-combo-length">?</span> states that could get him the votes he needs.</p>
-							<p id="p-blue-call"><em>*Obama starts with <span class="value">00</span> votes, based on NPR "strong Democrat" or "lean Democrat" predictions.</em></p>
-							<p><a class="btn btn-small btn-inverse btn-combos">Show Possible Outcomes</a></p>
-							<ul class="combos" id="blue-combos"></ul>
-						</div>
-						<div class="bucket-header red">
-							<h5>Predictions</h5>
-							<h3><i>Mitt </i><b>Romney</b></h3>
-							<h4><b id="p-red-electoral">00</b> electoral votes* | <b id="red-needs">?</b> needed to win.</h4>
-							<p class="must-win"><strong>Mitt Romney must win at least <span class="red-simple-combo-length">?</span> more toss-up states.</strong> There are <span class="red-simple-combos-count">?</span> combinations of <span class="red-simple-combo-length">?</span> states that could get him the votes he needs.</p>
-							<p id="p-red-call"><em>*Romney starts with <span class="value">00</span> votes, based on NPR "strong Republican" or "lean Republican" predictions.</em></p>
-							<p><a class="btn btn-small btn-inverse btn-combos">Show Possible Outcomes</a></p>
-							<ul class="combos" id="red-combos"></ul>
-						</div>
-					</div>
-
+				
+				<div id="states">
 					<div id="buckets">
-						<div class="bucket blue"></div>
-						<div class="bucket red"></div>
+						<div class="candidate blue">
+							<div class="bucket-header">
+								<h5>Predictions</h5>
+								<h3><i>Barack </i><b>Obama</b></h3>
+								<h4><b id="p-blue-electoral">00</b> electoral votes* | <b id="blue-needs">?</b> more needed to win.</h4>
+							</div>
+							<div class="bucket blue"></div>
+							<div class="combos">
+								<p class="must-win"><strong>Barack Obama must win at least <span class="blue-simple-combo-length">?</span> more toss-up states.</strong> There are <span class="blue-simple-combos-count">?</span> combinations of <span class="blue-simple-combo-length">?</span> states that could get him the votes he needs.</p>
+								<ul id="blue-combos"></ul>
+								<p class="footnote" id="p-blue-call"><em>*Obama starts with <span class="value">00</span> votes, based on NPR "strong Democrat" or "lean Democrat" predictions.</em></p>
+							</div>
+						</div> <!-- end .candidate.blue -->
+						
+						<div class="candidate red">
+							<div class="bucket-header">
+								<h5>Predictions</h5>
+								<h3><i>Mitt </i><b>Romney</b></h3>
+								<h4><b id="p-red-electoral">00</b> electoral votes* | <b id="red-needs">?</b> more needed to win.</h4>
+							</div>
+							<div class="bucket red"></div>
+							<div class="combos">
+								<p class="must-win"><strong>Mitt Romney must win at least <span class="red-simple-combo-length">?</span> more toss-up states.</strong> There are <span class="red-simple-combos-count">?</span> combinations of <span class="red-simple-combo-length">?</span> states that could get him the votes he needs.</p>
+								<ul id="red-combos"></ul>
+								<p class="footnote" id="p-red-call"><em>*Romney starts with <span class="value">00</span> votes, based on NPR "strong Republican" or "lean Republican" predictions.</em></p>
+							</div>
+						</div> <!-- end .candidate.red -->
+
 						<div class="line"><b>270</b></div>
 					</div>
+
 				</div>
 	
 			</div> <!-- end #electris -->

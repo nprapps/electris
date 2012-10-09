@@ -1,3 +1,6 @@
+/* TODO: FIX .line POSITIONING IN ALL CASES */
+/* TODO: FIGURE OUT HOW TO HANDLE COLUMN WIDTHS SUB-767. GO TO PERCENTAGES FOR STATE CUBES? */
+
 @font-face {
      font-family: 'StateFaceRegular';
      src: url('../fonts/stateface-regular-webfont.eot');
@@ -11,18 +14,25 @@
 
 
 /* STRUCTURE */
-#toggles { width: 219px; float: left; clear: none; }
-#states { width: 697px; float: right; clear: none; font-size: 22px; }
-.bucket, .bucket-header { width: 15em; }
-
-#states .blue { float: left; }
-#states .red { float: right; }
+#toggles { width: auto; float: none; margin-bottom: 20px; }
+#states { font-size: 22px; }
+.candidate { width: 48%; }
+.candidate.blue { float: left; }
+.candidate.red { float: right; }
+.candidate.blue .bucket { float: right; }
+.candidate.blue .combos { float: left; }
+.candidate.red .bucket { float: left; }
+.candidate.red .combos { float: right; }
+.bucket { width: 10em; }
+.combos { width: 9em; }
 
 
 /* CLEARFIXES */
 #electris:after,
+#toggles:after,
 #states:after,
-#toggles:after { 
+#buckets:after,
+.candidate:after { 
 	content: "."; display: block; height: 0; clear: both; visibility: hidden;
 }
 
@@ -43,6 +53,12 @@ h2 {
 h3 {
 	font: bold 1.1em Arial, Helvetica, sans-serif;
 	color: #333;
+}
+h5 {
+	font: normal 11px Arial, Helvetica, sans-serif;
+	color: #999;
+	text-transform: uppercase;
+	margin-bottom: 3px;
 }
 a.btn { color: #fff; cursor: pointer; }
 
@@ -78,9 +94,8 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* ELECTRIS */
-/*#electris { border-top: 5px solid #eee; margin: 0 0 0 20px; padding-top: 20px; }*/
 #electris { margin-left: 20px; padding-top: 20px; }
-#buckets, #bucket-headers { position:relative; float:left; clear:left; margin-left: 0; width: 100%; }
+#buckets { position: relative; }
 
 .state { z-index: 100; }
 
@@ -145,8 +160,6 @@ a.btn { color: #fff; cursor: pointer; }
     filter: flipv; /*IE*/
     background-color: #f1f1f1;
 }
-#buckets .bucket.blue { float: left; }
-#buckets .bucket.red { float: right; }
 
 .bucket .state i {
     -moz-transform: scaleY(-1);
@@ -162,16 +175,10 @@ a.btn { color: #fff; cursor: pointer; }
 	padding: 15px 0 18px 0;
 	overflow: hidden;
 }
-.bucket-header.blue { background: url('../img/silo-obama.png') no-repeat left 15px; float: left; }
-.bucket-header.red  { background: url('../img/silo-romney.png') no-repeat left 15px; float: right; }
+.candidate.blue .bucket-header { background: url('../img/silo-obama.png') no-repeat left 15px; }
+.candidate.red .bucket-header  { background: url('../img/silo-romney.png') no-repeat left 15px; }
 .bucket-header h5, .bucket-header h3, .bucket-header h4, .bucket-header p {
 	margin-left: 80px;
-}
-.bucket-header h5 {
-	font: normal 11px Arial, Helvetica, sans-serif;
-	color: #999;
-	text-transform: uppercase;
-	margin-bottom: 3px;
 }
 .bucket-header h3 {
 	font: normal normal 24px Georgia, serif;
@@ -211,17 +218,26 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* COMBOS */
-/*.combos { display: none; } */
-.combos { 
+.combos p {
+	font-size: 13px;
+}
+.combos p.footnote {
+	font-size: 11px;
+	line-height: 1.2em;
+	color: #999;
+	margin-top: 10px;
+}
+.combos ul { 
 	list-style: none; 
-	padding: 0; 
-	margin: 10px 0 0 0; 
-	height: 10em;
+	padding: 6px 0; 
+	margin: 0; 
+	height: 15em;
 	overflow: auto;
-	background-color: #eee;
+	border-top: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
 }
 /* TODO: when stateface icons are added to .combos, remove all the #combos li b background-color styles */
-.combos li { font-size: 12px; margin-bottom: 3px; color: #666; padding: 4px 10px; }
+.combos li { font-size: 12px; margin-bottom: 3px; color: #666; padding: 4px 0; }
 .combos li:hover { background-color: #f7e39b; color: #77631b; cursor: pointer; }
 .combos li:hover b { background-color: #77631b; }
 .combos li.active { background-color: #77631b; color: #fff; }
@@ -239,14 +255,20 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 
-
-/* TOSSUP COLUMN */
+/* TOSSUP ROW */
+#toggles {
+	border-top: 3px solid #000;
+	padding-top: 9px;
+}
 #tossups { list-style: none; margin: 0; padding: 0; }
-#tossups li {
+#tossups li { 
+	padding: 6px 0;
+	float: left; 
+	width: 19.5%;
+	margin: 0 .5% .5% 0; 
+	text-align: center;
 	background-color: #f7e39b;
 	color: #77631b;
-	margin-bottom: 1px;
-	padding: 12px;
 	font-weight: bold;
 }
 #tossups li:hover {
@@ -277,48 +299,55 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* RESPONSIVE FUN */
-@media (min-width: 960px) {
-}
 @media (min-width: 1200px) {
+	#electris { padding: 0 10px; }
 	#bigbox { width: 300px; }
-	#main-header, #header-title { width: 840px; }
-
-	#states { width: 937px; font-size: 25px; }
-	.bucket, .bucket-header { width: 18em; }
+	#states { font-size: 25px; }
+	.bucket { width: 15em; }
+	.combos { width: 6em; }
 }
 @media (max-width: 979px) {
-	.bucket-header h3 { font-size: 19px; }
-    .bucket-header h3 i { display: none; }
-    .bucket-header h4 b { display: block; }
-    
     .intro { width: auto; }
 	#bigbox { display: none; } /* TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
-	#toggles { width: 138px; }
 	#tossups .full { display: none; }
 	#tossups .abbr { display: inline; }
 }
 @media (max-width: 979px) and (min-width: 768px) {
 	#main-header, #header-title { width: 724px; }
 
-	#states { width: 562px; font-size: 26px; }
-	.bucket, .bucket-header { width: 10em; }
+	#states { font-size: 20px; }
 	.line { bottom:26.9em; }
+
+	.bucket { width: 10em; }
+	.combos { width: 6em; }
+	
+	.bucket-header h4 { font-size: 13px; }
+	.bucket-header h4 b { font-size: 26px; }
 }
 @media (max-width: 767px) {
-	.bucket-header h3 { font-size: 24px; }
-    .bucket-header h3 i { display: inline; }
-    .bucket-header h4 b { display: inline; }
-
 	#electris { margin-left: 0; }
-	#toggles { width: 20%; }
-	#states { width: 75%; font-size: 195%; }
-	.bucket, .bucket-header { width: 10em; }
+	#tossups li { width: 24.5%; }
+	#states { font-size: 18px; }
+	.bucket-header h3 { font-size: 19px; }
+    .bucket-header h3 i { display: none; }
+	.candidate.blue .combos {
+		margin-right: 11em;
+		width: auto; clear: none; float: none;
+	}
+	.candidate.red .combos { 
+		margin-left: 11em;
+		width: auto; clear: none; float: none;
+	}
 	.line { bottom:26.9em; }
 }
 @media (max-width: 480px) {
-	#toggles { width: auto; float: none; margin-bottom: 20px; }
-	#tossups li { width: 32%; float: left; margin: 0 1% 1% 0; padding-left: 0; padding-right: 0; text-align: center; }
-	#states { width: auto; float: none; }
-
-	.bucket-header { width: auto; }
+	#states { font-size: 10px; }
+	#states .bucket .state i { text-indent: -9999px; }
+	.candidate.blue .bucket, .candidate.blue .combos,
+	.candidate.red .bucket, .candidate.red .combos { 
+		float: none; margin-right: 0; margin-left: 0;
+	}
+	.bucket { width: 18em; margin-bottom: 10px; }
+	.combos { width: auto; }
+	.combos ul { height: auto; border: none; }
 }
