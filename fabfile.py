@@ -13,6 +13,7 @@ env.python = 'python2.7'
 env.path = '/home/ubuntu/apps/%(project_name)s' % env
 env.repo_path = '%(path)s/repository' % env
 env.virtualenv_path = '%(path)s/virtualenv' % env
+env.forward_agent = True
 
 """
 Environments
