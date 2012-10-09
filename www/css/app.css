@@ -214,13 +214,18 @@ a.btn { color: #fff; cursor: pointer; }
 /*.combos { display: none; } */
 .combos { 
 	list-style: none; 
-	padding: 10px; 
+	padding: 0; 
 	margin: 10px 0 0 0; 
 	height: 10em;
 	overflow: auto;
 	background-color: #eee;
 }
-.combos li { font-size: 12px; margin-bottom: 3px; color: #666;}
+/* TODO: when stateface icons are added to .combos, remove all the #combos li b background-color styles */
+.combos li { font-size: 12px; margin-bottom: 3px; color: #666; padding: 4px 10px; }
+.combos li:hover { background-color: #f7e39b; color: #77631b; cursor: pointer; }
+.combos li:hover b { background-color: #77631b; }
+.combos li.active { background-color: #77631b; color: #fff; }
+.combos li.active:hover b { background-color: #fff; }
 .combos span { font-weight: bold; }
 .combos b {
 	font: normal 1em StateFaceRegular;
@@ -251,6 +256,7 @@ a.btn { color: #fff; cursor: pointer; }
 }
 #tossups li.active {
 	background-color: #77631b;
+	color: #fff;
 }
 #tossups .abbr { display: none; }
 #tossups .full { display: inline; }

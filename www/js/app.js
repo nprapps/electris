@@ -278,6 +278,9 @@ $(function() {
         /*
          * Add win path to tetris display.
          */
+		$("#blue-combos li,#red-combos li").removeClass('active');
+		$(this).addClass('active');
+
         var combo = $(this).data();
 
         user_predicted_winner = combo.winner;
@@ -341,6 +344,11 @@ $(function() {
     /* COMBINATION TOGGLES */
     $('.btn-combos').click(function() {
     	$('.combos').slideToggle();
+    	if ($(this).text() == 'Show Possible Outcomes') {
+    		$('.btn-combos').text('Hide Possible Outcomes');
+    	} else {
+    		$('.btn-combos').text('Show Possible Outcomes');
+    	}
     });
     $('.combos').hide();
 });
