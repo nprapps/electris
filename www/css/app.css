@@ -257,6 +257,10 @@ a.btn { color: #fff; cursor: pointer; }
 	border-top: 3px solid #000;
 	padding-top: 9px;
 }
+#toggles h3 {
+	font: normal 22px Georgia, serif;
+	margin-top: 6px;
+}
 #tossups { list-style: none; margin: 0; padding: 0; }
 #tossups li { 
 	padding: 6px 0;
