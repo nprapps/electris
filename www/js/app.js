@@ -28,10 +28,8 @@ $(function() {
         "d": []
     };
 
-    var red_votes_fixed = 0;
-    var red_votes_predicted = 0;
-    var blue_votes_fixed = 0;
-    var blue_votes_predicted = 0;
+    var red_votes = 0;
+    var blue_votes = 0;
 
     /* User data */
     var user_picks = [];
@@ -144,22 +142,24 @@ $(function() {
             return _.reduce(states, function(count, state) { return count + state.electoral_votes; }, 0);
         }
 
-        red_votes_fixed = sum_votes(states_fixed_red)
-        red_votes_user = sum_votes(states_user_red);
-        $("#p-red-electoral").text(red_votes_fixed + red_votes_user);
+        var red_votes_fixed = sum_votes(states_fixed_red)
+        var red_votes_user = sum_votes(states_user_red);
+        red_votes = red_votes_fixed + red_votes_user;
+        $("#p-red-electoral").text(red_votes);
         $("#p-red-call .value").text(red_votes_fixed);
         $("#p-red-predict .value").text(red_votes_user);
 
-        blue_votes_fixed = sum_votes(states_fixed_blue);
-        blue_votes_user = sum_votes(states_user_blue);
-        $("#p-blue-electoral").text(blue_votes_fixed + blue_votes_user);
+        var blue_votes_fixed = sum_votes(states_fixed_blue);
+        var blue_votes_user = sum_votes(states_user_blue);
+        blue_votes = blue_votes_fixed + blue_votes_user;
+        $("#p-blue-electoral").text(blue_votes);
         $("#p-blue-call .value").text(blue_votes_fixed);
         $("#p-blue-predict .value").text(blue_votes_user);
 
         resize_buckets();
 
         if (generate_combos) {
-            generate_winning_combinations(red_votes_fixed, blue_votes_fixed, states_not_predicted);
+            generate_winning_combinations(states_not_predicted);
         }
     }
 
@@ -175,20 +175,15 @@ $(function() {
         }
 
         var default_height = 270 / bucket_columns;
-        var vote_height = Math.ceil(Math.max(red_votes_fixed + red_votes_user, blue_votes_fixed + blue_votes_user) / bucket_columns)
-
-        console.log(default_height);
-        console.log(vote_height);
-            
+        var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns)
         var height = Math.max(default_height, vote_height);
 
         $("#buckets .bucket.red,#buckets .bucket.blue").css("height", height + "em");
-
     }
 
     $(window).resize(resize_buckets);
 
-    function generate_winning_combinations(red_votes, blue_votes, undecided_states) {
+    function generate_winning_combinations(undecided_states) {
         /*
          * Generate combinations of states that can win the election.
          */
@@ -200,7 +195,7 @@ $(function() {
         // NB: A sorted input list generates a sorted output list
         // from our combinations algorithm.
         state_ids.sort(); 
-        var combos = combinations(state_ids, 2);
+        var combos = combinations(state_ids, 1);
 
         var red_combos = [];
         var blue_combos = [];
@@ -330,7 +325,7 @@ $(function() {
             add_state(state);
         }
 
-        compute_stats();
+        compute_stats(true);
     });
 
     /* DATASET LOADING/POLLING */
