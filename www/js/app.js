@@ -197,9 +197,6 @@ $(function() {
 	    	line_left = bucket_pos.left;
 	    	line_width = (bucket2_pos.left + $('.bucket.red').width()) - bucket_pos.left + 'px';
 	    }
-	    console.log(line_left);
-	    	
-
     	$('#line').css('top', line_top + 'em').css('left', line_left + 'px').width(line_width);
     }
 
