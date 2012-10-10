@@ -28,6 +28,11 @@ $(function() {
         "d": []
     };
 
+    var red_votes_fixed = 0;
+    var red_votes_predicted = 0;
+    var blue_votes_fixed = 0;
+    var blue_votes_predicted = 0;
+
     /* User data */
     var user_picks = [];
 
@@ -139,27 +144,49 @@ $(function() {
             return _.reduce(states, function(count, state) { return count + state.electoral_votes; }, 0);
         }
 
-        var red_votes_fixed = sum_votes(states_fixed_red)
-        var red_votes_user = sum_votes(states_user_red);
+        red_votes_fixed = sum_votes(states_fixed_red)
+        red_votes_user = sum_votes(states_user_red);
         $("#p-red-electoral").text(red_votes_fixed + red_votes_user);
         $("#p-red-call .value").text(red_votes_fixed);
         $("#p-red-predict .value").text(red_votes_user);
 
-        var blue_votes_fixed = sum_votes(states_fixed_blue);
-        var blue_votes_user = sum_votes(states_user_blue);
+        blue_votes_fixed = sum_votes(states_fixed_blue);
+        blue_votes_user = sum_votes(states_user_blue);
         $("#p-blue-electoral").text(blue_votes_fixed + blue_votes_user);
         $("#p-blue-call .value").text(blue_votes_fixed);
         $("#p-blue-predict .value").text(blue_votes_user);
 
-        // Resize buckets
-        /* TODO: min height of the buckets will vary depending on the width of the bucket column -- either 10em or 15em (depends on window width) */
-        var height = Math.max(27, Math.ceil(Math.max(red_votes_fixed + red_votes_user, blue_votes_fixed + blue_votes_user) / 10));
-        $("#buckets .bucket.red,#buckets .bucket.blue").css("height", height + "em");
+        resize_buckets();
 
         if (generate_combos) {
             generate_winning_combinations(red_votes_fixed, blue_votes_fixed, states_not_predicted);
         }
     }
+
+    function resize_buckets() {
+        /*
+         * Resize state buckets.
+         */
+        var window_width = $(window).width();
+        var bucket_columns = 10;
+
+        if (window_width > 979) {
+            bucket_columns = 15;
+        }
+
+        var default_height = 270 / bucket_columns;
+        var vote_height = Math.ceil(Math.max(red_votes_fixed + red_votes_user, blue_votes_fixed + blue_votes_user) / bucket_columns)
+
+        console.log(default_height);
+        console.log(vote_height);
+            
+        var height = Math.max(default_height, vote_height);
+
+        $("#buckets .bucket.red,#buckets .bucket.blue").css("height", height + "em");
+
+    }
+
+    $(window).resize(resize_buckets);
 
     function generate_winning_combinations(red_votes, blue_votes, undecided_states) {
         /*
