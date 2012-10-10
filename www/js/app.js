@@ -170,15 +170,37 @@ $(function() {
         var window_width = $(window).width();
         var bucket_columns = 10;
 
-        if (window_width > 979) {
+        if (window_width >= 1200) {
             bucket_columns = 15;
         }
 
         var default_height = 270 / bucket_columns;
         var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns)
         var height = Math.max(default_height, vote_height);
-
         $("#buckets .bucket.red,#buckets .bucket.blue").css("height", height + "em");
+        
+        // position 270 line
+        var header_height = 5;
+        if (window_width <= 979 && window_width >= 768) {
+        	header_height = 6;
+    	} else if (window_width < 768) {
+        	header_height = 12;
+        }
+    	var line_height = .1;
+    	var line_top = header_height + height - default_height + line_height;
+
+    	var bucket_pos = $('.bucket.blue').position();
+    	var bucket2_pos = $('.bucket.red').position();
+    	var line_left = 0;
+    	var line_width = '100%';
+    	if (window_width >= 768) {
+	    	line_left = bucket_pos.left;
+	    	line_width = (bucket2_pos.left + $('.bucket.red').width()) - bucket_pos.left + 'px';
+	    }
+	    console.log(line_left);
+	    	
+
+    	$('#line').css('top', line_top + 'em').css('left', line_left + 'px').width(line_width);
     }
 
     $(window).resize(resize_buckets);

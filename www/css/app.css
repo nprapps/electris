@@ -1,6 +1,3 @@
-/* TODO: FIX #line POSITIONING IN ALL CASES */
-/* TODO: FIGURE OUT HOW TO HANDLE COLUMN WIDTHS SUB-767. GO TO PERCENTAGES FOR STATE CUBES? */
-
 @font-face {
      font-family: 'StateFaceRegular';
      src: url('../fonts/stateface-regular-webfont.eot');
@@ -130,8 +127,6 @@ a.btn { color: #fff; cursor: pointer; }
 .state.call-r i { background-color: #a23520; color: #fff; }
 
 #line {
-	bottom: 17.9em;
-/*    bottom:26.9em; */
     height:.1em;
     background-color: #333;
     position:absolute;
@@ -171,13 +166,16 @@ a.btn { color: #fff; cursor: pointer; }
 
 .bucket-header {
 	border-top: 3px solid #000;
-	padding: 15px 0 18px 0;
 	overflow: hidden;
+	height: 5em;
 }
 .candidate.blue .bucket-header { background: url('../img/silo-obama.png') no-repeat left 15px; }
 .candidate.red .bucket-header  { background: url('../img/silo-romney.png') no-repeat left 15px; }
 .bucket-header h5, .bucket-header h3, .bucket-header h4, .bucket-header p {
 	margin-left: 80px;
+}
+.bucket-header h5 {
+	padding-top: 15px;
 }
 .bucket-header h3 {
 	font: normal normal 24px Georgia, serif;
@@ -320,6 +318,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.bucket { width: 10em; }
 	.combos { width: 6em; }
 	
+	.bucket-header { height: 6em; }
 	.bucket-header h4 { font-size: 13px; }
 	.bucket-header h4 b { font-size: 26px; }
 }
@@ -336,8 +335,8 @@ a.btn { color: #fff; cursor: pointer; }
 	#line { bottom:26.9em; }
 
 	.bucket { width: 100%; margin-bottom: 10px; }
+	.bucket-header { height: 12em; }
 	#states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }
-/*	#states .bucket .state i { text-indent: -9999px; width: 6.15%; margin-right: .5%; } */
 	.combos { width: auto; }
 	.combos ul { height: auto; border: none; }
 }
