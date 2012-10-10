@@ -2,6 +2,7 @@ $(function() {
     /* Settings */
     var ELECTORAL_VOTES_TO_WIN = 270;
     var STATE_TEMPLATE = _.template($("#state-template").html());
+    var TOSSUP_TEMPLATE = _.template($("#tossup-template").html());
     var POLL_CLOSING_TIMES = [
         moment("2012-11-06T18:00:00 -0500"),
         moment("2012-11-06T19:00:00 -0500"),
@@ -16,7 +17,7 @@ $(function() {
     /* Elements */
     var red_bucket = $(".bucket.red");
     var blue_bucket = $(".bucket.blue");
-    var state_drop_target = $("#state-drop");
+    var tossups = $("#tossups");
     var alerts = $("#alert-msg div");
 
     /* State data */
@@ -28,16 +29,7 @@ $(function() {
     };
 
     /* User data */
-    var user_predicted_winner = null;
-    var user_predictions = {};
-
-    /* Drag and drop */
-    var original_selectstart = document.onselectstart;
-    var dragging = false;
-    var dragging_new = true;
-    var dragging_state = null;
-    var dragging_offset_x = 0;
-    var dragging_offset_y = 0;
+    var user_picks = [];
 
     /* Popovers */
     var popActive;
@@ -49,16 +41,12 @@ $(function() {
     function add_state(state) {
         var html = STATE_TEMPLATE({
             state: state,
-            user_predicted_winner: user_predicted_winner,
-            user_prediction: user_predictions[state.id]
+            user_pick: $.inArray(state.id, user_picks)
         });
 
-        if (state.id in user_predictions) {
-            if (user_predictions[state.id] === "r") {
-                red_bucket.append(html);
-            } else if (user_predictions[state.id] === "d") {
-                blue_bucket.append(html);
-            }
+        if ($.inArray(state.id, user_picks) >= 0) {
+            red_bucket.append(html);
+            blue_bucket.append(html);
         } else {
             if (state.prediction === "sr" || state.prediction === "lr") {
                 red_bucket.append(html);
@@ -97,9 +85,8 @@ $(function() {
                 red_leans.push(state);
             } else if (state.prediction == "ld") {
                 blue_leans.push(state);
-            } else if (state.id in user_predictions && user_predictions[state.id] === "r") {
+            } else if ($.inArray(state.id, user_picks) >= 0) {
                 red_predicted.push(state);
-            } else if (state.id in user_predictions && user_predictions[state.id] === "d") {
                 blue_predicted.push(state);
             } 
         });
@@ -140,9 +127,8 @@ $(function() {
                 states_fixed_red.push(state);
             } else if (state.prediction === "sd" || state.prediction == "ld") {
                 states_fixed_blue.push(state);
-            } else if (state.id in user_predictions && user_predictions[state.id] === "r") {
+            } else if ($.inArray(state.id, user_picks) >= 0) {
                 states_user_red.push(state);
-            } else if (state.id in user_predictions && user_predictions[state.id] === "d") {
                 states_user_blue.push(state);
             } else {
                 states_not_predicted.push(state);
@@ -274,17 +260,14 @@ $(function() {
         });
     }
 
-    $("#blue-combos li,#red-combos li").live("click", function(event) {
-        /*
-         * Add win path to tetris display.
-         */
+    /*$("#blue-combos li,#red-combos li").live("click", function(event) {
 		$("#blue-combos li,#red-combos li").removeClass('active');
 		$(this).addClass('active');
 
         var combo = $(this).data();
 
         user_predicted_winner = combo.winner;
-        user_predictions = {};
+        user_picks = {};
 
         states_dataset.each(function(state) {
             if (state.prediction === "t") {
@@ -301,6 +284,25 @@ $(function() {
         });
 
         add_states();
+        compute_stats();
+    });*/
+
+    $("#tossups li").live("click", function(click) {
+        var state_id = $(this).data("state-id");
+        var state = states_dataset.where({ rows: function(s) { return s.id == state_id } }).rowByPosition(0);
+
+        if ($.inArray(state_id, user_picks) >= 0) {
+            $(this).removeClass("active");
+
+            user_picks = _.without(user_picks, state_id);
+            remove_state(state);
+        } else {
+            $(this).addClass("active");
+
+            user_picks.push(state_id);
+            add_state(state);
+        }
+
         compute_stats();
     });
 
@@ -324,6 +326,14 @@ $(function() {
             // Build lookup tables
             state_votes[state.id] = state.electoral_votes;
             state_names[state.id] = state.name;
+
+            if (state.prediction === "t") {
+                var html = TOSSUP_TEMPLATE({
+                    state: state
+                });
+
+                tossups.append(html);
+            }
         });
 
         add_states();

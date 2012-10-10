@@ -161,17 +161,7 @@
 				<div id="toggles">
 					<h5>Toss-Ups</h5>
 	
-					<!-- TODO: GET NPR TOSSUPS (USING NYT NOW) -->
 					<ul id="tossups">
-						<li><b>F</b><span class="full">Colorado</span> <span class="abbr">Colo.</span> (9)</li>
-						<li><b>I</b> <span class="full">Florida</span> <span class="abbr">Fla.</span> (29)</li>
-						<li><b>L</b> <span class="full abbr">Iowa<span> (6)</li>
-						<li><b>g</b> <span class="full">Nevada</span> <span class="abbr">Nev.</span> (6)</li>
-						<li><b>d</b> <span class="full">New Hampshire</span> <span class="abbr">N.H.</span> (4)</li>
-						<li><b>a</b> <span class="full">North Carolina</span> <span class="abbr">N.C.</span> (15)</li>
-						<li><b>i</b> <span class="full abbr">Ohio</span> (18)</li>
-						<li><b>s</b> <span class="full">Virginia</span> <span class="abbr">Va.</span> (13)</li>
-						<li><b>v</b> <span class="full">Wisconsin</span> <span class="abbr">Wis.</span> (10)</li>
 					</ul>
 				
 				</div>
@@ -251,11 +241,15 @@
     </div>
     
     <script id="state-template" type="text/template">
-        <div class="state <%= state.id %> prediction-<%= state.prediction %> <% if (user_predicted_winner !== user_prediction) { %>prediction-loser<% } %>" data-id="<%= state.id %>">
+        <div class="state <%= state.id %> prediction-<%= state.prediction %>" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
                 <i data-placement="top" data-title="<%= state.name %>" data-content="Electoral votes: <%= state.electoral_votes %><br />Polls close: <%= state.polls_close.format('h:mm a') %>"><span><%= state.stateface %></span></i>
             <% }); %>
         </div>
+    </script>
+
+    <script id="tossup-template" type="text/template">
+        <li data-state-id="<%= state.id %>"><b><%= state.stateface %></b><span class="full"><%= state.name %></span> <span class="abbr"><%= state.abbr %></span> (9)</li>
     </script>
 
     <!--[if lt IE 9]>
