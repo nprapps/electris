@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import csv
+import json
+from sets import Set
 import sqlite3 as sqlite
 from cStringIO import StringIO
 from ftplib import FTP
@@ -144,20 +146,54 @@ def get_house_senate(db):
     return db.execute('SELECT * FROM house_senate_candidates').fetchall()
 
 
-def regenerate_house_senate_csv(candidates):
+def regenerate_house_senate(candidates):
     """
     Rewrites CSV files from the DB for house/senate.
     """
-    with open(settings.HOUSE_SENATE_FILENAME, 'w') as f:
-        writer = csv.writer(f)
-        writer.writerow(settings.HOUSE_SENATE_HEADER)
+    with open(settings.HOUSE_FILENAME, 'w') as f:
+        districts_list = []
+        for district in settings.HOUSE_DISTRICTS:
+            district_dict = {}
+            district_dict['district'] = district
+            district_dict['candidates'] = []
+            district_dict['district_slug'] = district.replace(' ', '').lower()
+            for candidate in candidates:
+                if candidate[0] == district.split(' ')[0]:
+                    if int(candidate[3]) == int(district.split(' ')[1]):
+                        if candidate[15] == u'Dem' or candidate[15] == u'GOP':
+                            if candidate[2] == u'H':
+                                candidate_dict = dict(zip(
+                                            settings.HOUSE_SENATE_HEADER,
+                                            candidate))
+                                district_dict['candidates'].append(candidate_dict)
+            districts_list.append(district_dict)
+        # Goddammit.
+        # f.write(json.dumps(districts_list))
+        f.write(json.dumps(districts_list[:75]))
 
-        for candidate in candidates:
-            candidate = dict(candidate)
-            writer.writerow([candidate[f] for f in settings.HOUSE_SENATE_HEADER])
+    with open(settings.SENATE_FILENAME, 'w') as f:
+        districts_list = []
+        for district in settings.SENATE_DISTRICTS:
+            district_dict = {}
+            district_dict['district'] = district
+            district_dict['candidates'] = []
+            district_dict['district_slug'] = district.replace(' ', '').lower()
+            for candidate in candidates:
+                if candidate[0] == district.split(' ')[0]:
+                    if int(candidate[3]) == int(district.split(' ')[1]):
+                        if candidate[15] == u'Dem' or candidate[15] == u'GOP':
+                            if candidate[2] == u'S':
+                                candidate_dict = dict(zip(
+                                            settings.HOUSE_SENATE_HEADER,
+                                            candidate))
+                                district_dict['candidates'].append(candidate_dict)
+            districts_list.append(district_dict)
+        # Goddammit.
+        # f.write(json.dumps(districts_list))
+        f.write(json.dumps(districts_list[:75]))
 
 
-def regenerate_president_csv(states):
+def regenerate_president(states):
     """
     Rewrites CSV files from the DB for president.
     """
@@ -202,10 +238,18 @@ def push_results_to_s3():
         policy=policy,
         headers=headers)
 
-    # Push the house/senate csv file.
-    house_senate_key = Key(bucket)
-    house_senate_key.key = settings.HOUSE_SENATE_S3_KEY
-    house_senate_key.set_contents_from_filename(
-        settings.HOUSE_SENATE_FILENAME,
+    # Push the house csv file.
+    house_key = Key(bucket)
+    house_key.key = settings.HOUSE_S3_KEY
+    house_key.set_contents_from_filename(
+        settings.HOUSE_FILENAME,
+        policy=policy,
+        headers=headers)
+
+    # Push the senate csv file.
+    senate = Key(bucket)
+    senate.key = settings.SENATE_S3_KEY
+    senate.set_contents_from_filename(
+        settings.SENATE_FILENAME,
         policy=policy,
         headers=headers)

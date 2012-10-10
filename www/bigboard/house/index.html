@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>House Race Big Board</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <h1>Races</h1>
+        <div id="candidates"></div>
+        <!--[if lt IE 9]>
+        <script src="js/lib/html5.js"></script>
+        <![endif]-->
+
+        <script type="text/javascript" src="../../js/lib/jquery-1.8.1.min.js"></script>
+        <script type="text/javascript" src="../../js/lib/underscore-min.js"></script>
+        <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
+
+        <script id="race-template" type="text/template">
+            <h2><%= district.district %></h2>
+            <ul><% _.each(district.candidates, function(candidate){ %>
+                <li><%= candidate.last_name %>, <%= candidate.first_name %>
+                    (<%= candidate.party %>)
+                    <% candidate.precincts_reporting/candidate.total_precincts %>
+                </li>
+            <% }); %></ul>
+        </script>
+
+        <script type="text/javascript">
+            function nukeTarget(target){ $(target).html(''); }
+            var RACE_TEMPLATE = _.template($("#race-template").html());
+            nukeTarget('#candidates')
+            $.getJSON('../../house.json', function(districts) {
+                $.each(districts, function(index, district){
+                    var html = RACE_TEMPLATE({
+                        district: district
+                    });
+                    $('#candidates').append(html);
+                });
+            });
+        </script>
+    </body>
+</html>

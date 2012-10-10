@@ -1,0 +1,106 @@
+/* Layout */
+
+/* PARTY NUMBER COUNT */
+#banner_wrap {
+    width:100%;
+    position:absolute;
+    background:#333;
+    font-size:16px;
+    font-family:Helvetica,Arial,sans-serif;
+}
+
+#banner_wrap{
+    background: #333333; /* Old browsers */
+        background: -moz-linear-gradient(top,  #333333 0%, #3f3f3f 50%, #333333 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(50%,#3f3f3f), color-stop(100%,#333333)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #333333 0%,#3f3f3f 50%,#333333 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #333333 0%,#3f3f3f 50%,#333333 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #333333 0%,#3f3f3f 50%,#333333 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #333333 0%,#3f3f3f 50%,#333333 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#333333',GradientType=0 ); /* IE6-9 */
+}
+
+#banner_wrap ul li {
+    float:left;
+    padding:5px 10px;
+    border-right: 1px solid #999;
+    height:35px;
+    width:140px;
+}
+
+#banner_txt {width:800px;}
+
+#banner_wrap ul li:first-child {width:58px;}
+#banner_wrap ul li:last-child {width:210px; border-right:none;}
+
+#banner_wrap ul li h1 {text-transform:uppercase;}
+
+#banner_wrap ul li#house_ttl{color:#fff}
+
+li#gop_sec h1{color:#f14233}
+li#gop_sec h1 span.total{background-color:#be0f00; color:#fff; padding:1px 4px 0 3px;}
+
+li#dem_sec h1{color:#7ac2e1}
+li#dem_sec h1 span.total{background-color:#229acd; color:#fff; padding:1px 4px 0 3px;}
+
+li#ind_sec h1{color:#e6ccdb}
+li#ind_sec h1 span.total{background-color:#99346d; color:#fff; padding:1px 4px 0 3px;}
+
+li#nc_sec h1{color:#999}
+li#nc_sec h1 span.total{background-color:#999; color:#fff; padding:1px 4px 0 3px;}
+
+#banner_wrap ul li p {font-size:12px;padding-top:5px; color:#999; font-weight:normal; }
+#banner_wrap ul li p span.need_num {color:#fff;}
+
+/* HOUSE LIST */
+#list_wrapper {
+   font-family:Helvetica,Arial,sans-serif;
+   font-size:9px;
+   color:#99346d;
+   font-weight:bold;
+   position:relative;
+   top:46px;
+   width:800px;
+ }
+
+
+ .left {
+    width:385px;
+    float:left;
+    margin-right:15px;
+ }
+
+.right {
+    float:left;
+    width:385px;
+}
+
+
+
+ul.list_row { width:100%;float:left; height:18px;}
+
+ul.list_row:nth-child(odd){background-color:#eee;}
+
+ul.list_row.called {background-color:#F7E39B}
+
+ul.list_row li:first-child{width:50px; padding-left:4px; margin-right:4px;}
+
+li.close_time {background-color:#333; color:#fff; font-weight:normal;}
+
+li.call_time {font-weight:normal; color:#333;}
+
+ul.list_row li{float:left; position:relative; padding:4px 2px;}
+
+li.distName {width:35px; color:#333333;}
+
+li.candidates {width:75;}
+
+.candidates.dem {color:#1b7ba4;}
+
+.candidates.gop {color:#be0f00;}
+
+li.candidates.dem.win {font-weight:normal; background-color:#1b7ba4; color:#fff;}
+li.candidates.gop.win {font-weight:normal; background-color:#be0f00; color:#fff;}
+li.candidates.ind.win {font-weight:normal; background-color:#99346d; color:#fff;}
+
+li.empty {background-color:#fff;}
