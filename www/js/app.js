@@ -275,7 +275,20 @@ $(function() {
         var red_combo_length_counts = _.countBy(red_combos, function(combo) { return combo.combo.length; });
         var blue_combo_length_counts = _.countBy(blue_combos, function(combo) { return combo.combo.length; });
 
-        $("#red-needs").text(red_needs);
+        function needs_sentence(needs) {
+            if (needs > 0) {
+                return "<b>" + needs + "</b> more needed to win.";
+            } else if (needs == 0) {
+                return "Exactly the number of votes needed to win.";
+            } else {
+                return "<b>" + Math.abs(needs) + "</b> more votes than needed to win.";
+            }
+        }
+
+        if (red_needs > 0) {
+        }
+
+        $("#red-needs").html(needs_sentence(red_needs));
         $(".red-simple-combo-length").text(red_combos[0].combo.length);
         $(".red-simple-combos-count").text(red_combo_length_counts[red_combos[0].combo.length]);
         red_combos_el.empty();
@@ -288,7 +301,7 @@ $(function() {
             red_combos_el.append(el);
         });
 
-        $("#blue-needs").text(blue_needs);
+        $("#blue-needs").html(needs_sentence(blue_needs));
         $(".blue-simple-combo-length").text(blue_combos[0].combo.length);
         $(".blue-simple-combos-count").text(blue_combo_length_counts[blue_combos[0].combo.length]);
         blue_combos_el.empty();
