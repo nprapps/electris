@@ -15,27 +15,34 @@
 
         <script type="text/javascript" src="../../js/lib/jquery-1.8.1.min.js"></script>
         <script type="text/javascript" src="../../js/lib/underscore-min.js"></script>
+        <script type="text/javascript" src="../../js/lib/humanize.min.js"></script>
         <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
 
         <script id="race-template" type="text/template">
-            <h2><%= district.district %></h2>
+            <h2><%= district.district %> <span class="precincts">100% reporting</span></h2>
             <ul><% _.each(district.candidates, function(candidate){ %>
-                <li><%= candidate.last_name %>, <%= candidate.first_name %>
+                <% party_class = candidate.party.toLowerCase(); %>
+                <% incumbent = ''; %>
+                <% if (candidate.incumbent == 1) { incumbent = ' incumbent'; } %>
+                <li class="<%= party_class %><%= incumbent %>">
+                    <%= candidate.last_name %>, <%= candidate.first_name %>
                     (<%= candidate.party %>)
-                    <% candidate.precincts_reporting/candidate.total_precincts %>
+                    <% votes = Humanize.intcomma(candidate.vote_count); %>
+                    <%= votes %>
                 </li>
             <% }); %></ul>
         </script>
 
         <script type="text/javascript">
             function nukeTarget(target){ $(target).html(''); }
-            var RACE_TEMPLATE = _.template($("#race-template").html());
-            nukeTarget('#candidates')
+
             $.getJSON('../../house.json', function(districts) {
+
+                nukeTarget('#candidates')
+                var RACE_TEMPLATE = _.template($("#race-template").html());
+
                 $.each(districts, function(index, district){
-                    var html = RACE_TEMPLATE({
-                        district: district
-                    });
+                    html = RACE_TEMPLATE({ district: district });
                     $('#candidates').append(html);
                 });
             });
