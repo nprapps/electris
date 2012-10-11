@@ -208,6 +208,9 @@ $(function() {
         var red_needs = ELECTORAL_VOTES_TO_WIN - red_votes;
         var blue_needs = ELECTORAL_VOTES_TO_WIN - blue_votes;
 
+        $("#red-combos").toggle(red_needs > 0);
+        $("#blue-combos").toggle(blue_needs > 0);
+
         var state_ids = _.pluck(undecided_states, "id");
 
         // NB: A sorted input list generates a sorted output list
