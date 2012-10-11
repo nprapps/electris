@@ -278,7 +278,8 @@ $(function() {
         $("#red-needs").html(needs_sentence(red_needs));
         $(".red-simple-combo-length").text(red_combos[0].combo.length);
         $(".red-simple-combos-count").text(red_combo_length_counts[red_combos[0].combo.length]);
-        red_combos_el.empty();
+	    $('.histogram.red').find('h4:eq(' + (red_combos[0].combo.length - 1) + ')').trigger('click');
+        $("#red-combos").empty();
 
         _.each(red_combos, function(combo) {
             var names = _.map(combo.combo, function(id) { return "<span><b>" + states_by_id[id].stateface + "</b> " + states_by_id[id].name + " (" + states_by_id[id].electoral_votes + ")</span>"; });
@@ -291,7 +292,8 @@ $(function() {
         $("#blue-needs").html(needs_sentence(blue_needs));
         $(".blue-simple-combo-length").text(blue_combos[0].combo.length);
         $(".blue-simple-combos-count").text(blue_combo_length_counts[blue_combos[0].combo.length]);
-        blue_combos_el.empty();
+	    $('.histogram.blue').find('h4:eq(' + (blue_combos[0].combo.length - 1) + ')').trigger('click');
+        $("#blue-combos").empty();
 
         _.each(blue_combos, function(combo) {
             var names = _.map(combo.combo, function(id) { return "<span><b>" + states_by_id[id].stateface + "</b> " + states_by_id[id].name + " (" + states_by_id[id].electoral_votes + ")</span>"; });
@@ -380,4 +382,19 @@ $(function() {
         add_states();
         compute_stats(true);
     });
+    
+    /* SHOW/HIDE COMBO GROUPS */
+    $('.histogram').find('.combo-group').hide();
+    $('.histogram').find('h4').click(function() {
+    	var show_text = '(show paths)';
+    	var hide_text = '(hide)';
+    	var t = $(this).find('i');
+    	if (t.text() == show_text) {
+    		t.text(hide_text);
+    	} else {
+    		t.text(show_text);
+    	}
+    	$(this).next('.combo-group').slideToggle('fast').parent('li').siblings('li').find('.combo-group').slideUp('fast').siblings('h4').find('i').text(show_text);
+    });
+    
 });
