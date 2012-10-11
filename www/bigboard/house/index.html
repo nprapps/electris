@@ -5,34 +5,42 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         
         <title>House Race Big Board</title>
+                
+        <script type="text/javascript" src="../../js/lib/jquery-1.8.1.min.js"></script>
+        <script type="text/javascript" src="../../js/lib/underscore-min.js"></script>
+        <script type="text/javascript" src="../../js/lib/humanize.min.js"></script>
+        <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript" src="house.js"></script>
+        <!--[if lt IE 9]>
+        <script src="js/lib/html5.js"></script>
+        <![endif]-->
         
         <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="house.css" />
-        
-        <script type="text/javascript" src="../../js/lib/jquery-1.8.1.min.js"></script>
-        <script type="text/javascript" src="../../js/lib/underscore-min.js"></script>
-        <script type="text/javascript" src="house.js"></script>
         
     </head>
     <body>
         <div id="banner"><h1>House</h1></div>
         <div class="candidates left"></div>
         <div class="candidates right"></div>
-        <!--[if lt IE 9]>
-        <script src="js/lib/html5.js"></script>
-        <![endif]-->
-
+        
+        
         <script id="race-template" type="text/template">
             <div class="candidate">
                 <div class="poll-closing-time"><div class="poll-closing-time-label"><%= district.poll_closing_time %></div></div>
                 <h2><%= district.district %></h2>
                 <ul><% _.each(district.candidates, function(candidate){ %>
-                    <li><%= candidate.last_name %>, <%= candidate.first_name %>
-                        (<%= candidate.party %>)
-                        <% candidate.precincts_reporting/candidate.total_precincts %>
+                    <% party_class = candidate.party.toLowerCase(); %>
+                    <% incumbent = ''; %>
+                    <% if (candidate.incumbent == 1) { incumbent = ' incumbent'; } %>
+                    <li class="<%= party_class %><%= incumbent %>"><%= candidate.last_name %>, <%= candidate.first_name %>
+                        <% reporting = 100 * candidate.precincts_reporting/candidate.total_precincts %>
+                        <% votes = Humanize.intcomma(candidate.vote_count); %>
+                        <%= votes %> / <%= reporting %>% reporting
                     </li>
                 <% }); %></ul>
             </div>
         </script>
+
     </body>
 </html>
