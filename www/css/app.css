@@ -36,7 +36,8 @@
 
 /* THINGS WE DON'T WANT TEXT HIGHLIGHTING ON */
 #tossups li,
-.state { 
+.state,
+.combos .histogram li { 
 	-moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none;
 }
 
@@ -169,10 +170,10 @@ a.btn { color: #fff; cursor: pointer; }
 	overflow: hidden;
 	height: 5em;
 }
-.candidate.blue .bucket-header { background: url('../img/silo-obama.png') no-repeat left 15px; }
-.candidate.red .bucket-header  { background: url('../img/silo-romney.png') no-repeat left 15px; }
+.candidate.blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 15px; }
+.candidate.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat left 15px; }
 .bucket-header h5, .bucket-header h3, .bucket-header h4, .bucket-header p {
-	margin-left: 80px;
+	margin-left: 50px;
 }
 .bucket-header h5 {
 	padding-top: 15px;
@@ -215,32 +216,46 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* COMBOS */
-.combos p {
-	font-size: 13px;
+.combos { height: 15em; overflow: auto; }
+.combos p { font-size: 13px; }
+.combos p.must-win { margin-bottom: 18px; }
+.combos ul { list-style: none; margin: 0; padding: 0; }
+.combos li { margin: 0 0 3px 0; padding: 0; text-indent: 0; }
+.combos .histogram { margin-top: 6px; }
+.combos .histogram h4 {
+	font: normal 13px Arial, Helvetica, sans-serif;
+	margin: 0;
+	color: #000;
+	background-color: #fbf1cd;
+	position: relative;
+	z-index: 98;
+	height: 2.5em; overflow: hidden;
 }
-.combos p.footnote {
-	font-size: 11px;
-	line-height: 1.2em;
-	color: #999;
-	margin-top: 10px;
+.combos .histogram .title {
+	padding: .75em;
+	display: block;
+	z-index: 100;
 }
-.combos ul { 
-	list-style: none; 
-	padding: 6px 0; 
-	margin: 0; 
-	height: 15em;
-	overflow: auto;
-	border-top: 1px solid #CCC;
-	border-bottom: 1px solid #CCC;
+.combos .histogram .title strong { font-weight: bold; }
+.combos .histogram .title i { font-size: 11px; font-style: normal; }
+.combos .histogram .bar {
+	display: block;
+	width: 100%;
+	background-color: #f3d469;
+	height: 2.5em;
+	margin-top: -2.75em;
+	z-index: 99;
 }
-/* TODO: when stateface icons are added to .combos, remove all the #combos li b background-color styles */
-.combos li { font-size: 12px; margin-bottom: 3px; color: #666; padding: 4px 0; }
-.combos li:hover { background-color: #f7e39b; color: #77631b; cursor: pointer; }
-.combos li:hover b { background-color: #77631b; }
-.combos li.active { background-color: #77631b; color: #fff; }
-.combos li.active:hover b { background-color: #fff; }
-.combos span { font-weight: bold; }
-.combos b {
+.combos .histogram h4:hover { cursor: pointer; text-decoration: underline; }
+.combos .combo-group li { 
+	font-size: 14px; 
+	margin-bottom: 3px; 
+	color: #666; 
+	padding: 8px 6px 6px 6px;
+	border-top: 1px dotted #CCC;
+}
+.combos .combo-group li:first-child { border-top: none; }
+.combos .combo-group b {
 	font: normal 1em StateFaceRegular;
     text-align: center;
     display: inline-block;
@@ -248,7 +263,6 @@ a.btn { color: #fff; cursor: pointer; }
     height:1em;
     margin-right: 6px;
 	color: #77631b;
-	background-color: #ccc;
 }
 
 
@@ -305,7 +319,7 @@ a.btn { color: #fff; cursor: pointer; }
 	#bigbox { width: 300px; }
 	#states { font-size: 25px; }
 	.bucket { width: 15em; }
-	.combos { width: 6em; }
+	.combos { width: 6em; height: 18em; }
 }
 @media (max-width: 979px) {
     .intro { width: auto; }
@@ -341,8 +355,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.bucket { width: 100%; margin-bottom: 10px; }
 	.bucket-header { height: 12em; }
 	#states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }
-	.combos { width: auto; }
-	.combos ul { height: auto; border: none; }
+	.combos { width: auto; height: auto; border: none; }
 }
 @media (max-width: 480px) {
 	#states .bucket .state i { text-indent: -9999px; width: 9%; margin-right: 1%; }

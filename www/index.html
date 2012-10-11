@@ -177,9 +177,104 @@
 							</div>
 							<div class="bucket blue"></div>
 							<div class="combos">
-								<p class="must-win"><strong>In this scenario, Barack Obama must win at least <span class="blue-simple-combo-length">?</span> more toss-up states.</strong> There are <span class="blue-simple-combos-count">?</span> combinations of <span class="blue-simple-combo-length">?</span> states that could get him the votes he needs.</p>
+
+								<!-- IF NO TOSS-UP STATES SELECTED YET -->
+								<p class="must-win">Obama must win <strong>at least <span class="blue-simple-combo-length">?</span></strong> toss-up states.</strong></p>
+
+								<!-- IF TOSS-UP STATES SELECTED -->
+								<p class="must-win">If Obama wins <span class="blue-state-list">New Hampshire and Virginia</span>, he still must win <strong>at least <span class="blue-simple-combo-length">?</span> more</strong> toss-up states.</p>
+
+								<!-- HISTOGRAM -->
+								<h5>Paths To Victory</h5>
+								<ul class="histogram blue">
+									<li>
+										<h4>
+											<span class="title"><strong>1 state</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 10%;"></span>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+									<li>
+										<h4>
+											<span class="title"><strong>2 states</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 20%;"></span>
+										</h4>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+									<li>
+										<h4>
+											<span class="title"><strong>3 states</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 30%;"></span>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+									<li>
+										<h4>
+											<span class="title"><strong>4 states</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 30%;"></span>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+									<li>
+										<h4>
+											<span class="title"><strong>5 states</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 40%;"></span>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+									<li>
+										<h4>
+											<span class="title"><strong>6 states</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 30%;"></span>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+									<li>
+										<h4>
+											<span class="title"><strong>7+ states</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 20%;"></span>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+								</ul>
+
 								<ul id="blue-combos"></ul>
-								<p class="footnote" id="p-blue-call"><em>*Obama starts with <span class="value">00</span> votes, based on NPR "strong Democrat" or "lean Democrat" predictions.</em></p>
 							</div>
 						</div> <!-- end .candidate.blue -->
 
@@ -191,9 +286,106 @@
 							</div>
 							<div class="bucket red"></div>
 							<div class="combos">
-								<p class="must-win"><strong>In this scenario, Mitt Romney must win at least <span class="red-simple-combo-length">?</span> more toss-up states.</strong> There are <span class="red-simple-combos-count">?</span> combinations of <span class="red-simple-combo-length">?</span> states that could get him the votes he needs.</p>
+
+								<!-- IF NO TOSS-UP STATES SELECTED YET -->
+								<p class="must-win">Romney must win <strong>at least <span class="red-simple-combo-length">?</span></strong> toss-up states.</strong></p>
+
+								<!-- IF TOSS-UP STATES SELECTED -->
+								<p class="must-win">If Romney wins <span class="red-state-list">New Hampshire and Virginia</span>, he still must win <strong>at least <span class="red-simple-combo-length">?</span> more</strong> toss-up states.</p>
+
+								<!-- HISTOGRAM -->
+								<h5>Paths To Victory</h5>
+								<ul class="histogram red">
+									<li>
+										<h4>
+											<span class="title"><strong>1 state</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 10%;"></span>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+									<li>
+										<h4>
+											<span class="title"><strong>2 states</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 20%;"></span>
+										</h4>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+									<li>
+										<h4>
+											<span class="title"><strong>3 states</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 30%;"></span>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+									<li>
+										<h4>
+											<span class="title"><strong>4 states</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 30%;"></span>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+									<li>
+										<h4>
+											<span class="title"><strong>5 states</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 40%;"></span>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+									<li>
+										<h4>
+											<span class="title"><strong>6 states</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 30%;"></span>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+									<li>
+										<h4>
+											<span class="title"><strong>7+ states</strong> <i>(show paths)</i></span>
+											<span class="bar" style="width: 20%;"></span>
+										</h4>
+										<ul class="combo-group">
+											<li><b>I</b><b>L</b><b>i</b> = 53</li>
+											<li><b>I</b><b>g</b><b>i</b> = 53</li>
+											<li><b>F</b><b>I</b><b>i</b> = 56</li>
+											<li><b>I</b><b>i</b><b>v</b> = 57</li>
+										</ul>
+									</li>
+								</ul>
+
+
+
 								<ul id="red-combos"></ul>
-								<p class="footnote" id="p-red-call"><em>*Romney starts with <span class="value">00</span> votes, based on NPR "strong Republican" or "lean Republican" predictions.</em></p>
 							</div>
 						</div> <!-- end .candidate.red -->
 						<div id="line"><b>270</b></div>
@@ -206,6 +398,11 @@
 		<div id="footer" class="row">
 			<div class="span12">
 				<div class="credits" id="attrCredit">
+					<strong>Notes:</strong><br />
+					<span id="p-blue-call">Barack Obama starts with <span class="value">00</span> votes based on current NPR "strong Democrat" or "lean Democrat" predictions.</span> 
+					<span id="p-red-call">Mitt Romney starts with <span class="value">00</span> votes based on current NPR "strong Republican" or "lean Republican" predictions.</span>
+					NPR predictions last updated on October 23, 2012.<br />
+					<br />
 					Source: NPR analysis<br />
 					Credits: Brian Boyer, Christopher Groskopf and Alyson Hurt / NPR
 				</div>
