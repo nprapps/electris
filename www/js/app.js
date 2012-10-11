@@ -15,10 +15,11 @@ $(function() {
     ];
 
     /* Elements */
-    var red_bucket = $(".bucket.red");
-    var blue_bucket = $(".bucket.blue");
-    var tossups = $("#tossups");
-    var alerts = $("#alert-msg div");
+    var red_bucket_el = $(".bucket.red");
+    var blue_bucket_el = $(".bucket.blue");
+    var tossups_el = $("#tossups");
+    var red_combos_el = $("#red-combos");
+    var blue_combos_el = $("#blue-combos");
 
     /* State data */
     var states_by_id = {};
@@ -47,13 +48,13 @@ $(function() {
         });
 
         if ($.inArray(state.id, user_picks) >= 0) {
-            red_bucket.append(html);
-            blue_bucket.append(html);
+            red_bucket_el.append(html);
+            blue_bucket_el.append(html);
         } else {
             if (state.prediction === "sr" || state.prediction === "lr") {
-                red_bucket.append(html);
+                red_bucket_el.append(html);
             } else if (state.prediction === "sd" || state.prediction === "ld") {
-                blue_bucket.append(html);
+                blue_bucket_el.append(html);
             }
         }
 
@@ -208,8 +209,8 @@ $(function() {
         var red_needs = ELECTORAL_VOTES_TO_WIN - red_votes;
         var blue_needs = ELECTORAL_VOTES_TO_WIN - blue_votes;
 
-        $("#red-combos").toggle(red_needs > 0);
-        $("#blue-combos").toggle(blue_needs > 0);
+        red_combos_el.toggle(red_needs > 0);
+        blue_combos_el.toggle(blue_needs > 0);
 
         var state_ids = _.pluck(undecided_states, "id");
 
@@ -277,27 +278,27 @@ $(function() {
         $("#red-needs").text(red_needs);
         $(".red-simple-combo-length").text(red_combos[0].combo.length);
         $(".red-simple-combos-count").text(red_combo_length_counts[red_combos[0].combo.length]);
-        $("#red-combos").empty();
+        red_combos_el.empty();
 
         _.each(red_combos, function(combo) {
             var names = _.map(combo.combo, function(id) { return "<span><b>" + states_by_id[id].stateface + "</b> " + states_by_id[id].name + " (" + states_by_id[id].electoral_votes + ")</span>"; });
             var total = _.reduce(combo.combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
             var el = $("<li>" + names.join(" + ") + " = " + total + "</li>"); 
             el.data(combo);
-            $("#red-combos").append(el);
+            red_combos_el.append(el);
         });
 
         $("#blue-needs").text(blue_needs);
         $(".blue-simple-combo-length").text(blue_combos[0].combo.length);
         $(".blue-simple-combos-count").text(blue_combo_length_counts[blue_combos[0].combo.length]);
-        $("#blue-combos").empty();
+        blue_combos_el.empty();
 
         _.each(blue_combos, function(combo) {
             var names = _.map(combo.combo, function(id) { return "<span><b>" + states_by_id[id].stateface + "</b> " + states_by_id[id].name + " (" + states_by_id[id].electoral_votes + ")</span>"; });
             var total = _.reduce(combo.combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
             var el = $("<li>" + names.join(" + ") + " = " + total + "</li>"); 
             el.data(combo);
-            $("#blue-combos").append(el);
+            blue_combos_el.append(el);
         });
     }
 
@@ -372,7 +373,7 @@ $(function() {
                     state: state
                 });
 
-                tossups.append(html);
+                tossups_el.append(html);
             }
         });
 
