@@ -115,7 +115,7 @@ def main():
 
     regenerate_president(get_states(db))
     regenerate_house_senate(get_house_senate(db))
-    push_results_to_s3()
+    #push_results_to_s3()
 
 if __name__ == "__main__":
     main()

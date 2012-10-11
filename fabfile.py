@@ -126,7 +126,8 @@ def local_reset():
     # Nuke the local copies of everything.
     with settings(warn_only=True):
         local('rm www/states.csv')
-        local('rm www/house_senate.csv')
+        local('rm www/house.json')
+        local('rm www/senate.json')
         local('rm electris.db')
 
     # Bootstrap the database.
@@ -135,11 +136,11 @@ def local_reset():
 
     # Build the president CSV.
     states = util.get_states(db)
-    util.regenerate_president_csv(states)
+    util.regenerate_president(states)
 
     # Build the house/senate CSV.
     candidates = util.get_house_senate(db)
-    util.regenerate_house_senate_csv(candidates)
+    util.regenerate_house_senate(candidates)
 
 
 def shiva_the_destroyer():
