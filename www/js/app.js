@@ -34,11 +34,6 @@ $(function() {
     /* User data */
     var user_picks = [];
 
-    /* Popovers */
-    var popActive;
-    var popIsVisible = false;
-    var popClickedAway = false;
-
     /* DATA PROCESSING & RENDERING */
     
     function add_state(state) {
@@ -57,14 +52,6 @@ $(function() {
                 blue_bucket_el.append(html);
             }
         }
-
-        $(".state." + state.id + " i").popover({ trigger: "manual" }).click(function(e){
-            $(".state i").popover("hide");
-            $(this).popover("show");
-            popActive = $(this);
-	        popClickedAway = false;
-	        popIsVisible = true;
-        });
     }
 
     function add_states() {
@@ -393,16 +380,4 @@ $(function() {
         add_states();
         compute_stats(true);
     });
-
-    /* POPOVERS */
-    /* via stackoverflow, but modified: http://stackoverflow.com/questions/8947749/how-can-i-close-a-twitter-bootstrap-popover-with-a-click-from-anywhere-else-on */
-    $(document).click(function(e) {
-    	if(popIsVisible && popClickedAway) {
-    		popActive.popover('hide');
-    		popIsVisible = popClickedAway = false;
-    	} else {
-    		popClickedAway = true;
-    	}
-    });
-    
 });

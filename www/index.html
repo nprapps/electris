@@ -240,9 +240,9 @@
     </div>
 
     <script id="state-template" type="text/template">
-        <div class="state <%= state.id %> prediction-<%= state.prediction %>" data-id="<%= state.id %>">
+        <div class="state <%= state.id %> prediction-<%= state.prediction %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-delay="0" data-animation="false" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
-                <i data-placement="top" data-title="<%= state.name %>" data-content="Electoral votes: <%= state.electoral_votes %><br />Polls close: <%= state.polls_close.format('h:mm a') %>"><span><%= state.stateface %></span></i>
+                <i><span><%= state.stateface %></span></i>
             <% }); %>
         </div>
     </script>
