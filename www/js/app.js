@@ -21,8 +21,7 @@ $(function() {
     var alerts = $("#alert-msg div");
 
     /* State data */
-    var state_votes = {};
-    var state_names = {};
+    var states_by_id = {};
     var alerted_states = {
         "r": [],
         "d": []
@@ -209,6 +208,9 @@ $(function() {
         var red_needs = ELECTORAL_VOTES_TO_WIN - red_votes;
         var blue_needs = ELECTORAL_VOTES_TO_WIN - blue_votes;
 
+        $("#red-combos").toggle(red_needs > 0);
+        $("#blue-combos").toggle(blue_needs > 0);
+
         var state_ids = _.pluck(undecided_states, "id");
 
         // NB: A sorted input list generates a sorted output list
@@ -230,7 +232,7 @@ $(function() {
         }
 
         _.each(combos, function(combo) {
-            var combo_votes = _.reduce(combo, function(memo, id) { return memo + state_votes[id]; }, 0);
+            var combo_votes = _.reduce(combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
 
             if (combo_votes > red_needs) {
                 if (!is_subset(red_combos, combo)) {
@@ -279,9 +281,8 @@ $(function() {
         $("#red-combos").empty();
 
         _.each(red_combos, function(combo) {
-        	/* TODO: Add stateface code between <b></b> tags */
-            var names = _.map(combo.combo, function(id) { return '<span><b></b> ' + state_names[id] + " (" + state_votes[id] + ")</span>"; });
-            var total = _.reduce(combo.combo, function(memo, id) { return memo + state_votes[id]; }, 0);
+            var names = _.map(combo.combo, function(id) { return "<span><b>" + states_by_id[id].stateface + "</b> " + states_by_id[id].name + " (" + states_by_id[id].electoral_votes + ")</span>"; });
+            var total = _.reduce(combo.combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
             var el = $("<li>" + names.join(" + ") + " = " + total + "</li>"); 
             el.data(combo);
             $("#red-combos").append(el);
@@ -294,9 +295,8 @@ $(function() {
         $("#blue-combos").empty();
 
         _.each(blue_combos, function(combo) {
-        	/* TODO: Add stateface code between <b></b> tags */
-            var names = _.map(combo.combo, function(id) { return '<span><b></b> ' + state_names[id] + " (" + state_votes[id] + ")</span>"; });
-            var total = _.reduce(combo.combo, function(memo, id) { return memo + state_votes[id]; }, 0);
+            var names = _.map(combo.combo, function(id) { return "<span><b>" + states_by_id[id].stateface + "</b> " + states_by_id[id].name + " (" + states_by_id[id].electoral_votes + ")</span>"; });
+            var total = _.reduce(combo.combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
             var el = $("<li>" + names.join(" + ") + " = " + total + "</li>"); 
             el.data(combo);
             $("#blue-combos").append(el);
@@ -366,9 +366,8 @@ $(function() {
          * After initial data load, setup stats and such.
          */
         states_dataset.each(function(state) {
-            // Build lookup tables
-            state_votes[state.id] = state.electoral_votes;
-            state_names[state.id] = state.name;
+            // Build lookup table
+            states_by_id[state.id] = state;
 
             if (state.prediction === "t") {
                 var html = TOSSUP_TEMPLATE({
