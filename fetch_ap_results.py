@@ -9,7 +9,7 @@ import pytz
 
 import cms_settings as settings
 from util import (
-    get_database, regenerate_house_senate, get_house_senate, regenerate_president,
+    get_database, get_house_senate, regenerate_president, write_house_json, write_senate_json,
     get_states, push_results_to_s3)
 
 OUTPUT_FIELDS = ['id', 'total_precincts', 'precincts_reporting', 'rep_vote_count', 'dem_vote_count', 'winner']
@@ -114,8 +114,9 @@ def main():
     db.commit()
 
     regenerate_president(get_states(db))
-    regenerate_house_senate(get_house_senate(db))
-    #push_results_to_s3()
+    write_house_json(get_house_senate(db))
+    write_senate_json(get_house_senate(db))
+    push_results_to_s3()
 
 if __name__ == "__main__":
     main()

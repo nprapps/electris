@@ -140,7 +140,8 @@ def local_reset():
 
     # Build the house/senate CSV.
     candidates = util.get_house_senate(db)
-    util.regenerate_house_senate(candidates)
+    util.write_house_json(candidates)
+    util.write_senate_json(candidates)
 
 
 def shiva_the_destroyer():

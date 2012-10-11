@@ -3,42 +3,49 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        
-        <title>House Race Big Board</title>
-                
+
+        <title>The U.S. House</title>
+
+        <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../css/app.css" />
+
+    </head>
+    <body>
+        <div id="banner"><h1>The U.S. House</h1></div>
+        <div id="candidates"></div>
+
+
         <script type="text/javascript" src="../../js/lib/jquery-1.8.1.min.js"></script>
+        <script type="text/javascript" src="../../js/lib/jquery.columnizer.js"></script>
         <script type="text/javascript" src="../../js/lib/underscore-min.js"></script>
         <script type="text/javascript" src="../../js/lib/humanize.min.js"></script>
+        <script type="text/javascript" src="../../js/lib/moment.min.js"></script>
         <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
-        <script type="text/javascript" src="house.js"></script>
+        <script type="text/javascript" src="../js/senate.js"></script>
         <!--[if lt IE 9]>
         <script src="js/lib/html5.js"></script>
         <![endif]-->
-        
-        <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="house.css" />
-        
-    </head>
-    <body>
-        <div id="banner"><h1>House</h1></div>
-        <div class="candidates left"></div>
-        <div class="candidates right"></div>
-        
-        
+
         <script id="race-template" type="text/template">
             <div class="candidate">
-                <div class="poll-closing-time"><div class="poll-closing-time-label"><%= district.poll_closing_time %></div></div>
-                <h2><%= district.district %></h2>
-                <ul><% _.each(district.candidates, function(candidate){ %>
-                    <% party_class = candidate.party.toLowerCase(); %>
-                    <% incumbent = ''; %>
-                    <% if (candidate.incumbent == 1) { incumbent = ' incumbent'; } %>
-                    <li class="<%= party_class %><%= incumbent %>"><%= candidate.last_name %>, <%= candidate.first_name %>
-                        <% reporting = 100 * candidate.precincts_reporting/candidate.total_precincts %>
-                        <% votes = Humanize.intcomma(candidate.vote_count); %>
-                        <%= votes %> / <%= reporting %>% reporting
-                    </li>
-                <% }); %></ul>
+                <div class="poll-closing-time">
+                    <div class="poll-closing-time-label">
+                    <% date = moment.unix(timezone.gmt_epoch_time).format('h:mm'); %>
+                    <%= date %>
+                    </div>
+                </div>
+                <% _.each(timezone.districts, function(district){ %>
+                    <ul><li class="district"><%= district.district %></li>
+                    <% _.each(district.candidates, function(candidate){ %>
+                        <% party_class = candidate.party.toLowerCase(); %>
+                        <% incumbent = ''; %>
+                        <% if (candidate.incumbent == 1) { incumbent = ' incumbent'; } %>
+                        <li class="<%= party_class %><%= incumbent %>">
+                            <%= candidate.first_name %> <%= candidate.last_name %>&nbsp;
+                            <% votes = Humanize.intcomma(candidate.vote_count); %>
+                        </li>
+                    <% }); %></ul>
+                <% }); %>
             </div>
         </script>
 

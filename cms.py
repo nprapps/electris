@@ -8,7 +8,7 @@ from flask import render_template, request
 import pytz
 
 import cms_settings as settings
-from util import get_database, get_states, regenerate_csv, push_results_to_s3
+from util import get_database, get_states, regenerate_president, push_results_to_s3
 
 app = Flask(__name__)
 
@@ -19,7 +19,7 @@ def winners():
     """
     db = get_database()
     states = get_states(db)
-        
+
     if request.method == 'POST':
         for state in states:
             prediction = request.form.get('prediction-%s' % state['id'], '')
@@ -39,7 +39,7 @@ def winners():
 
         # When deployed, the CMS does not update the data files to prevent bad interactions with the AP cron job.
         if settings.DEBUG:
-            regenerate_csv(states)
+            regenerate_president(states)
             push_results_to_s3()
 
     db.close()

@@ -146,51 +146,46 @@ def get_house_senate(db):
     return db.execute('SELECT * FROM house_senate_candidates').fetchall()
 
 
-def regenerate_house_senate(candidates):
-    """
-    Rewrites CSV files from the DB for house/senate.
-    """
+def write_house_json(candidates):
     with open(settings.HOUSE_FILENAME, 'w') as f:
-        districts_list = []
-        for district in settings.HOUSE_DISTRICTS:
-            district_dict = {}
-            district_dict['district'] = district
-            district_dict['candidates'] = []
-            district_dict['district_slug'] = district.replace(' ', '').lower()
-            for candidate in candidates:
-                if candidate[0] == district.split(' ')[0]:
-                    if int(candidate[3]) == int(district.split(' ')[1]):
-                        if candidate[15] == u'Dem' or candidate[15] == u'GOP':
-                            if candidate[2] == u'H':
-                                candidate_dict = dict(zip(
-                                            settings.HOUSE_SENATE_HEADER,
-                                            candidate))
-                                district_dict['candidates'].append(candidate_dict)
-            districts_list.append(district_dict)
-        # Goddammit.
-        # f.write(json.dumps(districts_list))
-        f.write(json.dumps(districts_list[:75]))
+        f.write(generate_json(candidates, (u'house', u'H')))
 
+
+def write_senate_json(candidates):
     with open(settings.SENATE_FILENAME, 'w') as f:
-        districts_list = []
-        for district in settings.SENATE_DISTRICTS:
+        f.write(generate_json(candidates, (u'senate', u'S')))
+
+
+def generate_json(rows, house):
+    """
+    Generates JSON from rows of candidates and a house of congress.
+    * Rows should be an iterator. In this case, a query for a set of candidates.
+    * House should be a two-tuple: ('house', 'h').
+    * Results should be an integer. 0 means return all.
+    """
+    times = getattr(settings, '%s_TIMES' % house[0].upper())
+    objects = []
+    for timezone in times:
+        timezone_dict = {}
+        timezone_dict['gmt_epoch_time'] = timezone['time']
+        timezone_dict['districts'] = []
+        for district in timezone['districts']:
             district_dict = {}
             district_dict['district'] = district
             district_dict['candidates'] = []
             district_dict['district_slug'] = district.replace(' ', '').lower()
-            for candidate in candidates:
+            for candidate in rows:
                 if candidate[0] == district.split(' ')[0]:
                     if int(candidate[3]) == int(district.split(' ')[1]):
                         if candidate[15] == u'Dem' or candidate[15] == u'GOP':
-                            if candidate[2] == u'S':
+                            if candidate[2] == house[1]:
                                 candidate_dict = dict(zip(
                                             settings.HOUSE_SENATE_HEADER,
                                             candidate))
                                 district_dict['candidates'].append(candidate_dict)
-            districts_list.append(district_dict)
-        # Goddammit.
-        # f.write(json.dumps(districts_list))
-        f.write(json.dumps(districts_list[:75]))
+            timezone_dict['districts'].append(district_dict)
+        objects.append(timezone_dict)
+    return json.dumps(objects)
 
 
 def regenerate_president(states):
