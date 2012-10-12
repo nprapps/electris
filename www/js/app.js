@@ -398,7 +398,7 @@ $(function() {
     
     /* SHOW/HIDE COMBO GROUPS */
     $('.histogram h4').live("click", function() {
-    	var show_text = '(show paths)';
+    	var show_text = '(show)';
     	var hide_text = '(hide)';
     	var t = $(this).find('i');
     	if (t.text() == show_text) {

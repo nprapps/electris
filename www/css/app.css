@@ -131,7 +131,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 #line {
     height:.1em;
-    background-color: #333;
+    background-color: #666;
     position:absolute;
     z-index:100;
     width: 100%;
@@ -177,10 +177,8 @@ a.btn { color: #fff; cursor: pointer; }
 .bucket-header h5, .bucket-header h3, .bucket-header h4, .bucket-header p {
 	margin-left: 50px;
 }
-.bucket-header h5 {
-	padding-top: 15px;
-}
 .bucket-header h3 {
+	padding-top: 12px;
 	font: normal normal 24px Georgia, serif;
 	color: #333;
 	margin-bottom: -3px;
@@ -218,7 +216,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* COMBOS */
-.combos { height: 15em; overflow: auto; }
+.combos { height: 27em; overflow: auto; }
 .combos p { font-size: 13px; }
 .combos p.must-win { margin-bottom: 18px; }
 .combos ul { list-style: none; margin: 0; padding: 0; }
@@ -266,7 +264,7 @@ a.btn { color: #fff; cursor: pointer; }
 	color: #666; 
 	margin: 0;
 	padding: 8px 6px 6px 6px;
-	border-top: 1px dotted #CCC;
+	border-top: 1px solid #ccc;
 }
 .combos .combo-group li:hover {
 	background-color: #B39429;
@@ -306,14 +304,15 @@ a.btn { color: #fff; cursor: pointer; }
 	background-color: #f7e39b;
 	color: #77631b;
 	font-weight: bold;
+	border-radius: 3px;
 }
 #tossups li:hover {
 	cursor: pointer;
-	background-color: #77631b;
+	background-color: #E5BF57;
 	color: #fff;
 }
 #tossups li.active {
-	background-color: #77631b;
+	background-color: #B39429;
 	color: #fff;
 }
 #tossups .abbr { display: none; }
@@ -343,14 +342,15 @@ a.btn { color: #fff; cursor: pointer; }
 	.combos { width: 6em; height: 18em; }
 }
 @media (max-width: 979px) {
-    .intro { width: auto; }
-	#bigbox { display: none; } /* TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
+/*    .intro { width: auto; } */
+/*	#bigbox { display: none; } TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
+    .intro { width: 404px; }
 	#tossups .full { display: none; }
 	#tossups .abbr { display: inline; }
 }
 @media (max-width: 979px) and (min-width: 768px) {
 	#main-header, #header-title { width: 724px; }
-
+	
 	#states { font-size: 20px; }
 	#line { bottom:26.9em; }
 
@@ -362,11 +362,17 @@ a.btn { color: #fff; cursor: pointer; }
 	.bucket-header h4 b { font-size: 26px; }
 }
 @media (max-width: 767px) {
-	#electris { margin-left: 0; }
+	.intro { width: auto; }
+	#bigbox { float: right; padding-top: 1em; background-color: #f1f1f1; margin: 1.8em 0 0 0; }
+	#electris { margin-left: 0; padding-top: 0; }
+	#toggles { border-top: none; padding-top: 24px; }
 	#tossups li { width: 24.5%; }
 	#states { font-size: 10px; }
 	.bucket-header h3 { font-size: 19px; }
     .bucket-header h3 i { display: none; }
+	.candidate.blue .bucket, .candidate.red .bucket {
+		float: none;
+	}
 	.candidate.blue .combos, .candidate.red .combos { 
 		width: auto; clear: none; float: none;
 		margin-right: 0; margin-left: 0;
