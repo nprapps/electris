@@ -1,7 +1,7 @@
 body {
     font-family:Verdana;
-    border-bottom:1px solid red;
-    border-right:1px solid red;
+    border-bottom:5px dashed papayawhip;
+    border-right:5px dashed papayawhip;
     height:600px;
     width:800px;
     overflow:hidden;
@@ -111,10 +111,10 @@ body {
 }
 
 .candidate.dem {
-    color:blue;
+    color:#1B7BA4;
 }
 .candidate.gop {
-    color:red;
+    color:#BE0F00;
 }
 .candidate.incumbent {
     text-transform:uppercase;
