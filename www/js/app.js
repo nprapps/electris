@@ -149,12 +149,9 @@ $(function() {
 
         resize_buckets();
 
-        var now = new Date();
         if (generate_combos) {
             generate_winning_combinations(states_not_predicted);
         }
-        var elapsed = (new Date()) - now;
-        console.log(elapsed / 1000 + " elapsed");
     }
 
     function resize_buckets() {
@@ -278,12 +275,24 @@ $(function() {
             }
         }
 
+        var max_red_combo_group = _.max(_.values(red_groups), function(combo_group) {
+            return combo_group.length;
+        });
+
+        var max_blue_combo_group = _.max(_.values(blue_groups), function(combo_group) {
+            return combo_group.length;
+        });
+
+        var max_combo_group = _.max([max_red_combo_group.length, max_blue_combo_group.length]);
+
         function show_combos(keys, groups, root_el) {
             root_el.empty();
 
             _.each(keys, function(key) {
                 var combo_group_el = $(COMBO_GROUP_TEMPLATE({
-                    key: key
+                    key: key,
+                    combo_count: groups[key].length,
+                    max_combo_count: max_combo_group
                 }));
                 
                 _.each(groups[key], function(combo) {

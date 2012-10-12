@@ -276,7 +276,7 @@
         <li>
             <h4>
                 <span class="title"><strong><%= key %> state<%= key > 0 ? "s" : "" %></strong> <i>(show paths)</i></span>
-                <span class="bar" style="width: 10%;"></span>
+                <span class="bar" style="width: <%= combo_count / max_combo_count * 100 %>%;"></span>
             </h4>
             <ul class="combo-group">
             </ul>
