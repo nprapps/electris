@@ -174,12 +174,14 @@ $(function() {
         red_votes = red_votes_fixed + red_votes_user;
         $("#p-red-electoral").text(red_votes);
         red_candidate.find(".needed").html(needs_sentence(ELECTORAL_VOTES_TO_WIN - red_votes));
+        red_candidate.toggleClass("winner", red_votes >= ELECTORAL_VOTES_TO_WIN);
 
         var blue_votes_fixed = sum_votes(states_fixed_blue);
         var blue_votes_user = sum_votes(states_user_blue);
         blue_votes = blue_votes_fixed + blue_votes_user;
         $("#p-blue-electoral").text(blue_votes);
         blue_candidate.find(".needed").html(needs_sentence(ELECTORAL_VOTES_TO_WIN - blue_votes));
+        blue_candidate.toggleClass("winner", blue_votes >= ELECTORAL_VOTES_TO_WIN);
 
         resize_buckets();
 
@@ -199,7 +201,7 @@ $(function() {
             bucket_columns = 15;
         }
 
-        var default_height = 270 / bucket_columns;
+        var default_height = ELECTORAL_VOTES_TO_WIN / bucket_columns;
         var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns)
         var height = Math.max(default_height, vote_height);
         $("#buckets .bucket.red,#buckets .bucket.blue").css("height", height + "em");
