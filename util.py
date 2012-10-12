@@ -41,7 +41,9 @@ def preload_state_race(db, row):
         last_field = first_field + settings.NUM_CANDIDATE_FIELDS
 
         candidate_data = dict(zip(settings.CANDIDATE_FIELDS, row[first_field:last_field]))
-
+        party = 'Other'
+        if candidate_data['party'] in ['Dem', 'GOP']:
+            party = candidate_data['party']
         db.execute(
             'INSERT INTO house_senate_candidates VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 (
@@ -60,7 +62,7 @@ def preload_state_race(db, row):
                     candidate_data['junior'],
                     candidate_data['use_junior'],
                     candidate_data['incumbent'],
-                    candidate_data['party'],
+                    party,
                     candidate_data['vote_count'],
                     candidate_data['is_winner'],
                     "",
@@ -204,6 +206,9 @@ def generate_json(rows, house):
                                             settings.HOUSE_SENATE_HEADER,
                                             candidate))
                                 district_dict['candidates'].append(candidate_dict)
+            district_dict['candidates'] = sorted(
+                district_dict['candidates'],
+                key=lambda candidate: candidate['party'])
             timezone_dict['districts'].append(district_dict)
         objects.append(timezone_dict)
     return json.dumps(objects)
