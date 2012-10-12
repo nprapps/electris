@@ -215,6 +215,10 @@ $(function() {
 
         var red_combos = [];
         var blue_combos = [];
+        var red_keys = [];
+        var blue_keys = [];
+        var red_groups = {};
+        var blue_groups = {};
 
         function is_subset(combos_so_far, new_combo) {
             return _.find(combos_so_far, function(old_combo) {
@@ -231,37 +235,38 @@ $(function() {
 
             if (combo_votes > red_needs) {
                 if (!is_subset(red_combos, combo)) {
-                    red_combos.push({ combo: combo, votes: combo_votes });
+                    var combo_obj = { combo: combo, votes: combo_votes };
+
+                    red_combos.push(combo_obj);
+
+                    var key = combo.length;
+
+                    if (!(key in red_groups)) {
+                        red_keys.push(key);
+                        red_groups[key] = [];
+                    }
+
+                    red_groups[key].push(combo_obj);
                 }
             }
 
             if (combo_votes > blue_needs) {
                 if (!is_subset(blue_combos, combo)) {
-                    blue_combos.push({ combo: combo, votes: combo_votes });
+                    var combo_obj = { combo: combo, votes: combo_votes };
+
+                    blue_combos.push(combo_obj);
+
+                    var key = combo.length;
+
+                    if (!(key in blue_groups)) {
+                        blue_keys.push(key);
+                        blue_groups[key] = [];
+                    }
+
+                    blue_groups[key].push(combo_obj);
                 }
             }
         });
-
-        /*function combo_ranker(a, b) {
-            if (a.votes > b.votes) {
-                // a > b
-                return 1;
-            } else if (a.votes < b.votes) {
-                // a < b
-                return -1;
-            } else {
-                // a == b
-                return 0;
-            }
-        }
-
-        red_combos.sort(combo_ranker);
-        blue_combos.sort(combo_ranker);*/
-
-        var red_groups = _.groupBy(red_combos, function(combo) { return combo.combo.length });
-        var blue_groups = _.groupBy(blue_combos, function(combo) { return combo.combo.length });
-        var red_keys = _.keys(red_groups).sort();
-        var blue_keys = _.keys(blue_groups).sort();
 
         function needs_sentence(needs) {
             if (needs > 0) {
