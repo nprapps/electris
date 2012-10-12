@@ -1,21 +1,11 @@
-/*
-
-
-.candidates { float:left; }
-.candidate { clear:left; }
-.candidate .poll-closing-time { float:left; font-size:11px; line-height:14px; width:50px; height:14px; text-align:right; }
-.candidate .poll-closing-time-label { background-color:black; color:white; padding-right:10px; }
-.candidate h2 { float:left; width:50px; font-size:11px; line-height:14px; margin:0; }
-.candidate ul { float:left; margin:0; }
-.candidate li { float:left; width:150px; font-size:11px; line-height:14px; list-style:none; overflow:hidden; }*/
-* {
-    line-height:14px;
-    font-size:11px;
-}
 body {
     font-family:Verdana;
-/*    overflow:hidden;
-*/}
+    border-bottom:1px solid red;
+    border-right:1px solid red;
+    height:600px;
+    width:800px;
+    overflow:hidden;
+}
 #banner {
     background-color:#333;
     color:white;
@@ -28,8 +18,9 @@ h1 {
     line-height:40px;
     font-size:32px;
 }
+
 .district {
-    font-size:12px;
+    font-size:11px;
     line-height:14px;
     float:left;
     width:50px;
@@ -41,39 +32,57 @@ h1 {
     width:400px;float:left;
 }
 
-.candidate li {
-    display:block;
+.timezone {
     float:left;
 }
-.candidate ul {
+
+.timezone li {
+    display:block;
+    float:left;
+    line-height:14px;
+}
+.timezone ul {
     clear:left;
     width:350px;
     padding:0;
     margin:0;
     display:block;
     margin-left:50px;
+    float:left;
+}
+.timezone ul:nth-child(odd)  {
+    background-color:#aaa;
 }
 
 .poll-closing-time {
     position:absolute;
     display:block;
-    width:45px;
+    width:50px;
     background-color:#333;
 }
 .poll-closing-time-label {
-    padding:4px;
+    padding:0 4px;
     font-size:11px;
     line-height:14px;
     color:#fff;
     font-weight:bold;
     text-align:center;
 }
-.dem {
+.candidate {
+    width:150px;
+    font-size:11px;
+    height:14px;
+    font-weight:bold;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.candidate.dem {
     color:blue;
 }
-.gop {
+.candidate.gop {
     color:red;
 }
-.incumbent {
+.candidate.incumbent {
     text-transform:uppercase;
 }

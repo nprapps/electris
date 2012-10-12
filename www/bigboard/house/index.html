@@ -21,13 +21,13 @@
         <script type="text/javascript" src="../../js/lib/humanize.min.js"></script>
         <script type="text/javascript" src="../../js/lib/moment.min.js"></script>
         <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
-        <script type="text/javascript" src="../js/senate.js"></script>
+        <script type="text/javascript" src="../js/house.js"></script>
         <!--[if lt IE 9]>
         <script src="js/lib/html5.js"></script>
         <![endif]-->
 
-        <script id="race-template" type="text/template">
-            <div class="candidate">
+        <script id="timezone-template" type="text/template">
+            <div class="timezone">
                 <div class="poll-closing-time">
                     <div class="poll-closing-time-label">
                     <% date = moment.unix(timezone.gmt_epoch_time).format('h:mm'); %>
@@ -36,11 +36,11 @@
                 </div>
                 <% _.each(timezone.districts, function(district){ %>
                     <ul><li class="district"><%= district.district %></li>
-                    <% _.each(district.candidates, function(candidate){ %>
-                        <% party_class = candidate.party.toLowerCase(); %>
-                        <% incumbent = ''; %>
-                        <% if (candidate.incumbent == 1) { incumbent = ' incumbent'; } %>
-                        <li class="<%= party_class %><%= incumbent %>">
+                    <% _.each(district.candidates, function(candidate){
+                        party_class = candidate.party.toLowerCase();
+                        incumbent = '';
+                        if (candidate.incumbent == 1) { incumbent = ' incumbent'; } %>
+                        <li class="<%= party_class %><%= incumbent %> candidate">
                             <%= candidate.first_name %> <%= candidate.last_name %>&nbsp;
                             <% votes = Humanize.intcomma(candidate.vote_count); %>
                         </li>
