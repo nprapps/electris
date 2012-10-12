@@ -376,15 +376,24 @@ $(function() {
          * Select or unselect a tossup state.
          */
         var state_id = $(this).data("state-id");
+        var winner = $(this).parent().hasClass("red") ? "r" : "d";
+        var selector = winner === "r" ? "red" : "blue";
 
         if (state_id in tossup_picks) {
-            $(this).removeClass("active");
+            if (tossup_picks[state_id] === winner) {
+                $(this).removeClass("active");
 
-            delete tossup_picks[state_id];
+                delete tossup_picks[state_id];
+            } else {
+                $(".tossups." + selector + " li[data-state-id=" + state_id + "]").removeClass("active"); 
+                $(this).addClass("active");
+
+                tossup_picks[state_id] = winner;
+            }
         } else {
             $(this).addClass("active");
 
-            tossup_picks[state_id] = "r";
+            tossup_picks[state_id] = winner;
         }
 
         combo_picks = [];

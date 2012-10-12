@@ -185,7 +185,7 @@
 								
 								<!-- chicklets -->
 								<h5>Award Toss-Up States</h5>
-                                <ul class="tossups">
+                                <ul class="tossups blue">
                                 </ul>
 
 								<!-- HISTOGRAM -->
@@ -219,7 +219,7 @@
 
 								<!-- chicklets -->
 								<h5>Award Toss-Up States</h5>
-                                <ul class="tossups">
+                                <ul class="tossups red">
                                 </ul>
                                 
                                 <!-- HISTOGRAM -->
@@ -285,7 +285,7 @@
     </script>
 
     <script id="tossup-template" type="text/template">
-        <li data-state-id="<%= state.id %>"><b><%= state.stateface %></b> <span><%= state.electoral_votes %></span></li>
+        <li data-state-id="<%= state.id %>" data-winner="<%= winner %>"><b><%= state.stateface %></b> <span><%= state.electoral_votes %></span></li>
     </script>
 
     <script id="combo-group-template" type="text/template">
