@@ -1,7 +1,6 @@
 function nukeTarget(target){ $(target).html(''); }
 
 $.getJSON('../../house.json', function(timezones) {
-
     nukeTarget('#candidates');
     var TIMEZONE_TEMPLATE = _.template($("#timezone-template").html());
 
