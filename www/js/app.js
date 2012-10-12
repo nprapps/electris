@@ -18,14 +18,14 @@ $(function() {
     ];
 
     /* Elements */
-    var red_bucket_el = $(".bucket.red");
-    var blue_bucket_el = $(".bucket.blue");
-    var red_tossups_el = $(".candidate.red .tossups");
-    var blue_tossups_el = $(".candidate.blue .tossups");
-    var red_combos_el = $("#red-combos");
-    var blue_combos_el = $("#blue-combos");
-    var red_histogram_el = $(".histogram.red");
-    var blue_histogram_el = $(".histogram.blue");
+    var red_candidate = $(".candidate.red");
+    var blue_candidate = $(".candidate.blue");
+    var red_bucket_el = red_candidate.find(".bucket");
+    var blue_bucket_el = blue_candidate.find(".bucket");
+    var red_tossups_el = red_candidate.find(".tossups");
+    var blue_tossups_el = blue_candidate.find(".tossups");
+    var red_histogram_el = red_candidate.find(".histogram");
+    var blue_histogram_el = blue_candidate.find(".histogram");
 
     /* State data */
     var states_by_id = {};
@@ -173,13 +173,13 @@ $(function() {
         var red_votes_user = sum_votes(states_user_red);
         red_votes = red_votes_fixed + red_votes_user;
         $("#p-red-electoral").text(red_votes);
-        $(".candidate.red .needed").html(needs_sentence(ELECTORAL_VOTES_TO_WIN - red_votes));
+        red_candidate.find(".needed").html(needs_sentence(ELECTORAL_VOTES_TO_WIN - red_votes));
 
         var blue_votes_fixed = sum_votes(states_fixed_blue);
         var blue_votes_user = sum_votes(states_user_blue);
         blue_votes = blue_votes_fixed + blue_votes_user;
         $("#p-blue-electoral").text(blue_votes);
-        $(".candidate.blue .needed").html(needs_sentence(ELECTORAL_VOTES_TO_WIN - blue_votes));
+        blue_candidate.find(".needed").html(needs_sentence(ELECTORAL_VOTES_TO_WIN - blue_votes));
 
         resize_buckets();
 
