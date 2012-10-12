@@ -379,7 +379,7 @@ $(function() {
          */
         var state_id = $(this).data("state-id");
         var winner = $(this).parent().hasClass("red") ? "r" : "d";
-        var selector = winner === "r" ? "red" : "blue";
+        var opposite_selector = winner === "r" ? "blue" : "red";
 
         if (state_id in tossup_picks) {
             if (tossup_picks[state_id] === winner) {
@@ -387,7 +387,7 @@ $(function() {
 
                 delete tossup_picks[state_id];
             } else {
-                $(".tossups." + selector + " li[data-state-id=" + state_id + "]").removeClass("active"); 
+                $(".tossups." + opposite_selector + " li[data-state-id=" + state_id + "]").removeClass("active"); 
                 $(this).addClass("active");
 
                 tossup_picks[state_id] = winner;
