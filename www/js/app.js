@@ -32,19 +32,27 @@ $(function() {
     var blue_votes = 0;
 
     /* User data */
-    var user_picks = [];
+    var tossup_picks = [];
+    var combo_picks = [];
+    var combo_pick_winner = null;
 
     /* DATA PROCESSING & RENDERING */
     
     function add_state(state) {
         var html = STATE_TEMPLATE({
             state: state,
-            user_pick: $.inArray(state.id, user_picks)
+            combo_pick: ($.inArray(state.id, combo_picks) >= 0)
         });
 
-        if ($.inArray(state.id, user_picks) >= 0) {
+        if ($.inArray(state.id, tossup_picks) >= 0) {
             red_bucket_el.append(html);
             blue_bucket_el.append(html);
+        } else if ($.inArray(state.id, combo_picks) >= 0) {
+            if (combo_pick_winner == "r") {
+                red_bucket_el.append(html);
+            } else {
+                blue_bucket_el.append(html);
+            }
         } else {
             if (state.prediction === "sr" || state.prediction === "lr") {
                 red_bucket_el.append(html);
@@ -61,9 +69,11 @@ $(function() {
         var red_solid = [];
         var red_leans = [];
         var red_predicted = [];
+        var red_combo = [];
         var blue_solid = [];
         var blue_leans = [];
         var blue_predicted = [];
+        var blue_combo = [];
 
         // Group states together
         states_dataset.each(function(state) {
@@ -75,17 +85,23 @@ $(function() {
                 red_leans.push(state);
             } else if (state.prediction == "ld") {
                 blue_leans.push(state);
-            } else if ($.inArray(state.id, user_picks) >= 0) {
+            } else if ($.inArray(state.id, tossup_picks) >= 0) {
                 red_predicted.push(state);
                 blue_predicted.push(state);
-            } 
+            } else if ($.inArray(state.id, combo_picks) >= 0) {
+                if (combo_pick_winner == "r") {
+                    red_combo.push(state);
+                } else {
+                    blue_combo.push(state);
+                }
+            }
         });
 
         // Clear old state graphics
         $(".state").remove();
 
         // Add states by groups
-        _.each([red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted], function(states) {
+        _.each([red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted, red_combo, blue_combo], function(states) {
             // Sort alphabetically from *top to bottom*
             states.reverse();
 
@@ -117,9 +133,16 @@ $(function() {
                 states_fixed_red.push(state);
             } else if (state.prediction === "sd" || state.prediction == "ld") {
                 states_fixed_blue.push(state);
-            } else if ($.inArray(state.id, user_picks) >= 0) {
+            } else if ($.inArray(state.id, tossup_picks) >= 0) {
                 states_user_red.push(state);
                 states_user_blue.push(state);
+            } else if ($.inArray(state.id, combo_picks) >= 0) {
+                console.log(state.id);
+                 if (combo_pick_winner == "r") {
+                    states_user_red.push(state);
+                } else {
+                    states_user_blue.push(state);
+                }
             } else {
                 states_not_predicted.push(state);
             }
@@ -129,19 +152,25 @@ $(function() {
             return _.reduce(states, function(count, state) { return count + state.electoral_votes; }, 0);
         }
 
+        function needs_sentence(needs) {
+            if (needs > 0) {
+                return '<b class="bignum">' + needs + "</b><span>to win</span>";
+            } else {
+                return '<b class="bignum">0</b><span>to win</span>';
+            }
+        }
+
         var red_votes_fixed = sum_votes(states_fixed_red)
         var red_votes_user = sum_votes(states_user_red);
         red_votes = red_votes_fixed + red_votes_user;
         $("#p-red-electoral").text(red_votes);
-        $("#p-red-call .value").text(red_votes_fixed);
-        $("#p-red-predict .value").text(red_votes_user);
+        $(".candidate.red .needed").html(needs_sentence(ELECTORAL_VOTES_TO_WIN - red_votes));
 
         var blue_votes_fixed = sum_votes(states_fixed_blue);
         var blue_votes_user = sum_votes(states_user_blue);
         blue_votes = blue_votes_fixed + blue_votes_user;
         $("#p-blue-electoral").text(blue_votes);
-        $("#p-blue-call .value").text(blue_votes_fixed);
-        $("#p-blue-predict .value").text(blue_votes_user);
+        $(".candidate.blue .needed").html(needs_sentence(ELECTORAL_VOTES_TO_WIN - blue_votes));
 
         resize_buckets();
 
@@ -160,6 +189,9 @@ $(function() {
         if (window_width >= 1200) {
             bucket_columns = 15;
         }
+
+        console.log(red_votes);
+        console.log(blue_votes);
 
         var default_height = 270 / bucket_columns;
         var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns)
@@ -228,7 +260,7 @@ $(function() {
 
             if (combo_votes > red_needs) {
                 if (!is_subset(red_combos, combo)) {
-                    var combo_obj = { combo: combo, votes: combo_votes };
+                    var combo_obj = { combo: combo, votes: combo_votes, winner: "r" };
 
                     red_combos.push(combo_obj);
 
@@ -245,7 +277,7 @@ $(function() {
 
             if (combo_votes > blue_needs) {
                 if (!is_subset(blue_combos, combo)) {
-                    var combo_obj = { combo: combo, votes: combo_votes };
+                    var combo_obj = { combo: combo, votes: combo_votes, winner: "d" };
 
                     blue_combos.push(combo_obj);
 
@@ -260,14 +292,6 @@ $(function() {
                 }
             }
         });
-
-        function needs_sentence(needs) {
-            if (needs > 0) {
-                return '<b class="bignum">' + needs + "</b><span>to win</span>";
-            } else {
-                return '<b class="bignum">0</b><span>to win</span>';
-            }
-        }
 
         var max_red_combo_group = _.max(_.values(red_groups), function(combo_group) {
             return combo_group.length;
@@ -303,9 +327,9 @@ $(function() {
             });
         }
                     
-        var names = _.map(user_picks, function(id) { return states_by_id[id].name });
+        var names = _.map(tossup_picks, function(id) { return states_by_id[id].name });
+        names = names.concat(_.map(combo_picks, function(id) { return states_by_id[id].name }));
 
-        $(".candidate.red .needed").html(needs_sentence(red_needs));
 
         $(".candidate.red .combos .explainer").html(MUST_WIN_TEMPLATE({
             candidate: "Romney",
@@ -319,8 +343,6 @@ $(function() {
             red_histogram_el.find("h4:eq(0)").trigger("click");
         }
 
-        $(".candidate.blue .needed").html(needs_sentence(blue_needs));
-        
         $(".candidate.blue .combos .explainer").html(MUST_WIN_TEMPLATE({
             candidate: "Obama",
             names: names,
@@ -329,8 +351,6 @@ $(function() {
         }));
 
         if (blue_needs > 0) {
-            $(".blue-simple-combo-length").text(blue_combos[0].combo.length);
-            
             show_combos(blue_keys, blue_groups, blue_histogram_el);
             blue_histogram_el.find("h4:eq(0)").trigger("click");
         }
@@ -343,18 +363,20 @@ $(function() {
         var state_id = $(this).data("state-id");
         var state = states_dataset.where({ rows: function(s) { return s.id == state_id } }).rowByPosition(0);
 
-        if ($.inArray(state_id, user_picks) >= 0) {
+        if ($.inArray(state_id, tossup_picks) >= 0) {
             $(this).removeClass("active");
 
-            user_picks = _.without(user_picks, state_id);
-            remove_state(state);
+            tossup_picks = _.without(tossup_picks, state_id);
         } else {
             $(this).addClass("active");
 
-            user_picks.push(state_id);
-            add_state(state);
+            tossup_picks.push(state_id);
         }
 
+        combo_picks = [];
+        combo_pick_winner = null;
+
+        add_states();
         compute_stats(true);
     });
 
@@ -364,10 +386,10 @@ $(function() {
          */
         var combo = $(this).data();
 
-        _.each(combo.combo, function(state) {
-            $("li[data-state-id=" + state + "]").click();
-        });
+        combo_picks = combo.combo;
+        combo_pick_winner = combo.winner;
 
+        add_states();
         compute_stats();
     });
 

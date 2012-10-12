@@ -119,7 +119,7 @@ a.btn { color: #fff; cursor: pointer; }
 .state.prediction-sd i { background-color: #3d7fa6; color: #A8D5EF; }
 .state.prediction-ld i { background-color: #7dbfe6; color: #A8D5EF; }
 .state.prediction-t i { background-color: #f7e39b; color: #77631b; }
-.state.prediction-t.prediction-loser i { opacity: 0.5; }
+.state.prediction-t.combo-pick i { background-color: #333; color: #999; }
 .state.prediction-lr i { background-color: #e27560; color: #ECA395; }
 .state.prediction-sr i { background-color: #a23520; color: #ECA395; }
 
