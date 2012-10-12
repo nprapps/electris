@@ -176,17 +176,9 @@
 							</div>
 							<div class="bucket blue"></div>
 							<div class="combos">
+                                <div class="explainer">
+                                </div>
 							
-								<!-- TODO: PORT TO APP.JS -->
-								<!-- IF NO TOSS-UP STATES SELECTED YET -->
-								<p class="must-win">Obama must win <strong>at least <span class="blue-simple-combo-length">?</span></strong> toss-up states.</p>
-
-								<!-- IF TOSS-UP STATES SELECTED -->
-								<p class="must-win">If Obama wins <span class="blue-state-list">New Hampshire and Virginia</span>, he still must win <strong>at least <span class="blue-simple-combo-length">?</span> more</strong> toss-up states.</p>
-
-								<!-- IF WINNER -->
-								<p class="must-win">If Obama wins <span class="blue-state-list">New Hampshire and Virginia</span>, <strong>he would win the Electoral College</strong>.</p>
-
 								<!-- HISTOGRAM -->
 								<h5>Paths To Victory</h5>
 								<ul class="histogram blue">
@@ -201,18 +193,9 @@
 							</div>
 							<div class="bucket red"></div>
 							<div class="combos">
+                                <div class="explainer">
+                                </div>
 
-								<!-- TODO: PORT TO APP.JS -->
-								<!-- IF NO TOSS-UP STATES SELECTED YET -->
-								<p class="must-win">Romney must win <strong>at least <span class="red-simple-combo-length">?</span></strong> toss-up states.</p>
-
-								<!-- IF TOSS-UP STATES SELECTED -->
-								<p class="must-win">If Romney wins <span class="red-state-list">New Hampshire and Virginia</span>, he still must win <strong>at least <span class="red-simple-combo-length">?</span> more</strong> toss-up states.</p>
-
-								<!-- IF WINNER -->
-								<p class="must-win">If Romney wins <span class="red-state-list">New Hampshire and Virginia</span>, <strong>he would win the Electoral College</strong>.</p>
-
-								<!-- HISTOGRAM -->
 								<h5>Paths To Victory</h5>
 								<ul class="histogram red">
 								</ul>
@@ -289,6 +272,14 @@
         </li>
     </script>
 
+    <script id="must-win-template" type="text/template">
+        <% if (names.length == 0) { %>
+        <p class="must-win"><%= candidate %> must win <strong>at least <%= simplest_combo_length %></strong> toss-up states.</p>
+        <% } else { %>
+        <p class="must-win">If <%= candidate %> wins <% _.each(names, function(name, i, l) { %><%= name %><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> <% if (votes >= 270) { %><strong>he would win the Electoral College</strong><% } else { %>he still must win <strong>at least <%= simplest_combo_length %> more</strong> toss-up states.<% } %></p>
+        <% } %>
+    </script>
+        
     <!--[if lt IE 9]>
     <script src="js/lib/html5.js"></script>
     <![endif]-->
