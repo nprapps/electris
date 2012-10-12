@@ -149,9 +149,12 @@ $(function() {
 
         resize_buckets();
 
+        var now = new Date();
         if (generate_combos) {
             generate_winning_combinations(states_not_predicted);
         }
+        var elapsed = (new Date()) - now;
+        console.log(elapsed / 1000 + " elapsed");
     }
 
     function resize_buckets() {
@@ -215,7 +218,7 @@ $(function() {
 
         function is_subset(combos_so_far, new_combo) {
             return _.find(combos_so_far, function(old_combo) {
-                if (new_combo.slice(0, old_combo.combo.length).toString() == old_combo.combo.toString()) {
+                if (new_combo.slice(0, old_combo.combo.length).toString() === old_combo.combo.toString()) {
                     return true;
                 }
 
@@ -228,13 +231,13 @@ $(function() {
 
             if (combo_votes > red_needs) {
                 if (!is_subset(red_combos, combo)) {
-                    red_combos.push({ combo: combo, votes: combo_votes, winner: "r" });
+                    red_combos.push({ combo: combo, votes: combo_votes });
                 }
             }
 
             if (combo_votes > blue_needs) {
                 if (!is_subset(blue_combos, combo)) {
-                    blue_combos.push({ combo: combo, votes: combo_votes, winner: "d" });
+                    blue_combos.push({ combo: combo, votes: combo_votes });
                 }
             }
         });
@@ -288,10 +291,8 @@ $(function() {
                 
                 _.each(groups[key], function(combo) {
                     var faces = _.map(combo.combo, function(id) { return "<b>" + states_by_id[id].stateface + "</b>" });
-                    var total = _.reduce(combo.combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
-                        
 
-                    var el = $("<li>" + faces.join("") + "= " + total + "</li>"); 
+                    var el = $("<li>" + faces.join("") + "= " + combo.votes + "</li>"); 
                     
                     combo_group_el.find("ul").append(el);
 

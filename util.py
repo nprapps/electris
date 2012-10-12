@@ -226,25 +226,28 @@ def push_results_to_s3():
     policy = 'public-read'
 
     # Push the president csv file.
-    president_key = Key(bucket)
-    president_key.key = settings.PRESIDENT_S3_KEY
-    president_key.set_contents_from_filename(
-        settings.PRESIDENT_FILENAME,
-        policy=policy,
-        headers=headers)
+    if os.path.exists(settings.PRESIDENT_FILENAME):
+        president_key = Key(bucket)
+        president_key.key = settings.PRESIDENT_S3_KEY
+        president_key.set_contents_from_filename(
+            settings.PRESIDENT_FILENAME,
+            policy=policy,
+            headers=headers)
 
     # Push the house csv file.
-    house_key = Key(bucket)
-    house_key.key = settings.HOUSE_S3_KEY
-    house_key.set_contents_from_filename(
-        settings.HOUSE_FILENAME,
-        policy=policy,
-        headers=headers)
+    if os.path.exists(settings.HOUSE_FILENAME):
+        house_key = Key(bucket)
+        house_key.key = settings.HOUSE_S3_KEY
+        house_key.set_contents_from_filename(
+            settings.HOUSE_FILENAME,
+            policy=policy,
+            headers=headers)
 
     # Push the senate csv file.
-    senate = Key(bucket)
-    senate.key = settings.SENATE_S3_KEY
-    senate.set_contents_from_filename(
-        settings.SENATE_FILENAME,
-        policy=policy,
-        headers=headers)
+    if os.path.exists(settings.SENATE_FILENAME):
+        senate = Key(bucket)
+        senate.key = settings.SENATE_S3_KEY
+        senate.set_contents_from_filename(
+            settings.SENATE_FILENAME,
+            policy=policy,
+            headers=headers)
