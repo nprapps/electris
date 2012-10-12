@@ -282,7 +282,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 	border-radius: 3px;
 }
-.combos .histogram h4:hover { cursor: pointer; text-decoration: underline; }
+.combos .histogram h4.showable:hover { cursor: pointer; text-decoration: underline; }
 .combos .combo-group { display: none; }
 .combos .combo-group li { 
 	font-size: 14px; 
