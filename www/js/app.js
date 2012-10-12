@@ -263,11 +263,9 @@ $(function() {
 
         function needs_sentence(needs) {
             if (needs > 0) {
-                return '<b class="bignum">' + needs + "</b><span>more needed to win.</span>";
-            } else if (needs == 0) {
-                return "<span>Exactly the number of votes needed to win.</span>";
+                return '<b class="bignum">' + needs + "</b><span>to win</span>";
             } else {
-                return '<b class="bignum">' + Math.abs(needs) + "</b><span>more votes than needed to win.</span>";
+                return '<b class="bignum">0</b><span>to win</span>';
             }
         }
 
