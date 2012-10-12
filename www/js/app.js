@@ -201,9 +201,9 @@ $(function() {
         // position 270 line
         var header_height = 3;
         if (window_width <= 979 && window_width >= 768) {
-        	header_height = 6;
+        	header_height = 4;
     	} else if (window_width < 768) {
-        	header_height = 12;
+        	header_height = 8;
         }
     	var line_height = .1;
     	var line_top = header_height + height - default_height + line_height;
