@@ -159,7 +159,6 @@
         <div class="row">
         	<div id="electris">
 				<div id="toggles">
-					<h5>Toss-Ups</h5>
 					<!-- TODO: GET NPR TOSSUPS (USING NYT NOW) -->
 					<h3>Toggle these "toss-up" states on or off to game out each candidate's potential path to Electoral College victory.</h3>
 					<ul id="tossups">
@@ -174,13 +173,21 @@
 							<div class="bucket-header">
 								<h5>Predictions</h5>
 								<h3><i>Barack </i><b>Obama</b></h3>
-								<h4><b id="p-blue-electoral">00</b> electoral votes* | <b id="blue-needs">?</b> more needed to win.</h4>
+                                <h4><b id="p-blue-electoral">00</b> electoral votes* | <span id="blue-needs">? more needed to win.</span></h4>
 							</div>
 							<div class="bucket blue"></div>
 							<div class="combos">
-								<p class="must-win"><strong>In this scenario, Barack Obama must win at least <span class="blue-simple-combo-length">?</span> more toss-up states.</strong> There are <span class="blue-simple-combos-count">?</span> combinations of <span class="blue-simple-combo-length">?</span> states that could get him the votes he needs.</p>
-								<ul id="blue-combos"></ul>
-								<p class="footnote" id="p-blue-call"><em>*Obama starts with <span class="value">00</span> votes, based on NPR "strong Democrat" or "lean Democrat" predictions.</em></p>
+
+								<!-- IF NO TOSS-UP STATES SELECTED YET -->
+								<p class="must-win">Obama must win <strong>at least <span class="blue-simple-combo-length">?</span></strong> toss-up states.</strong></p>
+
+								<!-- IF TOSS-UP STATES SELECTED -->
+								<p class="must-win">If Obama wins <span class="blue-state-list">New Hampshire and Virginia</span>, he still must win <strong>at least <span class="blue-simple-combo-length">?</span> more</strong> toss-up states.</p>
+
+								<!-- HISTOGRAM -->
+								<h5>Paths To Victory</h5>
+								<ul class="histogram blue">
+								</ul>
 							</div>
 						</div> <!-- end .candidate.blue -->
 
@@ -188,13 +195,21 @@
 							<div class="bucket-header">
 								<h5>Predictions</h5>
 								<h3><i>Mitt </i><b>Romney</b></h3>
-								<h4><b id="p-red-electoral">00</b> electoral votes* | <b id="red-needs">?</b> more needed to win.</h4>
+                                <h4><b id="p-red-electoral">00</b> electoral votes* | <span id="red-needs">? more needed to win.</span></h4>
 							</div>
 							<div class="bucket red"></div>
 							<div class="combos">
-								<p class="must-win"><strong>In this scenario, Mitt Romney must win at least <span class="red-simple-combo-length">?</span> more toss-up states.</strong> There are <span class="red-simple-combos-count">?</span> combinations of <span class="red-simple-combo-length">?</span> states that could get him the votes he needs.</p>
-								<ul id="red-combos"></ul>
-								<p class="footnote" id="p-red-call"><em>*Romney starts with <span class="value">00</span> votes, based on NPR "strong Republican" or "lean Republican" predictions.</em></p>
+
+								<!-- IF NO TOSS-UP STATES SELECTED YET -->
+								<p class="must-win">Romney must win <strong>at least <span class="red-simple-combo-length">?</span></strong> toss-up states.</strong></p>
+
+								<!-- IF TOSS-UP STATES SELECTED -->
+								<p class="must-win">If Romney wins <span class="red-state-list">New Hampshire and Virginia</span>, he still must win <strong>at least <span class="red-simple-combo-length">?</span> more</strong> toss-up states.</p>
+
+								<!-- HISTOGRAM -->
+								<h5>Paths To Victory</h5>
+								<ul class="histogram red">
+								</ul>
 							</div>
 						</div> <!-- end .candidate.red -->
 						<div id="line"><b>270</b></div>
@@ -207,6 +222,11 @@
 		<div id="footer" class="row">
 			<div class="span12">
 				<div class="credits" id="attrCredit">
+					<strong>Notes:</strong><br />
+					<span id="p-blue-call">Barack Obama starts with <span class="value">00</span> votes based on current NPR "strong Democrat" or "lean Democrat" predictions.</span> 
+					<span id="p-red-call">Mitt Romney starts with <span class="value">00</span> votes based on current NPR "strong Republican" or "lean Republican" predictions.</span>
+					NPR predictions last updated on October 23, 2012.<br />
+					<br />
 					Source: NPR analysis<br />
 					Credits: Brian Boyer, Christopher Groskopf and Alyson Hurt / NPR
 				</div>
@@ -241,15 +261,26 @@
     </div>
 
     <script id="state-template" type="text/template">
-        <div class="state <%= state.id %> prediction-<%= state.prediction %>" data-id="<%= state.id %>">
+        <div class="state <%= state.id %> prediction-<%= state.prediction %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-delay="0" data-animation="false" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
-                <i data-placement="top" data-title="<%= state.name %>" data-content="Electoral votes: <%= state.electoral_votes %><br />Polls close: <%= state.polls_close.format('h:mm a') %>"><span><%= state.stateface %></span></i>
+                <i><span><%= state.stateface %></span></i>
             <% }); %>
         </div>
     </script>
 
     <script id="tossup-template" type="text/template">
-        <li data-state-id="<%= state.id %>"><b><%= state.stateface %></b><span class="full"><%= state.name %></span> <span class="abbr"><%= state.abbr %></span> (9)</li>
+        <li data-state-id="<%= state.id %>"><b><%= state.stateface %></b><span class="full"><%= state.name %></span> <span class="abbr"><%= state.abbr %></span> (<%= state.electoral_votes %>)</li>
+    </script>
+
+    <script id="combo-group-template" type="text/template">
+        <li>
+            <h4>
+                <span class="title"><strong><%= key %> state<%= key > 0 ? "s" : "" %></strong> <i>(show paths)</i></span>
+                <span class="bar" style="width: 10%;"></span>
+            </h4>
+            <ul class="combo-group">
+            </ul>
+        </li>
     </script>
 
     <!--[if lt IE 9]>

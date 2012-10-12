@@ -3,6 +3,8 @@ $(function() {
     var ELECTORAL_VOTES_TO_WIN = 270;
     var STATE_TEMPLATE = _.template($("#state-template").html());
     var TOSSUP_TEMPLATE = _.template($("#tossup-template").html());
+    var COMBO_GROUP_TEMPLATE = _.template($("#combo-group-template").html());
+    var COMBO_TEMPLATE = _.template($("#combo-template").html());
     var POLL_CLOSING_TIMES = [
         moment("2012-11-06T18:00:00 -0500"),
         moment("2012-11-06T19:00:00 -0500"),
@@ -15,14 +17,16 @@ $(function() {
     ];
 
     /* Elements */
-    var red_bucket = $(".bucket.red");
-    var blue_bucket = $(".bucket.blue");
-    var tossups = $("#tossups");
-    var alerts = $("#alert-msg div");
+    var red_bucket_el = $(".bucket.red");
+    var blue_bucket_el = $(".bucket.blue");
+    var tossups_el = $("#tossups");
+    var red_combos_el = $("#red-combos");
+    var blue_combos_el = $("#blue-combos");
+    var red_histogram_el = $(".histogram.red");
+    var blue_histogram_el = $(".histogram.blue");
 
     /* State data */
-    var state_votes = {};
-    var state_names = {};
+    var states_by_id = {};
     var alerted_states = {
         "r": [],
         "d": []
@@ -34,11 +38,6 @@ $(function() {
     /* User data */
     var user_picks = [];
 
-    /* Popovers */
-    var popActive;
-    var popIsVisible = false;
-    var popClickedAway = false;
-
     /* DATA PROCESSING & RENDERING */
     
     function add_state(state) {
@@ -48,23 +47,15 @@ $(function() {
         });
 
         if ($.inArray(state.id, user_picks) >= 0) {
-            red_bucket.append(html);
-            blue_bucket.append(html);
+            red_bucket_el.append(html);
+            blue_bucket_el.append(html);
         } else {
             if (state.prediction === "sr" || state.prediction === "lr") {
-                red_bucket.append(html);
+                red_bucket_el.append(html);
             } else if (state.prediction === "sd" || state.prediction === "ld") {
-                blue_bucket.append(html);
+                blue_bucket_el.append(html);
             }
         }
-
-        $(".state." + state.id + " i").popover({ trigger: "manual" }).click(function(e){
-            $(".state i").popover("hide");
-            $(this).popover("show");
-            popActive = $(this);
-	        popClickedAway = false;
-	        popIsVisible = true;
-        });
     }
 
     function add_states() {
@@ -209,6 +200,9 @@ $(function() {
         var red_needs = ELECTORAL_VOTES_TO_WIN - red_votes;
         var blue_needs = ELECTORAL_VOTES_TO_WIN - blue_votes;
 
+        red_histogram_el.toggle(red_needs > 0);
+        blue_histogram_el.toggle(blue_needs > 0);
+
         var state_ids = _.pluck(undecided_states, "id");
 
         // NB: A sorted input list generates a sorted output list
@@ -230,7 +224,7 @@ $(function() {
         }
 
         _.each(combos, function(combo) {
-            var combo_votes = _.reduce(combo, function(memo, id) { return memo + state_votes[id]; }, 0);
+            var combo_votes = _.reduce(combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
 
             if (combo_votes > red_needs) {
                 if (!is_subset(red_combos, combo)) {
@@ -269,36 +263,56 @@ $(function() {
         red_combos.sort(combo_ranker);
         blue_combos.sort(combo_ranker);
 
-        var red_combo_length_counts = _.countBy(red_combos, function(combo) { return combo.combo.length; });
-        var blue_combo_length_counts = _.countBy(blue_combos, function(combo) { return combo.combo.length; });
+        var red_groups = _.groupBy(red_combos, function(combo) { return combo.combo.length });
+        var blue_groups = _.groupBy(blue_combos, function(combo) { return combo.combo.length });
+        var red_keys = _.keys(red_groups).sort();
+        var blue_keys = _.keys(blue_groups).sort();
 
-        $("#red-needs").text(red_needs);
+        function needs_sentence(needs) {
+            if (needs > 0) {
+                return "<b>" + needs + "</b> more needed to win.";
+            } else if (needs == 0) {
+                return "Exactly the number of votes needed to win.";
+            } else {
+                return "<b>" + Math.abs(needs) + "</b> more votes than needed to win.";
+            }
+        }
+
+        function show_combos(keys, groups, root_el) {
+            root_el.empty();
+
+            _.each(keys, function(key) {
+                var combo_group_el = $(COMBO_GROUP_TEMPLATE({
+                    key: key
+                }));
+                
+                _.each(groups[key], function(combo) {
+                    var faces = _.map(combo.combo, function(id) { return "<b>" + states_by_id[id].stateface + "</b>" });
+                    var total = _.reduce(combo.combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
+                        
+
+                    var el = $("<li>" + faces.join("") + "= " + total + "</li>"); 
+                    
+                    combo_group_el.find("ul").append(el);
+
+                    //el.data(combo);
+                });
+                
+                root_el.append(combo_group_el);
+            });
+        }
+
+        $("#red-needs").html(needs_sentence(red_needs));
         $(".red-simple-combo-length").text(red_combos[0].combo.length);
-        $(".red-simple-combos-count").text(red_combo_length_counts[red_combos[0].combo.length]);
-        $("#red-combos").empty();
 
-        _.each(red_combos, function(combo) {
-        	/* TODO: Add stateface code between <b></b> tags */
-            var names = _.map(combo.combo, function(id) { return '<span><b></b> ' + state_names[id] + " (" + state_votes[id] + ")</span>"; });
-            var total = _.reduce(combo.combo, function(memo, id) { return memo + state_votes[id]; }, 0);
-            var el = $("<li>" + names.join(" + ") + " = " + total + "</li>"); 
-            el.data(combo);
-            $("#red-combos").append(el);
-        });
+        show_combos(red_keys, red_groups, red_histogram_el);
+	    red_histogram_el.find("h4:eq(0)").trigger("click");
 
-        $("#blue-needs").text(blue_needs);
+        $("#blue-needs").html(needs_sentence(blue_needs));
         $(".blue-simple-combo-length").text(blue_combos[0].combo.length);
-        $(".blue-simple-combos-count").text(blue_combo_length_counts[blue_combos[0].combo.length]);
-        $("#blue-combos").empty();
-
-        _.each(blue_combos, function(combo) {
-        	/* TODO: Add stateface code between <b></b> tags */
-            var names = _.map(combo.combo, function(id) { return '<span><b></b> ' + state_names[id] + " (" + state_votes[id] + ")</span>"; });
-            var total = _.reduce(combo.combo, function(memo, id) { return memo + state_votes[id]; }, 0);
-            var el = $("<li>" + names.join(" + ") + " = " + total + "</li>"); 
-            el.data(combo);
-            $("#blue-combos").append(el);
-        });
+        
+        show_combos(blue_keys, blue_groups, blue_histogram_el);
+	    blue_histogram_el.find("h4:eq(0)").trigger("click");
     }
 
     /*$("#blue-combos li,#red-combos li").live("click", function(event) {
@@ -364,32 +378,33 @@ $(function() {
          * After initial data load, setup stats and such.
          */
         states_dataset.each(function(state) {
-            // Build lookup tables
-            state_votes[state.id] = state.electoral_votes;
-            state_names[state.id] = state.name;
+            // Build lookup table
+            states_by_id[state.id] = state;
 
             if (state.prediction === "t") {
                 var html = TOSSUP_TEMPLATE({
                     state: state
                 });
 
-                tossups.append(html);
+                tossups_el.append(html);
             }
         });
 
         add_states();
         compute_stats(true);
     });
-
-    /* POPOVERS */
-    /* via stackoverflow, but modified: http://stackoverflow.com/questions/8947749/how-can-i-close-a-twitter-bootstrap-popover-with-a-click-from-anywhere-else-on */
-    $(document).click(function(e) {
-    	if(popIsVisible && popClickedAway) {
-    		popActive.popover('hide');
-    		popIsVisible = popClickedAway = false;
+    
+    /* SHOW/HIDE COMBO GROUPS */
+    $('.histogram h4').live("click", function() {
+    	var show_text = '(show paths)';
+    	var hide_text = '(hide)';
+    	var t = $(this).find('i');
+    	if (t.text() == show_text) {
+    		t.text(hide_text);
     	} else {
-    		popClickedAway = true;
+    		t.text(show_text);
     	}
+    	$(this).next('.combo-group').slideToggle('fast').parent('li').siblings('li').find('.combo-group').slideUp('fast').siblings('h4').find('i').text(show_text);
     });
     
 });
