@@ -11,16 +11,6 @@
         .incumbent {
             text-transform:uppercase;
         }
-        ul.races { padding:0; margin:0;}
-        ul.races li {
-            font-size:16px;
-            margin:0;
-            padding:0;
-            list-style-type:none;
-            display:block;
-            padding:0 5px 0 0;
-            float:left;
-        }
         .clear {width:100%; clear:both;}
         .control-group {
             padding:5px 0;
@@ -28,7 +18,7 @@
             border-top:1px solid #aaa;
             width: 250px;
         }
-        .ap-call {float:right;}
+        .ap-call { float:right; }
     </style>
 {% endblock %}
 
@@ -38,8 +28,22 @@
     <div class="span12">
         <h1>BigBoard Admin: The U.S. {{ house.title() }}</h1>
 
-        <table>
+        <table class="table table-striped table-bordered table-hover table-condensed">
+        <tr class="info">
+            <td><strong>State</strong></td>
+            <td><strong>Candidates</strong></td>
+            <td></td>
+            <td><strong>Accept AP calls</strong></td>
+        </tr>
         {% for grouper, list in candidates|groupby('race_slug') %}
+        {% if loop.index % 20 == 0  %}
+        <tr class="info">
+            <td><strong>State</strong></td>
+            <td><strong>Candidates</strong></td>
+            <td></td>
+            <td><strong>Accept AP calls</strong></td>
+        </tr>
+        {% endif %}
         <tr>
             <td>{% if house == "senate" %}
                 {{ grouper.replace(' 0', '').upper() }}
@@ -47,15 +51,30 @@
                 {{ grouper.upper() }}
             {% endif %}</td>
 
-            {% for race in list %}
-                <td class="
+            <td>{% for race in list %}
+                {% if loop.first %}
+
+                <span class="
                     {% if race.incumbent == '1' %}incumbent{% endif %}
                     {{ race.party.lower() }}
                     {% if race.accept_ap_call %}{% if race.ap_call != '' %}called{% endif %}{% endif %}
                 ">
                     {{ race.first_name }} {{ race.last_name}}
-                </td>
-            {% endfor %}
+                </span>
+                {% endif %}
+            {% endfor %}</td>
+            <td>{% for race in list %}
+                {% if loop.index == 2 %}
+
+                <span class="
+                    {% if race.incumbent == '1' %}incumbent{% endif %}
+                    {{ race.party.lower() }}
+                    {% if race.accept_ap_call %}{% if race.ap_call != '' %}called{% endif %}{% endif %}
+                ">
+                    {{ race.first_name }} {{ race.last_name}}
+                </span>
+                {% endif %}
+            {% endfor %}</td>
             <td>{% for race in list %}{% if loop.first %}
             <a
                 class="ap-call btn btn-success btn-mini"
@@ -75,10 +94,12 @@
                 $(this).removeClass('btn-success');
                 $(this).addClass('btn-danger');
                 $(this).html('Not accepting AP calls');
+                $(this).parent('td').parent('tr').addClass('error');
             } else {
                 $(this).removeClass('btn-danger');
                 $(this).addClass('btn-success');
                 $(this).html('Accepting AP calls');
+                $(this).parent('td').parent('tr').removeClass('error');
             }
         });
     </script>
