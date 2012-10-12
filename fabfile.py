@@ -128,6 +128,7 @@ def local_reset():
         local('rm www/states.csv')
         local('rm www/house.json')
         local('rm www/senate.json')
+        local('rm www/president.json')
         local('rm electris.db')
 
     # Bootstrap the database.
@@ -137,6 +138,7 @@ def local_reset():
     # Build the president CSV.
     states = util.get_states(db)
     util.regenerate_president(states)
+    util.write_president_json(states)
 
     # Build the house/senate CSV.
     candidates = util.get_house_senate(db)

@@ -34,16 +34,18 @@ HOUSE_SENATE_HEADER = [
     'ap_winner',
     'ap_winner_time',
     'npr_winner',
-    'npr_winner_time'
+    'npr_winner_time',
+    'accept_ap_call',
+    'race_slug'
 ]
-# SENATE_TIMES = [
-#     {'time': 1352246400, 'districts': ['IN 0', 'VA 0', 'VT 0']},
-#     {'time': 1352248200, 'districts': ['OH 0', 'WV 0']},
-#     {'time': 1352250000, 'districts': ['CT 0', 'DE 0', 'FL 0', 'MA 0', 'MD 0', 'ME 0', 'MO 0', 'MS 0 ', 'NJ 0', 'PA 0', 'RI 0', 'TN 0']},
-#     {'time': 1352253600, 'districts': ['AZ 0', 'MI 0 ', 'MN 0', 'ND 0', 'NE 0', 'NM 0', 'NY 0', 'TX 0', 'WI 0', 'WY 0']},
-#     {'time': 1352257200, 'districts': ['MT 0', 'NV 0', 'UT 0']},
-#     {'time': 1352260800, 'districts': ['CA 0', 'HI 0', 'WA 0']}
-# ]
+SENATE_TIMES = [
+    {'time': 1352246400, 'districts': ['IN 0', 'VA 0', 'VT 0']},
+    {'time': 1352248200, 'districts': ['OH 0', 'WV 0']},
+    {'time': 1352250000, 'districts': ['CT 0', 'DE 0', 'FL 0', 'MA 0', 'MD 0', 'ME 0', 'MO 0', 'MS 0 ', 'NJ 0', 'PA 0', 'RI 0', 'TN 0']},
+    {'time': 1352253600, 'districts': ['AZ 0', 'MI 0 ', 'MN 0', 'ND 0', 'NE 0', 'NM 0', 'NY 0', 'TX 0', 'WI 0', 'WY 0']},
+    {'time': 1352257200, 'districts': ['MT 0', 'NV 0', 'UT 0']},
+    {'time': 1352260800, 'districts': ['CA 0', 'HI 0', 'WA 0']}
+]
 # HOUSE_TIMES = [
 #     {'time': 1352246400, 'districts': ['GA 1', 'GA 2', 'GA 3', 'GA 4', 'GA 5', 'GA 6', 'GA 7', 'GA 8', 'GA 9', 'GA 10', 'GA 11', 'GA 12', 'GA 13', 'GA 14', 'IN 1', 'IN 2', 'IN 3', 'IN 4', 'IN 5', 'IN 6', 'IN 7', 'IN 8', 'IN 9', 'KY 1', 'KY 2', 'KY 3', 'KY 4', 'KY 5', 'KY 6', 'SC 1', 'SC 2', 'SC 3', 'SC 4', 'SC 5', 'SC 6', 'SC 7', 'VA 1', 'VA 2', 'VA 3', 'VA 4', 'VA 5', 'VA 6', 'VA 7', 'VA 8', 'VA 9', 'VA 10', 'VA 11', 'VT 1']},
 #     {'time': 1352248200, 'districts': ['NC 1', 'NC 2', 'NC 3', 'NC 4', 'NC 5', 'NC 6', 'NC 7', 'NC 8', 'NC 9', 'NC 10', 'NC 11', 'NC 12', 'NC 13', 'OH 1', 'OH 2', 'OH 3', 'OH 4', 'OH 5', 'OH 6', 'OH 7', 'OH 8', 'OH 9', 'OH 10', 'OH 11', 'OH 12', 'OH 13', 'OH 14', 'OH 15', 'OH 16', 'WV 1', 'WV 2', 'WV 3']},
@@ -54,15 +56,6 @@ HOUSE_SENATE_HEADER = [
 #     {'time': 1352260800, 'districts': ['CA 1', 'CA 2', 'CA 3', 'CA 4', 'CA 5', 'CA 6', 'CA 7', 'CA 8', 'CA 9', 'CA 10', 'CA 11', 'CA 12', 'CA 13', 'CA 14', 'CA 15', 'CA 16', 'CA 17', 'CA 18', 'CA 19', 'CA 20', 'CA 21', 'CA 22', 'CA 23', 'CA 24', 'CA 25', 'CA 26', 'CA 27', 'CA 28', 'CA 29', 'CA 30', 'CA 31', 'CA 32', 'CA 33', 'CA 34', 'CA 35', 'CA 36', 'CA 37', 'CA 38', 'CA 39', 'CA 40', 'CA 41', 'CA 42', 'CA 43', 'CA 44', 'CA 45', 'CA 46', 'CA 47', 'CA 48', 'CA 49', 'CA 50', 'CA 51', 'CA 52', 'CA 53', 'HI 1', 'HI 2', 'ID 1', 'ID 2', 'WA 1', 'WA 2', 'WA 3', 'WA 4', 'WA 5', 'WA 6', 'WA 7', 'WA 8', 'WA 9', 'WA 10']},
 #     {'time': 1352264400, 'districts': ['AK 1']}
 # ]
-
-SENATE_TIMES = [
-    {'time': 1352246400, 'districts': ['IN 0', 'VA 0', 'VT 0']},
-    {'time': 1352248200, 'districts': ['OH 0', 'WV 0']},
-    {'time': 1352250000, 'districts': ['CT 0', 'DE 0', 'FL 0', 'MA 0', 'MD 0', 'ME 0', 'MO 0', 'MS 0 ', 'NJ 0', 'PA 0', 'RI 0', 'TN 0']},
-    {'time': 1352253600, 'districts': ['AZ 0', 'MI 0 ', 'MN 0', 'ND 0', 'NE 0', 'NM 0', 'NY 0', 'TX 0', 'WI 0', 'WY 0']},
-    {'time': 1352257200, 'districts': ['MT 0', 'NV 0', 'UT 0']},
-    {'time': 1352260800, 'districts': ['CA 0', 'HI 0', 'WA 0']}
-]
 HOUSE_TIMES = [
     {'time': 1352246400, 'districts': ['GA 1', 'GA 2', 'GA 3', 'GA 4', 'GA 5', 'GA 6', 'GA 7', 'GA 8', 'GA 9', 'GA 10', 'GA 11', 'GA 12', 'GA 13', 'GA 14', 'IN 1', 'IN 2', 'IN 3', 'IN 4', 'IN 5', 'IN 6', 'IN 7', 'IN 8', 'IN 9', 'KY 1', 'KY 2', 'KY 3', 'KY 4', 'KY 5', 'KY 6', 'SC 1', 'SC 2', 'SC 3', 'SC 4', 'SC 5', 'SC 6', 'SC 7', 'VA 1', 'VA 2', 'VA 3', 'VA 4', 'VA 5', 'VA 6', 'VA 7', 'VA 8', 'VA 9', 'VA 10', 'VA 11', 'VT 1']},
     # {'time': 1352248200, 'districts': ['NC 1', 'NC 2', 'NC 3', 'NC 4', 'NC 5', 'NC 6', 'NC 7', 'NC 8', 'NC 9', 'NC 10', 'NC 11', 'NC 12', 'NC 13', 'OH 1', 'OH 2', 'OH 3', 'OH 4', 'OH 5', 'OH 6', 'OH 7', 'OH 8', 'OH 9', 'OH 10', 'OH 11', 'OH 12', 'OH 13', 'OH 14', 'OH 15', 'OH 16', 'WV 1', 'WV 2', 'WV 3']},
@@ -72,6 +65,17 @@ HOUSE_TIMES = [
     {'time': 1352257200, 'districts': ['IA 1', 'IA 2', 'IA 3', 'IA 4', 'MT 1', 'NV 1', 'NV 2', 'NV 3', 'NV 4', 'UT 1', 'UT 2', 'UT 3', 'UT 4']},
     # {'time': 1352260800, 'districts': ['CA 1', 'CA 2', 'CA 3', 'CA 4', 'CA 5', 'CA 6', 'CA 7', 'CA 8', 'CA 9', 'CA 10', 'CA 11', 'CA 12', 'CA 13', 'CA 14', 'CA 15', 'CA 16', 'CA 17', 'CA 18', 'CA 19', 'CA 20', 'CA 21', 'CA 22', 'CA 23', 'CA 24', 'CA 25', 'CA 26', 'CA 27', 'CA 28', 'CA 29', 'CA 30', 'CA 31', 'CA 32', 'CA 33', 'CA 34', 'CA 35', 'CA 36', 'CA 37', 'CA 38', 'CA 39', 'CA 40', 'CA 41', 'CA 42', 'CA 43', 'CA 44', 'CA 45', 'CA 46', 'CA 47', 'CA 48', 'CA 49', 'CA 50', 'CA 51', 'CA 52', 'CA 53', 'HI 1', 'HI 2', 'ID 1', 'ID 2', 'WA 1', 'WA 2', 'WA 3', 'WA 4', 'WA 5', 'WA 6', 'WA 7', 'WA 8', 'WA 9', 'WA 10']},
     {'time': 1352264400, 'districts': ['AK 1']}
+]
+
+PRESIDENT_TIMES = [
+    {'time': 1352246400, 'states': ['GA', 'IN', 'KY', 'SC', 'VA', 'VT']},
+    {'time': 1352248200, 'states': ['NC', 'OH', 'WV']},
+    {'time': 1352250000, 'states': ['AL', 'CT', 'DE', 'FL', 'IL', 'MA', 'MD', 'MO', 'MS', 'NH ''NJ', 'OK', 'OR', 'PA', 'RI', 'TN']},
+    {'time': 1352251800, 'states': ['AR']},
+    {'time': 1352253600, 'states': ['AZ', 'CO', 'KS', 'LA', 'MI', 'MN', 'ND', 'NE', 'NM', 'NY', 'TX', 'WI']},
+    {'time': 1352257200, 'states': ['IA', 'MT 1', 'NV', 'UT']},
+    {'time': 1352260800, 'states': ['CA', 'HI', 'ID', 'WA']},
+    {'time': 1352264400, 'states': ['AK']}
 ]
 
 # Constants for static media storage.

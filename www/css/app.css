@@ -110,6 +110,7 @@ a.btn { color: #fff; cursor: pointer; }
 
     background-color: #f7e39b;
     color: #77631b;
+    border-radius: 2px;
 }
 
 .state:hover { cursor: pointer; }
@@ -119,7 +120,7 @@ a.btn { color: #fff; cursor: pointer; }
 .state.prediction-sd i { background-color: #3d7fa6; color: #A8D5EF; }
 .state.prediction-ld i { background-color: #7dbfe6; color: #A8D5EF; }
 .state.prediction-t i { background-color: #f7e39b; color: #77631b; }
-.state.prediction-t.prediction-loser i { opacity: 0.5; }
+.state.prediction-t.combo-pick i { background-color: #333; color: #999; }
 .state.prediction-lr i { background-color: #e27560; color: #ECA395; }
 .state.prediction-sr i { background-color: #a23520; color: #ECA395; }
 
@@ -179,23 +180,14 @@ a.btn { color: #fff; cursor: pointer; }
 	margin-left: 50px;
 }
 .bucket-header h3 {
-	padding-top: 14px;
-	font: normal normal 24px Georgia, serif;
+	padding-top: 16px;
+	font: normal normal 22px Georgia, serif;
 	color: #333;
 	margin-bottom: -3px;
 }
 .bucket-header h3 i, .bucket-header h3 b {
 	font-weight: normal;
 	font-style: normal;
-}
-.bucket-header h4 {
-	font: normal 14px Arial, Helvetica, sans-serif;
-	color: #666;
-	margin-bottom: 12px;
-}
-.bucket-header h4 b { 
-	font: bold 28px Georgia, serif;
-	color: #333;
 }
 .bucket-header p {
 	font-size: 12px;
@@ -210,11 +202,9 @@ a.btn { color: #fff; cursor: pointer; }
 .bucket-header p#p-red-call { 
 	margin-bottom: 10px;
 }
-
 .bucket-header .vote-tallies {
-	width: 60%;
-	position: absolute;
-	top: 9px; right: 0;
+	width: 11em;
+	position: absolute; top: 10px; right: 0;
 }
 .bucket-header .vote-tallies .electoral {
 	width: 50%; float: left;
@@ -224,14 +214,16 @@ a.btn { color: #fff; cursor: pointer; }
 }
 .bucket-header .vote-tallies .bignum {
 	display: block;
-	width: 2.5em; height: .75em;
+	width: 50%;
+	height: .75em;
 	overflow: hidden;
 	text-align: center;
 	background-color: #eee;
 	float: left;
 	margin-right: 3%;
 	padding: .25em 0 .75em 0;
-	font: normal 22px Georgia, serif;
+	font: normal 20px Georgia, serif;
+	border-radius: 3px;
 }
 .bucket-header .vote-tallies .needed .bignum { background-color: #f7e39b; color: #77631b; }
 .blue .bucket-header .vote-tallies .electoral .bignum { background-color: #3d7fa6; color: #fff; }
@@ -241,9 +233,10 @@ a.btn { color: #fff; cursor: pointer; }
 	width: 47%;
 	float: left;
 	color: #666;
-	font-size: 13px;
+	font-size: 11px;
 	line-height: 1.2em;
-	padding-top: 5px;
+	padding-top: 12px;
+	text-transform: uppercase;
 }
 
 
@@ -382,16 +375,12 @@ a.btn { color: #fff; cursor: pointer; }
 }
 @media (max-width: 979px) and (min-width: 768px) {
 	#main-header, #header-title { width: 724px; }
-	
 	#states { font-size: 20px; }
-	#line { bottom:26.9em; }
-
 	.bucket { width: 10em; }
 	.combos { width: 6em; }
-	
-	.bucket-header { height: 6em; }
-	.bucket-header h4 { font-size: 13px; }
-	.bucket-header h4 b { font-size: 26px; }
+	.bucket-header { height: 4em; }
+    .bucket-header h3 i { display: none; }
+    .bucket-header .vote-tallies { width: 60%; }
 }
 @media (max-width: 767px) {
 	.intro { width: auto; }
@@ -402,17 +391,20 @@ a.btn { color: #fff; cursor: pointer; }
 	#states { font-size: 10px; }
 	.bucket-header h3 { font-size: 19px; }
     .bucket-header h3 i { display: none; }
-	.candidate.blue .bucket, .candidate.red .bucket {
-		float: none;
-	}
+	.candidate.blue .bucket, .candidate.red .bucket { float: none; }
 	.candidate.blue .combos, .candidate.red .combos { 
 		width: auto; clear: none; float: none;
 		margin-right: 0; margin-left: 0;
 	}
-	#line { bottom:26.9em; }
-
 	.bucket { width: 100%; margin-bottom: 10px; }
-	.bucket-header { height: 12em; }
+	.bucket-header { height: 8em; }
+	.bucket-header h3 { padding-top: 6px; }
+    .bucket-header h3 i { display: inline; }
+	.bucket-header .vote-tallies { 
+		position: static; top: auto; right: auto; width: auto;
+		margin-left: 50px; margin-top: 9px;
+	}
+	.bucket-header .vote-tallies .bignum { font-size: 18px; }
 	#states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }
 	.combos { width: auto; height: auto; border: none; }
 }
@@ -420,4 +412,12 @@ a.btn { color: #fff; cursor: pointer; }
 	#states .bucket .state i { text-indent: -9999px; width: 9%; margin-right: 1%; }
 	#tossups li b { display: none; }
 	#tossups li { font-size: 12px; width: 19%; margin: 0 1% 1% 0; }
+    .bucket-header h3 i { display: none; }
+	.bucket-header .vote-tallies .bignum, .bucket-header .vote-tallies span { float: none; }
+	.bucket-header .vote-tallies .bignum {
+		width: auto; font-size: 14px; font-weight: bold; float: none;
+	}
+	.bucket-header .vote-tallies span { 
+		width: auto; float: none; margin-top: 0; text-align: center; padding-top: 3px;
+	}
 }
