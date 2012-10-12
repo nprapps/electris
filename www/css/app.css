@@ -110,6 +110,7 @@ a.btn { color: #fff; cursor: pointer; }
 
     background-color: #f7e39b;
     color: #77631b;
+    border-radius: 2px;
 }
 
 .state:hover { cursor: pointer; }
@@ -222,6 +223,7 @@ a.btn { color: #fff; cursor: pointer; }
 	margin-right: 3%;
 	padding: .25em 0 .75em 0;
 	font: normal 20px Georgia, serif;
+	border-radius: 3px;
 }
 .bucket-header .vote-tallies .needed .bignum { background-color: #f7e39b; color: #77631b; }
 .blue .bucket-header .vote-tallies .electoral .bignum { background-color: #3d7fa6; color: #fff; }
