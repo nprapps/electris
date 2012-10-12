@@ -380,20 +380,29 @@ $(function() {
         var state_id = $(this).data("state-id");
         var winner = $(this).parent().hasClass("red") ? "r" : "d";
         var opposite_selector = winner === "r" ? "blue" : "red";
+        var other_chiclet = $(".tossups." + opposite_selector + " li[data-state-id=" + state_id + "]");
 
         if (state_id in tossup_picks) {
+            // Deselecting
             if (tossup_picks[state_id] === winner) {
                 $(this).removeClass("active");
+                other_chiclet.removeClass("taken"); 
 
                 delete tossup_picks[state_id];
+            // Toggling from opponent
             } else {
-                $(".tossups." + opposite_selector + " li[data-state-id=" + state_id + "]").removeClass("active"); 
+                                other_chiclet.removeClass("active"); 
+                other_chiclet.addClass("taken"); 
+
                 $(this).addClass("active");
+                $(this).removeClass("taken");
 
                 tossup_picks[state_id] = winner;
             }
+        // Initial selection
         } else {
             $(this).addClass("active");
+            other_chiclet.addClass("taken"); 
 
             tossup_picks[state_id] = winner;
         }
