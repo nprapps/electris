@@ -263,11 +263,11 @@ $(function() {
 
         function needs_sentence(needs) {
             if (needs > 0) {
-                return "<b>" + needs + "</b> more needed to win.";
+                return '<b class="bignum">' + needs + "</b><span>more needed to win.</span>";
             } else if (needs == 0) {
-                return "Exactly the number of votes needed to win.";
+                return "<span>Exactly the number of votes needed to win.</span>";
             } else {
-                return "<b>" + Math.abs(needs) + "</b> more votes than needed to win.";
+                return '<b class="bignum">' + Math.abs(needs) + "</b><span>more votes than needed to win.</span>";
             }
         }
 
@@ -307,7 +307,7 @@ $(function() {
                     
         var names = _.map(user_picks, function(id) { return states_by_id[id].name });
 
-        $("#red-needs").html(needs_sentence(red_needs));
+        $(".candidate.red .needed").html(needs_sentence(red_needs));
 
         $(".candidate.red .combos .explainer").html(MUST_WIN_TEMPLATE({
             candidate: "Romney",
@@ -321,7 +321,7 @@ $(function() {
             red_histogram_el.find("h4:eq(0)").trigger("click");
         }
 
-        $("#blue-needs").html(needs_sentence(blue_needs));
+        $(".candidate.blue .needed").html(needs_sentence(blue_needs));
         
         $(".candidate.blue .combos .explainer").html(MUST_WIN_TEMPLATE({
             candidate: "Obama",
