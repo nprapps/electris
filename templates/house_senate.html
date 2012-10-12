@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}The U.S. {{ house.title() }} | BigBoard Admin{% endblock %}
+{% block extra_head %}
+    <style type='text/css'>
+        .gop {
+            color:red;
+        }
+        .dem {
+            color:blue;
+        }
+        .incumbent {
+            text-transform:uppercase;
+        }
+        ul.races { padding:0; margin:0;}
+        ul.races li {
+            font-size:16px;
+            margin:0;
+            padding:0;
+            list-style-type:none;
+            display:block;
+            padding:0 5px 0 0;
+            float:left;
+        }
+        .clear {width:100%; clear:both;}
+        .control-group {
+            padding:5px 0;
+            margin:5px 0;
+            border-top:1px solid #aaa;
+            width: 250px;
+        }
+        .ap-call {float:right;}
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="span12">
+        <h1>BigBoard Admin: The U.S. {{ house.title() }}</h1>
+
+        <table>
+        {% for grouper, list in candidates|groupby('race_slug') %}
+        <tr>
+            <td>{% if house == "senate" %}
+                {{ grouper.replace(' 0', '').upper() }}
+            {% else %}
+                {{ grouper.upper() }}
+            {% endif %}</td>
+
+            {% for race in list %}
+                <td class="
+                    {% if race.incumbent == '1' %}incumbent{% endif %}
+                    {{ race.party.lower() }}
+                    {% if race.accept_ap_call %}{% if race.ap_call != '' %}called{% endif %}{% endif %}
+                ">
+                    {{ race.first_name }} {{ race.last_name}}
+                </td>
+            {% endfor %}
+            <td>{% for race in list %}{% if loop.first %}
+            <a
+                class="ap-call btn btn-success btn-mini"
+                data-race-slug="{{ grouper.replace(' ', '') }}">
+                    Accepting AP calls</a>
+            {% endif %}{% endfor %}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block extra_foot %}
+    <script type="text/javascript">
+        $('.ap-call').click(function(){
+            if ( $(this).hasClass('btn-success') ) {
+                $(this).removeClass('btn-success');
+                $(this).addClass('btn-danger');
+                $(this).html('Not accepting AP calls');
+            } else {
+                $(this).removeClass('btn-danger');
+                $(this).addClass('btn-success');
+                $(this).html('Accepting AP calls');
+            }
+        });
+    </script>
+{% endblock %}
