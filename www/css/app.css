@@ -11,7 +11,6 @@
 
 
 /* STRUCTURE */
-#toggles { width: auto; float: none; margin-bottom: 20px; }
 #states { font-size: 22px; }
 .candidate { width: 48%; }
 .candidate.blue { float: left; }
@@ -26,16 +25,16 @@
 
 /* CLEARFIXES */
 #electris:after,
-#toggles:after,
 #states:after,
 #buckets:after,
+.tossups:after,
 .candidate:after { 
 	content: "."; display: block; height: 0; clear: both; visibility: hidden;
 }
 
 
 /* THINGS WE DON'T WANT TEXT HIGHLIGHTING ON */
-#tossups li,
+.tossups li,
 .state,
 .combos .histogram li { 
 	-moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none;
@@ -310,46 +309,49 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 
-/* TOSSUP ROW */
-#toggles {
-	border-top: 3px solid #000;
-	padding-top: 9px;
+/* TOSSUPS */
+.combos .tossups { 
+	list-style: none; 
+	margin: 0 0 18px 0; 
+	padding: 0;
 }
-#toggles h3 {
-	font: normal 22px Georgia, serif;
-	margin-top: 6px;
-}
-#tossups { list-style: none; margin: 0; padding: 0; }
-#tossups li { 
+.tossups li { 
 	padding: 6px 0;
 	float: left; 
-	width: 15%;
-	margin: 0 .25% .25% 0; 
+	width: 31%;
+	margin: 0 2% 2% 0; 
 	text-align: center;
 	background-color: #f7e39b;
 	color: #77631b;
 	font-weight: bold;
-    font-size: 12px;
+    font-size: 18px;
 	border-radius: 3px;
+	overflow: hidden;
 }
-#tossups li:hover {
+.tossups li:hover, .tossups li.taken:hover {
 	cursor: pointer;
 	background-color: #E5BF57;
 	color: #fff;
 }
-#tossups li.active {
+.tossups li.active {
 	background-color: #B39429;
 	color: #fff;
 }
-#tossups .abbr { display: none; }
-#tossups .full { display: inline; }
-#tossups b {
+.tossups li.taken {
+	background-color: #FBF1CD;
+	color: #F7E39B;
+}
+.tossups .abbr { display: none; }
+.tossups .full { display: inline; }
+.tossups b {
 	font: normal 1em StateFaceRegular;
     text-align: center;
     display: inline-block;
     width: 1.2em;
     height:1em;
-    margin-right: 6px;
+}
+.tossups span {
+	font: normal 12px Georgia, serif;
 }
 
 
@@ -371,8 +373,6 @@ a.btn { color: #fff; cursor: pointer; }
 /*    .intro { width: auto; } */
 /*	#bigbox { display: none; } TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
     .intro { width: 404px; }
-	#tossups .full { display: none; }
-	#tossups .abbr { display: inline; }
 }
 @media (max-width: 979px) and (min-width: 768px) {
 	#main-header, #header-title { width: 724px; }
@@ -382,13 +382,12 @@ a.btn { color: #fff; cursor: pointer; }
 	.bucket-header { height: 4em; }
     .bucket-header h3 i { display: none; }
     .bucket-header .vote-tallies { width: 60%; }
+	.tossups li b, .tossups li span { display: block; text-align: center; margin: 0 auto; }
 }
 @media (max-width: 767px) {
 	.intro { width: auto; }
 	#bigbox { float: right; padding-top: 1em; background-color: #f1f1f1; margin: 1.8em 0 0 0; }
 	#electris { margin-left: 0; padding-top: 0; }
-	#toggles { border-top: none; padding-top: 24px; }
-	#tossups li { width: 24.5%; }
 	#states { font-size: 10px; }
 	.bucket-header h3 { font-size: 19px; }
     .bucket-header h3 i { display: none; }
@@ -411,8 +410,6 @@ a.btn { color: #fff; cursor: pointer; }
 }
 @media (max-width: 480px) {
 	#states .bucket .state i { text-indent: -9999px; width: 9%; margin-right: 1%; }
-	#tossups li b { display: none; }
-	#tossups li { font-size: 12px; width: 19%; margin: 0 1% 1% 0; }
     .bucket-header h3 i { display: none; }
 	.bucket-header .vote-tallies .bignum, .bucket-header .vote-tallies span { float: none; }
 	.bucket-header .vote-tallies .bignum {
