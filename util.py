@@ -42,8 +42,11 @@ def preload_state_race(db, row):
 
         candidate_data = dict(zip(settings.CANDIDATE_FIELDS, row[first_field:last_field]))
         party = 'Other'
+        is_winner = '0'
         if candidate_data['party'] in ['Dem', 'GOP']:
             party = candidate_data['party']
+        if candidate_data['is_winner'] != '':
+            is_winner = '1'
         db.execute(
             'INSERT INTO house_senate_candidates VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 (
@@ -64,9 +67,9 @@ def preload_state_race(db, row):
                     candidate_data['incumbent'],
                     party,
                     candidate_data['vote_count'],
-                    candidate_data['is_winner'],
+                    is_winner,
                     "",
-                    "",
+                    "0",
                     "",
                     "1",
                     '%s %s' % (
