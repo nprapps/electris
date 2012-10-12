@@ -299,7 +299,7 @@
         <% if (names.length == 0) { %>
         <p class="must-win"><%= candidate %> must win <strong>at least <%= simplest_combo_length %></strong> toss-up states.</p>
         <% } else { %>
-        <p class="must-win">If <%= candidate %> wins <% _.each(names, function(name, i, l) { %><%= name %><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> <% if (votes >= 270) { %><strong>he would win the Electoral College</strong><% } else { %>he still must win <strong>at least <%= simplest_combo_length %> more</strong> toss-up states.<% } %></p>
+        <p class="must-win">If <%= candidate %> wins <% _.each(names, function(name, i, l) { %><%= name %><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> <% if (votes >= 270) { %><strong>he would win the Electoral College</strong><% } else { %>he still must win <strong>at least <%= simplest_combo_length %> more</strong> toss-up state<% if (simplest_combo_length > 1) { %>s<% } %>.<% } %></p>
         <% } %>
     </script>
         
