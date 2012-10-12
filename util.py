@@ -2,7 +2,6 @@
 
 import csv
 import json
-from sets import Set
 import sqlite3 as sqlite
 from cStringIO import StringIO
 from ftplib import FTP
@@ -44,7 +43,7 @@ def preload_state_race(db, row):
         candidate_data = dict(zip(settings.CANDIDATE_FIELDS, row[first_field:last_field]))
 
         db.execute(
-            'INSERT INTO house_senate_candidates VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            'INSERT INTO house_senate_candidates VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 (
                     state_data['state_postal'],
                     state_data['county_name'],
@@ -66,7 +65,11 @@ def preload_state_race(db, row):
                     candidate_data['is_winner'],
                     "",
                     "",
-                    ""
+                    "",
+                    "1",
+                    '%s %s' % (
+                        state_data['state_postal'].lower(),
+                        state_data['seat_number'])
                 )
             )
 
@@ -107,7 +110,9 @@ def bootstrap_database(db):
         ap_winner text,\
         ap_winner_time text,\
         npr_winner text,\
-        npr_winner_time text)')
+        npr_winner_time text,\
+        accept_ap_call text,\
+        race_slug)')
 
     data = StringIO()
 
@@ -144,6 +149,22 @@ def get_house_senate(db):
     Fetch candidates for house/senate from sqlite as a list.
     """
     return db.execute('SELECT * FROM house_senate_candidates').fetchall()
+
+
+def write_president_json(states):
+    with open('www/president.json', 'w') as f:
+        times = settings.PRESIDENT_TIMES
+        objects = []
+        for timezone in times:
+            timezone_dict = {}
+            timezone_dict['gmt_epoch_time'] = timezone['time']
+            timezone_dict['states'] = []
+            for s in timezone['states']:
+                for state in states:
+                    if state['id'].upper() == s:
+                        timezone_dict['states'].append(dict(state))
+            objects.append(timezone_dict)
+        f.write(json.dumps(objects))
 
 
 def write_house_json(candidates):
