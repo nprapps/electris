@@ -323,12 +323,13 @@ a.btn { color: #fff; cursor: pointer; }
 #tossups li { 
 	padding: 6px 0;
 	float: left; 
-	width: 19.75%;
+	width: 15%;
 	margin: 0 .25% .25% 0; 
 	text-align: center;
 	background-color: #f7e39b;
 	color: #77631b;
 	font-weight: bold;
+    font-size: 12px;
 	border-radius: 3px;
 }
 #tossups li:hover {

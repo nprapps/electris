@@ -158,14 +158,6 @@
 
         <div class="row">
         	<div id="electris">
-				<div id="toggles">
-					<!-- TODO: GET NPR TOSSUPS (USING NYT NOW) -->
-					<h3>Toggle these "toss-up" states on or off to game out each candidate's potential path to Electoral College victory.</h3>
-					<ul id="tossups">
-					</ul>
-
-				</div>
-
 				<div id="states">
 					<div id="buckets">
 
@@ -186,6 +178,12 @@
 
 							</div>
 							<div class="bucket blue"></div>
+
+                            <div id="toggles">
+                                <ul id="tossups">
+                                </ul>
+                            </div>
+
 							<div class="combos">
                                 <div class="explainer">
                                 </div>
@@ -281,7 +279,7 @@
     </script>
 
     <script id="tossup-template" type="text/template">
-        <li data-state-id="<%= state.id %>"><b><%= state.stateface %></b><span class="full"><%= state.name %></span> <span class="abbr"><%= state.abbr %></span> (<%= state.electoral_votes %>)</li>
+        <li data-state-id="<%= state.id %>"><b><%= state.stateface %></b> <span><%= state.electoral_votes %></span></li>
     </script>
 
     <script id="combo-group-template" type="text/template">
