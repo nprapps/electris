@@ -167,7 +167,7 @@ $(function() {
         $("#buckets .bucket.red,#buckets .bucket.blue").css("height", height + "em");
         
         // position 270 line
-        var header_height = 5;
+        var header_height = 3;
         if (window_width <= 979 && window_width >= 768) {
         	header_height = 6;
     	} else if (window_width < 768) {

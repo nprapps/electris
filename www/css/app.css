@@ -170,15 +170,16 @@ a.btn { color: #fff; cursor: pointer; }
 .bucket-header {
 	border-top: 3px solid #000;
 	overflow: hidden;
-	height: 5em;
+	height: 3em;
+	position: relative;
 }
-.candidate.blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 15px; }
-.candidate.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat left 15px; }
+.candidate.blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 9px; }
+.candidate.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat left 9px; }
 .bucket-header h5, .bucket-header h3, .bucket-header h4, .bucket-header p {
 	margin-left: 50px;
 }
 .bucket-header h3 {
-	padding-top: 12px;
+	padding-top: 14px;
 	font: normal normal 24px Georgia, serif;
 	color: #333;
 	margin-bottom: -3px;
@@ -209,10 +210,41 @@ a.btn { color: #fff; cursor: pointer; }
 .bucket-header p#p-red-call { 
 	margin-bottom: 10px;
 }
-.bucket-header p.must-win { margin-bottom: 10px; }
-.bucket-header p.must-win strong { color: #333; font-weight: bold; }
 
-
+.bucket-header .vote-tallies {
+	width: 60%;
+	position: absolute;
+	top: 9px; right: 0;
+}
+.bucket-header .vote-tallies .electoral {
+	width: 50%; float: left;
+}
+.bucket-header .vote-tallies .needed {
+	width: 50%; float: right;
+}
+.bucket-header .vote-tallies .bignum {
+	display: block;
+	width: 2.5em; height: .75em;
+	overflow: hidden;
+	text-align: center;
+	background-color: #eee;
+	float: left;
+	margin-right: 3%;
+	padding: .25em 0 .75em 0;
+	font: normal 22px Georgia, serif;
+}
+.bucket-header .vote-tallies .needed .bignum { background-color: #f7e39b; color: #77631b; }
+.blue .bucket-header .vote-tallies .electoral .bignum { background-color: #3d7fa6; color: #fff; }
+.red .bucket-header .vote-tallies .electoral .bignum { background-color: #a23520; color: #fff; }
+.bucket-header .vote-tallies span {
+	display: block;
+	width: 47%;
+	float: left;
+	color: #666;
+	font-size: 13px;
+	line-height: 1.2em;
+	padding-top: 5px;
+}
 
 
 /* COMBOS */
