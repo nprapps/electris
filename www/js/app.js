@@ -200,8 +200,8 @@ $(function() {
         var red_needs = ELECTORAL_VOTES_TO_WIN - red_votes;
         var blue_needs = ELECTORAL_VOTES_TO_WIN - blue_votes;
 
-        red_histogram_el.toggle(red_needs > 0);
-        blue_histogram_el.toggle(blue_needs > 0);
+        $(".candidate.red .combos").toggle(red_needs > 0);
+        $(".candidate.blue .combos").toggle(blue_needs > 0);
 
         var state_ids = _.pluck(undecided_states, "id");
 
@@ -295,7 +295,7 @@ $(function() {
                     
                     combo_group_el.find("ul").append(el);
 
-                    //el.data(combo);
+                    el.data(combo);
                 });
                 
                 root_el.append(combo_group_el);
@@ -303,46 +303,28 @@ $(function() {
         }
 
         $("#red-needs").html(needs_sentence(red_needs));
-        $(".red-simple-combo-length").text(red_combos[0].combo.length);
 
-        show_combos(red_keys, red_groups, red_histogram_el);
-	    red_histogram_el.find("h4:eq(0)").trigger("click");
+        if (red_needs > 0) {
+            $(".red-simple-combo-length").text(red_combos[0].combo.length);
+
+            show_combos(red_keys, red_groups, red_histogram_el);
+            red_histogram_el.find("h4:eq(0)").trigger("click");
+        }
 
         $("#blue-needs").html(needs_sentence(blue_needs));
-        $(".blue-simple-combo-length").text(blue_combos[0].combo.length);
         
-        show_combos(blue_keys, blue_groups, blue_histogram_el);
-	    blue_histogram_el.find("h4:eq(0)").trigger("click");
+        if (blue_needs > 0) {
+            $(".blue-simple-combo-length").text(blue_combos[0].combo.length);
+            
+            show_combos(blue_keys, blue_groups, blue_histogram_el);
+            blue_histogram_el.find("h4:eq(0)").trigger("click");
+        }
     }
 
-    /*$("#blue-combos li,#red-combos li").live("click", function(event) {
-		$("#blue-combos li,#red-combos li").removeClass('active');
-		$(this).addClass('active');
-
-        var combo = $(this).data();
-
-        user_predicted_winner = combo.winner;
-        user_picks = {};
-
-        states_dataset.each(function(state) {
-            if (state.prediction === "t") {
-                if ($.inArray(state.id, combo.combo) >= 0) {
-                    user_predictions[state.id] = user_predicted_winner; 
-                } else {
-                    if (combo.winner === "r") {
-                        user_predictions[state.id] = "d";
-                    } else {
-                        user_predictions[state.id] = "r";
-                    }
-                }
-            }
-        });
-
-        add_states();
-        compute_stats();
-    });*/
-
     $("#tossups li").live("click", function(click) {
+        /*
+         * Select or unselect a tossup state.
+         */
         var state_id = $(this).data("state-id");
         var state = states_dataset.where({ rows: function(s) { return s.id == state_id } }).rowByPosition(0);
 
@@ -359,6 +341,19 @@ $(function() {
         }
 
         compute_stats(true);
+    });
+
+    $(".combo-group li").live("click", function(event) {
+        /*
+         * Switch on all states in a combo.
+         */
+        var combo = $(this).data();
+
+        _.each(combo.combo, function(state) {
+            $("li[data-state-id=" + state + "]").click();
+        });
+
+        compute_stats();
     });
 
     /* DATASET LOADING/POLLING */
