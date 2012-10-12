@@ -247,6 +247,7 @@ a.btn { color: #fff; cursor: pointer; }
 	z-index: 99;
 }
 .combos .histogram h4:hover { cursor: pointer; text-decoration: underline; }
+.combos .combo-group { display: none; }
 .combos .combo-group li { 
 	font-size: 14px; 
 	margin-bottom: 3px; 

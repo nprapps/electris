@@ -3,6 +3,8 @@ $(function() {
     var ELECTORAL_VOTES_TO_WIN = 270;
     var STATE_TEMPLATE = _.template($("#state-template").html());
     var TOSSUP_TEMPLATE = _.template($("#tossup-template").html());
+    var COMBO_GROUP_TEMPLATE = _.template($("#combo-group-template").html());
+    var COMBO_TEMPLATE = _.template($("#combo-template").html());
     var POLL_CLOSING_TIMES = [
         moment("2012-11-06T18:00:00 -0500"),
         moment("2012-11-06T19:00:00 -0500"),
@@ -259,8 +261,10 @@ $(function() {
         red_combos.sort(combo_ranker);
         blue_combos.sort(combo_ranker);
 
-        var red_combo_length_counts = _.countBy(red_combos, function(combo) { return combo.combo.length; });
-        var blue_combo_length_counts = _.countBy(blue_combos, function(combo) { return combo.combo.length; });
+        var red_groups = _.groupBy(red_combos, function(combo) { return combo.combo.length });
+        var blue_groups = _.groupBy(blue_combos, function(combo) { return combo.combo.length });
+        var red_keys = _.keys(red_groups).sort();
+        var blue_keys = _.keys(blue_groups).sort();
 
         function needs_sentence(needs) {
             if (needs > 0) {
@@ -272,36 +276,41 @@ $(function() {
             }
         }
 
-        if (red_needs > 0) {
+        function show_combos(keys, groups, root_el) {
+            _.each(keys, function(key) {
+                var combo_group_el = $(COMBO_GROUP_TEMPLATE({
+                    key: key
+                }));
+                
+                _.each(groups[key], function(combo) {
+                    var faces = _.map(combo.combo, function(id) { return "<b>" + states_by_id[id].stateface + "</b>" });
+                    var total = _.reduce(combo.combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
+                        
+
+                    var el = $("<li>" + faces.join("") + "= " + total + "</li>"); 
+                    
+                    combo_group_el.find("ul").append(el);
+
+                    //el.data(combo);
+                });
+                
+                root_el.append(combo_group_el);
+            });
         }
 
         $("#red-needs").html(needs_sentence(red_needs));
         $(".red-simple-combo-length").text(red_combos[0].combo.length);
-        $(".red-simple-combos-count").text(red_combo_length_counts[red_combos[0].combo.length]);
-	    $('.histogram.red').find('h4:eq(' + (red_combos[0].combo.length - 1) + ')').trigger('click');
         $("#red-combos").empty();
 
-        _.each(red_combos, function(combo) {
-            var names = _.map(combo.combo, function(id) { return "<span><b>" + states_by_id[id].stateface + "</b> " + states_by_id[id].name + " (" + states_by_id[id].electoral_votes + ")</span>"; });
-            var total = _.reduce(combo.combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
-            var el = $("<li>" + names.join(" + ") + " = " + total + "</li>"); 
-            el.data(combo);
-            red_combos_el.append(el);
-        });
+        show_combos(red_keys, red_groups, $(".histogram.red"));
+	    $(".histogram.red").find("h4:eq(0)").trigger("click");
 
         $("#blue-needs").html(needs_sentence(blue_needs));
         $(".blue-simple-combo-length").text(blue_combos[0].combo.length);
-        $(".blue-simple-combos-count").text(blue_combo_length_counts[blue_combos[0].combo.length]);
-	    $('.histogram.blue').find('h4:eq(' + (blue_combos[0].combo.length - 1) + ')').trigger('click');
         $("#blue-combos").empty();
-
-        _.each(blue_combos, function(combo) {
-            var names = _.map(combo.combo, function(id) { return "<span><b>" + states_by_id[id].stateface + "</b> " + states_by_id[id].name + " (" + states_by_id[id].electoral_votes + ")</span>"; });
-            var total = _.reduce(combo.combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
-            var el = $("<li>" + names.join(" + ") + " = " + total + "</li>"); 
-            el.data(combo);
-            blue_combos_el.append(el);
-        });
+        
+        show_combos(blue_keys, blue_groups, $(".histogram.blue"));
+	    $('.histogram.blue').find("h4:eq(0)").trigger('click');
     }
 
     /*$("#blue-combos li,#red-combos li").live("click", function(event) {
@@ -384,8 +393,7 @@ $(function() {
     });
     
     /* SHOW/HIDE COMBO GROUPS */
-    $('.histogram').find('.combo-group').hide();
-    $('.histogram').find('h4').click(function() {
+    $('.histogram h4').live("click", function() {
     	var show_text = '(show paths)';
     	var hide_text = '(hide)';
     	var t = $(this).find('i');
