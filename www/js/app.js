@@ -5,6 +5,7 @@ $(function() {
     var TOSSUP_TEMPLATE = _.template($("#tossup-template").html());
     var COMBO_GROUP_TEMPLATE = _.template($("#combo-group-template").html());
     var COMBO_TEMPLATE = _.template($("#combo-template").html());
+    var MUST_WIN_TEMPLATE = _.template($("#must-win-template").html());
     var POLL_CLOSING_TIMES = [
         moment("2012-11-06T18:00:00 -0500"),
         moment("2012-11-06T19:00:00 -0500"),
@@ -27,11 +28,6 @@ $(function() {
 
     /* State data */
     var states_by_id = {};
-    var alerted_states = {
-        "r": [],
-        "d": []
-    };
-
     var red_votes = 0;
     var blue_votes = 0;
 
@@ -171,7 +167,7 @@ $(function() {
         $("#buckets .bucket.red,#buckets .bucket.blue").css("height", height + "em");
         
         // position 270 line
-        var header_height = 5;
+        var header_height = 3;
         if (window_width <= 979 && window_width >= 768) {
         	header_height = 6;
     	} else if (window_width < 768) {
@@ -200,8 +196,8 @@ $(function() {
         var red_needs = ELECTORAL_VOTES_TO_WIN - red_votes;
         var blue_needs = ELECTORAL_VOTES_TO_WIN - blue_votes;
 
-        $(".candidate.red .combos").toggle(red_needs > 0);
-        $(".candidate.blue .combos").toggle(blue_needs > 0);
+        red_histogram_el.toggle(red_needs > 0);
+        blue_histogram_el.toggle(blue_needs > 0);
 
         var state_ids = _.pluck(undecided_states, "id");
 
@@ -267,11 +263,9 @@ $(function() {
 
         function needs_sentence(needs) {
             if (needs > 0) {
-                return "<b>" + needs + "</b> more needed to win.";
-            } else if (needs == 0) {
-                return "Exactly the number of votes needed to win.";
+                return '<b class="bignum">' + needs + "</b><span>to win</span>";
             } else {
-                return "<b>" + Math.abs(needs) + "</b> more votes than needed to win.";
+                return '<b class="bignum">0</b><span>to win</span>';
             }
         }
 
@@ -308,18 +302,32 @@ $(function() {
                 root_el.append(combo_group_el);
             });
         }
+                    
+        var names = _.map(user_picks, function(id) { return states_by_id[id].name });
 
-        $("#red-needs").html(needs_sentence(red_needs));
+        $(".candidate.red .needed").html(needs_sentence(red_needs));
+
+        $(".candidate.red .combos .explainer").html(MUST_WIN_TEMPLATE({
+            candidate: "Romney",
+            names: names,
+            simplest_combo_length: red_combos[0].combo.length,
+            votes: red_votes
+        }));
 
         if (red_needs > 0) {
-            $(".red-simple-combo-length").text(red_combos[0].combo.length);
-
             show_combos(red_keys, red_groups, red_histogram_el);
             red_histogram_el.find("h4:eq(0)").trigger("click");
         }
 
-        $("#blue-needs").html(needs_sentence(blue_needs));
+        $(".candidate.blue .needed").html(needs_sentence(blue_needs));
         
+        $(".candidate.blue .combos .explainer").html(MUST_WIN_TEMPLATE({
+            candidate: "Obama",
+            names: names,
+            simplest_combo_length: blue_combos[0].combo.length,
+            votes: blue_votes
+        }));
+
         if (blue_needs > 0) {
             $(".blue-simple-combo-length").text(blue_combos[0].combo.length);
             
