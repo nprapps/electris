@@ -22,6 +22,8 @@ $(function() {
     var tossups_el = $("#tossups");
     var red_combos_el = $("#red-combos");
     var blue_combos_el = $("#blue-combos");
+    var red_histogram_el = $(".histogram.red");
+    var blue_histogram_el = $(".histogram.blue");
 
     /* State data */
     var states_by_id = {};
@@ -198,8 +200,8 @@ $(function() {
         var red_needs = ELECTORAL_VOTES_TO_WIN - red_votes;
         var blue_needs = ELECTORAL_VOTES_TO_WIN - blue_votes;
 
-        red_combos_el.toggle(red_needs > 0);
-        blue_combos_el.toggle(blue_needs > 0);
+        red_histogram_el.toggle(red_needs > 0);
+        blue_histogram_el.toggle(blue_needs > 0);
 
         var state_ids = _.pluck(undecided_states, "id");
 
@@ -277,6 +279,8 @@ $(function() {
         }
 
         function show_combos(keys, groups, root_el) {
+            root_el.empty();
+
             _.each(keys, function(key) {
                 var combo_group_el = $(COMBO_GROUP_TEMPLATE({
                     key: key
@@ -300,17 +304,15 @@ $(function() {
 
         $("#red-needs").html(needs_sentence(red_needs));
         $(".red-simple-combo-length").text(red_combos[0].combo.length);
-        $("#red-combos").empty();
 
-        show_combos(red_keys, red_groups, $(".histogram.red"));
-	    $(".histogram.red").find("h4:eq(0)").trigger("click");
+        show_combos(red_keys, red_groups, red_histogram_el);
+	    red_histogram_el.find("h4:eq(0)").trigger("click");
 
         $("#blue-needs").html(needs_sentence(blue_needs));
         $(".blue-simple-combo-length").text(blue_combos[0].combo.length);
-        $("#blue-combos").empty();
         
-        show_combos(blue_keys, blue_groups, $(".histogram.blue"));
-	    $('.histogram.blue').find("h4:eq(0)").trigger('click');
+        show_combos(blue_keys, blue_groups, blue_histogram_el);
+	    blue_histogram_el.find("h4:eq(0)").trigger("click");
     }
 
     /*$("#blue-combos li,#red-combos li").live("click", function(event) {
