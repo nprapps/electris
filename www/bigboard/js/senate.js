@@ -1,11 +1,11 @@
 function nukeTarget(target){ $(target).html(''); }
 
 $.getJSON('../../senate.json', function(timezones) {
-
     nukeTarget('#candidates');
+    var TIMEZONE_TEMPLATE = _.template($("#timezone-template").html());
+
     _.each(timezones, function(timezone){
-        RACE_TEMPLATE = _.template($("#race-template").html());
-        html = RACE_TEMPLATE({ timezone: timezone });
+        html = TIMEZONE_TEMPLATE({ timezone: timezone });
         $('#candidates').append(html);
     });
     $('#candidates').columnize({ columns:2 });
