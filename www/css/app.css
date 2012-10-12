@@ -116,16 +116,18 @@ a.btn { color: #fff; cursor: pointer; }
 .state i span { font-size:.7em; }
 
 /* Before election night: shade by forecast */
-.state.prediction-sd i { background-color: #3d7fa6; color: #fff; }
-.state.prediction-ld i { background-color: #7dbfe6; color: #fff; }
+.state.prediction-sd i { background-color: #3d7fa6; color: #A8D5EF; }
+.state.prediction-ld i { background-color: #7dbfe6; color: #A8D5EF; }
 .state.prediction-t i { background-color: #f7e39b; color: #77631b; }
 .state.prediction-t.prediction-loser i { opacity: 0.5; }
-.state.prediction-lr i { background-color: #e27560; color: #fff; }
-.state.prediction-sr i { background-color: #a23520; color: #fff; }
+.state.prediction-lr i { background-color: #e27560; color: #ECA395; }
+.state.prediction-sr i { background-color: #a23520; color: #ECA395; }
 
 /* On election night: shade by call */
 .state.call-d i { background-color: #3d7fa6; color: #fff; }
 .state.call-r i { background-color: #a23520; color: #fff; }
+
+.state:hover i { color: #fff; }
 
 #line {
     height:.1em;
@@ -230,6 +232,7 @@ a.btn { color: #fff; cursor: pointer; }
 	position: relative;
 	z-index: 98;
 	height: 2.5em; overflow: hidden;
+	border-radius: 3px;
 }
 .combos .histogram .title {
 	padding: .75em;
@@ -241,19 +244,36 @@ a.btn { color: #fff; cursor: pointer; }
 .combos .histogram .bar {
 	display: block;
 	width: 100%;
-	background-color: #f3d469;
 	height: 2.5em;
 	margin-top: -2.75em;
 	z-index: 99;
+
+	background: #f3d469; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f3d469 0%, #f7e39b 50%, #f3d469 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3d469), color-stop(50%,#f7e39b), color-stop(100%,#f3d469)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f3d469 0%,#f7e39b 50%,#f3d469 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f3d469 0%,#f7e39b 50%,#f3d469 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f3d469 0%,#f7e39b 50%,#f3d469 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #f3d469 0%,#f7e39b 50%,#f3d469 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3d469', endColorstr='#f3d469',GradientType=0 ); /* IE6-9 */
+
+	border-radius: 3px;
 }
 .combos .histogram h4:hover { cursor: pointer; text-decoration: underline; }
 .combos .combo-group { display: none; }
 .combos .combo-group li { 
 	font-size: 14px; 
-	margin-bottom: 3px; 
 	color: #666; 
+	margin: 0;
 	padding: 8px 6px 6px 6px;
 	border-top: 1px dotted #CCC;
+}
+.combos .combo-group li:hover {
+	background-color: #B39429;
+	cursor: pointer;
+}
+.combos .combo-group li:hover b {
+	color: #fff;
 }
 .combos .combo-group li:first-child { border-top: none; }
 .combos .combo-group b {
