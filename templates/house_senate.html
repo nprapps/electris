@@ -12,13 +12,8 @@
             text-transform:uppercase;
         }
         .clear {width:100%; clear:both;}
-        .control-group {
-            padding:5px 0;
-            margin:5px 0;
-            border-top:1px solid #aaa;
-            width: 250px;
-        }
-        .ap-call { float:right; }
+        tr.info td { }
+        td.ap-call { text-align:center!important; }
     </style>
 {% endblock %}
 
@@ -75,9 +70,9 @@
                 </span>
                 {% endif %}
             {% endfor %}</td>
-            <td>{% for race in list %}{% if loop.first %}
+            <td class="ap-call">{% for race in list %}{% if loop.first %}
             <a
-                class="ap-call btn btn-success btn-mini"
+                class="btn btn-success btn-mini"
                 data-race-slug="{{ grouper.replace(' ', '') }}">
                     Accepting AP calls</a>
             {% endif %}{% endfor %}</td>
