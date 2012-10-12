@@ -36,10 +36,10 @@
                 </div>
                 <% _.each(timezone.districts, function(district){ %>
                     <ul><li class="district"><%= district.district %></li>
-                    <% _.each(district.candidates, function(candidate){ %>
-                        <% party_class = candidate.party.toLowerCase(); %>
-                        <% incumbent = ''; %>
-                        <% if (candidate.incumbent == 1) { incumbent = ' incumbent'; } %>
+                    <% _.each(district.candidates, function(candidate){
+                        party_class = candidate.party.toLowerCase();
+                        incumbent = '';
+                        if (candidate.incumbent == 1) { incumbent = ' incumbent'; } %>
                         <li class="<%= party_class %><%= incumbent %> candidate">
                             <%= candidate.first_name %> <%= candidate.last_name %>&nbsp;
                             <% votes = Humanize.intcomma(candidate.vote_count); %>
