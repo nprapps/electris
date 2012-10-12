@@ -242,29 +242,21 @@ $(function() {
             }
         });
 
-        function combo_ranker(a, b) {
-            if (a.combo.length > b.combo.length) {
+        /*function combo_ranker(a, b) {
+            if (a.votes > b.votes) {
                 // a > b
                 return 1;
-            } else if (a.combo.length < b.combo.length) {
+            } else if (a.votes < b.votes) {
                 // a < b
                 return -1;
             } else {
-                if (a.votes > b.votes) {
-                    // a > b
-                    return 1;
-                } else if (a.votes < b.votes) {
-                    // a < b
-                    return -1;
-                } else {
-                    // a == b
-                    return 0;
-                }
+                // a == b
+                return 0;
             }
         }
 
         red_combos.sort(combo_ranker);
-        blue_combos.sort(combo_ranker);
+        blue_combos.sort(combo_ranker);*/
 
         var red_groups = _.groupBy(red_combos, function(combo) { return combo.combo.length });
         var blue_groups = _.groupBy(blue_combos, function(combo) { return combo.combo.length });
@@ -292,7 +284,7 @@ $(function() {
                 _.each(groups[key], function(combo) {
                     var faces = _.map(combo.combo, function(id) { return "<b>" + states_by_id[id].stateface + "</b>" });
 
-                    var el = $("<li>" + faces.join("") + "= " + combo.votes + "</li>"); 
+                    var el = $("<li>" + faces.join("") + "</li>"); 
                     
                     combo_group_el.find("ul").append(el);
 
