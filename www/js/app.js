@@ -20,7 +20,8 @@ $(function() {
     /* Elements */
     var red_bucket_el = $(".bucket.red");
     var blue_bucket_el = $(".bucket.blue");
-    var tossups_el = $("#tossups");
+    var red_tossups_el = $(".candidate.red .tossups");
+    var blue_tossups_el = $(".candidate.blue .tossups");
     var red_combos_el = $("#red-combos");
     var blue_combos_el = $("#blue-combos");
     var red_histogram_el = $(".histogram.red");
@@ -370,7 +371,7 @@ $(function() {
         }
     }
 
-    $("#tossups li").live("click", function(click) {
+    $(".tossups li").live("click", function(click) {
         /*
          * Select or unselect a tossup state.
          */
@@ -431,7 +432,8 @@ $(function() {
                     state: state
                 });
 
-                tossups_el.append(html);
+                red_tossups_el.append(html);
+                blue_tossups_el.append(html);
             }
         });
 
