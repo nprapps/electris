@@ -15,7 +15,7 @@ $(function() {
         moment("2012-11-06T23:00:00 -0500"),
         moment("2012-11-07T01:00:00 -0500")
     ];
-    var SHOW_TOOLTIPS = $(window).width() > 767;
+    var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
 
     /* Elements */
     var red_candidate_el = $(".candidate.red");
@@ -420,6 +420,8 @@ $(function() {
             });
 
             combo_el.removeClass("active");
+
+            $(".state.combo-pick").remove();
         }
  
         combo_picks = [];
@@ -443,6 +445,8 @@ $(function() {
         other_chiclet.removeClass("active");
         other_chiclet.removeClass("active-combo");
         other_chiclet.addClass("taken"); 
+                
+        $('.state[data-id="' + state_id + '"]').remove();
 
         if (state_id in tossup_picks) {
             // Deselecting
@@ -462,7 +466,7 @@ $(function() {
 
         clear_combo();
 
-        add_states();
+        add_state(states_by_id[state_id]);
         compute_stats(true);
     });
 
@@ -495,15 +499,18 @@ $(function() {
                 other_chiclet.removeClass("active-combo");
                 other_chiclet.addClass("taken"); 
 
+                $('.state[data-id="' + state_id + '"]').remove();
+
                 if (state_id in tossup_picks) {
                     delete tossup_picks[state_id];
                 }
+            
+                add_state(states_by_id[state_id]);
             });
 
             combo_el.addClass("active");
         }
 
-        add_states();
         compute_stats();
     });
 
