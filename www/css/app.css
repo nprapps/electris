@@ -248,7 +248,8 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* COMBOS */
-.combos { height: 27em; overflow: auto; }
+/*.combos { height: 27em; overflow: auto; } */
+.combos { }
 .combos p { font-size: 13px; }
 .combos p.must-win { margin-bottom: 18px; }
 .combos ul { list-style: none; margin: 0; padding: 0; }
@@ -402,12 +403,10 @@ a.btn { color: #fff; cursor: pointer; }
 	#bigbox { width: 300px; }
 	#states { font-size: 25px; }
 	.bucket { width: 15em; }
-	.combos { width: 6em; height: 18em; }
+	.combos { width: 6em; /*height: 18em;*/ }
 	.bucket-header h3 { font-size: 26px; padding-top: 10px; }
 }
 @media (max-width: 979px) {
-/*    .intro { width: auto; } */
-/*	#bigbox { display: none; } TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
     .intro { width: 404px; }
 }
 @media (max-width: 979px) and (min-width: 768px) {
