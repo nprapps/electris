@@ -330,16 +330,27 @@ $(function() {
                 
                 _.each(group, function(combo) {
                     var faces = _.map(combo.combo, function(id) { return "<b>" + states_by_id[id].stateface + "</b>" });
-                    var names = _.map(combo.combo, function(id) { return states_by_id[id].name });
-                    var last = names.pop();
-                    var names = names.join(", ") + " and " + last;
+
+                    var names = "";
+
+                    _.each(combo.combo, function(state_id, i, l) {
+                        var state = states_by_id[state_id];
+
+                        names += state.name + " (" + state.electoral_votes + ")";
+
+                        if (i == l.length - 2) {
+                            names += " and ";
+                        } else if (i < l.length - 2) {
+                            names += ", ";
+                        }
+                    });
 
                     var el = $("<li>" + faces.join("") + "</li>"); 
                     
                     combo_list_el.append(el);
                     el.tooltip({
                         animation: false,
-                        placement: "right",
+                        placement: root_el.hasClass("red") ? "left" : "right",
                         title: names
                     });
 
@@ -525,6 +536,8 @@ $(function() {
                 blue_tossups_el.append(html);
             }
         });
+
+        $(".tossups li").tooltip();
 
         add_states();
         compute_stats(true);

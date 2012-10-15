@@ -338,7 +338,7 @@ a.btn { color: #fff; cursor: pointer; }
 	border-radius: 3px;
 	overflow: hidden;
 }
-.tossups li:hover, .tossups li.taken:hover {
+.tossups li:hover, .tossups li.taken:hover, .tossups li.active-combo:hover {
 	cursor: pointer;
 	background-color: #E5BF57;
 	color: #fff;
@@ -346,6 +346,10 @@ a.btn { color: #fff; cursor: pointer; }
 .tossups li.active {
 	background-color: #B39429;
 	color: #fff;
+}
+.tossups li.active-combo {
+	background-color: #f1f1f1;
+	color: #ddd;
 }
 .tossups li.taken {
 	background-color: #FBF1CD;
@@ -363,6 +367,21 @@ a.btn { color: #fff; cursor: pointer; }
 .tossups span {
 	font: normal 12px Georgia, serif;
 }
+
+
+/* TOOLTIP */
+.tooltip.in { opacity: 0.9; filter: alpha(opacity=90); }
+.tooltip-inner {
+	font-weight: bold;
+	color: #333;
+	border: 1px solid #999;
+	background-color: #fff;
+}
+.tooltip.top .tooltip-arrow { border-top-color: #999; }
+.tooltip.right .tooltip-arrow { border-right-color: #999; }
+.tooltip.left .tooltip-arrow { border-left-color: #999; }
+.tooltip.bottom .tooltip-arrow { border-bottom-color: #999; }
+
 
 
 /* FOOTER EXTRAS */
