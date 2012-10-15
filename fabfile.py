@@ -121,6 +121,27 @@ def deploy():
     checkout_latest()
 
 
+def load_bb_testing_rig():
+    with settings(warn_only=True):
+        local('rm electris.db')
+        local('cp test_data/bigboard/electris.db .')
+
+        db = util.get_database()
+        candidates = util.get_house_senate(db)
+        util.write_house_json(candidates)
+        util.write_senate_json(candidates)
+
+
+def unload_bb_testing_rig():
+    with settings(warn_only=True):
+        local('rm electris.db')
+
+        db = util.get_database()
+        candidates = util.get_house_senate(db)
+        util.write_house_json(candidates)
+        util.write_senate_json(candidates)
+
+
 def local_reset():
 
     # Nuke the local copies of everything.
