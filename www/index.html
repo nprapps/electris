@@ -269,7 +269,7 @@
     </div>
 
     <script id="state-template" type="text/template">
-        <div class="state <%= state.id %> prediction-<%= state.prediction %> <% if (combo_pick) { %>combo-pick<% } %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-delay="0" data-animation="false" data-id="<%= state.id %>">
+        <div class="state <%= state.id %> prediction-<%= state.prediction %> <% if (combo_pick) { %>combo-pick<% } %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
                 <i><span><%= state.stateface %></span></i>
             <% }); %>
@@ -277,7 +277,7 @@
     </script>
 
     <script id="tossup-template" type="text/template">
-        <li data-state-id="<%= state.id %>" data-winner="<%= winner %>"><b><%= state.stateface %></b> <span><%= state.electoral_votes %></span></li>
+        <li data-state-id="<%= state.id %>" data-winner="<%= winner %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><b><%= state.stateface %></b> <span><%= state.electoral_votes %></span></li>
     </script>
 
     <script id="combo-group-template" type="text/template">

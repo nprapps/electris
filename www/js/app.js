@@ -537,6 +537,8 @@ $(function() {
             }
         });
 
+        $(".tossups li").tooltip();
+
         add_states();
         compute_stats(true);
     });
