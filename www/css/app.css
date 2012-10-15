@@ -338,7 +338,7 @@ a.btn { color: #fff; cursor: pointer; }
 	border-radius: 3px;
 	overflow: hidden;
 }
-.tossups li:hover, .tossups li.taken:hover {
+.tossups li:hover, .tossups li.taken:hover, .tossups li.active-combo:hover {
 	cursor: pointer;
 	background-color: #E5BF57;
 	color: #fff;
@@ -346,6 +346,10 @@ a.btn { color: #fff; cursor: pointer; }
 .tossups li.active {
 	background-color: #B39429;
 	color: #fff;
+}
+.tossups li.active-combo {
+	background-color: #cdcdcd;
+	color: #f1f1f1;
 }
 .tossups li.taken {
 	background-color: #FBF1CD;
