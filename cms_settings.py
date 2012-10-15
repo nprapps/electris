@@ -57,9 +57,9 @@ SENATE_TIMES = [
 #     {'time': 1352264400, 'districts': ['AK 1']}
 # ]
 HOUSE_TIMES = [
-    {'time': 1352246400, 'districts': ['GA 1', 'GA 2', 'GA 3', 'GA 4', 'GA 5', 'GA 6', 'GA 7', 'GA 8', 'GA 9', 'GA 10', 'GA 11', 'GA 12', 'GA 13', 'GA 14', 'IN 1', 'IN 2', 'IN 3', 'IN 4', 'IN 5', 'IN 6', 'IN 7', 'IN 8', 'IN 9', 'KY 1', 'KY 2', 'KY 3', 'KY 4', 'KY 5', 'KY 6', 'SC 1', 'SC 2', 'SC 3', 'SC 4', 'SC 5', 'SC 6', 'SC 7', 'VA 1', 'VA 2', 'VA 3', 'VA 4', 'VA 5', 'VA 6', 'VA 7', 'VA 8', 'VA 9', 'VA 10', 'VA 11', 'VT 1']},
+    {'time': 1352246400, 'districts': ['GA 1', 'GA 2', 'GA 4', 'GA 5', 'GA 6', 'GA 7', 'GA 9', 'GA 11', 'GA 12', 'GA 13', 'GA 14', 'IN 1', 'IN 2', 'IN 3', 'IN 4', 'IN 5', 'IN 6', 'IN 7', 'IN 8', 'IN 9', 'KY 1', 'KY 2', 'KY 3', 'KY 4', 'KY 5', 'KY 6', 'SC 1', 'SC 3', 'SC 4', 'SC 5', 'SC 7', 'VA 1', 'VA 2', 'VA 3', 'VA 4', 'VA 5', 'VA 6', 'VA 7', 'VA 8', 'VA 9', 'VA 10', 'VA 11', 'VT 1']},
     {'time': 1352250000, 'districts': ['CT 1', 'CT 2', 'CT 3', 'CT 4', 'CT 5']},
-    {'time': 1352251800, 'districts': ['AR 1', 'AR 2', 'AR 3', 'AR 4', 'AZ 5', 'AZ 6', 'AZ 7', 'AZ 8', 'AZ 9', 'CO 1', 'CO 2', 'CO 3', 'CO 4']},
+    {'time': 1352251800, 'districts': ['AR 1', 'AR 2', 'AR 4', 'AZ 5', 'AZ 6', 'AZ 7', 'AZ 8', 'AZ 9', 'CO 1', 'CO 2', 'CO 3', 'CO 4']},
     {'time': 1352257200, 'districts': ['IA 1', 'IA 2', 'IA 3', 'IA 4', 'MT 1', 'NV 1', 'NV 2', 'NV 3', 'NV 4', 'UT 1', 'UT 2', 'UT 3', 'UT 4']},
     {'time': 1352264400, 'districts': ['AK 1']}
 ]
@@ -67,7 +67,7 @@ HOUSE_TIMES = [
 PRESIDENT_TIMES = [
     {'time': 1352246400, 'states': ['GA', 'IN', 'KY', 'SC', 'VA', 'VT']},
     {'time': 1352248200, 'states': ['NC', 'OH', 'WV']},
-    {'time': 1352250000, 'states': ['AL', 'CT', 'DE', 'FL', 'IL', 'MA', 'MD', 'MO', 'MS', 'NH ''NJ', 'OK', 'OR', 'PA', 'RI', 'TN']},
+    {'time': 1352250000, 'states': ['AL', 'CT', 'DE', 'FL', 'IL', 'MA', 'MD', 'MO', 'MS', 'NH', 'NJ', 'OK', 'OR', 'PA', 'RI', 'TN']},
     {'time': 1352251800, 'states': ['AR']},
     {'time': 1352253600, 'states': ['AZ', 'CO', 'KS', 'LA', 'MI', 'MN', 'ND', 'NE', 'NM', 'NY', 'TX', 'WI']},
     {'time': 1352257200, 'states': ['IA', 'MT 1', 'NV', 'UT']},

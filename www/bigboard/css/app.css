@@ -43,7 +43,7 @@ body {
 }
 
 #banner #gop_sec h2 {color:#f14233}
-#banner #gop_sec h2 span.total{background-color:#be0f00; color:#fff; padding:1px 4px 0 3px;}		    
+#banner #gop_sec h2 span.total{background-color:#be0f00; color:#fff; padding:1px 4px 0 3px;}
 #banner #dem_sec h2 {color:#7ac2e1}
 #banner #dem_sec h2 span.total{background-color:#229acd; color:#fff; padding:1px 4px 0 3px;}
 #banner #ind_sec h2 {color:#e6ccdb}
@@ -110,12 +110,14 @@ body {
     overflow:hidden;
     white-space:nowrap;
 }
-
 .candidate.dem {
     color:#1B7BA4;
 }
 .candidate.gop {
     color:#BE0F00;
+}
+.candidate.other {
+    color:#148B34;
 }
 .candidate.incumbent {
     text-transform:uppercase;
@@ -126,5 +128,9 @@ body {
 }
 .candidate.dem.winner {
     background-color:#1B7BA4;
+    color:white;
+}
+.candidate.other.winner {
+    background-color:#148B34;
     color:white;
 }
