@@ -200,6 +200,8 @@ def generate_json(rows, house):
             district_dict['district'] = district
             district_dict['candidates'] = []
             district_dict['district_slug'] = district.replace(' ', '').lower()
+            district_dict['called'] = False
+            district_dict['called_time'] = None
             for candidate in rows:
                 if candidate[0] == district.split(' ')[0]:
                     if int(candidate[3]) == int(district.split(' ')[1]):
@@ -208,6 +210,21 @@ def generate_json(rows, house):
                                 candidate_dict = dict(zip(
                                             settings.HOUSE_SENATE_HEADER,
                                             candidate))
+
+                                candidate_dict['winner'] = False
+
+                                if candidate_dict['accept_ap_call'] == "1":
+                                    if candidate_dict['ap_winner'] == "1":
+                                        district_dict['called'] = True
+                                        candidate_dict['winner'] = True
+                                else:
+                                    if candidate_dict['npr_winner'] == "1":
+                                        district_dict['called'] = True
+                                        candidate_dict['winner'] = True
+
+                                ### THIS NEEDS TO DO SOMETHING WITH TIME EVENTUALLY ###
+                                district_dict['called_time'] = None
+
                                 district_dict['candidates'].append(candidate_dict)
             district_dict['candidates'] = sorted(
                 district_dict['candidates'],
