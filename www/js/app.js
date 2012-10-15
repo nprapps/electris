@@ -4,7 +4,6 @@ $(function() {
     var STATE_TEMPLATE = _.template($("#state-template").html());
     var TOSSUP_TEMPLATE = _.template($("#tossup-template").html());
     var COMBO_GROUP_TEMPLATE = _.template($("#combo-group-template").html());
-    var COMBO_TEMPLATE = _.template($("#combo-template").html());
     var MUST_WIN_TEMPLATE = _.template($("#must-win-template").html());
     var POLL_CLOSING_TIMES = [
         moment("2012-11-06T18:00:00 -0500"),
@@ -66,7 +65,7 @@ $(function() {
             }
         }
         
-        el.tooltip();
+        el.find("i").tooltip({});
     }
 
     function add_states() {

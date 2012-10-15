@@ -37,20 +37,25 @@
                 <% _.each(timezone.districts, function(district){ %>
                     <%
                         var called = '';
-                        if (district.called == true) { called = 'called' }
+                        if (district.called == true) { called = 'called'; }
                     %>
                     <ul class="<%= called %>"><li class="district"><%= district.district %></li>
-                    <% _.each(district.candidates, function(candidate){
+                    <%
+                    _.each(district.candidates, function(candidate){
                         party_class = candidate.party.toLowerCase();
                         incumbent = '';
-                        if (candidate.incumbent == 1) { incumbent = ' incumbent'; } %>
-                        <li class="<%= party_class %><%= incumbent %> candidate">
+                        winner = '';
+                        if (candidate.winner == true) { winner = 'winner'; }
+                        if (candidate.incumbent == 1) { incumbent = 'incumbent'; }
+                    %>
+                        <li class="<%= party_class %> <%= incumbent %> <%= winner %> candidate">
                             <%= candidate.first_name %> <%= candidate.last_name %>&nbsp;
                             <% votes = Humanize.intcomma(candidate.vote_count); %>
                         </li>
                     <% }); %></ul>
                 <% }); %>
             </div>
+        </script>
         </script>
 
     </body>

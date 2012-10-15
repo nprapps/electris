@@ -269,9 +269,9 @@
     </div>
 
     <script id="state-template" type="text/template">
-        <div class="state <%= state.id %> prediction-<%= state.prediction %> <% if (combo_pick) { %>combo-pick<% } %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false" data-id="<%= state.id %>">
+        <div class="state <%= state.id %> prediction-<%= state.prediction %> <% if (combo_pick) { %>combo-pick<% } %>"  data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
-                <i><span><%= state.stateface %></span></i>
+                <i rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><span><%= state.stateface %></span></i>
             <% }); %>
         </div>
     </script>
@@ -308,6 +308,7 @@
     <script type="text/javascript" src="js/lib/miso.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/combinations.js"></script>
+    <script type="text/javascript" src="js/tooltip.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
