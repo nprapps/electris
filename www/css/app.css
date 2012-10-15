@@ -349,17 +349,9 @@ a.btn { color: #fff; cursor: pointer; }
 	background-color: #E5BF57;
 	color: #fff;
 }
-.tossups li.active {
-	background-color: #B39429; color: #fff;
-}
-.tossups li.active-combo {
-/*	background-color: #f1f1f1; color: #ddd; */
-	background-color: #999; color: #fff;
-}
-.tossups li.taken {
-	background-color: #FBF1CD;
-	color: #F7E39B;
-}
+.tossups li.active { background-color: #B39429; color: #fff; }
+.tossups li.active-combo { background-color: #999; color: #fff; }
+.tossups li.taken { background-color: #FBF1CD; color: #F7E39B; }
 .tossups .abbr { display: none; }
 .tossups .full { display: inline; }
 .tossups b {
@@ -369,9 +361,7 @@ a.btn { color: #fff; cursor: pointer; }
     width: 1.2em;
     height:1em;
 }
-.tossups span {
-	font: normal 12px Georgia, serif;
-}
+.tossups span { font: normal 11px Arial, Helvetica, sans-serif; text-align: left; }
 
 
 /* TOOLTIP */
