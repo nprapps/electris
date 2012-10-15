@@ -298,12 +298,14 @@ a.btn { color: #fff; cursor: pointer; }
 }
 .combos .combo-group li:hover {
 /*	background-color: #B39429; */
-	background-color: #999;
+	background-color: #ccc;
 	cursor: pointer;
 }
 .combos .combo-group li:hover b {
 	color: #fff;
 }
+.combos .combo-group li.active { background-color: #999; }
+.combos .combo-group li.active b { color: #fff; }
 .combos .combo-group li:first-child { border-top: none; }
 .combos .combo-group b {
 	font: normal 1em StateFaceRegular;
