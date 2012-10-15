@@ -60,7 +60,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* INTRO */
-.intro { color: #333; }
+.intro { color: #333; padding-bottom: 18px; }
 .intro h1 { font-size: 2em; line-height: 1.4em; margin-bottom: .6em; }
 .intro p { line-height: 1.45em; }
 .intro p.date { color: #999; font-style: italic; }
@@ -250,10 +250,8 @@ a.btn { color: #fff; cursor: pointer; }
 /* COMBOS */
 .combos { /*height: 27em; overflow: auto;*/ }
 .combos p { font-size: 13px; }
-.combos p.must-win { margin-bottom: 18px; }
 .combos ul { list-style: none; margin: 0; padding: 0; }
 .combos li { margin: 0 0 3px 0; padding: 0; text-indent: 0; }
-.combos .histogram { margin-top: 6px; }
 .combos .histogram h4 {
 	font: normal 13px Arial, Helvetica, sans-serif;
 	margin: 0;
@@ -264,6 +262,7 @@ a.btn { color: #fff; cursor: pointer; }
 	z-index: 98;
 	height: 2.5em; overflow: hidden;
 	border-radius: 3px;
+	white-space: nowrap;
 }
 .combos .histogram h4.showable { color: #000; }
 .combos .histogram .title {
@@ -402,7 +401,10 @@ a.btn { color: #fff; cursor: pointer; }
 	#bigbox { width: 300px; }
 	#states { font-size: 25px; }
 	.bucket { width: 15em; }
-	.combos { width: 6em; /*height: 18em;*/ }
+	.combos { width: 6.5em; /*height: 18em;*/ }
+	.combos .histogram h4 { height: 1.75em; }
+	.combos .histogram .title { padding: .3em .5em; font-size: 1em; }
+	.combos .histogram .bar { height: 1.75em; margin-top: -1.8em; }
 	.bucket-header h3 { font-size: 26px; padding-top: 10px; }
 }
 @media (max-width: 979px) {
@@ -412,7 +414,7 @@ a.btn { color: #fff; cursor: pointer; }
 	#main-header, #header-title { width: 724px; }
 	#states { font-size: 20px; }
 	.bucket { width: 10em; }
-	.combos { width: 6em; }
+	.combos { width: 6.5em; }
 	.bucket-header { height: 4em; }
     .bucket-header h3 i { display: none; }
     .bucket-header .vote-tallies { width: 9em; }
