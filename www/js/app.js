@@ -381,6 +381,25 @@ $(function() {
         show_combos(blue_keys, blue_groups, blue_histogram_el);
         blue_histogram_el.find("h4:eq(0)").trigger("click");
     }
+     
+    function clear_combo() {
+        /*
+         * Clear the current combo picks.
+         */
+        _.each(combo_picks, function(state_id) {
+            var winner = combo_pick_winner;
+            var selector = winner === "r" ? "red" : "blue";
+            var opposite_selector = winner === "r" ? "blue" : "red";
+            var chiclet = $(".tossups." + selector + " li[data-state-id=" + state_id + "]");
+            var other_chiclet = $(".tossups." + opposite_selector + " li[data-state-id=" + state_id + "]");
+
+            chiclet.removeClass("active-combo");
+            other_chiclet.removeClass("taken"); 
+        });
+ 
+        combo_picks = [];
+        combo_pick_winner = null;
+    }
 
     $(".tossups li").live("click", function(click) {
         /*
@@ -415,8 +434,7 @@ $(function() {
             tossup_picks[state_id] = winner;
         }
 
-        combo_picks = [];
-        combo_pick_winner = null;
+        clear_combo();
 
         add_states();
         compute_stats(true);
@@ -428,16 +446,7 @@ $(function() {
          */
         var combo = $(this).data();
 
-        _.each(combo_picks, function(state_id) {
-            var winner = combo_pick_winner;
-            var selector = winner === "r" ? "red" : "blue";
-            var opposite_selector = winner === "r" ? "blue" : "red";
-            var chiclet = $(".tossups." + selector + " li[data-state-id=" + state_id + "]");
-            var other_chiclet = $(".tossups." + opposite_selector + " li[data-state-id=" + state_id + "]");
-
-            chiclet.removeClass("active-combo");
-            other_chiclet.removeClass("taken"); 
-        });
+        clear_combo();
 
         combo_picks = combo.combo;
         combo_pick_winner = combo.winner;
