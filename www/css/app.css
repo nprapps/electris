@@ -173,9 +173,8 @@ a.btn { color: #fff; cursor: pointer; }
 	height: 3em;
 	position: relative;
 }
-.blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 9px; }
-/*.candidate.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat left 9px; } */
-.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat right 9px; }
+.blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 5px; }
+.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat right 5px; }
 
 .bucket-header h5, .bucket-header h3, .bucket-header h4, .bucket-header p {
 	margin-left: 50px;
@@ -185,6 +184,7 @@ a.btn { color: #fff; cursor: pointer; }
 	font: normal normal 22px Georgia, serif;
 	color: #333;
 	margin-bottom: -3px;
+	white-space: nowrap;
 }
 .red .bucket-header h3 { text-align: right; margin-right: 50px; }
 .bucket-header h3 i, .bucket-header h3 b {
@@ -244,10 +244,11 @@ a.btn { color: #fff; cursor: pointer; }
 }
 .winner .bucket-header { border-color: #B39429; }
 .winner .bucket-header h3 { padding-right: 25px; display: inline-block; background: url('../img/ico-checkmark.png') no-repeat right 20px; }
+.red.winner .bucket-header h3 { padding-left: 25px; padding-right: 0; float: right; background: url('../img/ico-checkmark.png') no-repeat left 20px; }
 
 
 /* COMBOS */
-.combos { height: 27em; overflow: auto; }
+.combos { /*height: 27em; overflow: auto;*/ }
 .combos p { font-size: 13px; }
 .combos p.must-win { margin-bottom: 18px; }
 .combos ul { list-style: none; margin: 0; padding: 0; }
@@ -256,7 +257,7 @@ a.btn { color: #fff; cursor: pointer; }
 .combos .histogram h4 {
 	font: normal 13px Arial, Helvetica, sans-serif;
 	margin: 0;
-	color: #000;
+	color: #888;
 /*	background-color: #fbf1cd; */
 	background-color: #f1f1f1;
 	position: relative;
@@ -264,6 +265,7 @@ a.btn { color: #fff; cursor: pointer; }
 	height: 2.5em; overflow: hidden;
 	border-radius: 3px;
 }
+.combos .histogram h4.showable { color: #000; }
 .combos .histogram .title {
 	padding: .75em;
 	display: block;
@@ -349,12 +351,11 @@ a.btn { color: #fff; cursor: pointer; }
 	color: #fff;
 }
 .tossups li.active {
-	background-color: #B39429;
-	color: #fff;
+	background-color: #B39429; color: #fff;
 }
 .tossups li.active-combo {
-	background-color: #f1f1f1;
-	color: #ddd;
+/*	background-color: #f1f1f1; color: #ddd; */
+	background-color: #999; color: #fff;
 }
 .tossups li.taken {
 	background-color: #FBF1CD;
@@ -401,11 +402,10 @@ a.btn { color: #fff; cursor: pointer; }
 	#bigbox { width: 300px; }
 	#states { font-size: 25px; }
 	.bucket { width: 15em; }
-	.combos { width: 6em; height: 18em; }
+	.combos { width: 6em; /*height: 18em;*/ }
+	.bucket-header h3 { font-size: 26px; padding-top: 10px; }
 }
 @media (max-width: 979px) {
-/*    .intro { width: auto; } */
-/*	#bigbox { display: none; } TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
     .intro { width: 404px; }
 }
 @media (max-width: 979px) and (min-width: 768px) {
@@ -444,7 +444,8 @@ a.btn { color: #fff; cursor: pointer; }
 		text-align: left;
 	}
     .bucket-header h3 i { display: inline; }
-	.winner .bucket-header h3 { background-position: right 8px; }
+	.blue.winner .bucket-header h3 { background-position: right 8px; }
+	.red.winner .bucket-header h3 { padding-right: 25px; padding-left: 0; float: none; background: url('../img/ico-checkmark.png') no-repeat right 8px; }
 	.bucket-header .vote-tallies,
 	.blue .bucket-header .vote-tallies,
 	.red .bucket-header .vote-tallies { 
