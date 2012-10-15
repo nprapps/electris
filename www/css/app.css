@@ -353,12 +353,11 @@ a.btn { color: #fff; cursor: pointer; }
 	color: #fff;
 }
 .tossups li.active {
-	background-color: #B39429;
-	color: #fff;
+	background-color: #B39429; color: #fff;
 }
 .tossups li.active-combo {
-	background-color: #f1f1f1;
-	color: #ddd;
+/*	background-color: #f1f1f1; color: #ddd; */
+	background-color: #999; color: #fff;
 }
 .tossups li.taken {
 	background-color: #FBF1CD;
