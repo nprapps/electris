@@ -41,30 +41,32 @@ $(function() {
     /* DATA PROCESSING & RENDERING */
     
     function add_state(state) {
-        var html = STATE_TEMPLATE({
+        var el = $(STATE_TEMPLATE({
             state: state,
             combo_pick: ($.inArray(state.id, combo_picks) >= 0)
-        });
+        }));
 
         if (state.id in tossup_picks) {
             if (tossup_picks[state.id] === "r") {
-                red_bucket_el.append(html);
+                red_bucket_el.append(el);
             } else {
-                blue_bucket_el.append(html);
+                blue_bucket_el.append(el);
             }
         } else if ($.inArray(state.id, combo_picks) >= 0) {
             if (combo_pick_winner == "r") {
-                red_bucket_el.append(html);
+                red_bucket_el.append(el);
             } else {
-                blue_bucket_el.append(html);
+                blue_bucket_el.append(el);
             }
         } else {
             if (state.prediction === "sr" || state.prediction === "lr") {
-                red_bucket_el.append(html);
+                red_bucket_el.append(el);
             } else if (state.prediction === "sd" || state.prediction === "ld") {
-                blue_bucket_el.append(html);
+                blue_bucket_el.append(el);
             }
         }
+        
+        el.tooltip();
     }
 
     function add_states() {
@@ -323,13 +325,23 @@ $(function() {
                     combo_count: group.length,
                     max_combo_count: max_combo_group
                 }));
+
+                var combo_list_el = combo_group_el.find("ul")
                 
                 _.each(group, function(combo) {
                     var faces = _.map(combo.combo, function(id) { return "<b>" + states_by_id[id].stateface + "</b>" });
+                    var names = _.map(combo.combo, function(id) { return states_by_id[id].name });
+                    var last = names.pop();
+                    var names = names.join(", ") + " and " + last;
 
                     var el = $("<li>" + faces.join("") + "</li>"); 
                     
-                    combo_group_el.find("ul").append(el);
+                    combo_list_el.append(el);
+                    el.tooltip({
+                        animation: false,
+                        placement: "right",
+                        title: names
+                    });
 
                     el.data(combo);
                 });

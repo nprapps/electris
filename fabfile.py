@@ -121,6 +121,37 @@ def deploy():
     checkout_latest()
 
 
+def load_bb_testing_rig():
+    """
+    Copies a snapshot of the electris DB with settings as defined in
+    test_data/bigboard/README.md and regenerates bigboard JSON.
+    """
+    with settings(warn_only=True):
+        local('rm www/states.csv')
+        local('rm www/house.json')
+        local('rm www/senate.json')
+        local('rm www/president.json')
+        local('rm electris.db')
+
+        local('cp test_data/bigboard/electris_test.db electris.db')
+        db = util.get_database()
+
+        states = util.get_states(db)
+        util.regenerate_president(states)
+        util.write_president_json(states)
+
+        candidates = util.get_house_senate(db)
+        util.write_house_json(candidates)
+        util.write_senate_json(candidates)
+
+
+def unload_bb_testing_rig():
+    """
+    An alias to local_reset.
+    """
+    local_reset()
+
+
 def local_reset():
 
     # Nuke the local copies of everything.
