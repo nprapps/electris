@@ -15,7 +15,7 @@ $(function() {
         moment("2012-11-06T23:00:00 -0500"),
         moment("2012-11-07T01:00:00 -0500")
     ];
-    var SHOW_TOOLTIPS = $(window).width() > 767;
+    var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
 
     /* Elements */
     var red_candidate_el = $(".candidate.red");
