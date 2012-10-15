@@ -191,9 +191,6 @@ a.btn { color: #fff; cursor: pointer; }
 	font-weight: normal;
 	font-style: normal;
 }
-.bucket-header h3 span { font-size: .7em; }
-.blue .bucket-header h3 span { color: #3D7FA6; }
-.red .bucket-header h3 span { color: #A23520; }
 .bucket-header p {
 	font-size: 12px;
 	margin-bottom: 0;
