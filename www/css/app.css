@@ -412,7 +412,7 @@ a.btn { color: #fff; cursor: pointer; }
 }
 @media (max-width: 767px) {
 	.intro { width: auto; }
-	#bigbox { float: right; padding-top: 1em; background-color: #f1f1f1; margin: 1.8em 0 0 0; }
+	#bigbox { float: none; width: auto; padding-top: 1em; background-color: #f1f1f1; margin: 0 0 1.8em 0; }
 	#electris { margin-left: 0; padding-top: 0; }
 	#states { font-size: 10px; }
 	.bucket-header h3 { font-size: 19px; }
@@ -449,6 +449,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.combos { width: auto; height: auto; border: none; }
 }
 @media (max-width: 480px) {
+	#bigbox { margin-left: -20px; margin-right: -20px; padding-left: 10px; padding-right: 10px; width: auto; margin-bottom: 1.8em; float: none; }
 	#states .bucket .state i { text-indent: -9999px; width: 9%; margin-right: 1%; }
     .bucket-header h3 i { display: none; }
 	.bucket-header .vote-tallies .bignum, .bucket-header .vote-tallies span { float: none; }
