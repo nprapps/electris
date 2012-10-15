@@ -248,8 +248,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* COMBOS */
-/*.combos { height: 27em; overflow: auto; } */
-.combos { }
+.combos { /*height: 27em; overflow: auto;*/ }
 .combos p { font-size: 13px; }
 .combos p.must-win { margin-bottom: 18px; }
 .combos ul { list-style: none; margin: 0; padding: 0; }
