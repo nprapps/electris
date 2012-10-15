@@ -257,7 +257,7 @@ a.btn { color: #fff; cursor: pointer; }
 .combos .histogram h4 {
 	font: normal 13px Arial, Helvetica, sans-serif;
 	margin: 0;
-	color: #000;
+	color: #888;
 /*	background-color: #fbf1cd; */
 	background-color: #f1f1f1;
 	position: relative;
@@ -265,6 +265,7 @@ a.btn { color: #fff; cursor: pointer; }
 	height: 2.5em; overflow: hidden;
 	border-radius: 3px;
 }
+.combos .histogram h4.showable { color: #000; }
 .combos .histogram .title {
 	padding: .75em;
 	display: block;
