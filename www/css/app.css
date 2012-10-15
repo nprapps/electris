@@ -11,7 +11,6 @@
 
 
 /* STRUCTURE */
-#toggles { width: auto; float: none; margin-bottom: 20px; }
 #states { font-size: 22px; }
 .candidate { width: 48%; }
 .candidate.blue { float: left; }
@@ -26,16 +25,16 @@
 
 /* CLEARFIXES */
 #electris:after,
-#toggles:after,
 #states:after,
 #buckets:after,
+.tossups:after,
 .candidate:after { 
 	content: "."; display: block; height: 0; clear: both; visibility: hidden;
 }
 
 
 /* THINGS WE DON'T WANT TEXT HIGHLIGHTING ON */
-#tossups li,
+.tossups li,
 .state,
 .combos .histogram li { 
 	-moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none;
@@ -120,7 +119,7 @@ a.btn { color: #fff; cursor: pointer; }
 .state.prediction-sd i { background-color: #3d7fa6; color: #A8D5EF; }
 .state.prediction-ld i { background-color: #7dbfe6; color: #A8D5EF; }
 .state.prediction-t i { background-color: #f7e39b; color: #77631b; }
-.state.prediction-t.combo-pick i { background-color: #333; color: #999; }
+.state.prediction-t.combo-pick i { background-color: #999; color: #ccc; }
 .state.prediction-lr i { background-color: #e27560; color: #ECA395; }
 .state.prediction-sr i { background-color: #a23520; color: #ECA395; }
 
@@ -128,7 +127,7 @@ a.btn { color: #fff; cursor: pointer; }
 .state.call-d i { background-color: #3d7fa6; color: #fff; }
 .state.call-r i { background-color: #a23520; color: #fff; }
 
-.state:hover i { color: #fff; }
+.state:hover i, .state.prediction-t.combo-pick:hover i { color: #fff; }
 
 #line {
     height:.1em;
@@ -203,7 +202,7 @@ a.btn { color: #fff; cursor: pointer; }
 	margin-bottom: 10px;
 }
 .bucket-header .vote-tallies {
-	width: 11em;
+	width: 10em;
 	position: absolute; top: 10px; right: 0;
 }
 .bucket-header .vote-tallies .electoral {
@@ -238,6 +237,8 @@ a.btn { color: #fff; cursor: pointer; }
 	padding-top: 12px;
 	text-transform: uppercase;
 }
+.winner .bucket-header { border-color: #B39429; }
+.winner .bucket-header h3 { padding-right: 25px; display: inline-block; background: url('../img/ico-checkmark.png') no-repeat right 20px; }
 
 
 /* COMBOS */
@@ -251,7 +252,8 @@ a.btn { color: #fff; cursor: pointer; }
 	font: normal 13px Arial, Helvetica, sans-serif;
 	margin: 0;
 	color: #000;
-	background-color: #fbf1cd;
+/*	background-color: #fbf1cd; */
+	background-color: #f1f1f1;
 	position: relative;
 	z-index: 98;
 	height: 2.5em; overflow: hidden;
@@ -271,14 +273,17 @@ a.btn { color: #fff; cursor: pointer; }
 	margin-top: -2.75em;
 	z-index: 99;
 
-	background: #f3d469; /* Old browsers */
-	background: -moz-linear-gradient(top,  #f3d469 0%, #f7e39b 50%, #f3d469 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3d469), color-stop(50%,#f7e39b), color-stop(100%,#f3d469)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #f3d469 0%,#f7e39b 50%,#f3d469 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #f3d469 0%,#f7e39b 50%,#f3d469 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #f3d469 0%,#f7e39b 50%,#f3d469 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #f3d469 0%,#f7e39b 50%,#f3d469 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3d469', endColorstr='#f3d469',GradientType=0 ); /* IE6-9 */
+	/*
+	background: #f3d469; Old browsers
+	background: -moz-linear-gradient(top,  #f3d469 0%, #f7e39b 50%, #f3d469 100%); FF3.6+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3d469), color-stop(50%,#f7e39b), color-stop(100%,#f3d469)); Chrome,Safari4+
+	background: -webkit-linear-gradient(top,  #f3d469 0%,#f7e39b 50%,#f3d469 100%); Chrome10+,Safari5.1+
+	background: -o-linear-gradient(top,  #f3d469 0%,#f7e39b 50%,#f3d469 100%); Opera 11.10+
+	background: -ms-linear-gradient(top,  #f3d469 0%,#f7e39b 50%,#f3d469 100%); IE10+
+	background: linear-gradient(to bottom,  #f3d469 0%,#f7e39b 50%,#f3d469 100%); W3C
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3d469', endColorstr='#f3d469',GradientType=0 ); IE6-9
+	*/
+	background-color: #ccc;
 
 	border-radius: 3px;
 }
@@ -292,12 +297,15 @@ a.btn { color: #fff; cursor: pointer; }
 	border-top: 1px solid #ccc;
 }
 .combos .combo-group li:hover {
-	background-color: #B39429;
+/*	background-color: #B39429; */
+	background-color: #ccc;
 	cursor: pointer;
 }
 .combos .combo-group li:hover b {
 	color: #fff;
 }
+.combos .combo-group li.active { background-color: #999; }
+.combos .combo-group li.active b { color: #fff; }
 .combos .combo-group li:first-child { border-top: none; }
 .combos .combo-group b {
 	font: normal 1em StateFaceRegular;
@@ -306,50 +314,54 @@ a.btn { color: #fff; cursor: pointer; }
     width: 1.2em;
     height:1em;
     margin-right: 6px;
-	color: #77631b;
+/*	color: #77631b; */
+	color: #999;
 }
 
 
-/* TOSSUP ROW */
-#toggles {
-	border-top: 3px solid #000;
-	padding-top: 9px;
+/* TOSSUPS */
+.combos .tossups { 
+	list-style: none; 
+	margin: 6px 0 18px 0; 
+	padding: 0;
 }
-#toggles h3 {
-	font: normal 22px Georgia, serif;
-	margin-top: 6px;
-}
-#tossups { list-style: none; margin: 0; padding: 0; }
-#tossups li { 
+.tossups li { 
 	padding: 6px 0;
 	float: left; 
-	width: 15%;
-	margin: 0 .25% .25% 0; 
+	width: 31%;
+	margin: 0 2% 2% 0; 
 	text-align: center;
 	background-color: #f7e39b;
 	color: #77631b;
 	font-weight: bold;
-    font-size: 12px;
+    font-size: 18px;
 	border-radius: 3px;
+	overflow: hidden;
 }
-#tossups li:hover {
+.tossups li:hover, .tossups li.taken:hover {
 	cursor: pointer;
 	background-color: #E5BF57;
 	color: #fff;
 }
-#tossups li.active {
+.tossups li.active {
 	background-color: #B39429;
 	color: #fff;
 }
-#tossups .abbr { display: none; }
-#tossups .full { display: inline; }
-#tossups b {
+.tossups li.taken {
+	background-color: #FBF1CD;
+	color: #F7E39B;
+}
+.tossups .abbr { display: none; }
+.tossups .full { display: inline; }
+.tossups b {
 	font: normal 1em StateFaceRegular;
     text-align: center;
     display: inline-block;
     width: 1.2em;
     height:1em;
-    margin-right: 6px;
+}
+.tossups span {
+	font: normal 12px Georgia, serif;
 }
 
 
@@ -371,8 +383,6 @@ a.btn { color: #fff; cursor: pointer; }
 /*    .intro { width: auto; } */
 /*	#bigbox { display: none; } TODO: REMOVE THIS PROGRAMMATICALLY, NOT W/ CSS */
     .intro { width: 404px; }
-	#tossups .full { display: none; }
-	#tossups .abbr { display: inline; }
 }
 @media (max-width: 979px) and (min-width: 768px) {
 	#main-header, #header-title { width: 724px; }
@@ -381,14 +391,13 @@ a.btn { color: #fff; cursor: pointer; }
 	.combos { width: 6em; }
 	.bucket-header { height: 4em; }
     .bucket-header h3 i { display: none; }
-    .bucket-header .vote-tallies { width: 60%; }
+    .bucket-header .vote-tallies { width: 9em; }
+	.tossups li b, .tossups li span { display: block; text-align: center; margin: 0 auto; }
 }
 @media (max-width: 767px) {
 	.intro { width: auto; }
 	#bigbox { float: right; padding-top: 1em; background-color: #f1f1f1; margin: 1.8em 0 0 0; }
 	#electris { margin-left: 0; padding-top: 0; }
-	#toggles { border-top: none; padding-top: 24px; }
-	#tossups li { width: 24.5%; }
 	#states { font-size: 10px; }
 	.bucket-header h3 { font-size: 19px; }
     .bucket-header h3 i { display: none; }
@@ -401,6 +410,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.bucket-header { height: 8em; }
 	.bucket-header h3 { padding-top: 6px; }
     .bucket-header h3 i { display: inline; }
+	.winner .bucket-header h3 { background-position: right 8px; }
 	.bucket-header .vote-tallies { 
 		position: static; top: auto; right: auto; width: auto;
 		margin-left: 50px; margin-top: 9px;
@@ -411,8 +421,6 @@ a.btn { color: #fff; cursor: pointer; }
 }
 @media (max-width: 480px) {
 	#states .bucket .state i { text-indent: -9999px; width: 9%; margin-right: 1%; }
-	#tossups li b { display: none; }
-	#tossups li { font-size: 12px; width: 19%; margin: 0 1% 1% 0; }
     .bucket-header h3 i { display: none; }
 	.bucket-header .vote-tallies .bignum, .bucket-header .vote-tallies span { float: none; }
 	.bucket-header .vote-tallies .bignum {
