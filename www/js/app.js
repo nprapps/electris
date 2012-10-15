@@ -36,6 +36,7 @@ $(function() {
     var tossup_picks = {};
     var combo_picks = [];
     var combo_pick_winner = null;
+    var combo_el = null;
 
     /* DATA PROCESSING & RENDERING */
     
@@ -386,19 +387,24 @@ $(function() {
         /*
          * Clear the current combo picks.
          */
-        _.each(combo_picks, function(state_id) {
-            var winner = combo_pick_winner;
-            var selector = winner === "r" ? "red" : "blue";
-            var opposite_selector = winner === "r" ? "blue" : "red";
-            var chiclet = $(".tossups." + selector + " li[data-state-id=" + state_id + "]");
-            var other_chiclet = $(".tossups." + opposite_selector + " li[data-state-id=" + state_id + "]");
+        if (combo_picks.length > 0) {
+            _.each(combo_picks, function(state_id) {
+                var winner = combo_pick_winner;
+                var selector = winner === "r" ? "red" : "blue";
+                var opposite_selector = winner === "r" ? "blue" : "red";
+                var chiclet = $(".tossups." + selector + " li[data-state-id=" + state_id + "]");
+                var other_chiclet = $(".tossups." + opposite_selector + " li[data-state-id=" + state_id + "]");
 
-            chiclet.removeClass("active-combo");
-            other_chiclet.removeClass("taken"); 
-        });
+                chiclet.removeClass("active-combo");
+                other_chiclet.removeClass("taken"); 
+            });
+
+            combo_el.removeClass("active");
+        }
  
         combo_picks = [];
         combo_pick_winner = null;
+        combo_el = null;
     }
 
     $(".tossups li").live("click", function(click) {
@@ -450,6 +456,7 @@ $(function() {
 
         combo_picks = combo.combo;
         combo_pick_winner = combo.winner;
+        combo_el = $(this);
 
         _.each(combo.combo, function(state_id) {
             var winner = combo_pick_winner;
@@ -470,6 +477,8 @@ $(function() {
                 delete tossup_picks[state_id];
             }
         });
+
+        combo_el.addClass("active");
 
         add_states();
         compute_stats();
