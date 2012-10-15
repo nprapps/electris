@@ -173,8 +173,10 @@ a.btn { color: #fff; cursor: pointer; }
 	height: 3em;
 	position: relative;
 }
-.candidate.blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 9px; }
-.candidate.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat left 9px; }
+.blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 9px; }
+/*.candidate.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat left 9px; } */
+.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat right 9px; }
+
 .bucket-header h5, .bucket-header h3, .bucket-header h4, .bucket-header p {
 	margin-left: 50px;
 }
@@ -184,6 +186,7 @@ a.btn { color: #fff; cursor: pointer; }
 	color: #333;
 	margin-bottom: -3px;
 }
+.red .bucket-header h3 { text-align: right; margin-right: 50px; }
 .bucket-header h3 i, .bucket-header h3 b {
 	font-weight: normal;
 	font-style: normal;
@@ -202,9 +205,11 @@ a.btn { color: #fff; cursor: pointer; }
 	margin-bottom: 10px;
 }
 .bucket-header .vote-tallies {
-	width: 10em;
-	position: absolute; top: 10px; right: 0;
+	width: 10em; position: absolute; top: 10px;
 }
+.blue .bucket-header .vote-tallies { right: 0; }
+.red .bucket-header .vote-tallies { left; 0; }
+
 .bucket-header .vote-tallies .electoral {
 	width: 50%; float: left;
 }
@@ -426,12 +431,24 @@ a.btn { color: #fff; cursor: pointer; }
 		margin-right: 0; margin-left: 0;
 	}
 	.bucket { width: 100%; margin-bottom: 10px; }
-	.bucket-header { height: 8em; }
-	.bucket-header h3 { padding-top: 6px; }
+	.bucket-header,
+	.blue .bucket-header,
+	.red .bucket-header { 
+		height: 8em;
+		background-position: left 9px;
+	}
+	.bucket-header h3, 
+	.blue .bucket-header h3, 
+	.red .bucket-header h3 { 
+		padding-top: 6px;
+		text-align: left;
+	}
     .bucket-header h3 i { display: inline; }
 	.winner .bucket-header h3 { background-position: right 8px; }
-	.bucket-header .vote-tallies { 
-		position: static; top: auto; right: auto; width: auto;
+	.bucket-header .vote-tallies,
+	.blue .bucket-header .vote-tallies,
+	.red .bucket-header .vote-tallies { 
+		position: static; top: auto; right: auto; left: auto; width: auto;
 		margin-left: 50px; margin-top: 9px;
 	}
 	.bucket-header .vote-tallies .bignum { font-size: 18px; }
