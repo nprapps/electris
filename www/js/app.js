@@ -465,34 +465,37 @@ $(function() {
          * Switch on all states in a combo.
          */
         var combo = $(this).data();
+        var deselect = combo.combo == combo_picks ? true : false;
 
         clear_combo();
 
-        combo_picks = combo.combo;
-        combo_pick_winner = combo.winner;
-        combo_el = $(this);
+        if (!deselect) {
+            combo_picks = combo.combo;
+            combo_pick_winner = combo.winner;
+            combo_el = $(this);
 
-        _.each(combo.combo, function(state_id) {
-            var winner = combo_pick_winner;
-            var selector = winner === "r" ? "red" : "blue";
-            var opposite_selector = winner === "r" ? "blue" : "red";
-            var chiclet = $(".tossups." + selector + " li[data-state-id=" + state_id + "]");
-            var other_chiclet = $(".tossups." + opposite_selector + " li[data-state-id=" + state_id + "]");
- 
-            chiclet.removeClass("active");
-            chiclet.removeClass("taken");
-            chiclet.addClass("active-combo");
+            _.each(combo.combo, function(state_id) {
+                var winner = combo_pick_winner;
+                var selector = winner === "r" ? "red" : "blue";
+                var opposite_selector = winner === "r" ? "blue" : "red";
+                var chiclet = $(".tossups." + selector + " li[data-state-id=" + state_id + "]");
+                var other_chiclet = $(".tossups." + opposite_selector + " li[data-state-id=" + state_id + "]");
+     
+                chiclet.removeClass("active");
+                chiclet.removeClass("taken");
+                chiclet.addClass("active-combo");
 
-            other_chiclet.removeClass("active");
-            other_chiclet.removeClass("active-combo");
-            other_chiclet.addClass("taken"); 
+                other_chiclet.removeClass("active");
+                other_chiclet.removeClass("active-combo");
+                other_chiclet.addClass("taken"); 
 
-            if (state_id in tossup_picks) {
-                delete tossup_picks[state_id];
-            }
-        });
+                if (state_id in tossup_picks) {
+                    delete tossup_picks[state_id];
+                }
+            });
 
-        combo_el.addClass("active");
+            combo_el.addClass("active");
+        }
 
         add_states();
         compute_stats();
