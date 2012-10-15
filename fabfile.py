@@ -124,7 +124,7 @@ def deploy():
 def load_bb_testing_rig():
     with settings(warn_only=True):
         local('rm electris.db')
-        local('cp test_data/bigboard/electris.db .')
+        local('cp test_data/bigboard/electris_test.db electris.db')
 
         db = util.get_database()
         candidates = util.get_house_senate(db)
