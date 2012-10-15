@@ -15,6 +15,7 @@ $(function() {
         moment("2012-11-06T23:00:00 -0500"),
         moment("2012-11-07T01:00:00 -0500")
     ];
+    var SHOW_TOOLTIPS = $(window).width() > 767;
 
     /* Elements */
     var red_candidate_el = $(".candidate.red");
@@ -65,7 +66,9 @@ $(function() {
             }
         }
         
-        el.find("i").tooltip({});
+        if (SHOW_TOOLTIPS) {
+            el.find("i").tooltip({});
+        }
     }
 
     function add_states() {
@@ -339,11 +342,14 @@ $(function() {
                     var el = $("<li>" + faces.join("") + "</li>"); 
                     
                     combo_list_el.append(el);
-                    el.tooltip({
-                        animation: false,
-                        placement: root_el.hasClass("red") ? "left" : "right",
-                        title: names
-                    });
+
+                    if (SHOW_TOOLTIPS) {
+                        el.tooltip({
+                            animation: false,
+                            placement: root_el.hasClass("red") ? "left" : "right",
+                            title: names
+                        });
+                    }
 
                     el.data(combo);
                 });
@@ -531,7 +537,9 @@ $(function() {
             }
         });
 
-        $(".tossups li").tooltip();
+        if (SHOW_TOOLTIPS) {
+            $(".tossups li").tooltip();
+        }
 
         add_states();
         compute_stats(true);
