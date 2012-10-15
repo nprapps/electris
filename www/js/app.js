@@ -350,7 +350,7 @@ $(function() {
                     combo_list_el.append(el);
                     el.tooltip({
                         animation: false,
-                        placement: "right",
+                        placement: root_el.hasClass("red") ? "left" : "right",
                         title: names
                     });
 
