@@ -110,6 +110,9 @@ body {
     overflow:hidden;
     white-space:nowrap;
 }
+ul.called li {
+    background-color:papayawhip;
+}
 .candidate.dem {
     color:#1B7BA4;
 }
