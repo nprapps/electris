@@ -210,12 +210,17 @@ def generate_json(rows, house):
                                 candidate_dict = dict(zip(
                                             settings.HOUSE_SENATE_HEADER,
                                             candidate))
+
+                                candidate_dict['winner'] = False
+
                                 if candidate_dict['accept_ap_call'] == "1":
                                     if candidate_dict['ap_winner'] == "1":
                                         district_dict['called'] = True
+                                        candidate_dict['winner'] = True
                                 else:
                                     if candidate_dict['npr_winner'] == "1":
                                         district_dict['called'] = True
+                                        candidate_dict['winner'] = True
 
                                 ### THIS NEEDS TO DO SOMETHING WITH TIME EVENTUALLY ###
                                 district_dict['called_time'] = None
