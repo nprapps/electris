@@ -205,7 +205,10 @@ def generate_json(rows, house):
             for candidate in rows:
                 if candidate[0] == district.split(' ')[0]:
                     if int(candidate[3]) == int(district.split(' ')[1]):
-                        if candidate[15] == u'Dem' or candidate[15] == u'GOP':
+                        if (
+                            candidate[15] == u'Dem'
+                            or candidate[15] == u'GOP'
+                            or candidate[9] == 'Angus'):
                             if candidate[2] == house[1]:
                                 candidate_dict = dict(zip(
                                             settings.HOUSE_SENATE_HEADER,
@@ -225,7 +228,8 @@ def generate_json(rows, house):
                                 ### THIS NEEDS TO DO SOMETHING WITH TIME EVENTUALLY ###
                                 district_dict['called_time'] = None
 
-                                district_dict['candidates'].append(candidate_dict)
+                                if candidate[10] != 'Dill':
+                                    district_dict['candidates'].append(candidate_dict)
             district_dict['candidates'] = sorted(
                 district_dict['candidates'],
                 key=lambda candidate: candidate['party'])
