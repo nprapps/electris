@@ -429,19 +429,19 @@ $(function() {
          */
         var combo = $(this).data();
 
-        /*combo_picks = combo.combo;
+        combo_picks = combo.combo;
         combo_pick_winner = combo.winner;
 
         add_states();
-        compute_stats();*/
+        compute_stats();
 
-        _.each(combo.combo, function(state_id) {
+        /*_.each(combo.combo, function(state_id) {
             if (combo.winner === "r") {
                 red_candidate_el.find('.tossups li[data-state-id="' + state_id  + '"]').click();
             } else {
                 blue_candidate_el.find('.tossups li[data-state-id="' + state_id  + '"]').click();
             }
-        });
+        });*/
     });
 
     /* DATASET LOADING/POLLING */
