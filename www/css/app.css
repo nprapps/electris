@@ -387,6 +387,9 @@ a.btn { color: #fff; cursor: pointer; }
 	.combos .histogram .title { padding: 5px 12px 0 12px; font-size: 12px; }
 	.combos .histogram .bar { height: 22px; margin-top: -19px; }
 	.bucket-header h3 { font-size: 28px; padding-top: 13px; }
+	.bucket-header .vote-tallies { top: 10px; }
+	.bucket-header .vote-tallies .bignum { font-size: 24px; }
+	.bucket-header .vote-tallies span { padding-top: 16px; }
 }
 @media (max-width: 979px) {
     .intro { width: 404px; }
