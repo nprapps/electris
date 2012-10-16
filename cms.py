@@ -2,6 +2,7 @@
 
 from datetime import datetime
 import json
+import re
 
 from flask import Flask
 from flask import render_template, request
@@ -20,22 +21,89 @@ def house(house):
     Read/update list of house candidates.
     """
 
+    # Make the database connection.
+    db = get_database()
+
+    # Establish which house of congress this is.
+    # Translate it to AP's uppercase single-letter version.
     house_slug = 'H'
     if house == 'senate':
         house_slug = 'S'
 
-    query = get_house_senate(get_database())
-    candidates = []
-    for candidate in query:
-        if candidate['office_code'] == house_slug.upper():
-            if candidate['party'] in ['Dem', 'GOP']:
-                candidates.append(candidate)
-    context = {
-        'settings': settings,
-        'candidates': sorted(candidates, key=itemgetter(21, 0, 3)),
-        'house': house
-    }
-    return render_template('house_senate.html', **context)
+    # If we're just looking ... return stuff to a template.
+    if request.method == 'GET':
+
+        # Run a query against the db we have.
+        # This query is from utils -- it gets all of the house/senate members.
+        query = get_house_senate(db)
+
+        # Set up a list. Need to get only certain people.
+        candidates = []
+
+        # Loop through the query.
+        for candidate in query:
+
+            # Get only the matching house of congress.
+            if candidate['office_code'] == house_slug.upper():
+
+                # Get only Democrats or Republicans.
+                # There's an exception for Angus Young.
+                if candidate['party'] in ['Dem', 'GOP']:
+
+                    # Append the lucky winners to the candidate list.
+                    candidates.append(candidate)
+
+        # Return stuff to the page.
+        context = {
+
+            # Return settings for some reason.
+            'settings': settings,
+
+            # Return the candidate list, sorted by race_slug, then state, then district.
+            'candidates': sorted(candidates, key=itemgetter(21, 0, 3)),
+
+            # Return the house of congress.
+            'house': house
+        }
+
+        # Render to the template and unpack the context dictionary for Jinja2.
+        return render_template('house_senate.html', **context)
+
+    # Alternately, what if someone is POSTing?
+    if request.method == 'POST':
+
+        # First, try and get the race.
+        race_slug = request.form.get('race_slug', None)
+
+        # Build the matching DB representation, e.g., ak 1 instead of ak1.
+        race_slug = re.split('(\d+)', race_slug)
+        race_slug = '%s %s' % (race_slug[0], race_slug[1])
+
+        # Next, try to get the AP call.
+        accept_ap_call = request.form.get('accept_ap_call', None)
+        if accept_ap_call:
+
+            # Figure out which direction we're going and send an appropriate message.
+            if accept_ap_call.lower() == 'true':
+                accept_ap_call = "1"
+                message = "Accepting AP calls on %s" % race_slug.upper()
+            else:
+                accept_ap_call = "0"
+                message = "Will <strong>not</strong> accept AP calls on %s" % race_slug.upper()
+
+        # If all the pieces are here, do something.
+        if race_slug != None and accept_ap_call != None:
+
+            # Run some SQL to change the status of this set of candidate's accept_ap_call column.
+            db.execute('UPDATE house_senate_candidates SET accept_ap_call="%s" WHERE race_slug="%s"' % (
+                accept_ap_call,
+                race_slug))
+
+            # Commit!
+            db.commit()
+
+        # Return the message instead of a template.
+        return "%s|%s" % (race_slug.upper(), message)
 
 
 @app.route('/', methods=['GET', 'POST'])

@@ -14,6 +14,8 @@
         .clear {width:100%; clear:both;}
         tr.info td { }
         td.ap-call { text-align:center!important; }
+        .modal { display:none; }
+        .btn {text-transform:none;}
     </style>
 {% endblock %}
 
@@ -55,6 +57,7 @@
                     {% if race.accept_ap_call %}{% if race.ap_call != '' %}called{% endif %}{% endif %}
                 ">
                     {{ race.first_name }} {{ race.last_name}}
+                    {# include 'includes/race_winner_buttons.html' #}
                 </span>
                 {% endif %}
             {% endfor %}</td>
@@ -67,34 +70,94 @@
                     {% if race.accept_ap_call %}{% if race.ap_call != '' %}called{% endif %}{% endif %}
                 ">
                     {{ race.first_name }} {{ race.last_name}}
+                    {# include 'includes/race_winner_buttons.html' #}
                 </span>
                 {% endif %}
             {% endfor %}</td>
             <td class="ap-call">{% for race in list %}{% if loop.first %}
             <a
-                class="btn btn-success btn-mini"
+                id="{{ race.race_slug.replace(' ', '').lower() }}"
+                class="btn {% if race.accept_ap_call == '1' %}btn-success{% else %}btn-danger{% endif %} btn-mini"
                 data-race-slug="{{ grouper.replace(' ', '') }}">
-                    Accepting AP calls</a>
+                    {% if race.accept_ap_call == "1" %}Accepting AP calls{% else %}Not accepting AP calls{% endif %}</a>
             {% endif %}{% endfor %}</td>
         </tr>
         {% endfor %}
     </table>
 </div>
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel"></h3>
+  </div>
+  <div class="modal-body">
+    <p></p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
 {% endblock %}
 
 {% block extra_foot %}
     <script type="text/javascript">
-        $('.ap-call').click(function(){
+
+        // A sort of generic function to read options and handle changing button state and POSTing to an URL.
+        function buttonPOST(options){
+
+            // Monkey with buttons.
+            $(options.target).removeClass(options.button.pre_state);
+            $(options.target).addClass(options.button.post_state);
+            $(options.target).html(options.message);
+
+            // POST some data.
+            $.post('.', options.post_data, function(data){
+
+                // Show a message.
+                $('#myModalLabel').html(data.split('|')[0])
+                $('#myModal .modal-body p').html(data.split('|')[1])
+                $('#myModal').modal();
+            });
+        }
+
+        // If someone clicks on the ap-call buttons ...
+        $('.ap-call .btn').click(function(){
+
+            // Identify the race.
+            var race_slug = $(this).attr('id')
+
+            // If we're already accepting ap calls, do the opposite.
             if ( $(this).hasClass('btn-success') ) {
-                $(this).removeClass('btn-success');
-                $(this).addClass('btn-danger');
-                $(this).html('Not accepting AP calls');
-                $(this).parent('td').parent('tr').addClass('error');
+
+                // Here's the options. Ain't javascript fun?
+                buttonPOST({
+                    post_data: {
+                        race_slug: race_slug,
+                        accept_ap_call: false
+                    },
+                    button: {
+                        pre_state: 'btn-success',
+                        post_state: 'btn-danger'
+                    },
+                    message: 'Not accepting AP calls',
+                    target: this
+                });
+
+            // Otherwise, do the opposite.
             } else {
-                $(this).removeClass('btn-danger');
-                $(this).addClass('btn-success');
-                $(this).html('Accepting AP calls');
-                $(this).parent('td').parent('tr').removeClass('error');
+                buttonPOST({
+                    post_data: {
+                        race_slug: race_slug,
+                        accept_ap_call: true
+                    },
+                    button: {
+                        pre_state: 'btn-danger',
+                        post_state: 'btn-success'
+                    },
+                    message: 'Accepting AP calls',
+                    target: this
+                });
             }
         });
     </script>

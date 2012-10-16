@@ -92,8 +92,13 @@ HOUSE_FILENAME = 'www/house.json'
 SENATE_S3_KEY = '%s/senate.json' % PROJECT_NAME
 SENATE_FILENAME = 'www/senate.json'
 
-STATIC_URL = 'http://%s/%s' % (S3_BUCKET, PROJECT_NAME)
-
+# This is a change for Jeremy.
+# For some reason, the stage-apps version of the bootstrap stuff went missing Monday night.
+# So I'm using my local versions if there's an environment variable called LOCAL_DEV which is true.
+if os.environ.get('LOCAL_DEV', '') == 'true':
+    STATIC_URL = 'http://127.0.0.1:8000'
+else:
+    STATIC_URL = 'http://%s/%s' % (S3_BUCKET, PROJECT_NAME)
 
 # Constants for data imports.
 STATE_FIELDS = [
