@@ -18,6 +18,7 @@ $(function() {
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
 
     /* Elements */
+    var electris_el = $("#electris");
     var red_candidate_el = $(".candidate.red");
     var blue_candidate_el = $(".candidate.blue");
     var red_bucket_el = red_candidate_el.find(".bucket");
@@ -429,7 +430,7 @@ $(function() {
         combo_el = null;
     }
 
-    $(".tossups li").live("click", function(click) {
+    electris_el.on("click", ".tossups li", function(click) {
         /*
          * Select or unselect a tossup state.
          */
@@ -468,9 +469,11 @@ $(function() {
 
         add_state(states_by_id[state_id]);
         compute_stats(true);
+
+        return false;
     });
 
-    $(".combo-group li").live("click", function(event) {
+    electris_el.on("click", ".combo-group li", function(event) {
         /*
          * Switch on all states in a combo.
          */
@@ -512,6 +515,8 @@ $(function() {
         }
 
         compute_stats();
+
+        return false;
     });
 
     /* DATASET LOADING/POLLING */
@@ -553,7 +558,7 @@ $(function() {
     });
     
     /* SHOW/HIDE COMBO GROUPS */
-    $('.histogram h4.showable').live("click", function() {
+    electris_el.on("click", ".histogram h4.showable", function() {
     	var show_text = '(show)';
     	var hide_text = '(hide)';
 

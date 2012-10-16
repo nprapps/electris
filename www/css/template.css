@@ -68,9 +68,11 @@ a:hover, a:active { color: #36c; }
     .nav .arts, .nav .music { display: none; }
 }
 @media (max-width: 480px) {
+	body { padding-right: 10px; padding-left: 10px; }
+	.navbar-fixed-top { margin-left: -10px; margin-right: -10px; }
 	.navbar .nav li { display: none; }
 	.navbar .nav li.npr { display: block; }
 	.navbar-fixed-top { margin-bottom: 1px; }
-	#header { padding-top: 20px; }
+	#header { padding-top: 10px; }
 	#footer { border-top: 1px solid #CCC; margin-top: 24px; }
 }

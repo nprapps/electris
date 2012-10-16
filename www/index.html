@@ -111,9 +111,11 @@
 
 			<div class="span8 intro">
                 <h1>Election 2012: Paths To Victory</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>We've pre-filled the candidates' columns with the states that NPR analysis shows that they are most likely to win. Now, game out how important each "toss-up" state is to their Electoral College fortunes.</p>
-
+                <p>You hear it over and over during election season: The presidential contest is not one national race, it's 50 statewide races. Our Electoral College system means the outcome rests not on the popular vote, but how many electoral votes a candidate can claim. That puts outsized importance on the handful of states where historical trends and polls show either candidate could win.</p>
+                <p>In recent elections, the Democratic candidate has started with a higher number of electoral votes expected to land in his column, putting pressure on the Republican candidate to win more of the swing states. That's true again so far this cycle. According to NPR's analysis, President Obama starts with <span id="p-blue-call"><span class="value">00</span></span> expected votes from states we rate "strong Democrat" or "lean Democrat." Republican Mitt Romney starts with <span id="p-red-call"><span class="value">00</span></span> votes based on NPR's "strong Republican" or "lean Republican" predictions.</p>
+                <p>We've prefilled those predictions into the columns below. Now, game out how important each "tossup" state is to the candidates' Electoral College fortunes. <em>(Last updated on Oct. 23, 2012.)</em></p>
+                
+                <!--
     	        <div class="related">
 	                <h3>Related NPR Stories</h3>
     	            <ul>
@@ -121,6 +123,7 @@
         	        	<li><a href="http://www.npr.org/blogs/itsallpolitics/2012/09/27/161830028/iowa-becomes-first-swing-state-to-begin-early-in-person-voting">Iowa Becomes First Swing State To Begin Early In-Person Voting</a></li>
                 	</ul>
                 </div>
+                -->
             </div>
 
 
@@ -230,11 +233,6 @@
 		<div id="footer" class="row">
 			<div class="span12">
 				<div class="credits" id="attrCredit">
-					<strong>Notes:</strong><br />
-					<span id="p-blue-call">Barack Obama starts with <span class="value">00</span> votes based on current NPR "strong Democrat" or "lean Democrat" predictions.</span> 
-					<span id="p-red-call">Mitt Romney starts with <span class="value">00</span> votes based on current NPR "strong Republican" or "lean Republican" predictions.</span>
-					NPR predictions last updated on October 23, 2012.<br />
-					<br />
 					Source: NPR analysis<br />
 					Credits: Brian Boyer, Christopher Groskopf and Alyson Hurt / NPR
 				</div>
@@ -277,7 +275,7 @@
     </script>
 
     <script id="tossup-template" type="text/template">
-        <li data-state-id="<%= state.id %>" data-winner="<%= winner %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><b><%= state.stateface %></b> <span><%= state.electoral_votes %></span></li>
+        <li data-state-id="<%= state.id %>" data-winner="<%= winner %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><div><b><%= state.stateface %></b> <span><%= state.electoral_votes %></span></div></li>
     </script>
 
     <script id="combo-group-template" type="text/template">
@@ -312,7 +310,6 @@
     <script type="text/javascript" src="js/lib/miso.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/combinations.js"></script>
-    <script type="text/javascript" src="js/tooltip.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
