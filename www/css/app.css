@@ -51,9 +51,8 @@ h3 {
 	color: #333;
 }
 h5 {
-	font: normal 11px Arial, Helvetica, sans-serif;
-	color: #999;
-	text-transform: uppercase;
+	font: bold 14px Arial, Helvetica, sans-serif;
+	color: #333;
 	margin-bottom: 3px;
 }
 a.btn { color: #fff; cursor: pointer; }
@@ -381,6 +380,7 @@ a.btn { color: #fff; cursor: pointer; }
 	#electris { padding: 0 10px; }
 	#bigbox { width: 300px; }
 	#states { font-size: 25px; }
+	.state i { padding-top: .05em; height: .85em; }
 	.bucket { width: 15em; }
 	.combos { width: 6.5em; /*height: 18em;*/ }
 	.combos .histogram h4 { height: 22px; }
@@ -414,7 +414,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.candidate.blue .bucket, .candidate.red .bucket { float: none; }
 	.candidate.blue .combos, .candidate.red .combos { 
 		width: auto; clear: none; float: none;
-		margin-right: 0; margin-left: 0;
+		margin: 15px 0 0 0;
 	}
 	.bucket { width: 100%; margin-bottom: 10px; }
 	.bucket-header,
