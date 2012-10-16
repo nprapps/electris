@@ -35,7 +35,7 @@
 
 /* THINGS WE DON'T WANT TEXT HIGHLIGHTING ON */
 .tossups li,
-.state,
+.state, .state i
 .combos .histogram li { 
 	-moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none;
 }
@@ -110,15 +110,14 @@ a.btn { color: #fff; cursor: pointer; }
     color: #77631b;
     border-radius: 3px;
 }
-
-.state:hover { cursor: pointer; }
+.state:hover, .state:hover i, .state:hover i span { cursor: default; }
 .state i span { font-size:.7em; }
 
 /* Before election night: shade by forecast */
 .state.prediction-sd i { background-color: #3d7fa6; color: #A8D5EF; }
 .state.prediction-ld i { background-color: #7dbfe6; color: #A8D5EF; }
-.state.prediction-t i { background-color: #f7e39b; color: #77631b; }
-.state.prediction-t.combo-pick i { background-color: #999; color: #ccc; }
+.state.prediction-t i { background-color: #E5BF57; color: #FBF1CD; }
+.state.prediction-t.combo-pick i { background-color: #bcbcbc; color: #f1f1f1; }
 .state.prediction-lr i { background-color: #e27560; color: #ECA395; }
 .state.prediction-sr i { background-color: #a23520; color: #ECA395; }
 
@@ -130,7 +129,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 #line {
     height:.1em;
-    background-color: #666;
+    background-color: #ccc;
     position:absolute;
     z-index:100;
     width: 100%;
@@ -154,7 +153,7 @@ a.btn { color: #fff; cursor: pointer; }
     transform: scaleY(-1);
     -ms-filter: flipv; /*IE*/
     filter: flipv; /*IE*/
-    background-color: #f1f1f1;
+/*    background-color: #f1f1f1; */
 }
 
 .bucket .state i {
@@ -250,6 +249,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* COMBOS */
+.combos { margin-top: -8px; }
 .combos p { font-size: 12px; height: 32px; overflow: hidden; }
 .combos ul { list-style: none; margin: 0; padding: 0; }
 .combos li { margin: 0 0 3px 0; padding: 0; text-indent: 0; }
@@ -271,7 +271,8 @@ a.btn { color: #fff; cursor: pointer; }
 	display: block;
 	z-index: 100;
 }
-.combos .histogram .title strong { font-weight: bold; }
+.combos .histogram .title strong { font-weight: normal; }
+.combos .histogram .showable .title strong { font-weight: bold; }
 .combos .histogram .title i { font-size: 11px; font-style: normal; }
 .combos .histogram .bar {
 	display: block;
@@ -292,13 +293,13 @@ a.btn { color: #fff; cursor: pointer; }
 	border-top: 1px solid #ccc;
 }
 .combos .combo-group li:hover {
-	background-color: #ccc;
+	background-color: #dadada;
 	cursor: pointer;
 }
 .combos .combo-group li:hover b {
 	color: #fff;
 }
-.combos .combo-group li.active { background-color: #999; }
+.combos .combo-group li.active { background-color: #bcbcbc; }
 .combos .combo-group li.active b { color: #fff; }
 .combos .combo-group li:first-child { border-top: none; }
 .combos .combo-group b {
@@ -325,7 +326,7 @@ a.btn { color: #fff; cursor: pointer; }
 	margin: 0 2% 2% 0; 
 	text-align: center;
 	background-color: #f7e39b;
-	color: #77631b;
+	color: #B39429;
 	font-weight: bold;
     font-size: 18px;
 	border-radius: 3px;
@@ -336,9 +337,15 @@ a.btn { color: #fff; cursor: pointer; }
 	background-color: #E5BF57;
 	color: #fff;
 }
+.tossups li:hover span, .tossups li.taken:hover span, .tossups li.active-combo:hover span {
+	color: #fff;
+}
 .tossups li.active { background-color: #B39429; color: #fff; }
-.tossups li.active-combo { background-color: #999; color: #fff; }
+.tossups li.active span { color: #fff; }
+.tossups li.active-combo { background-color: #bcbcbc; color: #fff; }
+.tossups li.active-combo span { color: #fff; }
 .tossups li.taken { background-color: #FBF1CD; color: #F7E39B; }
+.tossups li.taken span { color: #F7E39B; }
 .tossups .abbr { display: none; }
 .tossups .full { display: inline; }
 .tossups b {
@@ -348,7 +355,7 @@ a.btn { color: #fff; cursor: pointer; }
     width: 1.2em;
     height:1em;
 }
-.tossups span { font: normal 11px Arial, Helvetica, sans-serif; text-align: left; }
+.tossups span { font: normal 11px Arial, Helvetica, sans-serif; text-align: left; color: #77631b; }
 
 
 /* TOOLTIP */
