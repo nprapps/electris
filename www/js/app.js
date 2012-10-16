@@ -195,7 +195,7 @@ $(function() {
         var window_width = $(window).width();
         var bucket_columns = 10;
 
-        if (window_width >= 1200) {
+        if ($("#maincontent").width() >= 1170) {
             bucket_columns = 15;
         }
 
@@ -203,7 +203,7 @@ $(function() {
         var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns)
         var height = Math.max(default_height, vote_height);
         $("#buckets .bucket.red,#buckets .bucket.blue").css("height", height + "em");
-        
+
         // position 270 line
         var header_height = 3;
         if (window_width <= 979 && window_width >= 768) {
