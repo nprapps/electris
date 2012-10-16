@@ -327,11 +327,13 @@ $(function() {
         var max_combo_group = _.max([max_red_combo_group.length, max_blue_combo_group.length]);
 
         function show_combos(keys, groups, root_el) {
+            // Hide open combo groups
             root_el.find(".combo-group").hide();
 
             _.each(_.range(1, 10), function(key) {
                 var group = groups[key] || [];
 
+                // Tweak combo group display
                 var combo_group_el = root_el.find("#groups-of-" + key);
                 combo_group_el.find("h4").toggleClass("showable", group.length > 0);
 
@@ -344,27 +346,29 @@ $(function() {
                 combo_group_el.find(".title").html(title_html);
                 combo_group_el.find(".bar").css("width", group.length / max_combo_group * 100);
 
+                // Reset the list
                 var combo_list_el = combo_group_el.find("ul");
                 combo_list_el.empty();
                 
                 _.each(group, function(combo) {
-                    var faces = _.map(combo.combo, function(id) { return "<b>" + states_by_id[id].stateface + "</b>" });
-
+                    var faces = ""; 
                     var names = "";
 
                     _.each(combo.combo, function(state_id, i, l) {
                         var state = states_by_id[state_id];
 
+                        faces += "<b>" + state.stateface + "</b>";
                         names += state.name + " (" + state.electoral_votes + ")";
 
                         if (i == l.length - 2) {
                             names += " and ";
-                        } else if (i < l.length - 2) {
+                        } else if (i == l.length - 1) {
+                        } else {
                             names += ", ";
                         }
                     });
 
-                    var el = $("<li>" + faces.join("") + "</li>"); 
+                    var el = $("<li>" + faces + "</li>"); 
                     
                     combo_list_el.append(el);
 
