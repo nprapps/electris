@@ -541,12 +541,12 @@ $(function() {
 
     // Render combo groups
     _.each(_.range(1, 10), function(key) {
-        var combo_group_el = $(COMBO_GROUP_TEMPLATE({
+        var html = COMBO_GROUP_TEMPLATE({
             key: key
-        }));
+        });
         
-        blue_histogram_el.append(combo_group_el);
-        red_histogram_el.append(combo_group_el.clone());
+        blue_histogram_el.append(html);
+        red_histogram_el.append(html);
     });
 
     /* DATASET LOADING/POLLING */
