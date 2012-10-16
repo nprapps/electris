@@ -218,7 +218,7 @@ $(function() {
     	var bucket2_pos = $('.bucket.red').position();
     	var line_left = 0;
     	var line_width = '100%';
-    	if (window_width > 724) {
+    	if (window_width >= 724) {
 	    	line_left = bucket_pos.left;
 	    	line_width = (bucket2_pos.left + $('.bucket.red').width()) - bucket_pos.left + 'px';
 	    }
@@ -337,7 +337,7 @@ $(function() {
                 var combo_group_el = root_el.find("#groups-of-" + key);
                 combo_group_el.find("h4").toggleClass("showable", group.length > 0);
 
-                var title_html = "<bold>" + key + " state" + (key > 1 ? "s" : "") + "</bold>";
+                var title_html = "<strong>" + key + " state" + (key > 1 ? "s" : "") + "</strong>";
 
                 if (group.length > 0) {
                     title_html += " <i>(show)</i>";

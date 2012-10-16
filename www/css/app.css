@@ -36,7 +36,7 @@
 /* THINGS WE DON'T WANT TEXT HIGHLIGHTING ON */
 .tossups li,
 .state, .state i
-.combos .histogram li { 
+.histogram li { 
 	-moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none;
 }
 
@@ -72,28 +72,15 @@ a.btn { color: #fff; cursor: pointer; }
 }
 .credits { font-size: .85em; color: #666; margin-top: 1.5em; }
 .credits p { margin: 0 0 .1em 0; }
-.intro .related { margin-top: 1.5em; }
-.intro .related h3 { margin-top: 0; }
-.intro .credits h4 { font: bold 1em Arial, Helvetica, sans-serif; color: #333; margin: 0 0 .3em 0; text-transform: uppercase; }
-
-
-/* ALERTS */
-.alert .st { font-weight: bold; }
-.alert .st b {
-	font: normal 1em StateFaceRegular;
-    text-align: center;
-    display: inline-block;
-    width: 1.2em;
-    height:1em;
-}
+.related { margin-top: 1.5em; }
+.related h3 { margin-top: 0; }
+.credits h4 { font: bold 1em Arial, Helvetica, sans-serif; color: #333; margin: 0 0 .3em 0; text-transform: uppercase; }
 
 
 /* ELECTRIS */
 #electris { margin-left: 20px; padding-top: 20px; }
 #buckets { position: relative; }
-
 .state { z-index: 100; }
-
 .state i {
     float:left;
     font-family:StateFaceRegular;
@@ -150,7 +137,6 @@ a.btn { color: #fff; cursor: pointer; }
     transform: scaleY(-1);
     -ms-filter: flipv; /*IE*/
     filter: flipv; /*IE*/
-/*    background-color: #f1f1f1; */
 }
 
 .bucket .state i {
@@ -171,47 +157,31 @@ a.btn { color: #fff; cursor: pointer; }
 .blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 5px; }
 .red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat right 5px; }
 
-.bucket-header h5, .bucket-header h3, .bucket-header h4, .bucket-header p {
-	margin-left: 50px;
-}
 .bucket-header h3 {
 	padding-top: 16px;
 	font: normal normal 22px Georgia, serif;
 	color: #333;
+	margin-left: 50px;
 	margin-bottom: -3px;
 	white-space: nowrap;
 }
 .red .bucket-header h3 { text-align: right; margin-right: 50px; }
 .bucket-header h3 i, .bucket-header h3 b {
-	font-weight: normal;
-	font-style: normal;
+	font-weight: normal; font-style: normal;
 }
 .bucket-header p {
 	font-size: 12px;
 	margin-bottom: 0;
 	color: #666;
+	margin-left: 50px;
 }
-/*.bucket-header #p-blue-call { color: #3D7FA6; }
-.bucket-header #p-red-call { color: #A23520; }
-.bucket-header #p-blue-predict, .bucket-header #p-red-predict { color: #B39429; } */
 
-.bucket-header p#p-blue-call, 
-.bucket-header p#p-red-call { 
-	margin-bottom: 10px;
-}
-.bucket-header .vote-tallies {
-	width: 10em; position: absolute; top: 13px;
-}
-.blue .bucket-header .vote-tallies { right: 0; }
-.red .bucket-header .vote-tallies { left; 0; }
-
-.bucket-header .vote-tallies .electoral {
-	width: 50%; float: left;
-}
-.bucket-header .vote-tallies .needed {
-	width: 50%; float: right;
-}
-.bucket-header .vote-tallies .bignum {
+.vote-tallies { width: 10em; position: absolute; top: 13px; }
+.blue .vote-tallies { right: 0; }
+.red .vote-tallies { left; 0; }
+.vote-tallies .electoral { width: 50%; float: left; }
+.vote-tallies .needed { width: 50%; float: right; }
+.vote-tallies .bignum {
 	display: block;
 	width: 50%;
 	height: .75em;
@@ -224,12 +194,12 @@ a.btn { color: #fff; cursor: pointer; }
 	font: normal 20px Georgia, serif;
 	border-radius: 3px;
 }
-.bucket-header .vote-tallies .needed .bignum { background-color: #f7e39b; color: #77631b; }
-.blue .bucket-header .vote-tallies .electoral .bignum { background-color: #3d7fa6; color: #fff; }
-.red .bucket-header .vote-tallies .electoral .bignum { background-color: #a23520; color: #fff; }
-.blue .bucket-header .vote-tallies .electoral { float: right; }
-.blue .bucket-header .vote-tallies .bignum { float: right; margin-right: 0; margin-left: 3%; }
-.bucket-header .vote-tallies span {
+.vote-tallies .needed .bignum { background-color: #f7e39b; color: #77631b; }
+.red .vote-tallies .electoral .bignum { background-color: #a23520; color: #fff; }
+.blue .vote-tallies .electoral .bignum { background-color: #3d7fa6; color: #fff; }
+.blue .vote-tallies .electoral { float: right; }
+.blue .vote-tallies .bignum { float: right; margin-right: 0; margin-left: 3%; }
+.vote-tallies span {
 	display: block;
 	width: 47%;
 	float: left;
@@ -239,10 +209,11 @@ a.btn { color: #fff; cursor: pointer; }
 	padding-top: 12px;
 	text-transform: uppercase;
 }
-.blue .bucket-header .vote-tallies span { text-align: right; }
+.blue .vote-tallies span { text-align: right; }
+.red .vote-tallies span { text-align: left; }
 .winner .bucket-header { border-color: #B39429; }
 .winner .bucket-header h3 { padding-right: 25px; display: inline-block; background: url('../img/ico-checkmark.png') no-repeat right 20px; }
-.red.winner .bucket-header h3 { padding-left: 25px; padding-right: 0; float: right; background: url('../img/ico-checkmark.png') no-repeat left 20px; }
+.winner.red .bucket-header h3 { padding-left: 25px; padding-right: 0; float: right; background: url('../img/ico-checkmark.png') no-repeat left 20px; }
 
 
 /* COMBOS */
@@ -250,7 +221,8 @@ a.btn { color: #fff; cursor: pointer; }
 .combos p { font-size: 12px; height: 32px; overflow: hidden; }
 .combos ul { list-style: none; margin: 0; padding: 0; }
 .combos li { margin: 0 0 3px 0; padding: 0; text-indent: 0; }
-.combos .histogram h4 {
+
+.histogram h4 {
 	font: normal 13px Arial, Helvetica, sans-serif;
 	margin: 0;
 	color: #888;
@@ -262,16 +234,16 @@ a.btn { color: #fff; cursor: pointer; }
 	border-radius: 4px;
 	white-space: nowrap;
 }
-.combos .histogram h4.showable { color: #000; }
-.combos .histogram .title {
+.histogram h4.showable { color: #000; }
+.histogram .title {
 	padding: 9px 12px 0 12px;
 	display: block;
 	z-index: 100;
 }
-.combos .histogram .title strong { font-weight: normal; }
-.combos .histogram .showable .title strong { font-weight: bold; }
-.combos .histogram .title i { font-size: 11px; font-style: normal; }
-.combos .histogram .bar {
+.histogram .title strong { font-weight: normal; }
+.histogram .showable .title strong { font-weight: bold; }
+.histogram .title i { font-size: 11px; font-style: normal; }
+.histogram .bar {
 	display: block;
 	width: 100%;
 	height: 33px;
@@ -280,42 +252,31 @@ a.btn { color: #fff; cursor: pointer; }
 	background-color: #ccc;
 	border-radius: 4px;
 }
-.combos .histogram h4.showable:hover { cursor: pointer; text-decoration: underline; }
-.combos .combo-group { display: none; }
-.combos .combo-group li { 
+.histogram h4.showable:hover { cursor: pointer; text-decoration: underline; }
+
+.combo-group { display: none; }
+.combo-group li { 
 	font-size: 14px; 
-	color: #666; 
+	color: #999; 
 	margin: 0;
 	padding: 8px 6px 6px 6px;
 	border-top: 1px solid #ccc;
 }
-.combos .combo-group li:hover {
-	background-color: #dadada;
-	cursor: pointer;
-}
-.combos .combo-group li:hover b {
-	color: #fff;
-}
-.combos .combo-group li.active { background-color: #bcbcbc; }
-.combos .combo-group li.active b { color: #fff; }
-.combos .combo-group li:first-child { border-top: none; }
-.combos .combo-group b {
+.combo-group li:hover { background-color: #dadada; cursor: pointer; color: #fff; }
+.combo-group li.active { background-color: #bcbcbc; color: #fff; }
+.combo-group li:first-child { border-top: none; }
+.combo-group b {
 	font: normal 1em StateFaceRegular;
     text-align: center;
     display: inline-block;
     width: 1.2em;
     height:1em;
     margin-right: 6px;
-	color: #999;
 }
 
 
 /* TOSSUPS */
-.combos .tossups { 
-	list-style: none; 
-	margin: 6px 0 18px 0; 
-	padding: 0;
-}
+.combos .tossups { margin: 6px 0 18px 0; }
 .tossups li { 
 	padding: 6px 0;
 	float: left; 
@@ -369,7 +330,6 @@ a.btn { color: #fff; cursor: pointer; }
 .tooltip.bottom .tooltip-arrow { border-bottom-color: #999; }
 
 
-
 /* FOOTER EXTRAS */
 #footer .credits { font: italic 11px Arial; color: #999; margin-top: 10px; }
 #footer ul.bottomlist.elexLinks { margin-top: 15px; border-bottom: 1px dotted #CCC; border-top: 1px dotted #CCC; }
@@ -384,13 +344,13 @@ a.btn { color: #fff; cursor: pointer; }
 	.state i { padding-top: .05em; height: .85em; }
 	.bucket { width: 15em; }
 	.combos { width: 6.5em; }
-	.combos .histogram h4 { height: 22px; }
-	.combos .histogram .title { padding: 5px 12px 0 12px; font-size: 12px; }
-	.combos .histogram .bar { height: 24px; margin-top: -20px; }
+	.histogram h4 { height: 22px; }
+	.histogram .title { padding: 5px 12px 0 12px; font-size: 12px; }
+	.histogram .bar { height: 24px; margin-top: -20px; }
 	.bucket-header h3 { font-size: 28px; padding-top: 13px; }
-	.bucket-header .vote-tallies { top: 10px; }
-	.bucket-header .vote-tallies .bignum { font-size: 24px; }
-	.bucket-header .vote-tallies span { padding-top: 16px; }
+	.vote-tallies { top: 10px; }
+	.vote-tallies .bignum { font-size: 24px; }
+	.vote-tallies span { padding-top: 16px; }
 }
 @media (max-width: 979px) {
     .intro { width: 404px; }
@@ -402,7 +362,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.combos { width: 6.5em; }
 	.bucket-header { height: 4em; }
     .bucket-header h3 i { display: none; }
-    .bucket-header .vote-tallies { width: 9em; }
+    .vote-tallies { width: 9em; }
 	.tossups li b, .tossups li span { display: block; text-align: center; margin: 0 auto; }
 	h5 { font-size: 12px; }
 }
@@ -413,8 +373,8 @@ a.btn { color: #fff; cursor: pointer; }
 	#states { font-size: 10px; }
 	.bucket-header h3 { font-size: 19px; }
     .bucket-header h3 i { display: none; }
-	.candidate.blue .bucket, .candidate.red .bucket { float: none; }
-	.candidate.blue .combos, .candidate.red .combos { 
+	.blue .bucket, .red .bucket { float: none; }
+	.blue .combos, .red .combos { 
 		width: auto; clear: none; float: none;
 		margin: 15px 0 0 0;
 	}
@@ -430,33 +390,29 @@ a.btn { color: #fff; cursor: pointer; }
     .bucket-header h3 i { display: inline; }
 	.blue.winner .bucket-header h3 { background-position: right 8px; }
 	.red.winner .bucket-header h3 { padding-right: 25px; padding-left: 0; float: none; background: url('../img/ico-checkmark.png') no-repeat right 8px; }
-	.bucket-header .vote-tallies,
-	.blue .bucket-header .vote-tallies,
-	.red .bucket-header .vote-tallies { 
+	.vote-tallies, .blue .vote-tallies, .red .vote-tallies { 
 		position: static; top: auto; right: auto; left: auto; width: auto;
 		margin-left: 50px; margin-top: 9px;
 	}
-	.bucket-header .vote-tallies .bignum { font-size: 18px; }
-	.blue .bucket-header .vote-tallies .electoral { float: left; }
-	.blue .bucket-header .vote-tallies .bignum { float: left; margin-right: 3%; margin-left: 0; }
-	.blue .bucket-header .vote-tallies span { text-align: left; }
+	.vote-tallies .bignum { font-size: 18px; }
+	.blue .vote-tallies .electoral { float: left; }
+	.blue .vote-tallies .bignum { float: left; margin-right: 3%; margin-left: 0; }
+	.blue .vote-tallies span { text-align: left; }
 	#states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }
 	.combos { width: auto; height: auto; border: none; }
 }
 @media (max-width: 480px) {
-	#bigbox { margin-left: -20px; margin-right: -20px; padding-left: 10px; padding-right: 10px; width: auto; margin-bottom: 1.8em; float: none; }
+	#bigbox { margin-left: -10px; margin-right: -10px; padding-left: 10px; padding-right: 10px; width: auto; margin-bottom: 1.8em; float: none; }
 	#states .bucket .state i { text-indent: -9999px; width: 9%; margin-right: 1%; }
     .bucket-header h3 i { display: none; }
-	.bucket-header .vote-tallies .bignum, 
-	.red .bucket-header .vote-tallies .bignum, 
-	.blue .bucket-header .vote-tallies .bignum, 
-	.bucket-header .vote-tallies span,
-	.red .bucket-header .vote-tallies span,
-	.blue .bucket-header .vote-tallies span { float: none; text-align: center; }
-	.bucket-header .vote-tallies .bignum {
+	.vote-tallies .bignum, .red .vote-tallies .bignum, .blue .vote-tallies .bignum, 
+	.vote-tallies span, .red .vote-tallies span, .blue .vote-tallies span { 
+		float: none; text-align: center;
+	}
+	.vote-tallies .bignum {
 		width: auto; font-size: 14px; font-weight: bold; float: none;
 	}
-	.bucket-header .vote-tallies span { 
+	.vote-tallies span { 
 		width: auto; float: none; margin-top: 0; text-align: center; padding-top: 3px;
 	}
 }
