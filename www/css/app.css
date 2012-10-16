@@ -38,6 +38,7 @@
 .state, .state i
 .histogram li { 
 	-moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 /* GENERAL STYLES */
@@ -77,6 +78,19 @@ a.btn { color: #fff; cursor: pointer; }
 .credits h4 { font: bold 1em Arial, Helvetica, sans-serif; color: #333; margin: 0 0 .3em 0; text-transform: uppercase; }
 
 
+/* KEY */
+#key { padding: 6px 0 6px 0; }
+#key ul { list-style: none; margin: 0; padding: 0; }
+#key li { display: inline-block; color: #666; margin-right: 9px; white-space: nowrap; font-size: 12px; }
+#key .key-title { display: block; font: bold 14px Arial, Helvetica, sans-serif; color: #333; margin-bottom: 6px; }
+#key b { background-color: #555; color: #fff; text-align: center; padding: 1px 6px; display: inline-block; }
+#key .prediction-sd b { background-color: #3d7fa6; }
+#key .prediction-ld b { background-color: #7dbfe6; }
+#key .prediction-t b { background-color: #E5BF57; }
+#key .prediction-lr b { background-color: #e27560; }
+#key .prediction-sr b { background-color: #a23520; }
+
+
 /* ELECTRIS */
 #electris { margin-left: 20px; padding-top: 20px; }
 #buckets { position: relative; }
@@ -113,7 +127,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 #line {
     height:.1em;
-    background-color: #ccc;
+    background-color: #B39429;
     position:absolute;
     z-index:100;
     width: 100%;
@@ -150,8 +164,8 @@ a.btn { color: #fff; cursor: pointer; }
 	height: 3em;
 	position: relative;
 }
-.blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 5px; }
-.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat right 5px; }
+.blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 2px; }
+.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat right 2px; }
 
 .bucket-header h3 {
 	padding-top: 16px;
@@ -208,8 +222,15 @@ a.btn { color: #fff; cursor: pointer; }
 .blue .vote-tallies span { text-align: right; }
 .red .vote-tallies span { text-align: left; }
 .winner .bucket-header { border-color: #B39429; }
-.winner .bucket-header h3 { padding-right: 25px; display: inline-block; background: url('../img/ico-checkmark.png') no-repeat right 20px; }
-.winner.red .bucket-header h3 { padding-left: 25px; padding-right: 0; float: right; background: url('../img/ico-checkmark.png') no-repeat left 20px; }
+.winner .bucket-header h3 { 
+	color: #B39429; 
+	padding-right: 25px; display: inline-block; 
+	background: url('../img/ico-checkmark.png') no-repeat right 20px;
+}
+.winner.red .bucket-header h3 { 
+	padding-left: 25px; padding-right: 0; float: right; 
+	background: url('../img/ico-checkmark.png') no-repeat left 20px;
+}
 
 
 /* COMBOS */
@@ -258,7 +279,7 @@ a.btn { color: #fff; cursor: pointer; }
 	padding: 8px 6px 6px 6px;
 	border-top: 1px solid #ccc;
 }
-.combo-group li:hover { background-color: #dadada; cursor: pointer; color: #fff; }
+.combo-group li:hover, .combo-group li:active { background-color: #dadada; cursor: pointer; color: #fff; }
 .combo-group li.active { background-color: #bcbcbc; color: #fff; }
 .combo-group li:first-child { border-top: none; }
 .combo-group b {
@@ -286,7 +307,8 @@ a.btn { color: #fff; cursor: pointer; }
 	border-radius: 3px;
 	overflow: hidden;
 }
-.tossups li:hover, .tossups li.taken:hover, .tossups li.active-combo:hover {
+.tossups li:hover, .tossups li.taken:hover, .tossups li.active-combo:hover,
+.tossups li:active, .tossups li.taken:active, .tossups li.active-combo:active {
 	cursor: pointer;
 	background-color: #E5BF57;
 	color: #fff;
