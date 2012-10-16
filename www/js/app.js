@@ -202,7 +202,7 @@ $(function() {
         var default_height = ELECTORAL_VOTES_TO_WIN / bucket_columns;
         var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns)
         var height = Math.max(default_height, vote_height);
-        $("#buckets .bucket.red,#buckets .bucket.blue").css("height", height + "em");
+        $(".bucket").css("height", height + "em");
 
         // position 270 line
         var header_height = 3;
@@ -212,7 +212,12 @@ $(function() {
         	header_height = 8;
         }
     	var line_height = .1;
-    	var line_top = header_height + height - default_height + line_height;
+
+        if ($.browser.msie) {
+            var line_top = header_height + default_height; 
+        } else {
+    	    var line_top = header_height + height - default_height + line_height;
+        }
 
     	var bucket_pos = $('.bucket.blue').position();
     	var bucket2_pos = $('.bucket.red').position();

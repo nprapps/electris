@@ -135,8 +135,6 @@ a.btn { color: #fff; cursor: pointer; }
     -webkit-transform: scaleY(-1);
     -o-transform: scaleY(-1);
     transform: scaleY(-1);
-    -ms-filter: flipv; /*IE*/
-    filter: flipv; /*IE*/
 }
 
 .bucket .state i {
@@ -144,8 +142,6 @@ a.btn { color: #fff; cursor: pointer; }
     -webkit-transform: scaleY(-1);
     -o-transform: scaleY(-1);
     transform: scaleY(-1);
-    -ms-filter: flipv; /*IE*/
-    filter: flipv; /*IE*/
 }
 
 .bucket-header {
