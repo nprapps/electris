@@ -192,10 +192,10 @@ $(function() {
         /*
          * Resize state buckets.
          */
-        var window_width = $(window).width();
+        var window_width = $('#maincontent').width();
         var bucket_columns = 10;
 
-        if ($("#maincontent").width() >= 1170) {
+        if (window_width >= 1170) {
             bucket_columns = 15;
         }
 
@@ -206,9 +206,9 @@ $(function() {
 
         // position 270 line
         var header_height = 3;
-        if (window_width <= 979 && window_width >= 768) {
+        if (window_width == 724) {
         	header_height = 4;
-    	} else if (window_width < 768) {
+    	} else if (window_width < 724) {
         	header_height = 8;
         }
     	var line_height = .1;
@@ -218,7 +218,7 @@ $(function() {
     	var bucket2_pos = $('.bucket.red').position();
     	var line_left = 0;
     	var line_width = '100%';
-    	if (window_width >= 768) {
+    	if (window_width > 724) {
 	    	line_left = bucket_pos.left;
 	    	line_width = (bucket2_pos.left + $('.bucket.red').width()) - bucket_pos.left + 'px';
 	    }
