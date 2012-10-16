@@ -575,7 +575,7 @@ $(function() {
             
             // Pre-render state HTML
             states_html[state.id] = STATE_TEMPLATE({
-                state: state,
+                state: state
             });
 
             if (state.prediction === "t") {
