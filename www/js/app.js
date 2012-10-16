@@ -336,14 +336,8 @@ $(function() {
                 // Tweak combo group display
                 var combo_group_el = root_el.find("#groups-of-" + key);
                 combo_group_el.find("h4").toggleClass("showable", group.length > 0);
+                combo_group_el.find(".title i").toggle(group.length > 0);
 
-                var title_html = "<strong>" + key + " state" + (key > 1 ? "s" : "") + "</strong>";
-
-                if (group.length > 0) {
-                    title_html += " <i>(show)</i>";
-                }
-
-                combo_group_el.find(".title").html(title_html);
                 combo_group_el.find(".bar").css("width", group.length / max_combo_group * 100);
 
                 // Reset the list
@@ -385,17 +379,7 @@ $(function() {
             });
         }
                     
-        var red_names = [];
-        var blue_names = [];
         var simplest_combo_length = 0;
-
-        _.each(tossup_picks, function(winner, state_id) {
-            if (winner === "r") {
-                red_names.push(states_by_id[state_id].name)
-            } else {
-                blue_names.push(states_by_id[state_id].name);
-            }
-        });
 
         if (red_combos.length > 0) {
             simplest_combo_length = red_combos[0].combo.length;
@@ -405,7 +389,6 @@ $(function() {
 
         $(".candidate.red .combos .explainer").html(MUST_WIN_TEMPLATE({
             candidate: "Romney",
-            names: red_names,
             simplest_combo_length: simplest_combo_length,
             votes: red_votes
         }));
@@ -420,7 +403,6 @@ $(function() {
 
         $(".candidate.blue .combos .explainer").html(MUST_WIN_TEMPLATE({
             candidate: "Obama",
-            names: blue_names,
             simplest_combo_length: simplest_combo_length,
             votes: blue_votes
         }));

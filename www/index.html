@@ -267,7 +267,7 @@
     <script id="combo-group-template" type="text/template">
         <li id="groups-of-<%= key %>">
             <h4>
-                <span class="title"><strong>? states</strong> <i>(show)</i></span>
+                <span class="title"><strong><%= key %> states</strong> <i>(show)</i></span>
                 <span class="bar" style="width: 0px;"></span>
             </h4>
             <ul class="combo-group">
@@ -277,13 +277,11 @@
 
     <script id="must-win-template" type="text/template">
         <% if (votes >= 270) { %>
-            <p class="must-win">If <%= candidate %> wins <% _.each(names, function(name, i, l) { %><%= name %><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> <strong>he would win the Electoral College</strong></p>
+            <p class="must-win"><%= candidate %> wins <strong>the Electoral College</strong></p>
         <% } else if (simplest_combo_length == 0) { %>
             <p class="must-win"><%= candidate %> has no paths to victory.</p>
-        <% } else if  (names.length == 0) { %>
-            <p class="must-win"><%= candidate %> must win <strong>at least <%= simplest_combo_length %></strong> toss-up state<%= simplest_combo_length > 1 ? "s" : "" %>. See possible scenarios:</p>
         <% } else { %>
-            <p class="must-win">If <%= candidate %> wins <% _.each(names, function(name, i, l) { %><%= name %><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> he still must win <strong>at least <%= simplest_combo_length %> more</strong> toss-up state<% if (simplest_combo_length > 1) { %>s<% } %>. See possible scenarios:</p>
+            <p class="must-win"><%= candidate %> must win <strong>at least <%= simplest_combo_length %> more</strong> toss-up state<% if (simplest_combo_length > 1) { %>s<% } %>.</p>
         <% } %>
     </script>
         
