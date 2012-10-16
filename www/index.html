@@ -279,10 +279,10 @@
     </script>
 
     <script id="combo-group-template" type="text/template">
-        <li>
-            <h4 class="<% if (combo_count > 0) { %>showable<% } %>">
-                <span class="title"><strong><%= key %> state<%= key > 1 ? "s" : "" %></strong><% if (combo_count > 0) {%> <i>(show)</i><% } %></span>
-                <span class="bar" style="width: <%= combo_count / max_combo_count * 100 %>%;"></span>
+        <li id="groups-of-<%= key %>">
+            <h4>
+                <span class="title"><strong>? states</strong> <i>(show)</i></span>
+                <span class="bar" style="width: 0px;"></span>
             </h4>
             <ul class="combo-group">
             </ul>

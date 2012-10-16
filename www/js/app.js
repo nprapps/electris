@@ -218,7 +218,7 @@ $(function() {
     	var bucket2_pos = $('.bucket.red').position();
     	var line_left = 0;
     	var line_width = '100%';
-    	if (window_width >= 724) {
+    	if (window_width > 724) {
 	    	line_left = bucket_pos.left;
 	    	line_width = (bucket2_pos.left + $('.bucket.red').width()) - bucket_pos.left + 'px';
 	    }
@@ -327,18 +327,23 @@ $(function() {
         var max_combo_group = _.max([max_red_combo_group.length, max_blue_combo_group.length]);
 
         function show_combos(keys, groups, root_el) {
-            root_el.empty();
-
             _.each(_.range(1, 10), function(key) {
                 var group = groups[key] || [];
 
-                var combo_group_el = $(COMBO_GROUP_TEMPLATE({
-                    key: key,
-                    combo_count: group.length,
-                    max_combo_count: max_combo_group
-                }));
+                var combo_group_el = root_el.find("#groups-of-" + key);
+                combo_group_el.find("h4").toggleClass("showable", group.length > 0);
 
-                var combo_list_el = combo_group_el.find("ul")
+                var title_html = "<bold>" + key + " state" + (key > 1 ? "s" : "") + "</bold>";
+
+                if (group.length > 0) {
+                    title_html += " <i>(show)</i>";
+                }
+
+                combo_group_el.find(".title").html(title_html);
+                combo_group_el.find(".bar").css("width", group.length / max_combo_group * 100);
+
+                var combo_list_el = combo_group_el.find("ul");
+                combo_list_el.empty();
                 
                 _.each(group, function(combo) {
                     var faces = _.map(combo.combo, function(id) { return "<b>" + states_by_id[id].stateface + "</b>" });
@@ -371,8 +376,6 @@ $(function() {
 
                     el.data(combo);
                 });
-                
-                root_el.append(combo_group_el);
             });
         }
                     
@@ -532,6 +535,16 @@ $(function() {
         compute_stats();
 
         return false;
+    });
+
+    // Render combo groups
+    _.each(_.range(1, 10), function(key) {
+        var combo_group_el = $(COMBO_GROUP_TEMPLATE({
+            key: key
+        }));
+        
+        blue_histogram_el.append(combo_group_el);
+        red_histogram_el.append(combo_group_el.clone());
     });
 
     /* DATASET LOADING/POLLING */
