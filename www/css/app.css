@@ -35,7 +35,7 @@
 
 /* THINGS WE DON'T WANT TEXT HIGHLIGHTING ON */
 .tossups li,
-.state,
+.state, .state i
 .combos .histogram li { 
 	-moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none;
 }
@@ -110,8 +110,7 @@ a.btn { color: #fff; cursor: pointer; }
     color: #77631b;
     border-radius: 3px;
 }
-
-.state:hover { cursor: pointer; }
+.state:hover, .state:hover i, .state:hover i span { cursor: default; }
 .state i span { font-size:.7em; }
 
 /* Before election night: shade by forecast */
