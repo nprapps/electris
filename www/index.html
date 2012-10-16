@@ -295,9 +295,9 @@
         <% } else if (simplest_combo_length == 0) { %>
             <p class="must-win"><%= candidate %> has no paths to victory.</p>
         <% } else if  (names.length == 0) { %>
-            <p class="must-win"><%= candidate %> must win <strong>at least <%= simplest_combo_length %></strong> toss-up state<%= simplest_combo_length > 1 ? "s" : "" %>.</p>
+            <p class="must-win"><%= candidate %> must win <strong>at least <%= simplest_combo_length %></strong> toss-up state<%= simplest_combo_length > 1 ? "s" : "" %>. See possible scenarios:</p>
         <% } else { %>
-            <p class="must-win">If <%= candidate %> wins <% _.each(names, function(name, i, l) { %><%= name %><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> he still must win <strong>at least <%= simplest_combo_length %> more</strong> toss-up state<% if (simplest_combo_length > 1) { %>s<% } %>.</p>
+            <p class="must-win">If <%= candidate %> wins <% _.each(names, function(name, i, l) { %><%= name %><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> he still must win <strong>at least <%= simplest_combo_length %> more</strong> toss-up state<% if (simplest_combo_length > 1) { %>s<% } %>. See possible scenarios:</p>
         <% } %>
     </script>
         
@@ -310,6 +310,7 @@
     <script type="text/javascript" src="js/lib/miso.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/combinations.js"></script>
+    <script type="text/javascript" src="js/combo_primer.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>

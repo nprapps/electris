@@ -227,6 +227,19 @@ $(function() {
 
     $(window).resize(resize_buckets);
 
+    function is_subset(combos_so_far, new_combo) {
+        /*
+         * Determine if one combo is a subset of any of a list of other combos.
+         */
+        return _.find(combos_so_far, function(old_combo) {
+            if (new_combo.slice(0, old_combo.combo.length).toString() === old_combo.combo.toString()) {
+                return true;
+            }
+
+            return false;
+        });
+    }
+
     function generate_winning_combinations(undecided_states) {
         /*
          * Generate combinations of states that can win the election.
@@ -236,14 +249,7 @@ $(function() {
 
         red_histogram_el.toggle(red_needs > 0);
         blue_histogram_el.toggle(blue_needs > 0);
-
-        var state_ids = _.pluck(undecided_states, "id");
-
-        // NB: A sorted input list generates a sorted output list
-        // from our combinations algorithm.
-        state_ids.sort(); 
-        var combos = combinations(state_ids, 1);
-
+        
         var red_combos = [];
         var blue_combos = [];
         var red_keys = [];
@@ -251,53 +257,64 @@ $(function() {
         var red_groups = {};
         var blue_groups = {};
 
-        function is_subset(combos_so_far, new_combo) {
-            return _.find(combos_so_far, function(old_combo) {
-                if (new_combo.slice(0, old_combo.combo.length).toString() === old_combo.combo.toString()) {
-                    return true;
+        var state_ids = _.pluck(undecided_states, "id");
+
+        var primer = _.find(COMBO_PRIMER, function(data) {
+            return $(data.undecided_states).not(state_ids).length == 0 && $(state_ids).not(data.undecided_states).length == 0;
+        });
+
+        if (primer) {
+            red_combos = primer.red_combos;
+            blue_combos = primer.blue_combos;
+            red_groups = primer.red_groups;
+            blue_groups = primer.blue_groups;
+            red_keys = _.keys(red_groups).sort();
+            blue_keys = _.keys(blue_groups).sort();
+        } else {
+            // NB: A sorted input list generates a sorted output list
+            // from our combinations algorithm.
+            state_ids.sort(); 
+            var combos = combinations(state_ids, 1);
+
+
+            _.each(combos, function(combo) {
+                var combo_votes = _.reduce(combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
+
+                if (combo_votes > red_needs) {
+                    if (!is_subset(red_combos, combo)) {
+                        var combo_obj = { combo: combo, votes: combo_votes };
+
+                        red_combos.push(combo_obj);
+
+                        var key = combo.length;
+
+                        if (!(key in red_groups)) {
+                            red_keys.push(key);
+                            red_groups[key] = [];
+                        }
+
+                        red_groups[key].push(combo_obj);
+                    }
                 }
 
-                return false;
+                if (combo_votes > blue_needs) {
+                    if (!is_subset(blue_combos, combo)) {
+                        var combo_obj = { combo: combo, votes: combo_votes };
+
+                        blue_combos.push(combo_obj);
+
+                        var key = combo.length;
+
+                        if (!(key in blue_groups)) {
+                            blue_keys.push(key);
+                            blue_groups[key] = [];
+                        }
+
+                        blue_groups[key].push(combo_obj);
+                    }
+                }
             });
         }
-
-        _.each(combos, function(combo) {
-            var combo_votes = _.reduce(combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
-
-            if (combo_votes > red_needs) {
-                if (!is_subset(red_combos, combo)) {
-                    var combo_obj = { combo: combo, votes: combo_votes, winner: "r" };
-
-                    red_combos.push(combo_obj);
-
-                    var key = combo.length;
-
-                    if (!(key in red_groups)) {
-                        red_keys.push(key);
-                        red_groups[key] = [];
-                    }
-
-                    red_groups[key].push(combo_obj);
-                }
-            }
-
-            if (combo_votes > blue_needs) {
-                if (!is_subset(blue_combos, combo)) {
-                    var combo_obj = { combo: combo, votes: combo_votes, winner: "d" };
-
-                    blue_combos.push(combo_obj);
-
-                    var key = combo.length;
-
-                    if (!(key in blue_groups)) {
-                        blue_keys.push(key);
-                        blue_groups[key] = [];
-                    }
-
-                    blue_groups[key].push(combo_obj);
-                }
-            }
-        });
 
         var max_red_combo_group = _.max(_.values(red_groups), function(combo_group) {
             return combo_group.length;
@@ -385,7 +402,6 @@ $(function() {
         }));
 
         show_combos(red_keys, red_groups, red_histogram_el);
-        red_histogram_el.find("h4:eq(0)").trigger("click");
 
         if (blue_combos.length > 0) {
             simplest_combo_length = blue_combos[0].combo.length;
@@ -401,7 +417,6 @@ $(function() {
         }));
 
         show_combos(blue_keys, blue_groups, blue_histogram_el);
-        blue_histogram_el.find("h4:eq(0)").trigger("click");
     }
      
     function clear_combo() {
@@ -484,7 +499,7 @@ $(function() {
 
         if (!deselect) {
             combo_picks = combo.combo;
-            combo_pick_winner = combo.winner;
+            combo_pick_winner = $(this).parents(".histogram").hasClass("red") ? "r" : "d";
             combo_el = $(this);
 
             _.each(combo.combo, function(state_id) {
