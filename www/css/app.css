@@ -283,7 +283,7 @@ a.btn { color: #fff; cursor: pointer; }
 	padding: 8px 6px 6px 6px;
 	border-top: 1px solid #ccc;
 }
-.combo-group li:hover { background-color: #dadada; cursor: pointer; color: #fff; }
+.combo-group li:hover, .combo-group li:active { background-color: #dadada; cursor: pointer; color: #fff; }
 .combo-group li.active { background-color: #bcbcbc; color: #fff; }
 .combo-group li:first-child { border-top: none; }
 .combo-group b {
@@ -311,7 +311,8 @@ a.btn { color: #fff; cursor: pointer; }
 	border-radius: 3px;
 	overflow: hidden;
 }
-.tossups li:hover, .tossups li.taken:hover, .tossups li.active-combo:hover {
+.tossups li:hover, .tossups li.taken:hover, .tossups li.active-combo:hover,
+.tossups li:active, .tossups li.taken:active, .tossups li.active-combo:active {
 	cursor: pointer;
 	background-color: #E5BF57;
 	color: #fff;
