@@ -218,7 +218,7 @@ $(function() {
     	var bucket2_pos = $('.bucket.red').position();
     	var line_left = 0;
     	var line_width = '100%';
-    	if (window_width > 724) {
+    	if (window_width >= 724) {
 	    	line_left = bucket_pos.left;
 	    	line_width = (bucket2_pos.left + $('.bucket.red').width()) - bucket_pos.left + 'px';
 	    }
