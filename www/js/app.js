@@ -327,7 +327,7 @@ $(function() {
         var max_combo_group = _.max([max_red_combo_group.length, max_blue_combo_group.length]);
 
         function show_combos(keys, groups, root_el) {
-            root_el.find(".combo-group").slideUp("fast");
+            root_el.find(".combo-group").hide();
 
             _.each(_.range(1, 10), function(key) {
                 var group = groups[key] || [];
