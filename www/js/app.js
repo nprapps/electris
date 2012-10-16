@@ -385,7 +385,6 @@ $(function() {
         }));
 
         show_combos(red_keys, red_groups, red_histogram_el);
-        red_histogram_el.find("h4:eq(0)").trigger("click");
 
         if (blue_combos.length > 0) {
             simplest_combo_length = blue_combos[0].combo.length;
@@ -401,7 +400,6 @@ $(function() {
         }));
 
         show_combos(blue_keys, blue_groups, blue_histogram_el);
-        blue_histogram_el.find("h4:eq(0)").trigger("click");
     }
      
     function clear_combo() {
