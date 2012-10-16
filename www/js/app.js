@@ -29,6 +29,7 @@ $(function() {
     var blue_histogram_el = blue_candidate_el.find(".histogram");
 
     /* State data */
+    var states_html = {};
     var states_by_id = {};
     var red_votes = 0;
     var blue_votes = 0;
@@ -42,10 +43,7 @@ $(function() {
     /* DATA PROCESSING & RENDERING */
     
     function add_state(state) {
-        var el = $(STATE_TEMPLATE({
-            state: state,
-            combo_pick: ($.inArray(state.id, combo_picks) >= 0)
-        }));
+        var el = $(states_html[state.id]);
 
         if (state.id in tossup_picks) {
             if (tossup_picks[state.id] === "r") {
@@ -54,6 +52,8 @@ $(function() {
                 blue_bucket_el.append(el);
             }
         } else if ($.inArray(state.id, combo_picks) >= 0) {
+            el.addClass("combo-pick");
+
             if (combo_pick_winner == "r") {
                 red_bucket_el.append(el);
             } else {
@@ -568,6 +568,11 @@ $(function() {
         states_dataset.each(function(state) {
             // Build lookup table
             states_by_id[state.id] = state;
+            
+            // Pre-render state HTML
+            states_html[state.id] = STATE_TEMPLATE({
+                state: state,
+            });
 
             if (state.prediction === "t") {
                 var html = TOSSUP_TEMPLATE({
