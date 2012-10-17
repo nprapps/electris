@@ -342,8 +342,8 @@ a.btn { color: #fff; cursor: pointer; }
 .tossups li:hover span, .tossups li.taken:hover span, .tossups li.active-combo:hover span {
 	color: #fff;
 }
-.tossups li.active, .tossups li.active span,
-.tossups li.active-combo, .tossups li.active-combo span {
+.tossups li.active div, .tossups li.active span,
+.tossups li.active-combo div, .tossups li.active-combo span {
 	color: #fff;
 }
 .tossups li.active div {
