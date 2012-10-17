@@ -606,6 +606,7 @@ $(function() {
     		t.text(hide_text);
     	} else {
     		t.text(show_text);
+            clear_combo();
     	}
 
     	$(this).next('.combo-group').slideToggle('fast').parent('li').siblings('li').find('.combo-group').slideUp('fast').siblings('h4').find('i').text(show_text);
