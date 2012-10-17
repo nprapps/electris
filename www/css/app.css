@@ -92,7 +92,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* ELECTRIS */
-#electris { margin-left: 20px; padding-top: 20px; }
+#electris { margin-left: 20px; padding-top: 20px; -webkit-tap-highlight-color: rgba(0,0,0,0); }
 #buckets { position: relative; }
 .state { z-index: 100; }
 .state i {
