@@ -130,9 +130,9 @@
             $.post('.', options.post_data, function(e){
                 var target = $(options.target).parent('td').parent('tr').attr('class');
                 if (options.post_data.accept_ap_call == false) {
-                    $('tr.'+target+' .npr-call').show();
+                    $('tr.'+target+' .npr-call').removeClass('hidden');
                 } else {
-                    $('tr.'+target+' .npr-call').hide();
+                    $('tr.'+target+' .npr-call').addClass('hidden');
                 }
             });
         }
@@ -154,7 +154,7 @@
                     },
                     button: {
                         pre_state: 'btn-success',
-                        post_state: 'btn-danger'
+                        post_state: 'btn-warning'
                     },
                     message: 'Not accepting AP calls',
                     target: this
@@ -168,7 +168,7 @@
                         accept_ap_call: true
                     },
                     button: {
-                        pre_state: 'btn-danger',
+                        pre_state: 'btn-warning',
                         post_state: 'btn-success'
                     },
                     message: 'Accepting AP calls',
