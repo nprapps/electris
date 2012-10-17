@@ -2,20 +2,17 @@
 {% block title %}The U.S. {{ house.title() }} | BigBoard Admin{% endblock %}
 {% block extra_head %}
     <style type='text/css'>
-        .gop {
-            color:red;
-        }
-        .dem {
-            color:blue;
-        }
-        .incumbent {
-            text-transform:uppercase;
-        }
-        .clear {width:100%; clear:both;}
-        tr.info td { }
+        .gop { color:red; }
+        .dem { color:blue; }
+        .incumbent { text-transform:uppercase; }
+        .clear { width:100%; clear:both; }
         td.ap-call { text-align:center!important; }
         .modal { display:none; }
-        .btn {text-transform:none;}
+        .btn { text-transform:none; }
+        .candidate { cursor:pointer; }
+        .npr-call, .npr-uncall { float:right; }
+        .clear-call { margin-left:5px; float:none;}
+        .hidden { display:none; }
     </style>
 {% endblock %}
 
@@ -38,10 +35,10 @@
             <td><strong>State</strong></td>
             <td><strong>Candidates</strong></td>
             <td></td>
-            <td><strong>Accept AP calls</strong></td>
+            <td><strong>Accept AP calls?</strong></td>
         </tr>
         {% endif %}
-        <tr>
+        <tr class="{{ grouper.lower().replace(' ', '') }}">
             <td>{% if house == "senate" %}
                 {{ grouper.replace(' 0', '').upper() }}
             {% else %}
@@ -51,57 +48,75 @@
             <td>{% for race in list %}
                 {% if loop.first %}
 
-                <span class="
+                <span class="candidate
                     {% if race.incumbent == '1' %}incumbent{% endif %}
                     {{ race.party.lower() }}
                     {% if race.accept_ap_call %}{% if race.ap_call != '' %}called{% endif %}{% endif %}
-                ">
+                    ">
+                    {% include 'includes/race_winner_buttons.html' %}
                     {{ race.first_name }} {{ race.last_name}}
-                    {# include 'includes/race_winner_buttons.html' #}
                 </span>
                 {% endif %}
             {% endfor %}</td>
             <td>{% for race in list %}
                 {% if loop.index == 2 %}
 
-                <span class="
+                <span class="candidate
                     {% if race.incumbent == '1' %}incumbent{% endif %}
                     {{ race.party.lower() }}
                     {% if race.accept_ap_call %}{% if race.ap_call != '' %}called{% endif %}{% endif %}
                 ">
+                    {% include 'includes/race_winner_buttons.html' %}
                     {{ race.first_name }} {{ race.last_name}}
-                    {# include 'includes/race_winner_buttons.html' #}
                 </span>
                 {% endif %}
             {% endfor %}</td>
             <td class="ap-call">{% for race in list %}{% if loop.first %}
-            <a
+            <button
                 id="{{ race.race_slug.replace(' ', '').lower() }}"
-                class="btn {% if race.accept_ap_call == '1' %}btn-success{% else %}btn-danger{% endif %} btn-mini"
+                class="btn {% if race.accept_ap_call == '1' %}btn-success{% else %}btn-warning{% endif %} btn-mini"
                 data-race-slug="{{ grouper.replace(' ', '') }}">
-                    {% if race.accept_ap_call == "1" %}Accepting AP calls{% else %}Not accepting AP calls{% endif %}</a>
-            {% endif %}{% endfor %}</td>
+                    {% if race.accept_ap_call == "1" %}
+                    Accepting AP calls
+                    {% else %}
+                    Not accepting AP calls
+                    {% endif %}
+            </button>
+            {% endif %}
+            {% endfor %}
+        </td>
         </tr>
         {% endfor %}
     </table>
-</div>
-
-<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel"></h3>
-  </div>
-  <div class="modal-body">
-    <p></p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-  </div>
 </div>
 {% endblock %}
 
 {% block extra_foot %}
     <script type="text/javascript">
+
+        $('.npr-call').click(function(){
+            // Hide all "npr uncall" buttons.
+            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-uncall').addClass('hidden');
+            // Show all "npr call" buttons.
+            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-call').removeClass('hidden');
+            // Hide all "npr winner" buttons.
+            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-winner').addClass('hidden');
+            // Hide this "npr call" button.
+            $(this).addClass('hidden');
+            // Show this "npr uncall" button.
+            $($(this).parent('span').children('.npr-uncall')).removeClass('hidden');
+            // Show this "npr winner" button.
+            $($(this).parent('span').children('.npr-winner')).removeClass('hidden');
+        });
+
+        $('.npr-uncall').click(function(){
+            // Hide this "npr uncall" button.
+            $(this).addClass('hidden');
+            // Show all "npr call" buttons.
+            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-call').removeClass('hidden');
+            // Show all "npr winner" buttons.
+            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-winner').addClass('hidden');
+        });
 
         // A sort of generic function to read options and handle changing button state and POSTing to an URL.
         function buttonPOST(options){
@@ -112,12 +127,13 @@
             $(options.target).html(options.message);
 
             // POST some data.
-            $.post('.', options.post_data, function(data){
-
-                // Show a message.
-                $('#myModalLabel').html(data.split('|')[0])
-                $('#myModal .modal-body p').html(data.split('|')[1])
-                $('#myModal').modal();
+            $.post('.', options.post_data, function(e){
+                var target = $(options.target).parent('td').parent('tr').attr('class');
+                if (options.post_data.accept_ap_call == false) {
+                    $('tr.'+target+' .npr-call').show();
+                } else {
+                    $('tr.'+target+' .npr-call').hide();
+                }
             });
         }
 
