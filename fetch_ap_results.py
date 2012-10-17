@@ -66,6 +66,11 @@ def parse_state_race(db, row):
 
         candidate_data = dict(zip(settings.CANDIDATE_FIELDS, row[first_field:last_field]))
 
+        if candidate_data['is_winner'] == 'X':
+            candidate_data['is_winner'] = '1'
+        else:
+            candidate_data['is_winner'] = '0'
+
         db.execute(
             'UPDATE house_senate_candidates SET\
                 precincts_reporting=?,\

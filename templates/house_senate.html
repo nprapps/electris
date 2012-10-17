@@ -51,7 +51,9 @@
                     {% if race.incumbent == '1' %}incumbent{% endif %}
                     {{ race.party.lower() }}
                     {% if race.accept_ap_call %}{% if race.ap_call != '' %}called{% endif %}{% endif %}
-                    ">
+                "
+                data-first-name="{{ race.first_name }}"
+                data-last-name="{{ race.last_name }}">
                     {% include 'includes/race_winner_buttons.html' %}
                     {{ race.first_name }} {{ race.last_name}}
                 </span>
@@ -64,7 +66,9 @@
                     {% if race.incumbent == '1' %}incumbent{% endif %}
                     {{ race.party.lower() }}
                     {% if race.accept_ap_call %}{% if race.ap_call != '' %}called{% endif %}{% endif %}
-                ">
+                "
+                data-first-name="{{ race.first_name }}"
+                data-last-name="{{ race.last_name }}">
                     {% include 'includes/race_winner_buttons.html' %}
                     {{ race.first_name }} {{ race.last_name}}
                 </span>
@@ -94,6 +98,8 @@
     <script type="text/javascript">
 
         $('.npr-call').click(function(){
+            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('class');
+
             // Hide all "npr uncall" buttons.
             $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-uncall').addClass('hidden');
             // Show all "npr call" buttons.
@@ -106,33 +112,58 @@
             $($(this).parent('span').children('.npr-uncall')).removeClass('hidden');
             // Show this "npr winner" button.
             $($(this).parent('span').children('.npr-winner')).removeClass('hidden');
+            buttonPOST({
+                post_data: {
+                    race_slug: race_slug,
+                    first_name: $(this).parent('span').attr('data-first-name'),
+                    last_name: $(this).parent('span').attr('data-last-name')
+                },
+                target: this
+            });
         });
 
         $('.npr-uncall').click(function(){
+            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('class');
+
             // Hide this "npr uncall" button.
             $(this).addClass('hidden');
             // Show all "npr call" buttons.
             $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-call').removeClass('hidden');
             // Show all "npr winner" buttons.
             $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-winner').addClass('hidden');
+            buttonPOST({
+                post_data: {
+                    race_slug: race_slug,
+                    clear_all: true
+                },
+                target: this
+            });
         });
 
         // A sort of generic function to read options and handle changing button state and POSTing to an URL.
         function buttonPOST(options){
 
-            // Monkey with buttons.
-            $(options.target).removeClass(options.button.pre_state);
-            $(options.target).addClass(options.button.post_state);
-            $(options.target).html(options.message);
+            function acceptAP(){
+                // Check if we have targets.
+                if ( options.target != undefined ) {
 
-            // POST some data.
-            $.post('.', options.post_data, function(e){
+                    // Monkey with buttons.
+                    $(options.target).removeClass(options.button.pre_state);
+                    $(options.target).addClass(options.button.post_state);
+                    $(options.target).html(options.message);
+                }
                 var target = $(options.target).parent('td').parent('tr').attr('class');
                 if (options.post_data.accept_ap_call == false) {
                     $('tr.'+target+' .npr-call').removeClass('hidden');
                 } else {
                     $('tr.'+target+' .npr-call').addClass('hidden');
                 }
+            }
+
+            // POST some data.
+            $.post('.', options.post_data, function(e){
+                if ( options.post_data.accept_ap_call != undefined ) { acceptAP(); }
+                console.log(e)
             });
         }
 
