@@ -5,11 +5,13 @@ body {
     height:600px;
     width:800px;
     overflow:hidden;
+    background-color:#333;
+    color:#fff;
 }
 #banner {
     background-color:#333;
     color:white;
-    height:39px;
+    height:45px;
     border-bottom:1px solid white;
     overflow:hidden;
 }
@@ -27,8 +29,9 @@ body {
 
 #banner li {
     width:164px;
+    padding-top:5px;
     padding-left:10px;
-    height:40px;
+    height:46px;
     float:left;
     color:white;
     list-style:none;
@@ -42,20 +45,20 @@ body {
     font-weight:normal;
 }
 
-#banner #gop_sec h2 {color:#f14233}
+#banner #gop_sec h2 {color:#fcd0cc}
 #banner #gop_sec h2 span.total{background-color:#be0f00; color:#fff; padding:1px 4px 0 3px;}
-#banner #dem_sec h2 {color:#7ac2e1}
+#banner #dem_sec h2 {color:#a7d7eb}
 #banner #dem_sec h2 span.total{background-color:#229acd; color:#fff; padding:1px 4px 0 3px;}
 #banner #ind_sec h2 {color:#e6ccdb}
 #banner #ind_sec h2 span.total{background-color:#99346d; color:#fff; padding:1px 4px 0 3px;}
 #banner #nc_sec h2 {color:#999}
-#banner #nc_sec h2 span.total{background-color:#999; color:#fff; padding:1px 4px 0 3px;}
-#banner li p {font-size:12px; color:#999; margin-top:-3px;}
+#banner #nc_sec h2 span.total{background-color:#ccc; color:#fff; padding:1px 4px 0 3px;}
+#banner li p {font-size:12px; color:#ccc; margin-top:-3px;}
 #banner li p span.need_num {color:#fff;}
 
 .district {
     font-size:11px;
-    line-height:14px;
+    line-height:20px;
     float:left;
     width:50px;
     display:block;
@@ -84,8 +87,9 @@ body {
     margin-left:50px;
     float:left;
 }
-.timezone ul:nth-child(odd)  {
-    background-color:#ccc;
+
+.timezone ul:nth-child(odd){
+	background-color:#444;
 }
 
 .poll-closing-time {
@@ -98,26 +102,28 @@ body {
     padding:0 4px;
     font-size:11px;
     line-height:14px;
-    color:#fff;
+    color:#333;
+    background-color:#fff;
     font-weight:bold;
     text-align:center;
+    margin-right:2px;
 }
 .candidate {
     width:150px;
-    font-size:10px;
+    font-size:11px;
     height:14px;
     font-weight:bold;
     overflow:hidden;
     white-space:nowrap;
 }
 ul.called li {
-    background-color:papayawhip;
+
 }
 .candidate.dem {
-    color:#1B7BA4;
+    color:#d3ebf5;
 }
 .candidate.gop {
-    color:#BE0F00;
+    color:#fcd0cc;
 }
 .candidate.other {
     color:#148B34;
