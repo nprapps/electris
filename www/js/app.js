@@ -556,6 +556,18 @@ $(function() {
         /*
          * After initial data load, setup stats and such.
          */
+        
+         // Sort by electoral college votes
+        states_dataset.sort(function(rowA, rowB){
+            if (rowA.electoral_votes > rowB.electoral_votes) { 
+              return -1; 
+            }
+            if (rowA.electoral_votes < rowB.electoral_votes) { 
+              return 1;  
+            }
+            return 0;
+        });
+         
         states_dataset.each(function(state) {
             // Build lookup table
             states_by_id[state.id] = state;
