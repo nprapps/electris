@@ -109,7 +109,7 @@ $(function() {
                 }
             }
         });
-
+        
         // Clear old state graphics
         $(".state").remove();
 
@@ -343,7 +343,7 @@ $(function() {
                 combo_group_el.find("h4").toggleClass("showable", group.length > 0);
                 combo_group_el.find(".title i").toggle(group.length > 0);
 
-                combo_group_el.find(".bar").css("width", group.length / max_combo_group * 100);
+                combo_group_el.find(".bar").animate({ width: (group.length / max_combo_group * 100) + '%' }, 300);
 
                 // Reset the list
                 var combo_list_el = combo_group_el.find("ul");
