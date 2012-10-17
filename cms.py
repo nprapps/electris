@@ -89,7 +89,7 @@ def house(house):
                 message = "Accepting AP calls on %s" % race_slug.upper()
             else:
                 accept_ap_call = "0"
-                message = "Will <strong>not</strong> accept AP calls on %s" % race_slug.upper()
+                message = "Not accepting AP calls on %s" % race_slug.upper()
 
         # If all the pieces are here, do something.
         if race_slug != None and accept_ap_call != None:
@@ -99,8 +99,40 @@ def house(house):
                 accept_ap_call,
                 race_slug))
 
-            # Commit!
-            db.commit()
+        # Try and get the winner.
+        first_name = request.form.get('first_name', None)
+        last_name = request.form.get('last_name', None)
+
+        print request.form
+
+        # Try and get a clear_all.
+        clear_all = request.form.get('clear_all', None)
+
+        if race_slug != None and clear_all != None:
+
+            print clear_all
+            # It's got to be true.
+            if clear_all == 'true':
+
+                # Clear the NPR winners for this race.
+                db.execute('UPDATE house_senate_candidates SET npr_winner="0" WHERE race_slug="%s"' % race_slug)
+                message = 'Cleared all NPR winners.'
+
+        # If all of the pieces are here, do something.
+        if race_slug != None and first_name != None and last_name != None:
+
+            # Run some SQL to change the status of these candidates.
+            # First, remove the winner status from everyone here.
+            db.execute('UPDATE house_senate_candidates SET npr_winner="0" WHERE race_slug="%s"' % race_slug)
+
+            # Next, set one person as the winner.
+            db.execute('UPDATE house_senate_candidates SET npr_winner="1" WHERE race_slug="%s" AND first_name="%s" AND last_name="%s"' % (
+                race_slug, first_name, last_name))
+
+            message = 'Set %s %s as the NPR winner.' % (first_name, last_name)
+
+        # Commit!
+        db.commit()
 
         # Return the message instead of a template.
         return "%s|%s" % (race_slug.upper(), message)
