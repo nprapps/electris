@@ -355,26 +355,6 @@ a.btn { color: #fff; cursor: pointer; }
 	   -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 	        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-.tossups li:hover div, .tossups li.taken:hover div, .tossups li.active-combo:hover div,
-.tossups li:active div, .tossups li.taken:active div, .tossups li.active-combo:active div {
-	cursor: pointer;
-	text-shadow: 0 1px 1px rgba(229, 191, 87, 0.75);
-	background: #E5BF57;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5dc81), to(#E5BF57));
-	background-image: -webkit-linear-gradient(top, #f5dc81, #E5BF57);
-	background-image: -o-linear-gradient(top, #f5dc81, #E5BF57);
-	background-image: linear-gradient(to bottom, #f5dc81, #E5BF57);
-	background-image: -moz-linear-gradient(top, #f5dc81, #E5BF57);
-	filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f5dc81', endColorstr='#E5BF57', GradientType=0);
-	border-top-color: #f5dc81;
-}
-.tossups li:hover span, .tossups li.taken:hover span, .tossups li.active-combo:hover span {
-	color: #fff;
-}
-.tossups li.active div, .tossups li.active span,
-.tossups li.active-combo div, .tossups li.active-combo span {
-	color: #fff;
-}
 .tossups li.active div {
 	background: #B39429;
 	text-shadow: 0 1px 1px rgba(179, 148, 41, 0.75);
@@ -389,6 +369,8 @@ a.btn { color: #fff; cursor: pointer; }
 }
 .tossups li.active-combo div { 
 	background: #bcbcbc; 
+	border-color: #bbb;
+	border-bottom-color: #aaa;
 	color: #fff;
 }
 .tossups li.taken div { 
@@ -397,6 +379,27 @@ a.btn { color: #fff; cursor: pointer; }
 	color: #f5dc81;
 }
 .tossups li.taken, .tossups li.taken span { color: #f5dc81; }
+
+.tossups li:hover div, .tossups li.taken:hover div, .tossups li.active-combo:hover div,
+.tossups li:active div, .tossups li.taken:active div, .tossups li.active-combo:active div {
+	cursor: pointer;
+	text-shadow: 0 1px 1px rgba(229, 191, 87, 0.75);
+	background: #E5BF57;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5dc81), to(#E5BF57));
+	background-image: -webkit-linear-gradient(top, #f5dc81, #E5BF57);
+	background-image: -o-linear-gradient(top, #f5dc81, #E5BF57);
+	background-image: linear-gradient(to bottom, #f5dc81, #E5BF57);
+	background-image: -moz-linear-gradient(top, #f5dc81, #E5BF57);
+	filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f5dc81', endColorstr='#E5BF57', GradientType=0);
+	border-color: #faeab2 #f7e39b #e5bf57;
+	border-top-color: #f5dc81;
+	color: #fff;
+}
+.tossups li:hover span, .tossups li.taken:hover span, .tossups li.active-combo:hover span,
+.tossups li.active div, .tossups li.active span,
+.tossups li.active-combo div, .tossups li.active-combo span {
+	color: #fff;
+}
 
 .tossups .abbr { display: none; }
 .tossups .full { display: inline; }
