@@ -610,6 +610,7 @@ $(function() {
     	} else {
     		t.text(show_text);
             clear_combo();
+            compute_stats();
     	}
 
     	$(this).next('.combo-group').slideToggle('fast').parent('li').siblings('li').find('.combo-group').slideUp('fast').siblings('h4').find('i').text(show_text);
