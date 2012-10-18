@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    
+    
+    <title>Presidential</title>
+      
+      
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.7.3/build/cssreset/cssreset-min.css">
+
+    <style>
+    	body {font-weight:bold;}
+    	#banner {height:40px;}
+    	#banner h1 {width:15%}
+    	#banner li {text-transform:uppercase;width:40%;}
+    	#banner li#dem_sec span.need {color:#145c7b;}
+    	#banner li#dem_sec span.neednum{background-color:#145c7b; color:#fff; padding:1px 4px 0 3px;}
+    	#banner li#gop_sec span.need {color:#8f0b00;}
+    	#banner li#gop_sec span.neednum{background-color:#8f0b00; color:#fff; padding:1px 4px 0 3px;}
+    	#banner li h2{padding-top:4px;}
+		
+		#candidates ul.swing {width:400px;height:15px;font-size:13px;text-transform:uppercase;height:20px;padding-top:6px;border-bottom:1px solid #999;display:block;}
+		.weighted li {display:block; float:left;line-height:14px;padding:0 6px 0 6px;}
+		.weighted li:first-child{padding-left:0;}
+		.weighted ul.swing li.state{width:45%;font-size:14px;}
+		
+		ul.allstates:nth-child(odd){background-color:#444;}
+		#candidates ul.allstates {font-size:0.688em;text-transform:uppercase;padding:2px 0px;font-size:12px;}
+		ul.allstates li.state {font-size:11px;width:45%;}
+		li.demPercent{color:#a7d7eb;width:10%}
+		li.gopPercent{color:#f8a199;width:10%;}
+		li.percentTime{border-right:solid #999 1px; width:10%;}
+		
+		p.closeTime{width:33%; text-align:center; background-color:#ccc; color:#333;font-weight:bolder;font-size:11px;height:14px;line-height:14px;}
+		ul.allstates li.percentTime {width:15%;}
+		
+		#candidates ul.allstates {width:33%;height:15px;text-transform:uppercase;padding-top:6px;display:block;}
+		.full li {display:block; float:left;line-height:14px;padding:0 6px 0 6px;}
+		
+    </style>
+    
+    
+    </head>
+    
+    
+    <body>
+     <div id="banner">
+            <h1>President</h1>
+            <ul>
+                <li id="dem_sec">
+                    <h2>Obama <span class="total">234</span> <span class="need">Needs </span><span class="neednum">36</span></h2>
+                </li>
+                <li id="gop_sec">
+                    <h2>Romney <span class="total">206</span> <span class="need">Needs </span><span class="neednum">64</span></h2>
+                </li>
+            </ul>
+        </div>
+        <div id="candidates">
+        <div class="weighted">
+        	<ul class="swing">
+        		<li class="percentTime">70%</li>
+        		<li class="state">New Hampshire (4)</li>
+        		<li class="demPercent">30%</li>
+        		<li class="gopPercent">40%</li>
+        		<li class="closeTime">7:00</li>
+        	</ul>
+        	<ul class="swing">
+        		<li class="percentTime">10%</li>
+        		<li class="state">New Hampshire (4)</li>
+        		<li class="demPercent">30%</li>
+        		<li class="gopPercent">40%</li>
+        		<li class="closeTime">7:00</li>
+        	</ul>
+        	<ul class="swing">
+        		<li class="percentTime">80%</li>
+        		<li class="state">New Hampshire (4)</li>
+        		<li class="demPercent">30%</li>
+        		<li class="gopPercent">40%</li>
+        		<li class="closeTime">7:00</li>
+        	</ul>
+        	<ul class="swing">
+        		<li class="percentTime">8:00</li>
+        		<li class="state">New Hampshire (4)</li>
+        		<li class="demPercent">30%</li>
+        		<li class="gopPercent">40%</li>
+        		<li class="closeTime">7:00</li>
+        	</ul>
+        	<ul class="swing">
+        		<li class="percentTime">12:00</li>
+        		<li class="state">New Hampshire (4)</li>
+        		<li class="demPercent">30%</li>
+        		<li class="gopPercent">40%</li>
+        		<li class="closeTime">7:00</li>
+        	</ul>
+        </div>
+        <div class="full">
+        	<p class="closeTime">7:00</p>
+        	<ul class="allstates">
+        		<li class="percentTime">12:00</li>
+        		<li class="state">N. Carolina (15)</li>
+        		<li class="demPercent">30%</li>
+        		<li class="gopPercent">40%</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="percentTime">12:00</li>
+        		<li class="state">S. Carolina (9)</li>
+        		<li class="demPercent">29%</li>
+        		<li class="gopPercent">41%</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<p class="closeTime">7:30</p>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        	<ul class="allstates">
+        		<li class="state">Alabama (9)</li>
+        	</ul>
+        </div>
+        </div>
+    
+    
+    
+    </body>
+    
+</html>
