@@ -101,7 +101,7 @@ body {
 .poll-closing-time-label {
     padding:0 4px;
     font-size:11px;
-    line-height:14px;
+    line-height:15px;
     color:#333;
     background-color:#fff;
     font-weight:bold;
@@ -111,7 +111,7 @@ body {
 .candidate {
     width:150px;
     font-size:11px;
-    height:14px;
+    height:15px;
     font-weight:bold;
     overflow:hidden;
     white-space:nowrap;
