@@ -130,10 +130,14 @@ ul.called li {
 }
 .candidate.incumbent {
     text-transform:uppercase;
-    padding-left:13px;
-    background: url('/bigboard/img/star.png') no-repeat;
-    width:137px;
 }
+
+.candidate.switch{
+	background: url('/bigboard/img/star.png') no-repeat;
+    width:137px;
+    padding-left:13px;
+}
+
 .candidate.gop.winner {
     background-color:#BE0F00;
     color:white;
