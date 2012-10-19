@@ -100,9 +100,16 @@ a.btn { color: #fff; cursor: pointer; }
     font-family:StateFaceRegular;
     font-style:normal;
     text-align: center;
-    width:.9em;
+
+/*    width:.9em;
     margin-right:.1em; margin-bottom:.1em;
-    height:.9em;
+    height:.9em;*/
+    width:20px;
+    height:20px;
+    margin-right:2px;
+    margin-bottom:2px;
+    
+    
     overflow: hidden;
     background-color: #f7e39b;
     color: #77631b;
@@ -126,29 +133,51 @@ a.btn { color: #fff; cursor: pointer; }
 .state:hover i, .state.prediction-t.combo-pick:hover i { color: #fff; }
 
 #line {
-    height:.1em;
-    background-color: #B39429;
+    height:40px;
+
     position:absolute;
     z-index:100;
     width: 100%;
     text-align:right;
     line-height:0;
+
 }
 #line b {
-	display: block;
-	text-align: center;
-	background-color: #FFF;
-	text-indent: -9999px;
-	background: url('../img/270.gif') no-repeat center center;
-	height: 33px;
-	margin-top: -5px;
+    display: block;
+    text-align: center;
+    background-color: #FFF;
+    text-indent: -9999px;
+    background: url('../img/270.gif') no-repeat center center;
+    height: 33px;
+    margin-top: -5px;
+
 }
+
 
 .bucket {
     -moz-transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
     -o-transform: scaleY(-1);
     transform: scaleY(-1);
+    
+    /* IE10 Consumer Preview */ 
+    background-image: -ms-linear-gradient(top, #FFFFFF 90%, #B39429 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: -moz-linear-gradient(top, #FFFFFF 90%, #B39429 100%);
+
+    /* Opera */ 
+    background-image: -o-linear-gradient(top, #FFFFFF 90%, #B39429 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(.9, #FFFFFF), color-stop(1, #B39429));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-linear-gradient(top, #FFFFFF 90%, #B39429 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: linear-gradient(to bottom, #FFFFFF 90%, #B39429 100%);
+    
 }
 
 .bucket .state i {
@@ -326,26 +355,6 @@ a.btn { color: #fff; cursor: pointer; }
 	   -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 	        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-.tossups li:hover div, .tossups li.taken:hover div, .tossups li.active-combo:hover div,
-.tossups li:active div, .tossups li.taken:active div, .tossups li.active-combo:active div {
-	cursor: pointer;
-	text-shadow: 0 1px 1px rgba(229, 191, 87, 0.75);
-	background: #E5BF57;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5dc81), to(#E5BF57));
-	background-image: -webkit-linear-gradient(top, #f5dc81, #E5BF57);
-	background-image: -o-linear-gradient(top, #f5dc81, #E5BF57);
-	background-image: linear-gradient(to bottom, #f5dc81, #E5BF57);
-	background-image: -moz-linear-gradient(top, #f5dc81, #E5BF57);
-	filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f5dc81', endColorstr='#E5BF57', GradientType=0);
-	border-top-color: #f5dc81;
-}
-.tossups li:hover span, .tossups li.taken:hover span, .tossups li.active-combo:hover span {
-	color: #fff;
-}
-.tossups li.active div, .tossups li.active span,
-.tossups li.active-combo div, .tossups li.active-combo span {
-	color: #fff;
-}
 .tossups li.active div {
 	background: #B39429;
 	text-shadow: 0 1px 1px rgba(179, 148, 41, 0.75);
@@ -360,6 +369,8 @@ a.btn { color: #fff; cursor: pointer; }
 }
 .tossups li.active-combo div { 
 	background: #bcbcbc; 
+	border-color: #bbb;
+	border-bottom-color: #aaa;
 	color: #fff;
 }
 .tossups li.taken div { 
@@ -368,6 +379,27 @@ a.btn { color: #fff; cursor: pointer; }
 	color: #f5dc81;
 }
 .tossups li.taken, .tossups li.taken span { color: #f5dc81; }
+
+.tossups li:hover div, .tossups li.taken:hover div, .tossups li.active-combo:hover div,
+.tossups li:active div, .tossups li.taken:active div, .tossups li.active-combo:active div {
+	cursor: pointer;
+	text-shadow: 0 1px 1px rgba(229, 191, 87, 0.75);
+	background: #E5BF57;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5dc81), to(#E5BF57));
+	background-image: -webkit-linear-gradient(top, #f5dc81, #E5BF57);
+	background-image: -o-linear-gradient(top, #f5dc81, #E5BF57);
+	background-image: linear-gradient(to bottom, #f5dc81, #E5BF57);
+	background-image: -moz-linear-gradient(top, #f5dc81, #E5BF57);
+	filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f5dc81', endColorstr='#E5BF57', GradientType=0);
+	border-color: #faeab2 #f7e39b #e5bf57;
+	border-top-color: #f5dc81;
+	color: #fff;
+}
+.tossups li:hover span, .tossups li.taken:hover span, .tossups li.active-combo:hover span,
+.tossups li.active div, .tossups li.active span,
+.tossups li.active-combo div, .tossups li.active-combo span {
+	color: #fff;
+}
 
 .tossups .abbr { display: none; }
 .tossups .full { display: inline; }
@@ -406,7 +438,15 @@ a.btn { color: #fff; cursor: pointer; }
 	#electris { padding: 0 10px; }
 	#bigbox { width: 300px; }
 	#states { font-size: 25px; }
-	.state i { padding-top: .05em; height: .85em; }
+	/*.state i { padding-top: .05em; height: .85em; }*/
+    
+    .state i {
+        width:23px;
+        height:23px;
+        margin-right:2px;
+        margin-bottom:2px;
+    }
+    
 	.bucket { width: 15em; }
 	.combos { width: 6.5em; }
 	.histogram h4 { height: 22px; }
@@ -424,6 +464,17 @@ a.btn { color: #fff; cursor: pointer; }
 	#main-header, #header-title { width: 724px; }
 	.intro h1 { font-size: 28px; }
 	#states { font-size: 20px; }
+    
+    
+    
+    .state i {
+        width:19px;
+        height:19px;
+        margin-right:1px;
+        margin-bottom:1px;
+    }
+    
+    
 	.bucket { width: 10em; }
 	.combos { width: 6.5em; }
 	.bucket-header { height: 4em; }
@@ -439,6 +490,17 @@ a.btn { color: #fff; cursor: pointer; }
 	#bigbox { float: none; width: auto; padding-top: 1em; background-color: #f1f1f1; margin: 0 0 1.8em 0; }
 	#electris { margin-left: 0; padding-top: 0; }
 	#states { font-size: 10px; }
+    
+/*    #states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }*/
+    .state i {
+        text-indent: -9999px;
+        width:9.5%;
+        margin-right:.5%;
+        margin-bottom:1px;
+        height:9px;
+    }
+    
+    
 	.bucket-header h3 { font-size: 19px; }
     .bucket-header h3 i { display: none; }
 	.blue .bucket, .red .bucket { float: none; }
@@ -466,7 +528,6 @@ a.btn { color: #fff; cursor: pointer; }
 	.blue .vote-tallies .electoral { float: left; }
 	.blue .vote-tallies .bignum { float: left; margin-right: 3%; margin-left: 0; }
 	.blue .vote-tallies span { text-align: left; }
-	#states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }
 	.combos { width: auto; height: auto; border: none; }
 }
 @media (max-width: 480px) {

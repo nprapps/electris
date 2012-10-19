@@ -28,7 +28,6 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
 
-    <script type="text/javascript" src="http://www.npr.org/templates/javascript/jwplayer/jwplayer.js"></script>
     <script>
         NPR = {};
         NPR.PageInfo = {};
@@ -114,7 +113,6 @@
 
 
 			<div class="span4" id="bigbox">
-
                 <!-- START 300X250 AD -->
                 <div class="adwrapper"><div class="sponsor300">
 
@@ -134,7 +132,6 @@
 				<p class="right"><a href="http://www.npr.org/about/place/corpsupport/">Become an NPR Sponsor </a></p>
 				</div></div>
 				<!-- END 300X250 AD -->
-
 			</div>
 
         </div>
@@ -262,7 +259,7 @@
     <script id="combo-group-template" type="text/template">
         <li id="groups-of-<%= key %>">
             <h4>
-                <span class="title"><strong><%= key %> states</strong> <i>(show)</i></span>
+                <span class="title"><strong><%= key %> state<%= key > 1 ? "s" : "" %></strong> <i>(show)</i></span>
                 <span class="bar" style="width: 0px;"></span>
             </h4>
             <ul class="combo-group">

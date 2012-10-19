@@ -1,3 +1,14 @@
+@font-face {
+     font-family: 'StateFaceRegular';
+     src: url('../fonts/stateface-regular-webfont.eot');
+     src: url('../fonts/stateface-regular-webfont.eot?#iefix') format('embedded-opentype'),
+          url('../fonts/stateface-regular-webfont.woff') format('woff'),
+          url('../fonts/stateface-regular-webfont.ttf') format('truetype'),
+          url('../fonts/stateface-regular-webfont.svg#StateFaceRegular') format('svg');
+     font-weight: normal;
+     font-style: normal;
+}
+
 body {
     font-family:Verdana;
     border-bottom:5px dashed papayawhip;
@@ -9,10 +20,10 @@ body {
     color:#fff;
 }
 #banner {
-    background-color:#333;
-    color:white;
+    background-color:#ddd;
+    color:#333;
     height:45px;
-    border-bottom:1px solid white;
+    border-bottom:1px solid #999;
     overflow:hidden;
 }
 
@@ -23,7 +34,7 @@ body {
     line-height:35px;
     width:90px;
     float:left;
-    padding-left:10px;
+    padding-left:5px;
     font-weight:normal;
 }
 
@@ -33,28 +44,28 @@ body {
     padding-left:10px;
     height:46px;
     float:left;
-    color:white;
+    color:#333;
     list-style:none;
-    border-left:1px solid white;
+    border-left:1px solid #999;
 }
 
 #banner h2 {
     font-size:16px;
     line-height:22px;
     margin:0;
-    font-weight:normal;
+    font-weight:bold;
 }
 
-#banner #gop_sec h2 {color:#fcd0cc}
+#banner #gop_sec h2 {color:#be0f00}
 #banner #gop_sec h2 span.total{background-color:#be0f00; color:#fff; padding:1px 4px 0 3px;}
-#banner #dem_sec h2 {color:#a7d7eb}
+#banner #dem_sec h2 {color:#4eaed7}
 #banner #dem_sec h2 span.total{background-color:#229acd; color:#fff; padding:1px 4px 0 3px;}
-#banner #ind_sec h2 {color:#e6ccdb}
+#banner #ind_sec h2 {color:#99346d}
 #banner #ind_sec h2 span.total{background-color:#99346d; color:#fff; padding:1px 4px 0 3px;}
-#banner #nc_sec h2 {color:#999}
-#banner #nc_sec h2 span.total{background-color:#ccc; color:#fff; padding:1px 4px 0 3px;}
-#banner li p {font-size:12px; color:#ccc; margin-top:-3px;}
-#banner li p span.need_num {color:#fff;}
+#banner #nc_sec h2 {color:#666}
+#banner #nc_sec h2 span.total{background-color:#aaa; color:#333; padding:1px 4px 0 3px;}
+#banner li p {font-size:12px; color:#666; margin-top:-3px;}
+#banner li p span.need_num {color:#333;}
 
 .district {
     font-size:11px;
@@ -120,10 +131,10 @@ ul.called li {
 
 }
 .candidate.dem {
-    color:#d3ebf5;
+    color:#f8a199;
 }
 .candidate.gop {
-    color:#fcd0cc;
+    color:#a7d7eb;
 }
 .candidate.other {
     color:#148B34;

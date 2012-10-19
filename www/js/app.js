@@ -261,6 +261,9 @@ $(function() {
         var blue_keys = [];
         var red_groups = {};
         var blue_groups = {};
+        
+        //sort by electoral vote count
+        undecided_states = _.sortBy(undecided_states,'electoral_votes').reverse()
 
         var state_ids = _.pluck(undecided_states, "id");
 
@@ -278,7 +281,7 @@ $(function() {
         } else {
             // NB: A sorted input list generates a sorted output list
             // from our combinations algorithm.
-            state_ids.sort(); 
+
             var combos = combinations(state_ids, 1);
 
 
@@ -556,6 +559,18 @@ $(function() {
         /*
          * After initial data load, setup stats and such.
          */
+        
+         // Sort by electoral college votes
+        states_dataset.sort(function(rowA, rowB){
+            if (rowA.electoral_votes > rowB.electoral_votes) { 
+              return -1; 
+            }
+            if (rowA.electoral_votes < rowB.electoral_votes) { 
+              return 1;  
+            }
+            return 0;
+        });
+         
         states_dataset.each(function(state) {
             // Build lookup table
             states_by_id[state.id] = state;
@@ -594,6 +609,8 @@ $(function() {
     		t.text(hide_text);
     	} else {
     		t.text(show_text);
+            clear_combo();
+            compute_stats();
     	}
 
     	$(this).next('.combo-group').slideToggle('fast').parent('li').siblings('li').find('.combo-group').slideUp('fast').siblings('h4').find('i').text(show_text);
