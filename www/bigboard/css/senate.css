@@ -1,0 +1,7 @@
+.timezone ul {margin-left:0;}
+.poll-closing-time{position:relative;}
+.poll-closing-time-label {margin:0; padding:0;width:398px; font-size:14px; height:21px;padding-top:5px;background-color:#DDD;}
+ul.called{width:400px;}
+.candidate {width:150px; font-size:14px; height:21px;padding-top:5px; padding-left:2px; }
+#candidates{line-height:30px;}
+.district{font-size:14px; padding-top:5px;}
