@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 from fabric.api import *
-
-import util
+from peewee import *
+from models import Candidate, Race, State
 
 """
 Base configuration
@@ -109,6 +109,15 @@ def checkout_latest():
 
 def install_requirements():
     run('%(virtualenv_path)s/bin/pip install -r %(repo_path)s/requirements.txt' % env)
+
+
+def recreate_tables():
+    local('rm electris.db')
+    local('touch electris.db')
+
+    Candidate.create_table(fail_silently=True)
+    Race.create_table(fail_silently=True)
+    State.create_table(fail_silently=True)
 
 
 def deploy():

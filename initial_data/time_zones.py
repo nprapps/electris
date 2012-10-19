@@ -1,0 +1,28 @@
+SENATE_TIMES = [
+    {'time': 1352246400, u'districts': [u'IN 0', u'VA 0', u'VT 0']},
+    {'time': 1352248200, u'districts': [u'OH 0', u'WV 0']},
+    {'time': 1352250000, u'districts': [u'CT 0', u'DE 0', u'FL 0', u'MA 0', u'MD 0', u'ME 0', u'MO 0', u'MS 0 ', u'NJ 0', u'PA 0', u'RI 0', u'TN 0']},
+    {'time': 1352253600, u'districts': [u'AZ 0', u'MI 0 ', u'MN 0', u'ND 0', u'NE 0', u'NM 0', u'NY 0', u'TX 0', u'WI 0', u'WY 0']},
+    {'time': 1352257200, u'districts': [u'MT 0', u'NV 0', u'UT 0']},
+    {'time': 1352260800, u'districts': [u'CA 0', u'HI 0', u'WA 0']}
+]
+HOUSE_TIMES = [
+    {'time': 1352246400, u'districts': [u'GA 1', u'GA 2', u'GA 3', u'GA 4', u'GA 5', u'GA 6', u'GA 7', u'GA 8', u'GA 9', u'GA 10', u'GA 11', u'GA 12', u'GA 13', u'GA 14', u'IN 1', u'IN 2', u'IN 3', u'IN 4', u'IN 5', u'IN 6', u'IN 7', u'IN 8', u'IN 9', u'KY 1', u'KY 2', u'KY 3', u'KY 4', u'KY 5', u'KY 6', u'SC 1', u'SC 2', u'SC 3', u'SC 4', u'SC 5', u'SC 6', u'SC 7', u'VA 1', u'VA 2', u'VA 3', u'VA 4', u'VA 5', u'VA 6', u'VA 7', u'VA 8', u'VA 9', u'VA 10', u'VA 11', u'VT 1']},
+    {'time': 1352248200, u'districts': [u'NC 1', u'NC 2', u'NC 3', u'NC 4', u'NC 5', u'NC 6', u'NC 7', u'NC 8', u'NC 9', u'NC 10', u'NC 11', u'NC 12', u'NC 13', u'OH 1', u'OH 2', u'OH 3', u'OH 4', u'OH 5', u'OH 6', u'OH 7', u'OH 8', u'OH 9', u'OH 10', u'OH 11', u'OH 12', u'OH 13', u'OH 14', u'OH 15', u'OH 16', u'WV 1', u'WV 2', u'WV 3']},
+    {'time': 1352250000, u'districts': [u'AL 1', u'AL 2', u'AL 3', u'AL 4', u'AL 5', u'AL 6', u'AL 7', u'CT 1', u'CT 2', u'CT 3', u'CT 4', u'CT 5', u'DE 1', u'FL 1', u'FL 2', u'FL 3', u'FL 4', u'FL 5', u'FL 6', u'FL 7', u'FL 8', u'FL 9', u'FL 10', u'FL 11', u'FL 12', u'FL 13', u'FL 14', u'FL 15', u'FL 16', u'FL 17', u'FL 18', u'FL 19', u'FL 20', u'FL 21', u'FL 22', u'FL 23', u'FL 24', u'FL 25', u'FL 26', u'FL 27', u'IL 1', u'IL 2', u'IL 3', u'IL 4', u'IL 5', u'IL 6', u'IL 7', u'IL 8', u'IL 9', u'IL 10', u'IL 11', u'IL 12', u'IL 13', u'IL 14', u'IL 15', u'IL 16', u'IL 17', u'IL 18', u'MA 1', u'MA 2', u'MA 3', u'MA 4', u'MA 5', u'MA 6', u'MA 7', u'MA 8', u'MA 9', u'MD 1', u'MD 2', u'MD 3', u'MD 4', u'MD 5', u'MD 6', u'MD 7', u'MD 8', u'ME 1', u'ME 2', u'MO 1', u'MO 2', u'MO 3', u'MO 4', u'MO 5', u'MO 6', u'MO 7', u'MO 8', u'MS 1', u'MS 2', u'MS 3', u'MS 4', u'NH 1', u'NH 2', u'NJ 1', u'NJ 2', u'NJ 3', u'NJ 4', u'NJ 5', u'NJ 6', u'NJ 7', u'NJ 8', u'NJ 9', u'NJ 10', u'NJ 11', u'NJ 12', u'OK 1', u'OK 2', u'OK 3', u'OK 4', u'OK 5', u'OR 1', u'OR 2', u'OR 3', u'OR 4', u'OR 5', u'PA 1', u'PA 2', u'PA 3', u'PA 4', u'PA 5', u'PA 6', u'PA 7', u'PA 8', u'PA 9', u'PA 10', u'PA 11', u'PA 12', u'PA 13', u'PA 14', u'PA 15', u'PA 16', u'PA 17', u'PA 18', u'RI 1', u'RI 2', u'TN 1', u'TN 2', u'TN 3', u'TN 4', u'TN 5', u'TN 6', u'TN 7', u'TN 8', u'TN 9']},
+    {'time': 1352251800, u'districts': [u'AR 1', u'AR 2', u'AR 3', u'AR 4']},
+    {'time': 1352253600, u'districts': [u'AZ 1', u'AZ 2', u'AZ 3', u'AZ 4', u'AZ 5', u'AZ 6', u'AZ 7', u'AZ 8', u'AZ 9', u'CO 1', u'CO 2', u'CO 3', u'CO 4', u'CO 5', u'CO 6', u'CO 7', u'KS 1', u'KS 2', u'KS 3', u'KS 4', u'LA 1', u'LA 2', u'LA 3', u'LA 4', u'LA 5', u'LA 6', u'MI 1', u'MI 2', u'MI 3', u'MI 4', u'MI 5', u'MI 6', u'MI 7', u'MI 8', u'MI 9', u'MI 10', u'MI 11', u'MI 12', u'MI 13', u'MI 14', u'MN 1', u'MN 2', u'MN 3', u'MN 4', u'MN 5', u'MN 6', u'MN 7', u'MN 8', u'ND 1', u'NE 1', u'NE 2', u'NE 3', u'NM 1', u'NM 2', u'NM 3', u'NY 1', u'NY 2', u'NY 3', u'NY 4', u'NY 5', u'NY 6', u'NY 7', u'NY 8', u'NY 9', u'NY 10', u'NY 11', u'NY 12', u'NY 13', u'NY 14', u'NY 15', u'NY 16', u'NY 17', u'NY 18', u'NY 19', u'NY 20', u'NY 21', u'NY 22', u'NY 23', u'NY 24', u'NY 25', u'NY 26', u'NY 27', u'SD 1', u'TX 1', u'TX 2', u'TX 3', u'TX 4', u'TX 5', u'TX 6', u'TX 7', u'TX 8', u'TX 9', u'TX 10', u'TX 11', u'TX 12', u'TX 13', u'TX 14', u'TX 15', u'TX 16', u'TX 17', u'TX 18', u'TX 19', u'TX 20', u'TX 21', u'TX 22', u'TX 23', u'TX 24', u'TX 25', u'TX 26', u'TX 27', u'TX 28', u'TX 29', u'TX 30', u'TX 31', u'TX 32', u'TX 33', u'TX 34', u'TX 35', u'TX 36', u'WI 1', u'WI 2', u'WI 3', u'WI 4', u'WI 5', u'WI 6', u'WI 7', u'WI 8', u'WY 1']},
+    {'time': 1352257200, u'districts': [u'IA 1', u'IA 2', u'IA 3', u'IA 4', u'MT 1', u'NV 1', u'NV 2', u'NV 3', u'NV 4', u'UT 1', u'UT 2', u'UT 3', u'UT 4']},
+    {'time': 1352260800, u'districts': [u'CA 1', u'CA 2', u'CA 3', u'CA 4', u'CA 5', u'CA 6', u'CA 7', u'CA 8', u'CA 9', u'CA 10', u'CA 11', u'CA 12', u'CA 13', u'CA 14', u'CA 15', u'CA 16', u'CA 17', u'CA 18', u'CA 19', u'CA 20', u'CA 21', u'CA 22', u'CA 23', u'CA 24', u'CA 25', u'CA 26', u'CA 27', u'CA 28', u'CA 29', u'CA 30', u'CA 31', u'CA 32', u'CA 33', u'CA 34', u'CA 35', u'CA 36', u'CA 37', u'CA 38', u'CA 39', u'CA 40', u'CA 41', u'CA 42', u'CA 43', u'CA 44', u'CA 45', u'CA 46', u'CA 47', u'CA 48', u'CA 49', u'CA 50', u'CA 51', u'CA 52', u'CA 53', u'HI 1', u'HI 2', u'ID 1', u'ID 2', u'WA 1', u'WA 2', u'WA 3', u'WA 4', u'WA 5', u'WA 6', u'WA 7', u'WA 8', u'WA 9', u'WA 10']},
+    {'time': 1352264400, u'districts': [u'AK 1']}
+]
+PRESIDENT_TIMES = [
+    {'time': 1352246400, u'states': [u'GA', u'IN', u'KY', u'SC', u'VA', u'VT']},
+    {'time': 1352248200, u'states': [u'NC', u'OH', u'WV']},
+    {'time': 1352250000, u'states': [u'AL', u'CT', u'DE', u'FL', u'IL', u'MA', u'MD', u'MO', u'MS', u'NH', u'NJ', u'OK', u'OR', u'PA', u'RI', u'TN']},
+    {'time': 1352251800, u'states': [u'AR']},
+    {'time': 1352253600, u'states': [u'AZ', u'CO', u'KS', u'LA', u'MI', u'MN', u'ND', u'NE', u'NM', u'NY', u'TX', u'WI']},
+    {'time': 1352257200, u'states': [u'IA', u'MT 1', u'NV', u'UT']},
+    {'time': 1352260800, u'states': [u'CA', u'HI', u'ID', u'WA']},
+    {'time': 1352264400, u'states': [u'AK']}
+]
