@@ -149,7 +149,7 @@ def parse_president(row):
     state.total_precincts = race_data['total_precincts']
     state.precincts_reporting = race_data['precincts_reporting']
     state.rep_vote_count = romney_data['vote_count']
-    state.dem_cote_count = obama_data['vote_count']
+    state.dem_vote_count = obama_data['vote_count']
 
     state.save()
 

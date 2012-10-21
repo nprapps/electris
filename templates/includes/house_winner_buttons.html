@@ -1,0 +1,21 @@
+<button class="ap-winner btn btn-mini disabled {% if race.ap_winner == False %}hidden{% endif %}
+    {% if race.party == 'GOP' %}btn-danger{% endif %}
+    {% if race.party == 'Dem' %}btn-primary{% endif %}
+    {% if race.party == 'Other' %}btn-success{% endif %}
+">AP</button>
+
+<button class="npr-winner btn btn-mini disabled
+    {% if race.race.accept_ap_call == True %}hidden{% endif %}
+    {% if race.npr_winner == False %}hidden{% endif %}
+    {% if race.party == 'GOP' %}btn-danger{% endif %}
+    {% if race.party == 'Dem' %}btn-primary{% endif %}
+    {% if race.party == 'Other' %}btn-success{% endif %}
+">NPR</button>
+
+<button class="npr-call btn btn-mini
+    {% if race.race.accept_ap_call == True %}hidden{% endif %}
+    {% if race.npr_winner == True %}hidden{% endif %}">Call for NPR</button>
+
+<button class="npr-uncall btn btn-mini btn-info
+    {% if race.race.accept_ap_call == True %}hidden{% endif %}
+    {% if race.npr_winner == True %}{% else %}hidden{% endif %}">Uncall for NPR</button>

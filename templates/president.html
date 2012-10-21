@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% block title %}The U.S. {{ house.title() }} | BigBoard Admin{% endblock %}
+{% block title %}The U.S. President | BigBoard Admin{% endblock %}
 {% block extra_head %}
     <style type='text/css'>
-        .gop { color:red; }
-        .dem { color:blue; }
+        .gop { color:red; font-size:16px; font-weight:bold; }
+        .dem { color:blue; font-size:16px; font-weight:bold; }
         .other { color:green; }
         .incumbent { text-transform:uppercase; }
         .clear { width:100%; clear:both; }
@@ -13,6 +13,7 @@
         .npr-call, .npr-uncall { float:right; }
         .clear-call { margin-left:5px; float:none;}
         .hidden { display:none; }
+        .small { font-weight:normal; color:#999; font-size:12px; }
     </style>
 {% endblock %}
 
@@ -20,7 +21,7 @@
 
 <div class="row-fluid">
     <div class="span12">
-        <h1>BigBoard Admin: The U.S. {{ house.title() }}</h1>
+        <h1>BigBoard Admin: The President</h1>
 
         <table class="table table-striped table-bordered table-hover table-condensed">
         <tr class="info">
@@ -29,66 +30,74 @@
             <td></td>
             <td><strong>Accept AP calls</strong></td>
         </tr>
-        {% for grouper, list in candidates|groupby('race.slug') %}
+        {% for state in states %}
         {% if loop.index % 20 == 0  %}
         <tr class="info">
             <td><strong>State</strong></td>
-            <td><strong>Candidates</strong></td>
-            <td></td>
+            <td><strong>Obama</strong></td>
+            <td><strong>Romney</strong></td>
             <td><strong>Accept AP calls?</strong></td>
         </tr>
         {% endif %}
-        <tr class="{{ grouper }}">
-            <td>{% if house == "senate" %}
-                {{ grouper.replace(' 0', '').upper() }}
-            {% else %}
-                {{ grouper.upper() }}
-            {% endif %}</td>
+        <tr class="{{ state.id }}">
+            <td>{{ state.name }}</td>
 
-            <td>{% for race in list %}
-                {% if loop.first %}
+            <td>
+                <span class="state dem"
+                data-state="{{ state }}"
+                data-party="d">
 
-                <span class="candidate
-                    {% if race.incumbent == True %}incumbent{% endif %}
-                    {{ race.party.lower() }}
-                    {% if race.race.accept_ap_call == True %}{% if race.race.ap_call == True %}called{% endif %}{% endif %}
-                "
-                data-first-name="{{ race.first_name }}"
-                data-last-name="{{ race.last_name }}">
-                    {% include 'includes/house_winner_buttons.html' %}
-                    {{ race.first_name }} {{ race.last_name}}
+                    <button class="npr-call btn btn-mini
+                        {% if state.accept_ap_call == True %}hidden{% endif %}
+                        {% if state.npr_call == 'd' %}hidden{% endif %}">Call for NPR</button>
+
+                    <button class="npr-uncall btn btn-mini btn-info
+                        {% if state.accept_ap_call == True %}hidden{% endif %}
+                        {% if state.npr_call == 'd' %}{% else %}hidden{% endif %}">Uncall for NPR</button>
+
+                    <button class="ap-winner btn btn-mini disabled {% if state.ap_call != 'd' %}hidden{% endif %}">AP</button>
+                    <button class="npr-winner btn btn-mini disabled
+                        {% if state.accept_ap_call == True %}hidden{% endif %}
+                        {% if state.npr_call != 'd' %}hidden{% endif %}
+                    ">NPR</button>
+                    {{ state.dem_vote_percent() }}%
+                    <span class="small">{{ state.human_dem_vote_count() }}</span>
                 </span>
-                {% endif %}
-            {% endfor %}</td>
-            <td>{% for race in list %}
-                {% if loop.index == 2 %}
+            </td>
+            <td>
+                <span class="state gop"
+                data-state="{{ state }}"
+                data-party="r">
+                    <button class="npr-call btn btn-mini
 
-                <span class="candidate
-                    {% if race.incumbent == True %}incumbent{% endif %}
-                    {{ race.party.lower() }}
-                    {% if race.race.accept_ap_call == True%}{% if race.ap_call == True %}called{% endif %}{% endif %}
-                "
-                data-first-name="{{ race.first_name }}"
-                data-last-name="{{ race.last_name }}">
-                    {% include 'includes/house_winner_buttons.html' %}
-                    {{ race.first_name }} {{ race.last_name}}
+                        {% if state.accept_ap_call == True %}hidden{% endif %}
+                        {% if state.npr_call == 'r' %}hidden{% endif %}">Call for NPR</button>
+
+                    <button class="npr-uncall btn btn-mini btn-info
+                        {% if state.accept_ap_call == True %}hidden{% endif %}
+                        {% if state.npr_call == 'r' %}{% else %}hidden{% endif %}">Uncall for NPR</button>
+
+                    <button class="ap-winner btn btn-mini disabled {% if state.ap_call != 'r' %}hidden{% endif %}">AP</button>
+                    <button class="npr-winner btn btn-mini disabled
+                        {% if state.accept_ap_call == True %}hidden{% endif %}
+                        {% if state.npr_call != 'r' %}hidden{% endif %}
+                    ">NPR</button>
+                    {{ state.rep_vote_percent() }}%
+                    <span class="small">{{ state.human_rep_vote_count() }}</span>
                 </span>
-                {% endif %}
-            {% endfor %}</td>
-            <td class="ap-call">{% for race in list %}{% if loop.first %}
+            </td>
+            <td class="ap-call">
             <button
-                id="{{ race.race.slug }}"
-                class="btn {% if race.race.accept_ap_call == True %}btn-success{% else %}btn-warning{% endif %} btn-mini"
-                data-race-slug="{{ grouper }}">
-                    {% if race.race.accept_ap_call == True %}
+                id="{{ state.id }}"
+                class="btn {% if state.accept_ap_call == True %}btn-success{% else %}btn-warning{% endif %} btn-mini"
+                data-race-slug="{{ state }}">
+                    {% if state.accept_ap_call == True %}
                     Accepting AP calls
                     {% else %}
                     Not accepting AP calls
                     {% endif %}
             </button>
-            {% endif %}
-            {% endfor %}
-        </td>
+            </td>
         </tr>
         {% endfor %}
     </table>
@@ -124,8 +133,7 @@
             buttonPOST({
                 post_data: {
                     race_slug: race_slug,
-                    first_name: $(this).parent('span').attr('data-first-name'),
-                    last_name: $(this).parent('span').attr('data-last-name')
+                    party: $(this).parent('span').attr('data-party'),
                 },
                 target: this
             });

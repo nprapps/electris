@@ -3,6 +3,8 @@
 from fabric.api import *
 from peewee import *
 from models import Candidate, Race, State
+import input
+import output
 
 """
 Base configuration
@@ -111,15 +113,6 @@ def install_requirements():
     run('%(virtualenv_path)s/bin/pip install -r %(repo_path)s/requirements.txt' % env)
 
 
-def recreate_tables():
-    local('rm electris.db')
-    local('touch electris.db')
-
-    Candidate.create_table(fail_silently=True)
-    Race.create_table(fail_silently=True)
-    State.create_table(fail_silently=True)
-
-
 def deploy():
     require('settings', provided_by=[production, staging])
     require('branch', provided_by=[stable, master, branch])
@@ -130,60 +123,75 @@ def deploy():
     checkout_latest()
 
 
-def load_bb_testing_rig():
+def _recreate_tables():
     """
-    Copies a snapshot of the electris DB with settings as defined in
-    test_data/bigboard/README.md and regenerates bigboard JSON.
+    Private function to delete and recreate a blank database.
+    """
+    local('rm electris.db && touch electris.db')
+
+    # Use the Peewee ORM to recreate tables.
+    Candidate.create_table(fail_silently=True)
+    Race.create_table(fail_silently=True)
+    State.create_table(fail_silently=True)
+
+
+def _bootstrap_races():
+    """
+    Private function to load initial data for races.
+    """
+    _recreate_tables()
+
+    input.bootstrap_president()
+
+    # Right now, bootstrapping the house races involves a call to AP.
+    # Should change this.
+    data = input.get_ap_data()
+    input.parse_ap_data(data)
+
+    # With appropriate bootstrapping data, this step is unnecessary.
+    input.bootstrap_house_times()
+    input.bootstrap_senate_times()
+
+
+def write_www_files():
+    """
+    Private function to write output files for www from the database.
+    This is probably going to be part of the cron routine on election night.
     """
     with settings(warn_only=True):
         local('rm www/states.csv')
         local('rm www/house.json')
         local('rm www/senate.json')
         local('rm www/president.json')
-        local('rm electris.db')
 
-        local('cp test_data/bigboard/electris_test.db electris.db')
-        db = util.get_database()
-
-        states = util.get_states(db)
-        util.regenerate_president(states)
-        util.write_president_json(states)
-
-        candidates = util.get_house_senate(db)
-        util.write_house_json(candidates)
-        util.write_senate_json(candidates)
+    output.write_president_csv()
+    output.write_president_json()
+    output.write_house_json()
+    output.write_senate_json()
 
 
-def unload_bb_testing_rig():
-    """
-    An alias to local_reset.
-    """
-    local_reset()
+def update_ap_data():
+    data = input.get_ap_data()
+    input.parse_ap_data(data)
+    write_www_files()
 
 
 def local_reset():
+    """
+    Resets the local environment to a fresh copy of the db and data.
+    """
+    _bootstrap_races()
+    write_www_files()
 
-    # Nuke the local copies of everything.
-    with settings(warn_only=True):
-        local('rm www/states.csv')
-        local('rm www/house.json')
-        local('rm www/senate.json')
-        local('rm www/president.json')
-        local('rm electris.db')
 
-    # Bootstrap the database.
-    # This will create the DB if it doesn't exist.
-    db = util.get_database()
-
-    # Build the president CSV.
-    states = util.get_states(db)
-    util.regenerate_president(states)
-    util.write_president_json(states)
-
-    # Build the house/senate CSV.
-    candidates = util.get_house_senate(db)
-    util.write_house_json(candidates)
-    util.write_senate_json(candidates)
+def load_test_db():
+    """
+    Copies a snapshot of the electris DB with settings as defined in
+    test_data/bigboard/README.md and regenerates output files for www.
+    """
+    local('rm electris.db')
+    local('cp test_data/bigboard/electris_test.db electris.db')
+    write_www_files()
 
 
 def shiva_the_destroyer():

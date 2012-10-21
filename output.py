@@ -39,7 +39,7 @@ def gzip_www():
             f_out.close()
 
 
-# def write_president_json(states):
+def write_president_json():
 #     with open('www/president.json', 'w') as f:
 #         times = settings.PRESIDENT_TIMES
 #         objects = []
@@ -53,6 +53,7 @@ def gzip_www():
 #                         timezone_dict['states'].append(dict(state))
 #             objects.append(timezone_dict)
 #         f.write(json.dumps(objects))
+    pass
 
 
 def write_house_json():
@@ -128,7 +129,7 @@ def generate_json(house):
     return json.dumps(objects)
 
 
-def regenerate_president():
+def write_president_csv():
     """
     Rewrites CSV files from the DB for president.
     """

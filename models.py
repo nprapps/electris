@@ -1,7 +1,24 @@
+import re
+from decimal import *
 from peewee import *
 import cms_settings as settings
 
-database = SqliteDatabase(settings.DATABASE_FILENAME, check_same_thread=True)
+database = SqliteDatabase(settings.DATABASE_FILENAME, check_same_thread=False)
+
+
+def intcomma(value):
+    """
+    Converts an integer to a string containing commas every three digits.
+    For example, 3000 becomes '3,000' and 45000 becomes '45,000'.
+    Shamelessly ripped off from django.contrib.humanize.
+    And, hey: Recursive!
+    """
+    orig = str(value)
+    new = re.sub("^(-?\d+)(\d{3})", '\g<1>,\g<2>', orig)
+    if orig == new:
+        return new
+    else:
+        return intcomma(new)
 
 
 class Race(Model):
@@ -104,7 +121,7 @@ class State(Model):
     prediction = CharField(max_length=255, null=True)
     ap_call = CharField(max_length=255)
     ap_called_at = CharField(max_length=255, null=True)
-    accept_ap_call = CharField(max_length=255, null=True)
+    accept_ap_call = BooleanField(default=True)
     npr_call = CharField(max_length=255)
     npr_called_at = CharField(max_length=255, null=True)
     total_precincts = IntegerField(null=True)
@@ -121,3 +138,29 @@ class State(Model):
 
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.electoral_votes)
+
+    def human_rep_vote_count(self):
+        if self.rep_vote_count > 0:
+            return intcomma(self.rep_vote_count)
+        else:
+            return 0
+
+    def human_dem_vote_count(self):
+        if self.dem_vote_count > 0:
+            return intcomma(self.dem_vote_count)
+        else:
+            return 0
+
+    def rep_vote_percent(self):
+        if self.rep_vote_count > 0:
+            getcontext().prec = 3
+            return Decimal(self.rep_vote_count) / Decimal(self.dem_vote_count + self.rep_vote_count) * 100
+        else:
+            return 0
+
+    def dem_vote_percent(self):
+        if self.dem_vote_count > 0:
+            getcontext().prec = 3
+            return Decimal(self.dem_vote_count) / Decimal(self.dem_vote_count + self.rep_vote_count) * 100
+        else:
+            return 0
