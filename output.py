@@ -12,6 +12,7 @@ import cms_settings as settings
 
 from models import Race, Candidate, State
 
+
 def gzip_www():
     """
     Moved from gzip_www.py.

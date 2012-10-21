@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
+import input as i
+import output as o
+
+from pollster import Pollster
 from fabric.api import *
 from peewee import *
 from models import Candidate, Race, State
-import input
-import output
+
 
 """
 Base configuration
@@ -141,16 +144,16 @@ def _bootstrap_races():
     """
     _recreate_tables()
 
-    input.bootstrap_president()
+    i.bootstrap_president()
 
     # Right now, bootstrapping the house races involves a call to AP.
     # Should change this.
-    data = input.get_ap_data()
-    input.parse_ap_data(data)
+    data = i.get_ap_data()
+    i.parse_ap_data(data)
 
     # With appropriate bootstrapping data, this step is unnecessary.
-    input.bootstrap_house_times()
-    input.bootstrap_senate_times()
+    i.bootstrap_house_times()
+    i.bootstrap_senate_times()
 
 
 def write_www_files():
@@ -164,15 +167,15 @@ def write_www_files():
         local('rm www/senate.json')
         local('rm www/president.json')
 
-    output.write_president_csv()
-    output.write_president_json()
-    output.write_house_json()
-    output.write_senate_json()
+    o.write_president_csv()
+    o.write_president_json()
+    o.write_house_json()
+    o.write_senate_json()
 
 
 def update_ap_data():
-    data = input.get_ap_data()
-    input.parse_ap_data(data)
+    data = i.get_ap_data()
+    i.parse_ap_data(data)
     write_www_files()
 
 
@@ -191,6 +194,53 @@ def load_test_db():
     """
     local('rm electris.db')
     local('cp test_data/bigboard/electris_test.db electris.db')
+    write_www_files()
+
+
+def update_polls():
+    """
+    Updates state predictions for presidential races against HuffPo's polling API.
+    """
+    pollster = Pollster()
+
+    for state in State.select().where(State.electoral_votes > 1):
+        charts = pollster.charts(topic='2012-president', state=state.id)
+
+        if charts:
+            chart = charts[0]
+        else:
+            print 'NO DATA FOR %s' % state.id.upper()
+            continue
+
+        obama = 0
+        romney = 0
+
+        if chart.estimates:
+            for estimate in chart.estimates:
+                if estimate['choice'] == "Obama":
+                    obama = estimate['value']
+                elif estimate['choice'] == "Romney":
+                    romney = estimate['value']
+        else:
+            print 'NO ESTIMATES FOR %s' % state.id.upper()
+            continue
+
+        prediction = "t"
+
+        if abs(obama - romney) > 15:
+            if obama > romney:
+                prediction = "sd"
+            else:
+                prediction = "sr"
+        elif abs(obama - romney) > 7.5:
+            if obama > romney:
+                prediction = "ld"
+            else:
+                prediction = "lr"
+
+        uq = State.update(prediction=prediction).where(State.id == state)
+        uq.execute()
+
     write_www_files()
 
 

@@ -20,7 +20,6 @@ def president():
 
         context = {
             'states': states,
-            'settings': settings
         }
 
         return render_template('president.html', **context)
@@ -74,7 +73,9 @@ def president():
             uq = State.update(npr_call="%s" % party).where(State.id == race_slug)
             print uq.execute()
 
-        # Return the message instead of a template.
+        # TODO
+        # Return a 200. This is probably bad.
+        # Need to figure out what should go here.
         return ""
 
 
@@ -105,7 +106,6 @@ def house(house):
                 Candidate.party.asc())
 
         context = {
-            'settings': settings,
             'candidates': candidates,
             'house': house
         }
@@ -173,7 +173,9 @@ def house(house):
             candidate.npr_winner = True
             candidate.save()
 
-        # Return the message instead of a template.
+        # TODO
+        # Return a 200. This is probably bad.
+        # Need to figure out what should go here.
         return ""
 
 
