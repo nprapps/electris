@@ -3,7 +3,6 @@
 import input as i
 import output as o
 
-from pollster import Pollster
 from fabric.api import *
 from peewee import *
 from models import Candidate, Race, State
@@ -74,14 +73,23 @@ def _deploy_to_s3():
     """
     Deploy the gzipped stuff to
     """
-    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --recursive --exclude states.csv sync gzip/ s3://%(s3_bucket)s/%(project_name)s/') % env)
+    local(('\
+        s3cmd -P\
+        --add-header=Content-encoding:gzip\
+        --guess-mime-type\
+        --recursive\
+        --exclude states.csv\
+        --exclude house.json\
+        --exclude senate.json\
+        --exclude president.json\
+        sync gzip/ s3://%(s3_bucket)s/%(project_name)s/') % env)
 
 
 def _gzip_www():
     """
     Gzips everything in www and puts it all in gzip
     """
-    local('python gzip_www.py')
+    o.gzip_www()
 
 
 def setup():
@@ -201,46 +209,7 @@ def update_polls():
     """
     Updates state predictions for presidential races against HuffPo's polling API.
     """
-    pollster = Pollster()
-
-    for state in State.select().where(State.electoral_votes > 1):
-        charts = pollster.charts(topic='2012-president', state=state.id)
-
-        if charts:
-            chart = charts[0]
-        else:
-            print 'NO DATA FOR %s' % state.id.upper()
-            continue
-
-        obama = 0
-        romney = 0
-
-        if chart.estimates:
-            for estimate in chart.estimates:
-                if estimate['choice'] == "Obama":
-                    obama = estimate['value']
-                elif estimate['choice'] == "Romney":
-                    romney = estimate['value']
-        else:
-            print 'NO ESTIMATES FOR %s' % state.id.upper()
-            continue
-
-        prediction = "t"
-
-        if abs(obama - romney) > 15:
-            if obama > romney:
-                prediction = "sd"
-            else:
-                prediction = "sr"
-        elif abs(obama - romney) > 7.5:
-            if obama > romney:
-                prediction = "ld"
-            else:
-                prediction = "lr"
-
-        uq = State.update(prediction=prediction).where(State.id == state)
-        uq.execute()
-
+    i.update_polls()
     write_www_files()
 
 

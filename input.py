@@ -4,11 +4,13 @@ import os
 import csv
 import datetime
 import pytz
+
 import initial_data.time_zones as time_zones
 
 from cStringIO import StringIO
 from ftplib import FTP
 from peewee import *
+from pollster import Pollster
 
 from models import Race, Candidate, State
 
@@ -198,3 +200,45 @@ def bootstrap_president():
 
             state.save()
             print state.__unicode__()
+
+
+def update_polls():
+    pollster = Pollster()
+
+    for state in State.select().where(State.electoral_votes > 1):
+        charts = pollster.charts(topic='2012-president', state=state.id)
+
+        if charts:
+            chart = charts[0]
+        else:
+            print 'NO DATA FOR %s' % state.id.upper()
+            continue
+
+        obama = 0
+        romney = 0
+
+        if chart.estimates:
+            for estimate in chart.estimates:
+                if estimate['choice'] == "Obama":
+                    obama = estimate['value']
+                elif estimate['choice'] == "Romney":
+                    romney = estimate['value']
+        else:
+            print 'NO ESTIMATES FOR %s' % state.id.upper()
+            continue
+
+        prediction = "t"
+
+        if abs(obama - romney) > 15:
+            if obama > romney:
+                prediction = "sd"
+            else:
+                prediction = "sr"
+        elif abs(obama - romney) > 7.5:
+            if obama > romney:
+                prediction = "ld"
+            else:
+                prediction = "lr"
+
+        uq = State.update(prediction=prediction).where(State.id == state)
+        uq.execute()
