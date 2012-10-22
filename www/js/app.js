@@ -39,9 +39,6 @@ $(function() {
 
     /* User data */
     var tossup_picks = {};
-    var combo_picks = [];
-    var combo_pick_winner = null;
-    var combo_el = null;
 
     /* DATA PROCESSING & RENDERING */
     
@@ -50,14 +47,6 @@ $(function() {
 
         if (state.id in tossup_picks) {
             if (tossup_picks[state.id] === "r") {
-                red_bucket_el.append(el);
-            } else {
-                blue_bucket_el.append(el);
-            }
-        } else if ($.inArray(state.id, combo_picks) >= 0) {
-            el.addClass("combo-pick");
-
-            if (combo_pick_winner == "r") {
                 red_bucket_el.append(el);
             } else {
                 blue_bucket_el.append(el);
@@ -82,11 +71,9 @@ $(function() {
         var red_solid = [];
         var red_leans = [];
         var red_predicted = [];
-        var red_combo = [];
         var blue_solid = [];
         var blue_leans = [];
         var blue_predicted = [];
-        var blue_combo = [];
 
         // Group states together
         states_dataset.each(function(state) {
@@ -104,12 +91,6 @@ $(function() {
                 } else {
                     blue_predicted.push(state);
                 }
-            } else if ($.inArray(state.id, combo_picks) >= 0) {
-                if (combo_pick_winner == "r") {
-                    red_combo.push(state);
-                } else {
-                    blue_combo.push(state);
-                }
             }
         });
         
@@ -117,7 +98,7 @@ $(function() {
         $(".state").remove();
 
         // Add states by groups
-        _.each([red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted, red_combo, blue_combo], function(states) {
+        _.each([red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted], function(states) {
             // Sort alphabetically from *top to bottom*
             states.reverse();
 
@@ -151,12 +132,6 @@ $(function() {
                 states_fixed_blue.push(state);
             } else if (state.id in tossup_picks) {
                 if (tossup_picks[state.id] === "r") {
-                    states_user_red.push(state);
-                } else {
-                    states_user_blue.push(state);
-                }
-            } else if ($.inArray(state.id, combo_picks) >= 0) {
-                 if (combo_pick_winner == "r") {
                     states_user_red.push(state);
                 } else {
                     states_user_blue.push(state);
@@ -339,14 +314,16 @@ $(function() {
 
             _.each(_.range(1, 10), function(key) {
                 var group = groups[key] || [];
+                var side = root_el.hasClass("red") ? "red" : "blue";
 
                 // Tweak combo group display
-                var histogram_el = root_el.find(".histogram #groups-of-" + key);
+                var histogram_el = root_el.find(".histogram ." + side + key);
                 histogram_el.find(".title i").toggle(group.length > 0);
                 histogram_el.find(".bar").animate({ width: (group.length / max_combo_group * 100) + '%' }, 300);
 
                 if (group.length > 0) {
                     var combo_group_el = $(COMBO_GROUP_TEMPLATE({
+                        side: side,
                         key: key,
                         count: group.length
                     }));
@@ -415,32 +392,6 @@ $(function() {
         show_combos(blue_keys, blue_groups, blue_candidate_el, blue_votes);
     }
      
-    function clear_combo() {
-        /*
-         * Clear the current combo picks.
-         */
-        if (combo_picks.length > 0) {
-            _.each(combo_picks, function(state_id) {
-                var winner = combo_pick_winner;
-                var selector = winner === "r" ? "red" : "blue";
-                var opposite_selector = winner === "r" ? "blue" : "red";
-                var chiclet = $(".tossups." + selector + " li[data-state-id=" + state_id + "]");
-                var other_chiclet = $(".tossups." + opposite_selector + " li[data-state-id=" + state_id + "]");
-
-                chiclet.removeClass("active-combo");
-                other_chiclet.removeClass("taken"); 
-            });
-
-            combo_el.removeClass("active");
-
-            $(".state.combo-pick").remove();
-        }
- 
-        combo_picks = [];
-        combo_pick_winner = null;
-        combo_el = null;
-    }
-
     electris_el.on("click", ".tossups li", function(click) {
         /*
          * Select or unselect a tossup state.
@@ -450,12 +401,10 @@ $(function() {
         var opposite_selector = winner === "r" ? "blue" : "red";
         var other_chiclet = $(".tossups." + opposite_selector + " li[data-state-id=" + state_id + "]");
 
-        $(this).removeClass("active-combo");
         $(this).removeClass("taken");
         $(this).addClass("active");
 
         other_chiclet.removeClass("active");
-        other_chiclet.removeClass("active-combo");
         other_chiclet.addClass("taken"); 
                 
         $('.state[data-id="' + state_id + '"]').remove();
@@ -476,68 +425,32 @@ $(function() {
             tossup_picks[state_id] = winner;
         }
 
-        clear_combo();
-
         add_state(states_by_id[state_id]);
         compute_stats(true);
 
         return false;
     });
 
-    electris_el.on("click", ".combo-group li", function(event) {
+    electris_el.on("click", ".histogram h4", function(event) {
         /*
-         * Switch on all states in a combo.
+         * Scroll to combos list.
          */
-        var combo = $(this).data();
-        var deselect = combo.combo == combo_picks ? true : false;
-
-        clear_combo();
-
-        if (!deselect) {
-            combo_picks = combo.combo;
-            combo_pick_winner = $(this).parents(".histogram").hasClass("red") ? "r" : "d";
-            combo_el = $(this);
-
-            _.each(combo.combo, function(state_id) {
-                var winner = combo_pick_winner;
-                var selector = winner === "r" ? "red" : "blue";
-                var opposite_selector = winner === "r" ? "blue" : "red";
-                var chiclet = $(".tossups." + selector + " li[data-state-id=" + state_id + "]");
-                var other_chiclet = $(".tossups." + opposite_selector + " li[data-state-id=" + state_id + "]");
-     
-                chiclet.removeClass("active");
-                chiclet.removeClass("taken");
-                chiclet.addClass("active-combo");
-
-                other_chiclet.removeClass("active");
-                other_chiclet.removeClass("active-combo");
-                other_chiclet.addClass("taken"); 
-
-                $('.state[data-id="' + state_id + '"]').remove();
-
-                if (state_id in tossup_picks) {
-                    delete tossup_picks[state_id];
-                }
-            
-                add_state(states_by_id[state_id]);
-            });
-
-            combo_el.addClass("active");
-        }
-
-        compute_stats();
-
-        return false;
+        $("html, body").animate({
+            scrollTop: $($(this).data("target")).offset().top - 45
+        }, 1000);
     });
 
     // Render combo groups
     _.each(_.range(1, 10), function(key) {
-        var html = HISTOGRAM_TEMPLATE({
+        blue_histogram_el.append(HISTOGRAM_TEMPLATE({
+            side: "blue",
             key: key
-        });
+        }));
         
-        blue_histogram_el.append(html);
-        red_histogram_el.append(html);
+        red_histogram_el.append(HISTOGRAM_TEMPLATE({
+            side: "red",
+            key: key
+        }));
     });
 
     /* DATASET LOADING/POLLING */

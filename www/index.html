@@ -266,21 +266,19 @@
     </script>
 
     <script id="combo-group-template" type="text/template">
-        <li>
-            <h4><%= key %> state<%= key > 1 ? "s" : "" %></h4>
+        <li id="<%= side %><%= key %>">
+            <h4><%= key %> state<%= key > 1 ? "s" : "" %><br /><a href="#key">(back to top)</a></h4>
             <ul>
             </ul>
         </li>
     </script>
 
     <script id="histogram-template" type="text/template">
-        <li id="groups-of-<%= key %>">
-            <h4>
+        <li class="<%= side %><%= key %>">
+            <h4 data-target="#<%= side %><%= key %>">
                 <span class="title"><strong><%= key %> state<%= key > 1 ? "s" : "" %></strong></span>
                 <span class="bar" style="width: 0px;"></span>
             </h4>
-            <ul class="combo-group">
-            </ul>
         </li>
     </script>
 
