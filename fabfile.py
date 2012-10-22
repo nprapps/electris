@@ -8,6 +8,7 @@ import util
 Base configuration
 """
 env.project_name = 'electris'
+env.deployed_name = 'election-2012-paths-to-victory'
 env.user = 'ubuntu'
 env.python = 'python2.7'
 env.path = '/home/ubuntu/apps/%(project_name)s' % env
@@ -69,7 +70,7 @@ def _deploy_to_s3():
     """
     Deploy the gzipped stuff to
     """
-    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --recursive --exclude states.csv sync gzip/ s3://%(s3_bucket)s/%(project_name)s/') % env)
+    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --recursive --exclude states.csv sync gzip/ s3://%(s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def _gzip_www():
@@ -188,5 +189,5 @@ def shiva_the_destroyer():
     Deletes the app from s3
     """
     with settings(warn_only=True):
-        local('s3cmd del --recursive s3://%(s3_bucket)s/%(project_name)s' % env)
+        local('s3cmd del --recursive s3://%(s3_bucket)s/%(deployed_name)s' % env)
         run('rm -rf %(path)s')
