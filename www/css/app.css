@@ -247,9 +247,8 @@ a.btn { color: #fff; cursor: pointer; }
 .combos li { margin: 0 0 3px 0; padding: 0; text-indent: 0; }
 
 .histogram h4 {
-	font: normal 13px Arial, Helvetica, sans-serif;
+	font: bold 13px Arial, Helvetica, sans-serif;
 	margin: 0;
-/*	color: #888; */
 	color: #333;
 	background-color: #fff;
 	border: 1px solid #dadada;
@@ -259,22 +258,18 @@ a.btn { color: #fff; cursor: pointer; }
 	border-radius: 4px;
 	white-space: nowrap;
 }
-.histogram h4.showable { color: #000; }
+.histogram h4:hover { cursor: pointer; text-decoration: underline; }
 .histogram .title {
 	padding: 9px 12px 0 12px;
 	display: block;
 	z-index: 100;
 }
-.histogram .title strong { font-weight: normal; }
-.histogram .showable .title strong { font-weight: bold; }
-.histogram .title i { font-size: 11px; font-style: normal; }
 .histogram .bar {
 	display: block;
 	width: 100%;
 	height: 33px;
 	margin-top: -25px;
 	z-index: 99;
-/*	background-color: #ccc; */
 	background: #ccc;
 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ddd), to(#aaa));
 	background-image: -webkit-linear-gradient(top, #ddd, #aaa);
@@ -284,7 +279,6 @@ a.btn { color: #fff; cursor: pointer; }
 	filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ddd', endColorstr='#aaa', GradientType=0);
 	border-radius: 4px;
 }
-.histogram h4.showable:hover { cursor: pointer; text-decoration: underline; }
 
 .combo-group { display: none; }
 .combo-group li { 
