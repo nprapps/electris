@@ -4,6 +4,7 @@ $(function() {
     var STATE_TEMPLATE = _.template($("#state-template").html());
     var TOSSUP_TEMPLATE = _.template($("#tossup-template").html());
     var COMBO_GROUP_TEMPLATE = _.template($("#combo-group-template").html());
+    var HISTOGRAM_TEMPLATE = _.template($("#histogram-template").html());
     var MUST_WIN_TEMPLATE = _.template($("#must-win-template").html());
     var POLL_CLOSING_TIMES = [
         moment("2012-11-06T18:00:00 -0500"),
@@ -334,55 +335,39 @@ $(function() {
         var max_combo_group = _.max([max_red_combo_group.length, max_blue_combo_group.length]);
 
         function show_combos(keys, groups, root_el) {
-            // Hide open combo groups
-            root_el.find(".combo-group").hide();
+            var combo_groups_el = $("#combo-modal .combinations > ul");
+            combo_groups_el.empty();
 
             _.each(_.range(1, 10), function(key) {
                 var group = groups[key] || [];
 
                 // Tweak combo group display
-                var combo_group_el = root_el.find("#groups-of-" + key);
-                combo_group_el.find("h4").toggleClass("showable", group.length > 0);
-                combo_group_el.find(".title i").toggle(group.length > 0);
+                var histogram_el = root_el.find("#groups-of-" + key);
+                histogram_el.find(".title i").toggle(group.length > 0);
+                histogram_el.find(".bar").animate({ width: (group.length / max_combo_group * 100) + '%' }, 300);
 
-                combo_group_el.find(".bar").animate({ width: (group.length / max_combo_group * 100) + '%' }, 300);
+                if (group.length > 0) {
+                    var combo_group_el = $(COMBO_GROUP_TEMPLATE({
+                        key: key,
+                        count: group.length
+                    }));
 
-                // Reset the list
-                var combo_list_el = combo_group_el.find("ul");
-                combo_list_el.empty();
-                
-                _.each(group, function(combo) {
-                    var faces = ""; 
-                    var names = "";
+                    _.each(group, function(combo) {
+                        var state_text = [];
+                        
+                        _.each(combo.combo, function(state_id, i, l) {
+                            var state = states_by_id[state_id];
 
-                    _.each(combo.combo, function(state_id, i, l) {
-                        var state = states_by_id[state_id];
-
-                        faces += "<b>" + state.stateface + "</b>";
-                        names += state.name + " (" + state.electoral_votes + ")";
-
-                        if (i == l.length - 2) {
-                            names += " and ";
-                        } else if (i == l.length - 1) {
-                        } else {
-                            names += ", ";
-                        }
+                            state_text.push("<strong><b>" + state.stateface + "</b> " + state.name + " (" + state.electoral_votes + ")</strong>");
+                        });
+						
+                        var el = $("<li>" + state_text.join(" + ") + " = " + combo.votes + "</li>"); 
+                        
+                        combo_group_el.append(el);
                     });
 
-                    var el = $("<li>" + faces + "</li>"); 
-                    
-                    combo_list_el.append(el);
-
-                    if (SHOW_TOOLTIPS) {
-                        el.tooltip({
-                            animation: false,
-                            placement: root_el.hasClass("red") ? "left" : "right",
-                            title: names
-                        });
-                    }
-
-                    el.data(combo);
-                });
+                    combo_groups_el.append(combo_group_el);
+                }
             });
         }
 
@@ -534,7 +519,7 @@ $(function() {
 
     // Render combo groups
     _.each(_.range(1, 10), function(key) {
-        var html = COMBO_GROUP_TEMPLATE({
+        var html = HISTOGRAM_TEMPLATE({
             key: key
         });
         
