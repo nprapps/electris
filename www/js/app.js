@@ -440,6 +440,15 @@ $(function() {
         }, 1000);
     });
 
+    electris_el.on("click", ".combinations a", function(event) {
+        /*
+         * Scroll to top of app.
+         */
+        $("html, body").animate({
+            scrollTop: $("#key").offset().top - 45
+        }, 1000);
+    });
+
     // Render combo groups
     _.each(_.range(1, 10), function(key) {
         blue_histogram_el.append(HISTOGRAM_TEMPLATE({
