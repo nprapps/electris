@@ -337,14 +337,14 @@ $(function() {
         var max_combo_group = _.max([max_red_combo_group.length, max_blue_combo_group.length]);
 
         function show_combos(keys, groups, root_el, base_votes) {
-            var combo_groups_el = root_el.find("ul");
+            var combo_groups_el = root_el.find(".combinations ul");
             combo_groups_el.empty();
 
             _.each(_.range(1, 10), function(key) {
                 var group = groups[key] || [];
 
                 // Tweak combo group display
-                var histogram_el = root_el.find("#groups-of-" + key);
+                var histogram_el = root_el.find(".histogram #groups-of-" + key);
                 histogram_el.find(".title i").toggle(group.length > 0);
                 histogram_el.find(".bar").animate({ width: (group.length / max_combo_group * 100) + '%' }, 300);
 
@@ -388,7 +388,7 @@ $(function() {
             votes: red_votes
         }));
 
-        show_combos(red_keys, red_groups, red_combinations_el, red_votes);
+        show_combos(red_keys, red_groups, red_candidate_el, red_votes);
 
         if (blue_combos.length > 0) {
             simplest_combo_length = blue_combos[0].combo.length;
@@ -402,7 +402,7 @@ $(function() {
             votes: blue_votes
         }));
 
-        show_combos(blue_keys, blue_groups, blue_combinations_el, blue_votes);
+        show_combos(blue_keys, blue_groups, blue_candidate_el, blue_votes);
     }
      
     function clear_combo() {
