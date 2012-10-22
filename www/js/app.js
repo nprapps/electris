@@ -263,7 +263,7 @@ $(function() {
         var blue_groups = {};
         
         //sort by electoral vote count
-        undecided_states = _.sortBy(undecided_states,'electoral_votes').reverse()
+        undecided_states = _.sortBy(undecided_states, 'electoral_votes').reverse()
 
         var state_ids = _.pluck(undecided_states, "id");
 
@@ -284,11 +284,10 @@ $(function() {
 
             var combos = combinations(state_ids, 1);
 
-
             _.each(combos, function(combo) {
                 var combo_votes = _.reduce(combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
 
-                if (combo_votes > red_needs) {
+                if (combo_votes >= red_needs) {
                     if (!is_subset(red_combos, combo)) {
                         var combo_obj = { combo: combo, votes: combo_votes };
 
@@ -305,7 +304,7 @@ $(function() {
                     }
                 }
 
-                if (combo_votes > blue_needs) {
+                if (combo_votes >= blue_needs) {
                     if (!is_subset(blue_combos, combo)) {
                         var combo_obj = { combo: combo, votes: combo_votes };
 
@@ -386,7 +385,7 @@ $(function() {
                 });
             });
         }
-                    
+
         var simplest_combo_length = 0;
 
         if (red_combos.length > 0) {
