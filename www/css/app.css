@@ -133,7 +133,7 @@ a.btn { color: #fff; cursor: pointer; }
 .state:hover i, .state.prediction-t.combo-pick:hover i { color: #fff; }
 
 #line {
-	height: 2px;
+	height: 1px;
 	background-color: #B39429;
     position:absolute;
     z-index:100;
@@ -146,10 +146,9 @@ a.btn { color: #fff; cursor: pointer; }
     text-align: center;
     background-color: #FFF;
     text-indent: -9999px;
-    background: url('../img/270-line-1200.png') no-repeat center center;
+    background: url('../img/270-line-767.png') no-repeat center center;
     height: 33px;
-    margin-top: -8px;
-
+    margin-top: -7px;
 }
 
 .bucket {
@@ -237,7 +236,6 @@ a.btn { color: #fff; cursor: pointer; }
 	padding-left: 25px; padding-right: 0; float: right; 
 	background: url('../img/ico-checkmark.png') no-repeat left 20px;
 }
-.winner .bucket { background-color: #FBF1CD; }
 
 
 /* COMBOS */
