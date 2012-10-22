@@ -333,8 +333,6 @@ $(function() {
                             count: group.length,
                             last_group: (key == MAX_COMBO_GROUP)
                         }));
-                    
-                        combo_groups_el.append(combo_group_el);
                     }
                     
                     var combo_list_el = combo_group_el.find("ul");
@@ -352,6 +350,10 @@ $(function() {
                         
                         combo_list_el.append(el);
                     });
+
+                    if (key <= MAX_COMBO_GROUP) {
+                        combo_groups_el.append(combo_group_el);
+                    }
                 }
             });
         }
