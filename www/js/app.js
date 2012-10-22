@@ -28,6 +28,8 @@ $(function() {
     var blue_tossups_el = blue_candidate_el.find(".tossups");
     var red_histogram_el = red_candidate_el.find(".histogram");
     var blue_histogram_el = blue_candidate_el.find(".histogram");
+    var red_combinations_el = red_candidate_el.find(".combinations");
+    var blue_combinations_el = blue_candidate_el.find(".combinations");
 
     /* State data */
     var states_html = {};
@@ -334,8 +336,8 @@ $(function() {
 
         var max_combo_group = _.max([max_red_combo_group.length, max_blue_combo_group.length]);
 
-        function show_combos(keys, groups, root_el) {
-            var combo_groups_el = $("#combo-modal .combinations > ul");
+        function show_combos(keys, groups, root_el, base_votes) {
+            var combo_groups_el = root_el.find("ul");
             combo_groups_el.empty();
 
             _.each(_.range(1, 10), function(key) {
@@ -351,6 +353,7 @@ $(function() {
                         key: key,
                         count: group.length
                     }));
+                    var combo_list_el = combo_group_el.find("ul");
 
                     _.each(group, function(combo) {
                         var state_text = [];
@@ -361,9 +364,9 @@ $(function() {
                             state_text.push("<strong><b>" + state.stateface + "</b> " + state.name + " (" + state.electoral_votes + ")</strong>");
                         });
 						
-                        var el = $("<li>" + state_text.join(" + ") + " = " + combo.votes + "</li>"); 
+                        var el = $("<li>" + state_text.join(" + ") + " = " + (base_votes + combo.votes) + "</li>"); 
                         
-                        combo_group_el.append(el);
+                        combo_list_el.append(el);
                     });
 
                     combo_groups_el.append(combo_group_el);
@@ -385,7 +388,7 @@ $(function() {
             votes: red_votes
         }));
 
-        show_combos(red_keys, red_groups, red_histogram_el);
+        show_combos(red_keys, red_groups, red_combinations_el, red_votes);
 
         if (blue_combos.length > 0) {
             simplest_combo_length = blue_combos[0].combo.length;
@@ -399,7 +402,7 @@ $(function() {
             votes: blue_votes
         }));
 
-        show_combos(blue_keys, blue_groups, blue_histogram_el);
+        show_combos(blue_keys, blue_groups, blue_combinations_el, blue_votes);
     }
      
     function clear_combo() {
