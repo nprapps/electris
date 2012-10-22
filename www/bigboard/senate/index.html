@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/app.css" />
         <link rel="stylesheet" type="text/css" href="../css/senate.css" />
-        
+
     </head>
     <body>
        <div id="banner">
@@ -49,7 +49,7 @@
             <div class="timezone">
                 <div class="poll-closing-time">
                     <div class="poll-closing-time-label">
-                    <% date = moment.unix(timezone.gmt_epoch_time).format('h:mm'); %>
+                    <% date = moment.unix(timezone.gmt_epoch_time).subtract('hours', 5).format('h:mm'); %>
                     <%= date %>
                     </div>
                 </div>
@@ -57,8 +57,9 @@
                     <%
                         var called = '';
                         if (district.called == true) { called = 'called'; }
+                        var district_name = district.district.replace(' 0', '');
                     %>
-                    <ul class="<%= called %>"><li class="district"><%= district.district %></li>
+                    <ul class="<%= called %>"><li class="district"><%= district_name %></li>
                     <%
                     _.each(district.candidates, function(candidate){
                         party_class = candidate.party.toLowerCase();

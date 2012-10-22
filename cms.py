@@ -76,7 +76,7 @@ def president():
         # TODO
         # Return a 200. This is probably bad.
         # Need to figure out what should go here.
-        return ""
+        return "Success."
 
 
 @app.route('/races/<house>/', methods=['GET', 'POST'])
@@ -176,7 +176,7 @@ def house(house):
         # TODO
         # Return a 200. This is probably bad.
         # Need to figure out what should go here.
-        return ""
+        return "Success."
 
 
 if __name__ == "__main__":
