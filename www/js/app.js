@@ -258,6 +258,7 @@ $(function() {
         red_histogram_el.toggle(red_needs > 0);
         blue_histogram_el.toggle(blue_needs > 0);
         
+        var combos = [];
         var red_combos = [];
         var blue_combos = [];
         var red_keys = [];
@@ -284,13 +285,12 @@ $(function() {
         } else {
             // NB: A sorted input list generates a sorted output list
             // from our combinations algorithm.
-
-            var combos = combinations(state_ids, 1);
+            combos = combinations(state_ids, 1);
 
             _.each(combos, function(combo) {
                 var combo_votes = _.reduce(combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
 
-                if (combo_votes >= red_needs) {
+                if (combo_votes >= red_needs && red_needs > 0) {
                     if (!is_subset(red_combos, combo)) {
                         var combo_obj = { combo: combo, votes: combo_votes };
 
@@ -307,7 +307,7 @@ $(function() {
                     }
                 }
 
-                if (combo_votes >= blue_needs) {
+                if (combo_votes >= blue_needs && blue_needs > 0) {
                     if (!is_subset(blue_combos, combo)) {
                         var combo_obj = { combo: combo, votes: combo_votes };
 
@@ -382,10 +382,22 @@ $(function() {
             simplest_combo_length = 0;
         }
 
-        $(".candidate.red .combos .explainer").html(MUST_WIN_TEMPLATE({
+        var red_states_won = [];
+        var blue_states_won = [];
+        
+        _.each(tossup_picks, function(winner, state_id) {
+            if (winner === "r") {
+                red_states_won.push(states_by_id[state_id]);
+            } else if (winner === "d") {
+                blue_states_won.push(states_by_id[state_id]);
+            }
+        });
+
+        red_candidate_el.find(".combinations .robotext").html(MUST_WIN_TEMPLATE({
             candidate: "Romney",
             simplest_combo_length: simplest_combo_length,
-            votes: red_votes
+            votes: red_votes,
+            states_won: red_states_won 
         }));
 
         show_combos(red_keys, red_groups, red_candidate_el, red_votes);
@@ -396,10 +408,11 @@ $(function() {
             simplest_combo_length = 0;
         }
 
-        $(".candidate.blue .combos .explainer").html(MUST_WIN_TEMPLATE({
+        blue_candidate_el.find(".combinations .robotext").html(MUST_WIN_TEMPLATE({
             candidate: "Obama",
             simplest_combo_length: simplest_combo_length,
-            votes: blue_votes
+            votes: blue_votes,
+            states_won: blue_states_won
         }));
 
         show_combos(blue_keys, blue_groups, blue_candidate_el, blue_votes);
