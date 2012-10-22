@@ -20,6 +20,7 @@ def president():
 
         context = {
             'states': states,
+            'settings': settings
         }
 
         return render_template('president.html', **context)
@@ -107,7 +108,8 @@ def house(house):
 
         context = {
             'candidates': candidates,
-            'house': house
+            'house': house,
+            'settings': settings
         }
 
         return render_template('house_senate.html', **context)
