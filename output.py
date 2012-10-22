@@ -52,11 +52,12 @@ def write_president_json():
                 for state in State.select().where(State.electoral_votes > 1):
                     if state.id == s.lower():
                         state_dict = state._data
-                        state_dict['gop_percent'] = state.rep_vote_percent()
-                        state_dict['dem_percent'] = state.dem_vote_percent()
-                        state_dict['gop_count'] = state.human_rep_vote_count()
-                        state_dict['gop_count'] = state.human_dem_vote_count()
+                        state_dict['rep_vote_percent'] = state.rep_vote_percent()
+                        state_dict['dem_vote_percent'] = state.dem_vote_percent()
+                        state_dict['human_gop_vote_count'] = state.human_rep_vote_count()
+                        state_dict['human_dem_vote_count'] = state.human_dem_vote_count()
                         timezone_dict['states'].append(state_dict)
+                        print state_dict
             objects.append(timezone_dict)
         f.write(json.dumps(objects))
 
