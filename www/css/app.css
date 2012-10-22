@@ -157,26 +157,6 @@ a.btn { color: #fff; cursor: pointer; }
     -webkit-transform: scaleY(-1);
     -o-transform: scaleY(-1);
     transform: scaleY(-1);
-    
-    /* IE10 Consumer Preview */ 
-   /* background-image: -ms-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
-
-    /* Mozilla Firefox */ 
-   /*  background-image: -moz-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
-
-    /* Opera */ 
-   /*  background-image: -o-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
-
-    /* Webkit (Safari/Chrome 10) */ 
-   /*  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(.9, #FFFFFF), color-stop(1, #B39429));*/ 
-
-    /* Webkit (Chrome 11+) */ 
-    /* background-image: -webkit-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
-
-    /* W3C Markup, IE10 Release Preview */ 
-   /*  background-image: linear-gradient(to bottom, #FFFFFF 90%, #B39429 100%);*/ 
-    
-
 }
 .bucket .state i {
     -moz-transform: scaleY(-1);
@@ -269,7 +249,7 @@ a.btn { color: #fff; cursor: pointer; }
 .histogram h4 {
 	font: 13px Arial, Helvetica, sans-serif;
 	margin: 0;
-	color: #999;
+	color: #333;
 	background-color: #fff;
 	border: 1px solid #dadada;
 	position: relative;
@@ -278,7 +258,7 @@ a.btn { color: #fff; cursor: pointer; }
 	border-radius: 4px;
 	white-space: nowrap;
 }
-.histogram h4 strong { font-weight: normal; }
+.histogram h4 strong { font-weight: normal; color: #999; }
 .histogram .active h4 strong { font-weight: bold; color: #333; }
 .histogram .active h4:hover { cursor: pointer; text-decoration: underline; }
 .histogram .title {
@@ -298,7 +278,6 @@ a.btn { color: #fff; cursor: pointer; }
 	background-image: -o-linear-gradient(top, #ddd, #aaa);
 	background-image: linear-gradient(to bottom, #ddd, #aaa);
 	background-image: -moz-linear-gradient(top, #ddd, #aaa);
-	filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ddd', endColorstr='#aaa', GradientType=0);
 	border-radius: 4px;
 }
 
@@ -382,20 +361,14 @@ a.btn { color: #fff; cursor: pointer; }
 	border-color: #E5BF57;
 	border-bottom-color: #B39429;
 }
-.tossups li.active-combo div { 
-	background: #bcbcbc; 
-	border-color: #bbb;
-	border-bottom-color: #aaa;
-	color: #fff;
-}
 .tossups li.taken div { 
 	background: #FBF1CD;
 	background-image: none;
 	color: #f5dc81;
 }
 .tossups li.taken, .tossups li.taken span { color: #f5dc81; }
-.tossups li:hover div, .tossups li.taken:hover div, .tossups li.active-combo:hover div,
-.tossups li:active div, .tossups li.taken:active div, .tossups li.active-combo:active div {
+.tossups li:hover div, .tossups li.taken:hover div,
+.tossups li:active div, .tossups li.taken:active div {
 	cursor: pointer;
 	text-shadow: 0 1px 1px rgba(229, 191, 87, 0.75);
 	background: #E5BF57;
@@ -409,9 +382,8 @@ a.btn { color: #fff; cursor: pointer; }
 	border-top-color: #f5dc81;
 	color: #fff;
 }
-.tossups li:hover span, .tossups li.taken:hover span, .tossups li.active-combo:hover span,
-.tossups li.active div, .tossups li.active span,
-.tossups li.active-combo div, .tossups li.active-combo span {
+.tossups li:hover span, .tossups li.taken:hover span,
+.tossups li.active div, .tossups li.active span {
 	color: #fff;
 }
 .tossups .abbr { display: none; }
