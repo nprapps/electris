@@ -270,7 +270,8 @@ a.btn { color: #fff; cursor: pointer; }
 .histogram h4 {
 	font: normal 13px Arial, Helvetica, sans-serif;
 	margin: 0;
-	color: #888;
+/*	color: #888; */
+	color: #333;
 	background-color: #fff;
 	border: 1px solid #dadada;
 	position: relative;
@@ -294,7 +295,14 @@ a.btn { color: #fff; cursor: pointer; }
 	height: 33px;
 	margin-top: -25px;
 	z-index: 99;
-	background-color: #ccc;
+/*	background-color: #ccc; */
+	background: #ccc;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ddd), to(#aaa));
+	background-image: -webkit-linear-gradient(top, #ddd, #aaa);
+	background-image: -o-linear-gradient(top, #ddd, #aaa);
+	background-image: linear-gradient(to bottom, #ddd, #aaa);
+	background-image: -moz-linear-gradient(top, #ddd, #aaa);
+	filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ddd', endColorstr='#aaa', GradientType=0);
 	border-radius: 4px;
 }
 .histogram h4.showable:hover { cursor: pointer; text-decoration: underline; }
@@ -548,6 +556,11 @@ a.btn { color: #fff; cursor: pointer; }
 	.blue .vote-tallies .bignum { float: left; margin-right: 3%; margin-left: 0; }
 	.blue .vote-tallies span { text-align: left; }
 	.combos { width: auto; height: auto; border: none; }
+
+	.combinations h4 { width: auto; float: none; margin-bottom: 6px; }
+	.combinations ul li ul { width: auto; float: none; }
+	.combinations ul li ul li { padding-left: 12px; }
+	.combinations ul li ul li:first-child { border-top: 1px solid #ddd; }
 }
 @media (max-width: 480px) {
 	.intro h1 { font-size: 30px; padding-top: 5px; }
