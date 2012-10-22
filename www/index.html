@@ -263,7 +263,7 @@
 
     <script id="combo-group-template" type="text/template">
         <li id="<%= side %><%= key %>">
-            <h4><%= key %> state<%= key > 1 ? "s" : "" %><br /><a href="#key">(back to top)</a></h4>
+            <h4><%= key %><% if (last_group) { %>+<% } %> state<%= key > 1 ? "s" : "" %><br /><a href="#key">(back to top)</a></h4>
             <ul>
             </ul>
         </li>
@@ -272,7 +272,7 @@
     <script id="histogram-template" type="text/template">
         <li class="<%= side %><%= key %>">
             <h4 data-target="#<%= side %><%= key %>">
-                <span class="title"><strong><%= key %> state<%= key > 1 ? "s" : "" %></strong></span>
+                <span class="title"><strong><%= key %><% if (last_group) { %>+<% } %> state<%= key > 1 ? "s" : "" %></strong></span>
                 <span class="bar" style="width: 0px;"></span>
             </h4>
         </li>

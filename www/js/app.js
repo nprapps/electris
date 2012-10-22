@@ -17,6 +17,7 @@ $(function() {
         moment("2012-11-07T01:00:00 -0500")
     ];
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
+    var MAX_COMBO_GROUP = 8;
 
     /* Elements */
     var electris_el = $("#electris");
@@ -36,6 +37,7 @@ $(function() {
     var states_by_id = {};
     var red_votes = 0;
     var blue_votes = 0;
+    var total_tossup_states = 0;
 
     /* User data */
     var tossup_picks = {};
@@ -312,7 +314,7 @@ $(function() {
             var combo_groups_el = root_el.find(".combinations ul");
             combo_groups_el.empty();
 
-            _.each(_.range(1, 10), function(key) {
+            _.each(_.range(1, total_tossup_states + 1), function(key) {
                 var group = groups[key] || [];
                 var side = root_el.hasClass("red") ? "red" : "blue";
 
@@ -322,11 +324,19 @@ $(function() {
                 histogram_el.find(".bar").animate({ width: (group.length / max_combo_group * 100) + '%' }, 300);
 
                 if (group.length > 0) {
-                    var combo_group_el = $(COMBO_GROUP_TEMPLATE({
-                        side: side,
-                        key: key,
-                        count: group.length
-                    }));
+                    if (key > MAX_COMBO_GROUP) {
+                        var combo_group_el = combo_groups_el.find("#" + side + MAX_COMBO_GROUP);
+                    } else {
+                        var combo_group_el = $(COMBO_GROUP_TEMPLATE({
+                            side: side,
+                            key: key,
+                            count: group.length,
+                            last_group: (key == MAX_COMBO_GROUP)
+                        }));
+                    
+                        combo_groups_el.append(combo_group_el);
+                    }
+                    
                     var combo_list_el = combo_group_el.find("ul");
 
                     _.each(group, function(combo) {
@@ -342,8 +352,6 @@ $(function() {
                         
                         combo_list_el.append(el);
                     });
-
-                    combo_groups_el.append(combo_group_el);
                 }
             });
         }
@@ -450,15 +458,17 @@ $(function() {
     });
 
     // Render combo groups
-    _.each(_.range(1, 10), function(key) {
+    _.each(_.range(1, MAX_COMBO_GROUP + 1), function(key) {
         blue_histogram_el.append(HISTOGRAM_TEMPLATE({
             side: "blue",
-            key: key
+            key: key,
+            last_group: (key == MAX_COMBO_GROUP)
         }));
         
         red_histogram_el.append(HISTOGRAM_TEMPLATE({
             side: "red",
-            key: key
+            key: key,
+            last_group: (key == MAX_COMBO_GROUP)
         }));
     });
 
@@ -506,6 +516,8 @@ $(function() {
 
                 red_tossups_el.append(html);
                 blue_tossups_el.append(html);
+
+                total_tossup_states += 1;
             }
         });
 
