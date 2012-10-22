@@ -366,7 +366,7 @@ a.btn { color: #fff; cursor: pointer; }
 	background-image: none;
 	color: #f5dc81;
 }
-.tossups li.taken, .tossups li.taken span { color: #f5dc81; }
+.tossups li.taken, .tossups li.taken span, .tossups li.taken i { color: #f5dc81; }
 .tossups li:hover div, .tossups li.taken:hover div,
 .tossups li:active div, .tossups li.taken:active div {
 	cursor: pointer;
@@ -383,7 +383,9 @@ a.btn { color: #fff; cursor: pointer; }
 	color: #fff;
 }
 .tossups li:hover span, .tossups li.taken:hover span,
-.tossups li.active div, .tossups li.active span {
+.tossups li.active div, .tossups li.active span,
+.tossups li:hover i, .tossups li.taken:hover i,
+.tossups li.active i, .tossups li.active i {
 	color: #fff;
 }
 .tossups .abbr { display: none; }
@@ -395,6 +397,7 @@ a.btn { color: #fff; cursor: pointer; }
     width: 1.2em;
     height:1em;
 }
+.tossups i { display: none; font-size: 11px; font-style: normal; color: #77631B; line-height: 12px; }
 .tossups span { font: normal 11px Arial, Helvetica, sans-serif; text-align: left; color: #77631b; }
 
 
@@ -479,7 +482,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.bucket-header h3 { font-size: 19px; }
     .bucket-header h3 i { display: none; }
 	.blue .bucket, .red .bucket { float: none; }
-	.blue .combos, .red .combos { 
+	.candidate.blue .combos, .candidate.red .combos { 
 		width: auto; clear: none; float: none;
 		margin: 15px 0 0 0;
 	}
@@ -512,6 +515,9 @@ a.btn { color: #fff; cursor: pointer; }
 	.combinations ul li ul { width: auto; float: none; }
 	.combinations ul li ul li { padding-left: 12px; }
 	.combinations ul li ul li:first-child { border-top: 1px solid #ddd; }
+	
+	.tossups i { display: block; }
+	.tossups span { display: block; text-align: center; }
 }
 @media (max-width: 480px) {
 	.intro h1 { font-size: 30px; padding-top: 5px; }
