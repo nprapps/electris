@@ -12,3 +12,4 @@ pytz==2012f
 ssh==1.7.14
 wsgiref==0.1.2
 Pollster==0.1.2
+peewee==2.0.2
