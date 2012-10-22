@@ -267,9 +267,9 @@ a.btn { color: #fff; cursor: pointer; }
 .combos li { margin: 0 0 3px 0; padding: 0; text-indent: 0; }
 
 .histogram h4 {
-	font: bold 13px Arial, Helvetica, sans-serif;
+	font: 13px Arial, Helvetica, sans-serif;
 	margin: 0;
-	color: #333;
+	color: #999;
 	background-color: #fff;
 	border: 1px solid #dadada;
 	position: relative;
@@ -278,7 +278,8 @@ a.btn { color: #fff; cursor: pointer; }
 	border-radius: 4px;
 	white-space: nowrap;
 }
-.histogram h4:hover { cursor: pointer; text-decoration: underline; }
+.histogram .active h4 { font-weight: bold; color: #333; }
+.histogram .active h4:hover { cursor: pointer; text-decoration: underline; }
 .histogram .title {
 	padding: 9px 12px 0 12px;
 	display: block;

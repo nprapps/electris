@@ -318,7 +318,7 @@ $(function() {
 
                 // Tweak combo group display
                 var histogram_el = root_el.find(".histogram ." + side + key);
-                histogram_el.find(".title i").toggle(group.length > 0);
+                histogram_el.toggleClass("active", group.length > 0);
                 histogram_el.find(".bar").animate({ width: (group.length / max_combo_group * 100) + '%' }, 300);
 
                 if (group.length > 0) {
