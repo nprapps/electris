@@ -146,9 +146,9 @@ a.btn { color: #fff; cursor: pointer; }
     text-align: center;
     background-color: #FFF;
     text-indent: -9999px;
-    background: url('../img/270.gif') no-repeat center center;
+    background: url('../img/270-line-1200.png') no-repeat center center;
     height: 33px;
-    margin-top: -5px;
+    margin-top: -8px;
 
 }
 
@@ -157,6 +157,26 @@ a.btn { color: #fff; cursor: pointer; }
     -webkit-transform: scaleY(-1);
     -o-transform: scaleY(-1);
     transform: scaleY(-1);
+    
+    /* IE10 Consumer Preview */ 
+   /* background-image: -ms-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
+
+    /* Mozilla Firefox */ 
+   /*  background-image: -moz-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
+
+    /* Opera */ 
+   /*  background-image: -o-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
+
+    /* Webkit (Safari/Chrome 10) */ 
+   /*  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(.9, #FFFFFF), color-stop(1, #B39429));*/ 
+
+    /* Webkit (Chrome 11+) */ 
+    /* background-image: -webkit-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
+
+    /* W3C Markup, IE10 Release Preview */ 
+   /*  background-image: linear-gradient(to bottom, #FFFFFF 90%, #B39429 100%);*/ 
+    
+
 }
 .bucket .state i {
     -moz-transform: scaleY(-1);
@@ -535,6 +555,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.blue .vote-tallies .bignum { float: left; margin-right: 3%; margin-left: 0; }
 	.blue .vote-tallies span { text-align: left; }
 	.combos { width: auto; height: auto; border: none; }
+	#line b {background: url('../img/270-line-767.png') no-repeat center center; height: 42px;margin-top: -10px;}
 
 	.combinations h4 { width: auto; float: none; margin-bottom: 6px; }
 	.combinations ul li ul { width: auto; float: none; }
