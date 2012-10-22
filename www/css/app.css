@@ -320,24 +320,35 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 
-/* COMBINATIONS MODAL */
-.modal { color: #333; }
-.modal-header h3 {
-	font: normal 1.4em/30px Georgia, serif;
-	color: #000;
-}
-.modal b {
+/* COMBINATIONS */
+.combinations { clear: both; padding-top: 18px; }
+.combinations b {
 	font-weight: normal;
 	font-family: StateFaceRegular;
     display: inline-block;
 }
-.modal p.robotext { font-style: italic; font-size: 14px; line-height: 1.4em; color: #666; }
-.modal p.robotext strong { color: #333; white-space: nowrap; }
-.combinations h4 { font: normal 11px Arial, Helvetica, sans-serif; margin: 0; color: #666; text-transform: uppercase; }
-.combinations ul { list-style: none; margin: 0; padding: 0; }
-.combinations ul li { margin: 18px 0 0 0; }
-.combinations ul li ul li { margin: 6px 0 0 12px; color: #999; }
-.combinations strong { white-space: nowrap; color: #333; }
+.combinations p.robotext { font-size: 12px; color: #666; margin: 0 0 12px 0; }
+.combinations p.robotext strong { color: #333; }
+.combinations h4 { 
+	font: bold 13px Arial, Helvetica, sans-serif; 
+	margin: 0; padding-top: 10px; 
+	color: #333; 
+	width: 15%; float: left;
+}
+.combinations h4 span {
+	display: block;
+	color: #999;
+	font-size: 11px;
+	margin-top: 3px;
+	font-weight: normal;
+}
+.combinations ul { list-style: none; margin: 0; padding: 0; font-size: 12px; width: 100%; }
+.combinations ul li { margin: 0 0 1px 0; clear: left; height: 1%; overflow: hidden; border-top: 3px solid #ccc; }
+.combinations ul li ul { width: 80%; float: right; }
+.combinations ul li ul li { margin: 0; padding: 9px 9px; color: #999; width: auto; clear: none; border: none; border-top: 1px solid #ddd; }
+.combinations ul li ul li:nth-child(2n) { background-color: #f7f7f7; }
+.combinations ul li ul li:first-child { border: none; }
+.combinations ul strong { white-space: nowrap; color: #555; }
 
 
 /* TOSSUPS */
@@ -399,7 +410,6 @@ a.btn { color: #fff; cursor: pointer; }
 	color: #f5dc81;
 }
 .tossups li.taken, .tossups li.taken span { color: #f5dc81; }
-
 .tossups li:hover div, .tossups li.taken:hover div, .tossups li.active-combo:hover div,
 .tossups li:active div, .tossups li.taken:active div, .tossups li.active-combo:active div {
 	cursor: pointer;
@@ -420,7 +430,6 @@ a.btn { color: #fff; cursor: pointer; }
 .tossups li.active-combo div, .tossups li.active-combo span {
 	color: #fff;
 }
-
 .tossups .abbr { display: none; }
 .tossups .full { display: inline; }
 .tossups b {
@@ -459,14 +468,12 @@ a.btn { color: #fff; cursor: pointer; }
 	#bigbox { width: 300px; }
 	#states { font-size: 25px; }
 	/*.state i { padding-top: .05em; height: .85em; }*/
-    
     .state i {
         width:23px;
         height:23px;
         margin-right:2px;
         margin-bottom:2px;
     }
-    
 	.bucket { width: 15em; }
 	.combos { width: 6.5em; }
 	.histogram h4 { height: 22px; }
@@ -484,17 +491,12 @@ a.btn { color: #fff; cursor: pointer; }
 	#main-header, #header-title { width: 724px; }
 	.intro h1 { font-size: 28px; }
 	#states { font-size: 20px; }
-    
-    
-    
     .state i {
         width:19px;
         height:19px;
         margin-right:1px;
         margin-bottom:1px;
     }
-    
-    
 	.bucket { width: 10em; }
 	.combos { width: 6.5em; }
 	.bucket-header { height: 4em; }
@@ -510,7 +512,6 @@ a.btn { color: #fff; cursor: pointer; }
 	#bigbox { float: none; width: auto; padding-top: 1em; background-color: #f1f1f1; margin: 0 0 1.8em 0; }
 	#electris { margin-left: 0; padding-top: 0; }
 	#states { font-size: 10px; }
-    
 /*    #states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }*/
     .state i {
         text-indent: -9999px;
@@ -519,8 +520,6 @@ a.btn { color: #fff; cursor: pointer; }
         margin-bottom:1px;
         height:9px;
     }
-    
-    
 	.bucket-header h3 { font-size: 19px; }
     .bucket-header h3 i { display: none; }
 	.blue .bucket, .red .bucket { float: none; }
