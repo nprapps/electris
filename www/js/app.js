@@ -255,9 +255,6 @@ $(function() {
         var red_needs = ELECTORAL_VOTES_TO_WIN - red_votes;
         var blue_needs = ELECTORAL_VOTES_TO_WIN - blue_votes;
 
-        red_histogram_el.toggle(red_needs > 0);
-        blue_histogram_el.toggle(blue_needs > 0);
-        
         var combos = [];
         var red_combos = [];
         var blue_combos = [];
@@ -597,24 +594,4 @@ $(function() {
         add_states();
         compute_stats(true);
     });
-    
-    /* SHOW/HIDE COMBO GROUPS
-    electris_el.on("click", ".histogram h4.showable", function() {
-    	var show_text = '(show)';
-    	var hide_text = '(hide)';
-
-        var t = $(this).find('i');
-
-    	if (t.text() == show_text) {
-    		t.text(hide_text);
-    	} else {
-    		t.text(show_text);
-            clear_combo();
-            compute_stats();
-    	}
-
-    	$(this).next('.combo-group').slideToggle('fast').parent('li').siblings('li').find('.combo-group').slideUp('fast').siblings('h4').find('i').text(show_text);
-    });
-     */
-    
 });
