@@ -323,7 +323,7 @@ a.btn { color: #fff; cursor: pointer; }
 	margin-top: 3px;
 	font-weight: normal;
 }
-.combinations h4 a { font-size: 11px; font-weight: normal; }
+.combinations h4 a { font-size: 11px; font-weight: normal; color: #666; }
 .combinations ul { list-style: none; margin: 0; padding: 0; font-size: 12px; width: 100%; }
 .combinations ul li { margin: 0 0 1px 0; clear: left; height: 1%; overflow: hidden; border-top: 3px solid #ccc; }
 .combinations ul li ul { width: 80%; float: right; }
@@ -517,14 +517,16 @@ a.btn { color: #fff; cursor: pointer; }
 	.bucket-header h3, .blue .bucket-header h3, .red .bucket-header h3 { 
 		padding-top: 6px;
 		text-align: left;
+		margin-bottom: 0;
 	}
     .bucket-header h3 i { display: inline; }
 	.blue.winner .bucket-header h3 { background-position: right 8px; }
 	.red.winner .bucket-header h3 { padding-right: 25px; padding-left: 0; float: none; background: url('../img/ico-checkmark.png') no-repeat right 8px; }
 	.vote-tallies, .blue .vote-tallies, .red .vote-tallies { 
 		position: static; top: auto; right: auto; left: auto; width: auto;
-		margin-left: 50px; margin-top: 9px;
+		margin-left: 50px; margin-top: 3px;
 	}
+	.winner.blue .vote-tallies, .winner.red .vote-tallies { margin-top: 2px; }
 	.vote-tallies .bignum { font-size: 18px; }
 	.blue .vote-tallies .electoral { float: left; }
 	.blue .vote-tallies .bignum { float: left; margin-right: 3%; margin-left: 0; }
