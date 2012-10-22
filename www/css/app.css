@@ -278,7 +278,8 @@ a.btn { color: #fff; cursor: pointer; }
 	border-radius: 4px;
 	white-space: nowrap;
 }
-.histogram .active h4 { font-weight: bold; color: #333; }
+.histogram h4 strong { font-weight: normal; }
+.histogram .active h4 strong { font-weight: bold; color: #333; }
 .histogram .active h4:hover { cursor: pointer; text-decoration: underline; }
 .histogram .title {
 	padding: 9px 12px 0 12px;
