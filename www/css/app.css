@@ -321,31 +321,34 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* COMBINATIONS */
-.combinations { clear: both; font-size: 12px; padding-top: 18px; }
+.combinations { clear: both; padding-top: 18px; }
 .combinations b {
 	font-weight: normal;
 	font-family: StateFaceRegular;
     display: inline-block;
 }
 .combinations p.robotext { font-size: 12px; color: #666; margin: 0 0 12px 0; }
-.combinations p.robotext strong { color: #333; white-space: nowrap; }
+.combinations p.robotext strong { color: #333; }
 .combinations h4 { 
-	font: normal 11px Arial, Helvetica, sans-serif; 
-	margin: 0; padding-top: 12px; 
-	color: #666; 
-	text-transform: uppercase; 
-	border-top: 1px dotted #CCC;
+	font: bold 13px Arial, Helvetica, sans-serif; 
+	margin: 0; padding-top: 10px; 
+	color: #333; 
+	width: 15%; float: left;
 }
-.combinations ul { list-style: none; margin: 0; padding: 0; }
-.combinations ul li { margin: 0 0 12px 0; }
-.combinations ul li ul li { margin: 9px 0 0 12px; color: #999; }
-.combinations strong { white-space: nowrap; color: #333; }
-/*
-.blue .combinations h5, 
-.blue .combinations h4,
-.blue .combinations p,
-.blue .combinations li { text-align: right; }
-*/
+.combinations h4 span {
+	display: block;
+	color: #999;
+	font-size: 11px;
+	margin-top: 3px;
+	font-weight: normal;
+}
+.combinations ul { list-style: none; margin: 0; padding: 0; font-size: 12px; width: 100%; }
+.combinations ul li { margin: 0 0 1px 0; clear: left; height: 1%; overflow: hidden; border-top: 3px solid #ccc; }
+.combinations ul li ul { width: 80%; float: right; }
+.combinations ul li ul li { margin: 0; padding: 9px 9px; color: #999; width: auto; clear: none; border: none; border-top: 1px solid #ddd; }
+.combinations ul li ul li:nth-child(2n) { background-color: #f7f7f7; }
+.combinations ul li ul li:first-child { border: none; }
+.combinations ul strong { white-space: nowrap; color: #555; }
 
 
 /* TOSSUPS */
