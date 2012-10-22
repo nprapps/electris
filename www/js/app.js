@@ -318,7 +318,7 @@ $(function() {
 
                 // Tweak combo group display
                 var histogram_el = root_el.find(".histogram ." + side + key);
-                histogram_el.find(".title i").toggle(group.length > 0);
+                histogram_el.toggleClass("active", group.length > 0);
                 histogram_el.find(".bar").animate({ width: (group.length / max_combo_group * 100) + '%' }, 300);
 
                 if (group.length > 0) {
@@ -437,6 +437,15 @@ $(function() {
          */
         $("html, body").animate({
             scrollTop: $($(this).data("target")).offset().top - 45
+        }, 1000);
+    });
+
+    electris_el.on("click", ".combinations a", function(event) {
+        /*
+         * Scroll to top of app.
+         */
+        $("html, body").animate({
+            scrollTop: $("#key").offset().top - 45
         }, 1000);
     });
 
