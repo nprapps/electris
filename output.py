@@ -10,6 +10,7 @@ import time
 from boto.s3.key import Key
 import cms_settings as settings
 
+from initial_data import time_zones
 from models import Race, Candidate, State
 
 
@@ -41,20 +42,23 @@ def gzip_www():
 
 
 def write_president_json():
-#     with open('www/president.json', 'w') as f:
-#         times = settings.PRESIDENT_TIMES
-#         objects = []
-#         for timezone in times:
-#             timezone_dict = {}
-#             timezone_dict['gmt_epoch_time'] = timezone['time']
-#             timezone_dict['states'] = []
-#             for s in timezone['states']:
-#                 for state in states:
-#                     if state['id'].upper() == s:
-#                         timezone_dict['states'].append(dict(state))
-#             objects.append(timezone_dict)
-#         f.write(json.dumps(objects))
-    pass
+    with open('www/president.json', 'w') as f:
+        objects = []
+        for timezone in time_zones.PRESIDENT_TIMES:
+            timezone_dict = {}
+            timezone_dict['gmt_epoch_time'] = timezone['time']
+            timezone_dict['states'] = []
+            for s in timezone['states']:
+                for state in State.select().where(State.electoral_votes > 1):
+                    if state.id == s.lower():
+                        state_dict = state._data
+                        state_dict['gop_percent'] = state.rep_vote_percent()
+                        state_dict['dem_percent'] = state.dem_vote_percent()
+                        state_dict['gop_count'] = state.human_rep_vote_count()
+                        state_dict['gop_count'] = state.human_dem_vote_count()
+                        timezone_dict['states'].append(state_dict)
+            objects.append(timezone_dict)
+        f.write(json.dumps(objects))
 
 
 def write_house_json():
@@ -71,7 +75,7 @@ def generate_json(house):
     """
     Generates JSON from rows of candidates and a house of congress.
     * Rows should be an iterator. In this case, a query for candidates.
-    * House should be a two-tuple: ('house', 'h').
+    * House is a two-tuple ('house', 'H'), e.g., URL slug and DB representation.
     """
     objects = []
     for timezone in settings.CLOSING_TIMES:

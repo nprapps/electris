@@ -1,22 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    
-    
-    <title>Presidential</title>
-    
-	 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.7.3/build/cssreset/cssreset-min.css">
-    <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/app.css" />
-    <link rel="stylesheet" type="text/css" href="../css/president.css" />
-
-    
-    
+        <title>Presidential</title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.7.3/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../css/app.css" />
+        <link rel="stylesheet" type="text/css" href="../css/president.css" />
     </head>
-    
-    
     <body>
-     <div id="banner">
+        <div id="banner">
             <h1>President</h1>
             <ul>
                 <li id="dem_sec">
@@ -29,43 +21,132 @@
         </div>
         <div id="candidates">
         <div class="weighted">
-        	<ul class="swing">
-        		<li class="percentTime">70%</li>
-        		<li class="state dem winner">New Hampshire (4)</li>
-        		<li class="demPercent">30%</li>
-        		<li class="gopPercent">40%</li>
-        		<li class="closeTime">7:00</li>
-        	</ul>
-        	<ul class="swing">
-        		<li class="percentTime">10%</li>
-        		<li class="state gop winner">New Hampshire (4)</li>
-        		<li class="demPercent">30%</li>
-        		<li class="gopPercent">40%</li>
-        		<li class="closeTime">7:00</li>
-        	</ul>
-        	<ul class="swing">
-        		<li class="percentTime">80%</li>
-        		<li class="state">New Hampshire (4)</li>
-        		<li class="demPercent">30%</li>
-        		<li class="gopPercent">40%</li>
-        		<li class="closeTime">7:00</li>
-        	</ul>
-        	<ul class="swing">
-        		<li class="percentTime">8:00</li>
-        		<li class="state">New Hampshire (4)</li>
-        		<li class="demPercent">30%</li>
-        		<li class="gopPercent">40%</li>
-        		<li class="closeTime">7:00</li>
-        	</ul>
-        	<ul class="swing">
-        		<li class="percentTime">12:00</li>
-        		<li class="state">New Hampshire (4)</li>
-        		<li class="demPercent">30%</li>
-        		<li class="gopPercent">40%</li>
-        		<li class="closeTime">7:00</li>
-        	</ul>
+            <!-- Faking this for now. Will un-fake it later. -->
+            <ul class="swing">
+                <li class="percentTime">70%</li>
+                <li class="state dem winner">New Hampshire (4)</li>
+                <li class="demPercent">30%</li>
+                <li class="gopPercent">40%</li>
+                <li class="closeTime">7:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">10%</li>
+                <li class="state gop winner">New Hampshire (4)</li>
+                <li class="demPercent">30%</li>
+                <li class="gopPercent">40%</li>
+                <li class="closeTime">7:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">80%</li>
+                <li class="state">New Hampshire (4)</li>
+                <li class="demPercent">30%</li>
+                <li class="gopPercent">40%</li>
+                <li class="closeTime">7:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">8:00</li>
+                <li class="state">New Hampshire (4)</li>
+                <li class="demPercent">30%</li>
+                <li class="gopPercent">40%</li>
+                <li class="closeTime">7:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">12:00</li>
+                <li class="state">New Hampshire (4)</li>
+                <li class="demPercent">30%</li>
+                <li class="gopPercent">40%</li>
+                <li class="closeTime">7:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">70%</li>
+                <li class="state dem winner">New Hampshire (4)</li>
+                <li class="demPercent">30%</li>
+                <li class="gopPercent">40%</li>
+                <li class="closeTime">7:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">10%</li>
+                <li class="state gop winner">New Hampshire (4)</li>
+                <li class="demPercent">30%</li>
+                <li class="gopPercent">40%</li>
+                <li class="closeTime">7:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">80%</li>
+                <li class="state">New Hampshire (4)</li>
+                <li class="demPercent">30%</li>
+                <li class="gopPercent">40%</li>
+                <li class="closeTime">7:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">8:00</li>
+                <li class="state">New Hampshire (4)</li>
+                <li class="demPercent">30%</li>
+                <li class="gopPercent">40%</li>
+                <li class="closeTime">7:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">12:00</li>
+                <li class="state">New Hampshire (4)</li>
+                <li class="demPercent">30%</li>
+                <li class="gopPercent">40%</li>
+                <li class="closeTime">7:00</li>
+            </ul>
         </div>
-        <div class="full">
+        <div class="full"></div>
+    </div>
+
+        <script type="text/javascript" src="../../js/lib/jquery-1.8.1.min.js"></script>
+        <script type="text/javascript" src="../../js/lib/jquery.columnizer.js"></script>
+        <script type="text/javascript" src="../../js/lib/underscore-min.js"></script>
+        <script type="text/javascript" src="../../js/lib/humanize.min.js"></script>
+        <script type="text/javascript" src="../../js/lib/moment.min.js"></script>
+        <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript" src="../js/president.js"></script>
+        <!--[if lt IE 9]>
+        <script src="js/lib/html5.js"></script>
+        <![endif]-->
+
+        <!-- STEPH
+        The variables you have are:
+            stateface
+            name
+            abbr
+            electoral_votes
+            prediction
+            ap_call
+            ap_called_at
+            accept_ap_call
+            npr_call
+            npr_called_at
+            total_precincts
+            precincts_reporting
+            rep_vote_count
+            dem_vote_count
+            human_rep_vote_count
+            human_dem_vote_count
+            rep_vote_percent
+            dem_vote_percent
+        -->
+        <script id="timezone-template" type="text/template">
+            <div class="closeTimeBar">
+                <% date = moment.unix(timezone.gmt_epoch_time).subtract('hours', 5).format('h:mm'); %>
+                <%= date %>
+            </div>
+            <% _.each(timezone.states, function(state){ %>
+                <%
+                    var called = '';
+                    if (state.called == true) { called = 'called'; }
+                %>
+                <ul class="allstates <%= called %>">
+                    <li class="district">
+                    <%= state.name %> (<%= state.electoral_votes %>)
+                    </li>
+                </ul>
+            <% }); %>
+        </script>
+
+        <!-- <div class="full">
         	<div class="closeTimeBar">7:00</div>
         	<ul class="allstates">
         		<li class="percentTime">12:00</li>
@@ -126,10 +207,7 @@
         		<li class="state">Alabama (9)</li>
         	</ul>
         </div>
-        </div>
-    
-    
-    
+        </div> -->
+
     </body>
-    
 </html>
