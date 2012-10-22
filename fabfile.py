@@ -123,10 +123,10 @@ def deploy():
 
 def deploy_data():
     """
-    Deploy the gzipped stuff to
+    Deploy the local data file to S3 (for electris pre-election.)
     """
     _gzip_www()
-    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type sync gzip/states.csv s3://%(s3_bucket)s/%(project_name)s/') % env)
+    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type sync gzip/states.csv s3://%(s3_bucket)s/%(deployed_name)s/') % env)
 
 def load_bb_testing_rig():
     """
