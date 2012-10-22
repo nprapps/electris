@@ -582,7 +582,7 @@ $(function() {
         compute_stats(true);
     });
     
-    /* SHOW/HIDE COMBO GROUPS */
+    /* SHOW/HIDE COMBO GROUPS
     electris_el.on("click", ".histogram h4.showable", function() {
     	var show_text = '(show)';
     	var hide_text = '(hide)';
@@ -599,5 +599,6 @@ $(function() {
 
     	$(this).next('.combo-group').slideToggle('fast').parent('li').siblings('li').find('.combo-group').slideUp('fast').siblings('h4').find('i').text(show_text);
     });
+     */
     
 });

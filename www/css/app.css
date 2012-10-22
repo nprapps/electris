@@ -320,24 +320,32 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 
-/* COMBINATIONS MODAL */
-.modal { color: #333; }
-.modal-header h3 {
-	font: normal 1.4em/30px Georgia, serif;
-	color: #000;
-}
-.modal b {
+/* COMBINATIONS */
+.combinations { clear: both; font-size: 12px; padding-top: 18px; }
+.combinations b {
 	font-weight: normal;
 	font-family: StateFaceRegular;
     display: inline-block;
 }
-.modal p.robotext { font-style: italic; font-size: 14px; line-height: 1.4em; color: #666; }
-.modal p.robotext strong { color: #333; white-space: nowrap; }
-.combinations h4 { font: normal 11px Arial, Helvetica, sans-serif; margin: 0; color: #666; text-transform: uppercase; }
+.combinations p.robotext { font-size: 12px; color: #666; margin: 0 0 12px 0; }
+.combinations p.robotext strong { color: #333; white-space: nowrap; }
+.combinations h4 { 
+	font: normal 11px Arial, Helvetica, sans-serif; 
+	margin: 0; padding-top: 12px; 
+	color: #666; 
+	text-transform: uppercase; 
+	border-top: 1px dotted #CCC;
+}
 .combinations ul { list-style: none; margin: 0; padding: 0; }
-.combinations ul li { margin: 18px 0 0 0; }
+.combinations ul li { margin: 0 0 12px 0; }
 .combinations ul li ul li { margin: 9px 0 0 12px; color: #999; }
 .combinations strong { white-space: nowrap; color: #333; }
+/*
+.blue .combinations h5, 
+.blue .combinations h4,
+.blue .combinations p,
+.blue .combinations li { text-align: right; }
+*/
 
 
 /* TOSSUPS */
@@ -553,5 +561,4 @@ a.btn { color: #fff; cursor: pointer; }
 	.vote-tallies span { 
 		width: auto; float: none; margin-top: 0; text-align: center; padding-top: 3px;
 	}
-	.modal-body { max-height: 300px; }
 }
