@@ -406,7 +406,7 @@ $(function() {
         show_combos(blue_keys, blue_groups, blue_candidate_el, blue_votes);
     }
      
-    $(".tossups").on("click", "li", function(click) {
+    var tossup_click_handler = function(click) {
         /*
          * Select or unselect a tossup state.
          */
@@ -444,7 +444,7 @@ $(function() {
         compute_stats(true);
 
         return false;
-    });
+    };
 
     electris_el.on("click", ".histogram h4", function(event) {
         /*
@@ -527,6 +527,8 @@ $(function() {
                 total_tossup_states += 1;
             }
         });
+
+        $(".tossups li").click(tossup_click_handler);
 
         if (SHOW_TOOLTIPS) {
             $(".tossups li").tooltip();
