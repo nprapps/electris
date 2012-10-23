@@ -60,17 +60,10 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* INTRO */
-.intro { color: #333; padding-bottom: 18px; }
+.intro { color: #333; }
 .intro h1 { font-size: 32px; line-height: 1.125em; margin-bottom: .6em; font-weight: normal; color: #222; }
 .intro p { line-height: 1.45em; }
 .intro p.date { color: #999; font-style: italic; }
-.intro ul { list-style: none; margin: 0; padding: 0; }
-.intro ul li { margin: 0 0 .5em 0; padding: 0; line-height: 1.2em; }
-.intro ul li a { 
-	padding: 0 0 0 7px;
-	font-size: .9em;
-	background: url(http://media.npr.org/chrome/news/bullet_blk.gif) no-repeat left .1em;
-}
 .credits { font-size: .85em; color: #666; margin-top: 1.5em; }
 .credits p { margin: 0 0 .1em 0; }
 .related { margin-top: 1.5em; }
@@ -79,7 +72,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* KEY */
-#key { padding: 6px 0 6px 0; }
+#key { padding: 6px 0 0 0; margin-bottom: 24px; margin-top: -24px; clear: both; }
 #key ul { list-style: none; margin: 0; padding: 0; }
 #key li { display: inline-block; color: #666; margin-right: 9px; white-space: nowrap; font-size: 12px; }
 #key .key-title { display: block; font: bold 14px Arial, Helvetica, sans-serif; color: #333; margin-bottom: 6px; }
@@ -89,6 +82,13 @@ a.btn { color: #fff; cursor: pointer; }
 #key .prediction-t b { background-color: #E5BF57; }
 #key .prediction-lr b { background-color: #e27560; }
 #key .prediction-sr b { background-color: #a23520; }
+#key ul { list-style: none; margin: 0; padding: 0; }
+#key ul li { margin: 0 0 .5em 0; padding: 0; line-height: 1.2em; }
+#key ul li a { 
+	padding: 0 0 0 7px;
+	font-size: .9em;
+	background: url(http://media.npr.org/chrome/news/bullet_blk.gif) no-repeat left .1em;
+}
 
 
 /* ELECTRIS */
@@ -365,8 +365,7 @@ a.btn { color: #fff; cursor: pointer; }
 	color: #f5dc81;
 }
 .tossups li.taken, .tossups li.taken span, .tossups li.taken i { color: #f5dc81; }
-.tossups li:hover div, .tossups li.taken:hover div,
-.tossups li:active div, .tossups li.taken:active div {
+.tossups li:hover div, .tossups li.taken:hover div {
 	cursor: pointer;
 	text-shadow: 0 1px 1px rgba(229, 191, 87, 0.75);
 	background: #E5BF57;
@@ -440,6 +439,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.vote-tallies { top: 10px; }
 	.vote-tallies .bignum { font-size: 24px; }
 	.vote-tallies span { padding-top: 16px; }
+	#key { margin-top: -32px; }
 }
 @media (max-width: 979px) {
     .intro { width: 404px; }
@@ -466,10 +466,10 @@ a.btn { color: #fff; cursor: pointer; }
 	.combos .explainer p { height: 52px; font-size: 13px; }
 }
 @media (max-width: 767px) {
-	.intro { width: auto; }
+	.intro { width: auto; padding-bottom: 18px; }
 	.intro h1 { font-size: 28px; }
 	#bigbox { float: none; width: auto; padding-top: 1em; background-color: #f1f1f1; margin: 0 0 1.8em 0; }
-	#electris { margin-left: 0; padding-top: 0; }
+	#electris { margin-left: 0; padding-top: 18px; }
 	#states { font-size: 10px; }
 /*    #states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }*/
     .state i {
