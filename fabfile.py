@@ -121,7 +121,16 @@ def deploy():
 
     checkout_latest()
 
-def deploy_data():
+def reset_local_data():
+    local('rm electris.db')
+    
+    import util
+
+    db = util.get_database()
+    states = util.get_states(db)
+    util.regenerate_president(states)
+
+def deploy_local_data():
     """
     Deploy the local data file to S3 (for electris pre-election.)
     """

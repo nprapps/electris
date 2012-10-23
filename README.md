@@ -27,8 +27,14 @@ Cron job:
 
 Our contact at the AP is Tracy Lewis <tllewis@ap.org> (the two l's are not a typo).
 
-Modes
------
+Deploying prediction data
+-------------------------
 
-Electris can run in two modes: Forecasting and Election Night. Currently the mode can be set by toggling the ``IS_ELECTION_NIGHT`` variable at the top of ``app.js``.
+Changes to the election predictions should be made in ``states_bootstrap.csv`` first. You can then regenerate your local database by running:
+
+```fab reset_local_data```
+
+Finally, you can deploy your local data file by running:
+
+```fab [staging|production] master deploy_local_data```
 
