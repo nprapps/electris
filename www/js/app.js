@@ -112,13 +112,6 @@ $(function() {
         });
     }
 
-    function remove_state(state) {
-        /*
-         * Remove the HTML for a state.
-         */
-        $(".state." + state.id).remove();
-    }
-
     function compute_stats(generate_combos) {
         /*
          * Compute and display vote stats.
@@ -428,7 +421,7 @@ $(function() {
         other_chiclet.removeClass("active");
         other_chiclet.addClass("taken"); 
                 
-        $('.state[data-id="' + state_id + '"]').remove();
+        $(".state." + state_id).remove();
 
         if (state_id in tossup_picks) {
             // Deselecting
@@ -440,13 +433,14 @@ $(function() {
             // Toggling from opponent
             } else {
                 tossup_picks[state_id] = winner;
+                add_state(states_by_id[state_id]);
             }
         // Initial selection
         } else {
             tossup_picks[state_id] = winner;
+            add_state(states_by_id[state_id]);
         }
 
-        add_state(states_by_id[state_id]);
         compute_stats(true);
 
         return false;
