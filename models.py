@@ -36,12 +36,14 @@ class Race(Model):
     district_name = CharField(max_length=255, null=True)
     precincts_reporting = IntegerField(null=True)
     total_precincts = IntegerField(null=True)
-    accept_ap_call = BooleanField(default=False)
+    accept_ap_call = BooleanField(default=True)
     ap_called = BooleanField(default=False)
     ap_called_time = DateTimeField(null=True)
     npr_called = BooleanField(default=False)
     npr_called_time = DateTimeField(null=True)
     poll_closing_time = DateTimeField(null=True)
+    featured_race = BooleanField(default=False)
+    prediction = CharField(null=True)
 
     # Imported but not used.
     is_test = CharField(null=True)

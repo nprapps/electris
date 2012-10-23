@@ -199,7 +199,6 @@ def bootstrap_president():
                 state = State.create(**row)
 
             state.save()
-            print state.__unicode__()
 
 
 def update_polls():
