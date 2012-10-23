@@ -245,6 +245,7 @@ $(function() {
 
         var state_ids = _.pluck(undecided_states, "id");
 
+        // Do we have a primer for this state combination?
         var primer = _.find(COMBO_PRIMER, function(data) {
             return $(data.undecided_states).not(state_ids).length == 0 && $(state_ids).not(data.undecided_states).length == 0;
         });
@@ -309,28 +310,36 @@ $(function() {
         });
 
         var max_combo_group = _.max([max_red_combo_group.length, max_blue_combo_group.length]);
+        
+        var window_width = $('#maincontent').width();
 
         function show_combos(keys, groups, root_el, base_votes) {
             var combo_groups_el = root_el.find(".combinations ul");
             combo_groups_el.empty();
 
-            _.each(_.range(1, total_tossup_states + 1), function(key) {
+            for (var key = 1; key < total_tossup_states + 1; key++) {
                 var group = groups[key] || [];
+                var count = group.length;
                 var side = root_el.hasClass("red") ? "red" : "blue";
 
                 // Tweak combo group display
                 var histogram_el = root_el.find(".histogram ." + side + key);
-                histogram_el.toggleClass("active", group.length > 0);
-                histogram_el.find(".bar").animate({ width: (group.length / max_combo_group * 100) + '%' }, 300);
+                histogram_el.toggleClass("active", count > 0);
 
-                if (group.length > 0) {
+                if (window_width > 480) {
+                    histogram_el.find(".bar").animate({ width: (count / max_combo_group * 100) + '%' }, 300);
+                } else {
+                    histogram_el.find(".bar").css({ width: (count / max_combo_group * 100) + '%' });
+                }
+
+                if (count > 0) {
                     if (key > MAX_COMBO_GROUP) {
                         var combo_group_el = combo_groups_el.find("#" + side + MAX_COMBO_GROUP);
                     } else {
                         var combo_group_el = $(COMBO_GROUP_TEMPLATE({
                             side: side,
                             key: key,
-                            count: group.length,
+                            count: count,
                             last_group: (key == MAX_COMBO_GROUP)
                         }));
                     }
@@ -355,7 +364,7 @@ $(function() {
                         combo_groups_el.append(combo_group_el);
                     }
                 }
-            });
+            }
         }
 
         var simplest_combo_length = 0;
