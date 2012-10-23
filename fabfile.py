@@ -122,7 +122,8 @@ def deploy():
     checkout_latest()
 
 def reset_local_data():
-    local('rm electris.db')
+    with settings(warn_only=True):
+        local('rm electris.db')
     
     import util
 
