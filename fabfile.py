@@ -8,7 +8,7 @@ import util
 Base configuration
 """
 env.project_name = 'electris'
-env.deployed_name = 'election-2012-paths-to-victory'
+env.deployed_name = 'swing-state-scorecard'
 env.user = 'ubuntu'
 env.python = 'python2.7'
 env.path = '/home/ubuntu/apps/%(project_name)s' % env
