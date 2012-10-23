@@ -400,10 +400,7 @@ a.btn { color: #fff; cursor: pointer; }
 .tossups i { display: none; font-size: 11px; height: 11px; font-weight: normal; font-style: normal; color: #77631B; line-height: 12px; }
 .tossups span { font: normal 11px Arial, Helvetica, sans-serif; text-align: left; color: #77631b; height: 11px; }
 
-/*.touch-device 
-.touch-device */
-
-.tossups .spinner b { text-indent: -9999px;  background: url('../img/ajax-loader.gif') no-repeat center center; }
+.touch-device .tossups .spinner b { text-indent: -9999px;  background: url('../img/ajax-loader.gif') no-repeat center center; }
 
 
 
