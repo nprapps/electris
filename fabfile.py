@@ -2,6 +2,7 @@
 
 import input as i
 import output as o
+import datetime
 
 from fabric.api import *
 from peewee import *
@@ -211,6 +212,16 @@ def update_polls():
     """
     i.update_polls()
     write_www_files()
+
+
+def save_ap_data():
+    minute = datetime.datetime.now().minute
+    hour = datetime.datetime.now().hour
+    with open('test_data/timemachine/US_%s-%s.txt' % (hour, minute), 'w') as f:
+        data = ''
+        for line in i.get_ap_data():
+            data += line
+        f.write(data)
 
 
 def shiva_the_destroyer():

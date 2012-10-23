@@ -45,6 +45,6 @@ SENATE_FILENAME = 'www/senate.json'
 # For some reason, the stage-apps version of the bootstrap stuff went missing Monday night.
 # So I'm using my local versions if there's an environment variable called LOCAL_DEV which is true.
 if os.environ.get('LOCAL_DEV', '') == 'true':
-    STATIC_URL = 'http://127.0.0.1:8000'
+    STATIC_URL = 'http://172.30.5.43:8000'
 else:
     STATIC_URL = 'http://%s/%s' % (S3_BUCKET, PROJECT_NAME)
