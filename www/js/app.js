@@ -164,9 +164,7 @@ $(function() {
         resize_buckets();
 
         if (generate_combos) {
-            var then = new Date();
             generate_winning_combinations(states_not_predicted);
-            console.log((new Date()) - then);
         }
     }
 
