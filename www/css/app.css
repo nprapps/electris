@@ -163,7 +163,6 @@ a.btn { color: #fff; cursor: pointer; }
     -webkit-transform: scaleY(-1);
     -o-transform: scaleY(-1);
     transform: scaleY(-1);
-<<<<<<< HEAD
     
     /* IE10 Consumer Preview */ 
    /* background-image: -ms-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
@@ -182,9 +181,7 @@ a.btn { color: #fff; cursor: pointer; }
 
     /* W3C Markup, IE10 Release Preview */ 
    /*  background-image: linear-gradient(to bottom, #FFFFFF 90%, #B39429 100%);*/ 
-    
-=======
->>>>>>> 6ccbfdaec372314a54b09c45076839a9009ea742
+     
 }
 .bucket .state i {
     -moz-transform: scaleY(-1);
@@ -538,6 +535,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.blue .vote-tallies .bignum { float: left; margin-right: 3%; margin-left: 0; }
 	.blue .vote-tallies span { text-align: left; }
 	.combos { width: auto; height: auto; border: none; }
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
 	#line b {background: url('../img/270-line-767.png') no-repeat center center; height: 42px;margin-top: -12px;}
@@ -545,12 +543,14 @@ a.btn { color: #fff; cursor: pointer; }
 =======
 	#line b {background: url('../img/270-line-767.png') no-repeat center center; height: 42px;margin-top: -10px;}
 >>>>>>> master
+=======
+	#line b {background: url('../img/270-line-767.png') no-repeat center center; height: 42px;margin-top: -12px;}
+>>>>>>> Stashed changes
 
 	.combinations h4 { width: auto; float: none; margin-bottom: 6px; }
 	.combinations ul li ul { width: auto; float: none; }
 	.combinations ul li ul li { padding-left: 12px; }
 	.combinations ul li ul li:first-child { border-top: 1px solid #ddd; }
->>>>>>> 6ccbfdaec372314a54b09c45076839a9009ea742
 }
 @media (max-width: 480px) {
 	.intro h1 { font-size: 30px; padding-top: 5px; }

@@ -139,16 +139,16 @@
                     if (state.called == true) { called = 'called'; }
                 %>
                 <ul class="allstates <%= called %>">
-                    <li class="district">
-                    <%= state.name %> (<%= state.electoral_votes %>)
-                    <%= state.dem_vote_percent %>
-                    <%= state.rep_vote_percent %>
-                    <%
+                	<li class="percentTime"><%
                         var percent = state.precincts_reporting / state.total_precincts
                         percent = percent * 100
                     %>
                     <%= percent %>%
                     </li>
+                    <li class="district"></li>
+                    <li class="state"><%= state.name %> (<%= state.electoral_votes %>)</li>
+                    <li class="demPercent"><%= state.dem_vote_percent %></li>
+                    <li class="gopPercent"><%= state.rep_vote_percent %></li>
                 </ul>
             <% }); %>
         </script>
