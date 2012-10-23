@@ -115,7 +115,9 @@ a.btn { color: #fff; cursor: pointer; }
     color: #77631b;
 	border-radius: 3px;
 }
-.state:hover, .state:hover i, .state:hover i span { cursor: default; }
+.no-touch .state:hover, 
+.no-touch .state:hover i, 
+.no-touch .state:hover i span { cursor: default; }
 .state i span { font-size:.7em; }
 
 /* Before election night: shade by forecast */
@@ -130,7 +132,8 @@ a.btn { color: #fff; cursor: pointer; }
 .state.call-d i { background-color: #3d7fa6; color: #fff; }
 .state.call-r i { background-color: #a23520; color: #fff; }
 
-.state:hover i, .state.prediction-t.combo-pick:hover i { color: #fff; }
+.no-touch .state:hover i, 
+.no-touch .state.prediction-t.combo-pick:hover i { color: #fff; }
 
 #line {
 	height: 1px;
@@ -258,7 +261,7 @@ a.btn { color: #fff; cursor: pointer; }
 }
 .histogram h4 strong { font-weight: normal; color: #999; }
 .histogram .active h4 strong { font-weight: bold; color: #333; }
-.histogram .active h4:hover { cursor: pointer; text-decoration: underline; }
+.no-touch .histogram .active h4:hover { cursor: pointer; text-decoration: underline; }
 .histogram .title {
 	padding: 9px 12px 0 12px;
 	display: block;
@@ -364,8 +367,10 @@ a.btn { color: #fff; cursor: pointer; }
 	background-image: none;
 	color: #f5dc81;
 }
-.tossups li.taken, .tossups li.taken span, .tossups li.taken i { color: #f5dc81; }
-.tossups li:hover div, .tossups li.taken:hover div {
+.tossups li.taken, .tossups li.taken span, 
+.tossups li.taken i { color: #f5dc81; }
+.no-touch .tossups li:hover div, 
+.no-touch .tossups li.taken:hover div {
 	cursor: pointer;
 	text-shadow: 0 1px 1px rgba(229, 191, 87, 0.75);
 	background: #E5BF57;
@@ -379,10 +384,14 @@ a.btn { color: #fff; cursor: pointer; }
 	border-top-color: #f5dc81;
 	color: #fff;
 }
-.tossups li:hover span, .tossups li.taken:hover span,
-.tossups li.active div, .tossups li.active span,
-.tossups li:hover i, .tossups li.taken:hover i,
-.tossups li.active i, .tossups li.active i {
+.no-touch .tossups li:hover span, 
+.no-touch .tossups li.taken:hover span,
+.tossups li.active div, 
+.tossups li.active span,
+.no-touch .tossups li:hover i, 
+.no-touch .tossups li.taken:hover i,
+.tossups li.active i, 
+.tossups li.active i {
 	color: #fff;
 }
 .tossups .abbr { display: none; }

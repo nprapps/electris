@@ -19,7 +19,7 @@ $(function() {
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
     var MAX_COMBO_GROUP = 7;
 
-    if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); }
+    if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); } else { $("body").addClass("no-touch"); }
 
     /* Elements */
     var electris_el = $("#electris");
