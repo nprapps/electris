@@ -17,7 +17,7 @@ $(function() {
         moment("2012-11-07T01:00:00 -0500")
     ];
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
-    var MAX_COMBO_GROUP = 8;
+    var MAX_COMBO_GROUP = 7;
 
     /* Elements */
     var electris_el = $("#electris");
@@ -239,7 +239,7 @@ $(function() {
         var blue_keys = [];
         var red_groups = {};
         var blue_groups = {};
-        
+         
         //sort by electoral vote count
         undecided_states = _.sortBy(undecided_states, 'electoral_votes').reverse()
 
