@@ -406,7 +406,7 @@ $(function() {
         show_combos(blue_keys, blue_groups, blue_candidate_el, blue_votes);
     }
      
-    var tossup_click_handler = function(click) {
+    var tossup_click_handler = function(event) {
         /*
          * Select or unselect a tossup state.
          */
@@ -528,7 +528,7 @@ $(function() {
             }
         });
 
-        $(".tossups li").click(tossup_click_handler);
+        $(".tossups li").touchClick(tossup_click_handler);
 
         if (SHOW_TOOLTIPS) {
             $(".tossups li").tooltip();
