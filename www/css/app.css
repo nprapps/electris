@@ -75,7 +75,7 @@ a.btn { color: #fff; cursor: pointer; }
 /* KEY */
 #key { padding: 6px 0 0 0; margin-bottom: 24px; margin-top: -24px; clear: both; }
 #key ul { list-style: none; margin: 0; padding: 0; }
-#key li { display: inline-block; color: #666; margin-right: 9px; white-space: nowrap; font-size: 12px; }
+#key li { display: inline-block; color: #666; white-space: nowrap; font-size: 12px; margin: 0 .5em .5em 0; padding: 0; line-height: 1.2em; }
 #key .key-title { display: block; font: bold 14px Arial, Helvetica, sans-serif; color: #333; margin-bottom: 6px; }
 #key b { background-color: #555; color: #fff; text-align: center; padding: 1px 6px; display: inline-block; }
 #key .prediction-sd b { background-color: #3d7fa6; }
@@ -83,13 +83,6 @@ a.btn { color: #fff; cursor: pointer; }
 #key .prediction-t b { background-color: #E5BF57; }
 #key .prediction-lr b { background-color: #e27560; }
 #key .prediction-sr b { background-color: #a23520; }
-#key ul { list-style: none; margin: 0; padding: 0; }
-#key ul li { margin: 0 0 .5em 0; padding: 0; line-height: 1.2em; }
-#key ul li a { 
-	padding: 0 0 0 7px;
-	font-size: .9em;
-	background: url(http://media.npr.org/chrome/news/bullet_blk.gif) no-repeat left .1em;
-}
 
 
 /* ELECTRIS */
@@ -450,6 +443,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.vote-tallies .bignum { font-size: 24px; }
 	.vote-tallies span { padding-top: 16px; }
 	#key { margin-top: -32px; }
+	#key li { margin-right: 1em; }
 }
 @media (max-width: 979px) {
     .intro { width: 404px; }
@@ -480,6 +474,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.intro h1 { font-size: 28px; }
 	#bigbox { float: none; width: auto; padding-top: 1em; background-color: #f1f1f1; margin: 0 0 1.8em 0; min-height: auto; }
 	#electris { margin-left: 0; padding-top: 18px; }
+	#key li { margin-right: 1em; }
 	#states { font-size: 10px; }
 /*    #states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }*/
     .state i {
