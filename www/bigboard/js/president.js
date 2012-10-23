@@ -1,13 +1,35 @@
-function nukeTarget(target){ $(target).html(''); }
+$(function(){
+    function nukeTarget(target){ $(target).html(''); }
+    function fetchData(){
+        $.getJSON('../../president.json', function(timezones) {
+            var TIMEZONE_TEMPLATE = _.template($("#timezone-template").html());
 
-$.getJSON('../../president.json', function(timezones) {
-    nukeTarget('#candidates .full');
-    var TIMEZONE_TEMPLATE = _.template($("#timezone-template").html());
+            _.each(timezones, function(timezone){
+                html = TIMEZONE_TEMPLATE({ timezone: timezone });
+                $('#candidates .full').append(html);
+            });
+            $('#candidates .full').columnize({ columns:3 });
+        });
+    }
 
-    _.each(timezones, function(timezone){
-        html = TIMEZONE_TEMPLATE({ timezone: timezone });
-        $('#candidates .full').append(html);
-    });
+    fetchData();
     $('#candidates .weighted').columnize({ columns: 2 });
-    $('#candidates .full').columnize({ columns:3 });
+
+    var polling_interval = 15;
+    var countdown = polling_interval;
+
+    function refresh_countdown() {
+        countdown -= 1;
+
+        $("#refreshing").html(countdown+"s");
+
+        if (countdown === 0) {
+            nukeTarget('#candidates .full');
+            fetchData();
+            countdown = polling_interval + 1;
+        }
+    }
+
+    setInterval(refresh_countdown, 1000);
 });
+

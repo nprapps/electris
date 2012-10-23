@@ -7,7 +7,7 @@
         .other { color:green; }
         .incumbent { text-transform:uppercase; }
         .clear { width:100%; clear:both; }
-        td.ap-call { text-align:center!important; }
+        td.ap-call, td.featured { text-align:center!important; }
         .modal { display:none; }
         .btn { text-transform:none; }
         .npr-call, .npr-uncall { float:right; }
@@ -20,7 +20,7 @@
 
 <div class="row-fluid">
     <div class="span12">
-        <h1>BigBoard Admin: The U.S. {{ house.title() }}</h1>
+        <h1>The U.S. {{ house.title() }}</h1>
 
         <table class="table table-striped table-bordered table-hover table-condensed">
         <tr class="info">
@@ -28,6 +28,7 @@
             <td><strong>Candidates</strong></td>
             <td></td>
             <td><strong>Accept AP calls</strong></td>
+            <td><strong>Featured?</strong></td>
         </tr>
         {% for grouper, list in candidates|groupby('race.slug') %}
         {% if loop.index % 20 == 0  %}
@@ -36,11 +37,12 @@
             <td><strong>Candidates</strong></td>
             <td></td>
             <td><strong>Accept AP calls?</strong></td>
+            <td><strong>Featured?</strong></td>
         </tr>
         {% endif %}
-        <tr class="{{ grouper }}">
+        <tr class="{{ grouper }}{% for race in list %}{% if loop.first %}{% if race.race.featured_race %} warning{% endif %}{% endif %}{% endfor %}">
             <td>{% if house == "senate" %}
-                {{ grouper.replace(' 0', '').upper() }}
+                {{ grouper.replace('0', '').upper() }}
             {% else %}
                 {{ grouper.upper() }}
             {% endif %}</td>
@@ -86,6 +88,19 @@
                     Not accepting AP calls
                     {% endif %}
             </button>
+            <td class="featured">
+                {% for race in list %}{% if loop.first %}
+                <button
+                    class="btn {% if race.race.featured_race == True %}btn-inverse{% else %}{% endif %} btn-mini"
+                    data-race-slug="{{ grouper }}">
+                    {% if race.race.featured_race == True %}
+                    Featured race
+                    {% else %}
+                    Not featured race
+                    {% endif %}
+                </button>
+            {% endif %}{% endfor %}
+            </td>
             {% endif %}
             {% endfor %}
         </td>
@@ -160,11 +175,16 @@
             function acceptAP(){
                 // Check if we have targets.
                 if ( options.target != undefined ) {
-
                     // Monkey with buttons.
-                    $(options.target).removeClass(options.button.pre_state);
-                    $(options.target).addClass(options.button.post_state);
-                    $(options.target).html(options.message);
+                    if ( options.button.pre_state != undefined ){
+                        $(options.target).removeClass(options.button.pre_state);
+                    }
+                    if ( options.button.post_state != undefined ){
+                        $(options.target).addClass(options.button.post_state);
+                    }
+                    if ( options.message != undefined ){
+                        $(options.target).html(options.message);
+                    }
                 }
                 var target = $(options.target).parent('td').parent('tr').attr('class');
                 if (options.post_data.accept_ap_call == false) {
@@ -179,9 +199,41 @@
             // POST some data.
             $.post('.', options.post_data, function(e){
                 if ( options.post_data.accept_ap_call != undefined ) { acceptAP(); }
+                if ( options.post_data.featured_race != undefined ) { acceptAP(); }
                 console.log(e)
             });
         }
+
+        $('.featured .btn').click(function(){
+            var race_slug = $(this).attr('data-race-slug');
+            if ( $(this).hasClass('btn-inverse') ){
+                buttonPOST({
+                    post_data: {
+                        race_slug: race_slug,
+                        featured_race: false
+                    },
+                    button: {
+                        pre_state: 'btn-inverse'
+                    },
+                    message: 'Not featured race',
+                    target: this
+                });
+                $(this).parent('td').parent('tr').removeClass('warning');
+            } else {
+                buttonPOST({
+                    post_data: {
+                        race_slug: race_slug,
+                        featured_race: true
+                    },
+                    button: {
+                        post_state: 'btn-inverse'
+                    },
+                    message: 'Featured race',
+                    target: this
+                });
+                $(this).parent('td').parent('tr').addClass('warning');
+            }
+        });
 
         // If someone clicks on the ap-call buttons ...
         $('.ap-call .btn').click(function(){

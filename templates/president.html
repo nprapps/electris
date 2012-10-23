@@ -2,8 +2,8 @@
 {% block title %}The U.S. President | BigBoard Admin{% endblock %}
 {% block extra_head %}
     <style type='text/css'>
-        .gop { color:red; font-size:16px; font-weight:bold; }
-        .dem { color:blue; font-size:16px; font-weight:bold; }
+        .gop { color:red; }
+        .dem { color:blue; }
         .other { color:green; }
         .incumbent { text-transform:uppercase; }
         .clear { width:100%; clear:both; }
@@ -13,7 +13,6 @@
         .npr-call, .npr-uncall { float:right; }
         .clear-call { margin-left:5px; float:none;}
         .hidden { display:none; }
-        .small { font-weight:normal; color:#999; font-size:12px; }
     </style>
 {% endblock %}
 
@@ -21,25 +20,26 @@
 
 <div class="row-fluid">
     <div class="span12">
-        <h1>BigBoard Admin: The President</h1>
+        <h1>The President</h1>
 
         <table class="table table-striped table-bordered table-hover table-condensed">
         <tr class="info">
             <td><strong>State</strong></td>
-            <td><strong>Candidates</strong></td>
-            <td></td>
+            <td><strong>Democrat</strong></td>
+            <td><strong>Republican</strong></td>
             <td><strong>Accept AP calls</strong></td>
         </tr>
         {% for state in states %}
         {% if loop.index % 20 == 0  %}
         <tr class="info">
             <td><strong>State</strong></td>
-            <td><strong>Obama</strong></td>
-            <td><strong>Romney</strong></td>
+            <td><strong>Democrat</strong></td>
+            <td><strong>Republican</strong></td>
             <td><strong>Accept AP calls?</strong></td>
         </tr>
         {% endif %}
-        <tr class="{{ state.id }}">
+        <tr class="{{ state.id }}
+            {% if state.prediction == 't' %} warning{% endif %}">
             <td>{{ state.name }}</td>
 
             <td>
@@ -55,13 +55,12 @@
                         {% if state.accept_ap_call == True %}hidden{% endif %}
                         {% if state.npr_call == 'd' %}{% else %}hidden{% endif %}">Uncall for NPR</button>
 
-                    <button class="ap-winner btn btn-mini disabled {% if state.ap_call != 'd' %}hidden{% endif %}">AP</button>
-                    <button class="npr-winner btn btn-mini disabled
+                    <button class="ap-winner btn btn-primary btn-mini disabled {% if state.ap_call != 'd' %}hidden{% endif %}">AP</button>
+                    <button class="npr-winner btn btn-primary btn-mini disabled
                         {% if state.accept_ap_call == True %}hidden{% endif %}
                         {% if state.npr_call != 'd' %}hidden{% endif %}
                     ">NPR</button>
                     {{ state.dem_vote_percent() }}%
-                    <span class="small">{{ state.human_dem_vote_count() }}</span>
                 </span>
             </td>
             <td>
@@ -77,13 +76,12 @@
                         {% if state.accept_ap_call == True %}hidden{% endif %}
                         {% if state.npr_call == 'r' %}{% else %}hidden{% endif %}">Uncall for NPR</button>
 
-                    <button class="ap-winner btn btn-mini disabled {% if state.ap_call != 'r' %}hidden{% endif %}">AP</button>
-                    <button class="npr-winner btn btn-mini disabled
+                    <button class="ap-winner btn btn-danger btn-mini disabled {% if state.ap_call != 'r' %}hidden{% endif %}">AP</button>
+                    <button class="npr-winner btn btn-danger btn-mini disabled
                         {% if state.accept_ap_call == True %}hidden{% endif %}
                         {% if state.npr_call != 'r' %}hidden{% endif %}
                     ">NPR</button>
                     {{ state.rep_vote_percent() }}%
-                    <span class="small">{{ state.human_rep_vote_count() }}</span>
                 </span>
             </td>
             <td class="ap-call">
