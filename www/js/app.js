@@ -406,7 +406,7 @@ $(function() {
         show_combos(blue_keys, blue_groups, blue_candidate_el, blue_votes);
     }
      
-    electris_el.on("click", ".tossups li", function(click) {
+    $(".tossups").on("click", "li", function(click) {
         /*
          * Select or unselect a tossup state.
          */
