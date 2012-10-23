@@ -22,75 +22,75 @@
         <div id="candidates">
         <div class="weighted">
             <!-- Faking this for now. Will un-fake it later. -->
-            <ul class="swing">
-                <li class="percentTime">70%</li>
-                <li class="state dem winner">New Hampshire (4)</li>
-                <li class="demPercent">30%</li>
-                <li class="gopPercent">40%</li>
-                <li class="closeTime">7:00</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">10%</li>
-                <li class="state gop winner">New Hampshire (4)</li>
-                <li class="demPercent">30%</li>
-                <li class="gopPercent">40%</li>
-                <li class="closeTime">7:00</li>
-            </ul>
-            <ul class="swing">
+           <ul class="swing">
                 <li class="percentTime">80%</li>
-                <li class="state">New Hampshire (4)</li>
-                <li class="demPercent">30%</li>
-                <li class="gopPercent">40%</li>
-                <li class="closeTime">7:00</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">8:00</li>
-                <li class="state">New Hampshire (4)</li>
-                <li class="demPercent">30%</li>
-                <li class="gopPercent">40%</li>
-                <li class="closeTime">7:00</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">12:00</li>
-                <li class="state">New Hampshire (4)</li>
-                <li class="demPercent">30%</li>
-                <li class="gopPercent">40%</li>
+                <li class="state gop winner">Virginia (13)</li>
+                <li class="demPercent">48%</li>
+                <li class="gopPercent">48%</li>
                 <li class="closeTime">7:00</li>
             </ul>
             <ul class="swing">
                 <li class="percentTime">70%</li>
-                <li class="state dem winner">New Hampshire (4)</li>
-                <li class="demPercent">30%</li>
-                <li class="gopPercent">40%</li>
-                <li class="closeTime">7:00</li>
+                <li class="state gop winner">N. Carolina (15)</li>
+                <li class="demPercent">44.7%</li>
+                <li class="gopPercent">50.3%</li>
+                <li class="closeTime">7:30</li>
             </ul>
             <ul class="swing">
                 <li class="percentTime">10%</li>
-                <li class="state gop winner">New Hampshire (4)</li>
-                <li class="demPercent">30%</li>
-                <li class="gopPercent">40%</li>
-                <li class="closeTime">7:00</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">80%</li>
-                <li class="state">New Hampshire (4)</li>
-                <li class="demPercent">30%</li>
-                <li class="gopPercent">40%</li>
-                <li class="closeTime">7:00</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">8:00</li>
-                <li class="state">New Hampshire (4)</li>
-                <li class="demPercent">30%</li>
-                <li class="gopPercent">40%</li>
-                <li class="closeTime">7:00</li>
+                <li class="state dem winner">Ohio (18)</li>
+                <li class="demPercent">47.6%</li>
+                <li class="gopPercent">45.7%</li>
+                <li class="closeTime">7:30</li>
             </ul>
             <ul class="swing">
                 <li class="percentTime">12:00</li>
                 <li class="state">New Hampshire (4)</li>
+                <li class="demPercent">48.6%</li>
+                <li class="gopPercent">47.2%</li>
+                <li class="closeTime">8:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">12:00</li>
+                <li class="state">Pennsylvania (20)</li>
                 <li class="demPercent">30%</li>
                 <li class="gopPercent">40%</li>
-                <li class="closeTime">7:00</li>
+                <li class="closeTime">8:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">10%</li>
+                <li class="state">Florida (29)</li>
+                <li class="demPercent">46.6%</li>
+                <li class="gopPercent">48.4%</li>
+                <li class="closeTime">8:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">70%</li>
+                <li class="state">Colorado (9)</li>
+                <li class="demPercent">47.6%</li>
+                <li class="gopPercent">47.8%</li>
+                <li class="closeTime">9:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">8:00</li>
+                <li class="state">Wisconsin (10)</li>
+                <li class="demPercent">49.8%</li>
+                <li class="gopPercent">47%</li>
+                <li class="closeTime">9:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">80%</li>
+                <li class="state">Iowa (6)</li>
+                <li class="demPercent">48.8%</li>
+                <li class="gopPercent">46.8%</li>
+                <li class="closeTime">10:00</li>
+            </ul>
+            <ul class="swing">
+                <li class="percentTime">8:00</li>
+                <li class="state">Nevada (6)</li>
+                <li class="demPercent">49%</li>
+                <li class="gopPercent">46.2%</li>
+                <li class="closeTime">10:00</li>
             </ul>
         </div>
         <div class="full"></div>
@@ -146,9 +146,9 @@
                     <%= percent %>%
                     </li>
                     <li class="district"></li>
-                    <li class="state"><%= state.name %> (<%= state.electoral_votes %>)</li>
-                    <li class="demPercent"><%= state.dem_vote_percent %></li>
-                    <li class="gopPercent"><%= state.rep_vote_percent %></li>
+                    <li class="state"><span><%= state.name %></span> (<%= state.electoral_votes %>)</li>
+                    <li class="demPercent"><%= state.dem_vote_percent %>%</li>
+                    <li class="gopPercent"><%= state.rep_vote_percent %>%</li>
                 </ul>
             <% }); %>
         </script>

@@ -1,8 +1,9 @@
 .district {
     font-size:11px;
-    line-height:20px;
     float:left;
     width:50px;
     display:block;
     font-weight:bold;
 }
+.candidate {height:17px;}
+.timezone li {line-height:17px;}

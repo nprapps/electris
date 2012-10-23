@@ -49,8 +49,8 @@ body {
 #banner #gop_sec h2 span.total{background-color:#be0f00; color:#fff; padding:1px 4px 0 3px;}
 #banner #dem_sec h2 {color:#4eaed7}
 #banner #dem_sec h2 span.total{background-color:#229acd; color:#fff; padding:1px 4px 0 3px;}
-#banner #ind_sec h2 {color:#99346d}
-#banner #ind_sec h2 span.total{background-color:#99346d; color:#fff; padding:1px 4px 0 3px;}
+#banner #ind_sec h2 {color:#579233}
+#banner #ind_sec h2 span.total{background-color:#579233; color:#fff; padding:1px 4px 0 3px;}
 #banner #nc_sec h2 {color:#666}
 #banner #nc_sec h2 span.total{background-color:#aaa; color:#333; padding:1px 4px 0 3px;}
 #banner li p {font-size:12px; color:#666; margin-top:-3px;}
@@ -75,7 +75,6 @@ body {
 .timezone li {
     display:block;
     float:left;
-    line-height:14px;
 }
 .timezone ul {
     clear:left;
@@ -110,7 +109,6 @@ body {
 .candidate {
     width:150px;
     font-size:11px;
-    height:15px;
     font-weight:bold;
     overflow:hidden;
     white-space:nowrap;
@@ -119,13 +117,13 @@ ul.called li {
 
 }
 .candidate.dem {
-    color:#f8a199;
-}
-.candidate.gop {
     color:#a7d7eb;
 }
-.candidate.other {
-    color:#148B34;
+.candidate.gop {
+    color:#f8a199;
+}
+.candidate.npa {
+    color:#72ba47;
 }
 .candidate.incumbent {
     text-transform:uppercase;

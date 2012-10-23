@@ -8,6 +8,7 @@
 
         <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/app.css" />
+        <link rel="stylesheet" type="text/css" href="../css/house.css" />
 
     </head>
     <body>
@@ -70,6 +71,8 @@
                             <%= candidate.first_name %> <%= candidate.last_name %>&nbsp;
                             <% votes = Humanize.intcomma(candidate.vote_count); %>
                         </li>
+                        
+                        
                     <% }); %></ul>
                 <% }); %>
             </div>
