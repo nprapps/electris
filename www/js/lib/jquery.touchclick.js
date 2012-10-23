@@ -13,7 +13,7 @@
 
     var pluginName = 'touchClick';
     var defaults = {
-    	className: 'active',
+    	className: 'spinner',
         callback: function(){
             console.log('touchClick');
         }
