@@ -44,6 +44,9 @@ def gzip_www():
 
 
 def write_president_json():
+    """
+    Outputs the president json file for bigboard's frontend.
+    """
     with open('www/president.json', 'w') as f:
         objects = []
         for timezone in time_zones.PRESIDENT_TIMES:
@@ -64,20 +67,9 @@ def write_president_json():
         f.write(json.dumps(objects))
 
 
-def write_house_json():
-    with open(settings.HOUSE_FILENAME, 'w') as f:
-        f.write(generate_json((u'house', u'H')))
-
-
-def write_senate_json():
-    with open(settings.SENATE_FILENAME, 'w') as f:
-        f.write(generate_json((u'senate', u'S')))
-
-
-def generate_json(house):
+def _generate_json(house):
     """
     Generates JSON from rows of candidates and a house of congress.
-    * Rows should be an iterator. In this case, a query for candidates.
     * House is a two-tuple ('house', 'H'), e.g., URL slug and DB representation.
     """
     objects = []
@@ -137,6 +129,22 @@ def generate_json(house):
     return json.dumps(objects)
 
 
+def write_house_json():
+    """
+    Calls generate_json() to build the house json file.
+    """
+    with open(settings.HOUSE_FILENAME, 'w') as f:
+        f.write(_generate_json((u'house', u'H')))
+
+
+def write_senate_json():
+    """
+    Calls generate_json to build the senatejson file.
+    """
+    with open(settings.SENATE_FILENAME, 'w') as f:
+        f.write(_generate_json((u'senate', u'S')))
+
+
 def write_president_csv():
     """
     Rewrites CSV files from the DB for president.
@@ -184,11 +192,11 @@ def push_results_to_s3():
             headers=headers)
 
     # Push the president json file.
-    if os.path.exists(settings.SENATE_FILENAME):
-        senate = Key(bucket)
-        senate.key = settings.SENATE_S3_KEY
-        senate.set_contents_from_filename(
-            settings.SENATE_FILENAME,
+    if os.path.exists(settings.PRESIDENT_JSON_FILENAME):
+        president_json = Key(bucket)
+        president_json.key = settings.PRESIDENT_JSON_S3_KEY
+        president_json.set_contents_from_filename(
+            settings.PRESIDENT_JSON_FILENAME,
             policy=policy,
             headers=headers)
 
@@ -211,23 +219,24 @@ def push_results_to_s3():
             headers=headers)
 
 
+def _is_subset(combos_so_far, new_combo):
+    """
+    Checks to see if this combination is in fact a subset of an existing
+    combination.
+    """
+    for old_combo in combos_so_far:
+        test = new_combo[:len(old_combo['combo'])]
+
+        if old_combo['combo'] == test:
+            return True
+
+    return False
+
+
 def generate_initial_combos():
     """
     Generates initial combinations for victory paths.
     """
-
-    def is_subset(combos_so_far, new_combo):
-        """
-        Checks to see if this combination is in fact a subset of an existing
-        combination.
-        """
-        for old_combo in combos_so_far:
-            test = new_combo[:len(old_combo['combo'])]
-
-            if old_combo['combo'] == test:
-                return True
-
-        return False
 
     undecided_states = []
     red_needs = 270
@@ -257,7 +266,7 @@ def generate_initial_combos():
         combo_votes = sum([state['electoral_votes'] for state in combo])
         combo = [state['id'] for state in combo]
 
-        if combo_votes >= red_needs and not is_subset(red_combos, combo):
+        if combo_votes >= red_needs and not _is_subset(red_combos, combo):
             combo_obj = {
                 'combo': combo,
                 'votes': combo_votes
@@ -271,7 +280,7 @@ def generate_initial_combos():
             red_combos.append(combo_obj)
             red_groups[key].append(combo_obj)
 
-        if combo_votes >= blue_needs and not is_subset(blue_combos, combo):
+        if combo_votes >= blue_needs and not _is_subset(blue_combos, combo):
             combo_obj = {
                 'combo': combo,
                 'votes': combo_votes
