@@ -478,7 +478,7 @@ a.btn { color: #fff; cursor: pointer; }
 @media (max-width: 767px) {
 	.intro { width: auto; padding-bottom: 18px; }
 	.intro h1 { font-size: 28px; }
-	#bigbox { float: none; width: auto; padding-top: 1em; background-color: #f1f1f1; margin: 0 0 1.8em 0; }
+	#bigbox { float: none; width: auto; padding-top: 1em; background-color: #f1f1f1; margin: 0 0 1.8em 0; min-height: auto; }
 	#electris { margin-left: 0; padding-top: 18px; }
 	#states { font-size: 10px; }
 /*    #states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }*/
