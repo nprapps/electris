@@ -442,6 +442,8 @@ $(function() {
         }
 
         compute_stats(true);
+        
+        $(this).removeClass("spinner");
 
         return false;
     };

@@ -54,14 +54,14 @@
             .bind(touchmoveEvent, function(e) {
                 if ( this.touchClickStart ) {
                     this.touchClickStart = undefined;
-                    $element.removeClass( className );
+                    // $element.removeClass( className );
                 }
             })
             .bind(touchendEvent, function(e) {
                 var dom = this;
                 if ( this.touchClickStart ) {
                     this.touchClickStart = undefined;
-                    $element.removeClass( className );
+                    // $element.removeClass( className );
                     setTimeout(function(){
                         $.proxy(callback, dom)(e)
                     }, 0);
