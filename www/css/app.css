@@ -11,6 +11,7 @@
 
 
 /* STRUCTURE */
+#bigbox { min-height: 280px; }
 #states { font-size: 22px; }
 .candidate { width: 48%; }
 .candidate.blue { float: left; }
