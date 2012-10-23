@@ -541,4 +541,5 @@ a.btn { color: #fff; cursor: pointer; }
 	.vote-tallies span { 
 		width: auto; float: none; margin-top: 0; text-align: center; padding-top: 3px;
 	}
+	#key span { display: none; }
 }
