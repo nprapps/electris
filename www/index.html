@@ -293,7 +293,7 @@
         <% if (votes >= 270) { %>
             If <%= candidate %> wins <% _.each(states_won, function(state, i, l) { %><strong><b><%= state.stateface %></b> <%= state.name %></strong><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> then he <strong>wins the Electoral College</strong>.
         <% } else if (simplest_combo_length == 0) { %>
-            <%= candidate %> can not win the Electoral College.
+            <%= candidate %> <strong>cannot win</strong> the Electoral College.
         <% } else { %>
             <% if (states_won.length == 0) { %>
                 <%= candidate %> must win <strong>at least <%= simplest_combo_length %></strong> tossup state<% if (simplest_combo_length > 1) { %>s<% } %>. Possible combinations:
