@@ -41,6 +41,9 @@ HOUSE_FILENAME = 'www/house.json'
 SENATE_S3_KEY = '%s/senate.json' % PROJECT_NAME
 SENATE_FILENAME = 'www/senate.json'
 
+PRESIDENT_JSON_S3_KEY = '%s/president.json' % PROJECT_NAME
+PRESIDENT_JSON_FILENAME = 'www/president.json'
+
 # This is a change for Jeremy.
 # For some reason, the stage-apps version of the bootstrap stuff went missing Monday night.
 # So I'm using my local versions if there's an environment variable called LOCAL_DEV which is true.

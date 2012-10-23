@@ -233,6 +233,10 @@ def save_ap_data():
         f.write(data)
 
 
+def generate_initial_combos():
+    o.generate_initial_combos()
+
+
 def shiva_the_destroyer():
     """
     Deletes the app from s3
