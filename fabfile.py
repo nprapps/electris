@@ -139,7 +139,7 @@ def deploy_local_data():
     """
     _gzip_www()
     local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/states.csv s3://%(s3_bucket)s/%(deployed_name)s/') % env)
-    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/js/combo_primer.csv s3://%(s3_bucket)s/%(deployed_name)s/js/') % env)
+    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/js/combo_primer.js s3://%(s3_bucket)s/%(deployed_name)s/js/') % env)
 
 def load_bb_testing_rig():
     """
