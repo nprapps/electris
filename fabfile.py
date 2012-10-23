@@ -13,6 +13,7 @@ from models import Candidate, Race, State
 Base configuration
 """
 env.project_name = 'electris'
+env.deployed_name = 'election-2012-paths-to-victory'
 env.user = 'ubuntu'
 env.python = 'python2.7'
 env.path = '/home/ubuntu/apps/%(project_name)s' % env
@@ -135,6 +136,14 @@ def deploy():
     checkout_latest()
 
 
+def deploy_data():
+    """
+    Deploy the local data file to S3 (for electris pre-election.)
+    """
+    _gzip_www()
+    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type sync gzip/states.csv s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+
+
 def _recreate_tables():
     """
     Private function to delete and recreate a blank database.
@@ -229,5 +238,5 @@ def shiva_the_destroyer():
     Deletes the app from s3
     """
     with settings(warn_only=True):
-        local('s3cmd del --recursive s3://%(s3_bucket)s/%(project_name)s' % env)
+        local('s3cmd del --recursive s3://%(s3_bucket)s/%(deployed_name)s' % env)
         run('rm -rf %(path)s')

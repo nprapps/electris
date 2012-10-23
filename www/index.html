@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
-
     <title>Electris</title>
 
-    <script>
-        window._gaq = window._gaq || [];
-    </script>
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script> <!-- FOR CHARTBEAT -->
 
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" />
@@ -17,16 +17,13 @@
     <!--[if IE]>
     <style>
         .state i { border-radius: 0px; }
+        .bucket { background-color: #f1f1f1; }
         .bucket-header .vote-tallies .bignum { border-radius: 0px; }
         .combos .histogram h4 { border-radius: 0px; }
         .combos .histogram .bar { border-radius: 0px; }
         .tossups li { border-radius: 0px; }
     </style>
     <![endif]-->
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=8" />
 
     <script>
         NPR = {};
@@ -96,9 +93,11 @@
 
 			<div class="span8 intro">
                 <h1>Election 2012: Paths To Victory</h1>
-                <p>You hear it over and over during election season: The presidential contest is not one national race, it's 50 statewide races. Our Electoral College system means the outcome rests not on the popular vote, but how many electoral votes a candidate can claim. That puts outsized importance on the handful of states where historical trends and polls show either candidate could win.</p>
-                <p>In recent elections, the Democratic candidate has started with a higher number of electoral votes expected to land in his column, putting pressure on the Republican candidate to win more of the swing states. That's true again so far this cycle. According to NPR's analysis, President Obama starts with <span id="p-blue-call"><span class="value">00</span></span> expected votes from states we rate "strong Democrat" or "lean Democrat." Republican Mitt Romney starts with <span id="p-red-call"><span class="value">00</span></span> votes based on NPR's "strong Republican" or "lean Republican" predictions.</p>
-                <p>We've prefilled those predictions into the columns below. Now, game out how important each "tossup" state is to the candidates' Electoral College fortunes. <em>(Last updated on Oct. 23, 2012.)</em></p>
+                <p>The presidency rests not on the national popular vote but on 538 Electoral College votes, allotted almost exclusively in winner-take-all fashion by state.*</p>
+                <p>An NPR analysis using history and polls indicates how XX states and the District of Columbia are expected to vote. That leaves only XX "tossups" where the race is too close to call, but where the election should be decided.</p>
+                <p>NPR puts XX states and their XX electoral votes firmly or leaning to President Obama. Republican Mitt Romney starts with XX states and XX assumed electoral votes. We've prefilled those projections below, leaving XX electoral votes up for grabs.</p>
+                <p>Click the "tossup" states to game out possible paths to victory. The candidate who secures 270 electoral votes becomes president. <em>(Last updated on Oct. 23, 2012.)</em></p>
+
                 <div id="key">
                 	<ul>
                 		<li class="key-title"><strong>Current NPR Predictions</strong></li>
@@ -220,6 +219,7 @@
 		<div id="footer" class="row">
 			<div class="span12">
 				<div class="credits" id="attrCredit">
+					Note: Nebraska and Maine employ proportional allocation, so candidates could share those states' electoral votes.<br /><br />
 					Source: NPR analysis<br />
 					Credits: Alyson Hurt, Christopher Groskopf and Brian Boyer / NPR
 				</div>
@@ -262,25 +262,23 @@
     </script>
 
     <script id="tossup-template" type="text/template">
-        <li data-state-id="<%= state.id %>" data-winner="<%= winner %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><div><b><%= state.stateface %></b> <span><%= state.electoral_votes %></span></div></li>
+        <li data-state-id="<%= state.id %>" data-winner="<%= winner %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><div><b><%= state.stateface %></b> <i><%= state.abbr %></i><span><%= state.electoral_votes %></span></div></li>
     </script>
 
     <script id="combo-group-template" type="text/template">
-        <li>
-            <h4><%= key %> state<%= key > 1 ? "s" : "" %></h4>
+        <li id="<%= side %><%= key %>">
+            <h4><%= key %><% if (last_group) { %>+<% } %> state<%= key > 1 ? "s" : "" %><br /><a href="#key">(back to top)</a></h4>
             <ul>
             </ul>
         </li>
     </script>
 
     <script id="histogram-template" type="text/template">
-        <li id="groups-of-<%= key %>">
-            <h4>
-                <span class="title"><strong><%= key %> state<%= key > 1 ? "s" : "" %></strong></span>
+        <li class="<%= side %><%= key %>">
+            <h4 data-target="#<%= side %><%= key %>">
+                <span class="title"><strong><%= key %><% if (last_group) { %>+<% } %> state<%= key > 1 ? "s" : "" %></strong></span>
                 <span class="bar" style="width: 0px;"></span>
             </h4>
-            <ul class="combo-group">
-            </ul>
         </li>
     </script>
 
@@ -309,5 +307,46 @@
     <script type="text/javascript" src="js/combinations.js"></script>
     <script type="text/javascript" src="js/combo_primer.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
+
+    
+    <!-- GOOGLE ANALYTICS -->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-5828686-4']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+
+    <!-- CHARTBEAT -->
+    <script type="text/javascript">
+        var _sf_async_config={};
+        /** CONFIGURATION START **/
+        _sf_async_config.uid = 18888;
+        _sf_async_config.domain = "npr.org";
+        /** CONFIGURATION END **/
+        (function(){
+            function loadChartbeat() {
+                window._sf_endpt=(new Date()).getTime();
+                var e = document.createElement("script");
+                e.setAttribute("language", "javascript");
+                e.setAttribute("type", "text/javascript");
+                e.setAttribute("src",
+                    (("https:" == document.location.protocol) ?
+                     "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" :
+                     "http://static.chartbeat.com/") +
+                    "js/chartbeat.js");
+                document.body.appendChild(e);
+            }
+            var oldonload = window.onload;
+            window.onload = (typeof window.onload != "function") ?
+                loadChartbeat : function() { oldonload(); loadChartbeat(); };
+        })();
+    </script>
+
 </body>
 </html>
