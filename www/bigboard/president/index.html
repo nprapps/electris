@@ -142,7 +142,12 @@
                     <li class="district">
                     <%= state.name %> (<%= state.electoral_votes %>)
                     <%= state.dem_vote_percent %>
-                    <%= state.gop_vote_percent %>
+                    <%= state.rep_vote_percent %>
+                    <%
+                        var percent = state.precincts_reporting / state.total_precincts
+                        percent = percent * 100
+                    %>
+                    <%= percent %>%
                     </li>
                 </ul>
             <% }); %>

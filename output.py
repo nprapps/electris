@@ -38,6 +38,7 @@ def gzip_www():
             f_in = open(file_path, 'rb')
             contents = f_in.readlines()
             f_in.close()
+
             f_out = gzip.open(file_path, 'wb')
             f_out.writelines(contents)
             f_out.close()
@@ -62,7 +63,6 @@ def write_president_json():
                         state_dict['human_gop_vote_count'] = state.human_rep_vote_count()
                         state_dict['human_dem_vote_count'] = state.human_dem_vote_count()
                         timezone_dict['states'].append(state_dict)
-                        print state_dict
             objects.append(timezone_dict)
         f.write(json.dumps(objects))
 
