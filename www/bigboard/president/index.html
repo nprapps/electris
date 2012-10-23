@@ -130,7 +130,7 @@
         -->
         <script id="timezone-template" type="text/template">
             <div class="closeTimeBar">
-                <% date = moment.unix(timezone.gmt_epoch_time).subtract('hours', 5).format('h:mm'); %>
+                <% date = moment.unix(timezone.gmt_epoch_time).format('h:mm'); %>
                 <%= date %>
             </div>
             <% _.each(timezone.states, function(state){ %>
@@ -141,6 +141,8 @@
                 <ul class="allstates <%= called %>">
                     <li class="district">
                     <%= state.name %> (<%= state.electoral_votes %>)
+                    <%= state.dem_vote_percent %>
+                    <%= state.gop_vote_percent %>
                     </li>
                 </ul>
             <% }); %>
