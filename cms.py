@@ -117,63 +117,59 @@ def house(house):
     # Alternately, what if someone is POSTing?
     if request.method == 'POST':
 
-        # First, try and get the race.
+        # Everything needs a race slug.
         race_slug = request.form.get('race_slug', None)
         race = Race.select().where(Race.slug == race_slug).get()
 
-        # Next, try to get the AP call.
+        # 1.) Perhaps we're trying to set the accept_ap_call flag on some races?
         accept_ap_call = request.form.get('accept_ap_call', None)
         if accept_ap_call:
 
-            # Figure out which direction we're going and send an appropriate message.
             if accept_ap_call.lower() == 'true':
                 accept_ap_call = True
             else:
                 accept_ap_call = False
 
-        # If all the pieces are here, do something.
         if race_slug != None and accept_ap_call != None:
+            aq = Race.update(accept_ap_call=accept_ap_call).where(Race.slug == race.slug)
+            aq.execute()
 
-            # Run some SQL to change the status of this set of candidate's accept_ap_call column.
-            race.accept_ap_call = accept_ap_call
-            race.save()
-
-            # Clear the NPR winner status of candidates who we accept AP calls for.
             if accept_ap_call == False:
                 rq = Candidate.update(npr_winner=False).where(Candidate.race == race)
                 rq.execute()
 
-        # Try and get the winner.
+        # 2.) Perhaps we're trying to set an NPR winner?
         first_name = request.form.get('first_name', None)
         last_name = request.form.get('last_name', None)
-
-        # Try and get a clear_all.
         clear_all = request.form.get('clear_all', None)
 
         if race_slug != None and clear_all != None:
-
-            # If we're passing clear_all as true ...
             if clear_all == 'true':
-
-                # Clear the NPR winner status of all of the candidates.
                 rq = Candidate.update(npr_winner=False).where(Candidate.race == race)
                 rq.execute()
 
-        # If all of the pieces are here, do something.
         if race_slug != None and first_name != None and last_name != None:
-
-            # First, clear the NPR winner status of all of the other candidates.
             rq = Candidate.update(npr_winner=False).where(Candidate.race == race)
             rq.execute()
 
-            # Next, set one person as the winner.
-            candidate = Candidate.select().where(
+            cq = Candidate.update(npr_winner=True).where(
                 Candidate.race == race,
                 Candidate.first_name == first_name,
-                Candidate.last_name == last_name
-            ).get()
-            candidate.npr_winner = True
-            candidate.save()
+                Candidate.last_name == last_name)
+            cq.execute()
+
+        # 3.) Perhaps we're trying to set this as a featured race?
+        featured_race = request.form.get('featured_race', None)
+        print request.form
+        if featured_race:
+            if featured_race.lower() == 'true':
+                featured_race = True
+            else:
+                featured_race = False
+
+        if race_slug != None and featured_race != None:
+            fq = Race.update(featured_race=featured_race).where(Race.slug == race_slug)
+            print fq.execute()
 
         # TODO
         # Return a 200. This is probably bad.
