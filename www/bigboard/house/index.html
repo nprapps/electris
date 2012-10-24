@@ -4,22 +4,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-        <title>House</title>
+        <title>The U.S. House</title>
 
         <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/app.css" />
         <link rel="stylesheet" type="text/css" href="../css/house.css" />
-
-        <style>
-            #refreshing {
-                position:absolute;
-                top:5px;
-                left:762px;
-                font-size:18px;
-                font-weight:bold;
-                color:red;
-            }
-        </style>
     </head>
     <body>
         <div id="banner">
@@ -82,8 +71,8 @@
                             <%= candidate.first_name %> <%= candidate.last_name %>&nbsp;
                             <% votes = Humanize.intcomma(candidate.vote_count); %>
                         </li>
-                        
-                        
+
+
                     <% }); %></ul>
                 <% }); %>
             </div>

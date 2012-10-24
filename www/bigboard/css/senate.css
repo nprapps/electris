@@ -2,8 +2,8 @@
 .poll-closing-time{position:relative;}
 .poll-closing-time-label {margin:0; padding:0; width:400px; font-size:14px; height:21px;line-height:21px;background-color:#999; color:#333;}
 ul.called{}
-.candidate {width:170px; font-size:14px;  padding-left:2px; margin:0 0 0 4px;}
+.candidate {width:188px; font-size:14px; text-indent: 4px;}
 #candidates{line-height:30px;}
 #candidates ul {width:400px;}
 #candidates ul li {height:21px;line-height:21px;}
-.district{font-size:14px; width:10%;}
+.district{font-size:14px; width:24px;}

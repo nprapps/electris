@@ -1,5 +1,5 @@
 body {
-    font-family:Verdana;
+    font-family:Tahoma;
     border-bottom:5px dashed papayawhip;
     border-right:5px dashed papayawhip;
     height:600px;
@@ -7,6 +7,18 @@ body {
     overflow:hidden;
     background-color:#333;
     color:#fff;
+}
+#refreshing {
+    position:absolute;
+    top:5px;
+    left:762px;
+    font-size:18px;
+    font-weight:bold;
+    color:#fff;
+    background-color:#FCA63E;
+    width:38px;
+    padding:4px 0;
+    text-align:center;
 }
 #banner {
     background-color:#efefef;
@@ -107,7 +119,7 @@ body {
     margin-right:2px;
 }
 .candidate {
-    width:150px;
+    width:162px;
     font-size:11px;
     font-weight:bold;
     overflow:hidden;

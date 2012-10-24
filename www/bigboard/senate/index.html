@@ -9,16 +9,6 @@
         <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/app.css" />
         <link rel="stylesheet" type="text/css" href="../css/senate.css" />
-        <style>
-            #refreshing {
-                position:absolute;
-                top:5px;
-                left:762px;
-                font-size:18px;
-                font-weight:bold;
-                color:red;
-            }
-        </style>
     </head>
     <body>
        <div id="banner">
@@ -76,11 +66,10 @@
                         incumbent = '';
                         winner = '';
                         if (candidate.winner == true) { winner = 'winner'; }
-                        if (candidate.incumbent == 1) { incumbent = 'incumbent'; }
+                        if (candidate.incumbent == true) { incumbent = 'incumbent'; }
                     %>
                         <li class="<%= party_class %> <%= incumbent %> <%= winner %> candidate">
                             <%= candidate.first_name %> <%= candidate.last_name %>&nbsp;
-                            <% votes = Humanize.intcomma(candidate.vote_count); %>
                         </li>
                     <% }); %></ul>
                 <% }); %>

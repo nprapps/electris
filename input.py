@@ -84,7 +84,7 @@ def parse_house(row):
     except Race.DoesNotExist:
         race = Race.create(**race_data)
 
-    race.save()
+    # race.save()
 
     i = 0
 
@@ -99,15 +99,20 @@ def parse_house(row):
         else:
             candidate_data['ap_winner'] = False
 
+        if candidate_data['incumbent'] == "1":
+            candidate_data['incumbent'] = True
+        else:
+            candidate_data['incumbent'] = False
+
         try:
-            candidate = Candidate.select().where(
-                Candidate.npid == candidate_data['npid']).get()
-            candidate.update(**candidate_data)
+            cq = Candidate.update(**candidate_data).where(
+                Candidate.npid == candidate_data['npid'])
+            cq.execute()
+
         except Candidate.DoesNotExist:
             candidate = Candidate.create(**candidate_data)
-
-        candidate.race = race
-        candidate.save()
+            candidate.race = race
+            candidate.save()
 
         i += 1
 
