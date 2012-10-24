@@ -119,6 +119,7 @@ def clone_repo():
 
 
 def checkout_latest():
+    run('cd %(repo_path)s; git fetch')
     run('cd %(repo_path)s; git checkout %(branch)s; git pull origin %(branch)s' % env)
 
 
