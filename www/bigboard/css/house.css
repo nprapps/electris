@@ -1,10 +1,10 @@
 .district {
-    font-size:11px;
+    font-size:12px;
     float:left;
     width:36px;
     display:block;
     font-weight:bold;
 }
 #candidates { height:555px; overflow:hidden; }
-.candidate { width: 157px; text-indent:4px; line-height:15px;}
-.timezone ul { height:15px; overflow:hidden; }
+.candidate { width: 157px; text-indent:4px; line-height:22px; font-size:13px;}
+.timezone ul { height:22px; overflow:hidden; }
