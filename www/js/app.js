@@ -240,16 +240,12 @@ $(function() {
 
         var state_ids = _.pluck(undecided_states, "id");
 
-        // Do we have a primer for this state combination?
-        var primer = _.find(COMBO_PRIMER, function(data) {
-            return $(data.undecided_states).not(state_ids).length == 0 && $(state_ids).not(data.undecided_states).length == 0;
-        });
-
-        if (primer) {
-            red_combos = primer.red_combos;
-            blue_combos = primer.blue_combos;
-            red_groups = primer.red_groups;
-            blue_groups = primer.blue_groups;
+        // If this is the first combo, use the primer
+        if (undecided_states.length == COMBO_PRIMER.undecided_states.length) {
+            red_combos = COMBO_PRIMER.red_combos;
+            blue_combos = COMBO_PRIMER.blue_combos;
+            red_groups = COMBO_PRIMER.red_groups;
+            blue_groups = COMBO_PRIMER.blue_groups;
             red_keys = _.keys(red_groups).sort();
             blue_keys = _.keys(blue_groups).sort();
         } else {

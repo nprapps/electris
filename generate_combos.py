@@ -84,9 +84,7 @@ def main():
         else:
             undecided_states.append(state)
 
-    output = []
-
-    output.append(compute_combos(undecided_states, red_needs, blue_needs))
+    output = compute_combos(undecided_states, red_needs, blue_needs)
 
     with open('www/js/combo_primer.js', 'w') as f:
         f.write('var COMBO_PRIMER = %s' % json.dumps(output) )
