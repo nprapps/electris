@@ -73,7 +73,7 @@ def _confirm_branch():
 
 def _deploy_to_s3():
     """
-    Deploy the gzipped stuff to
+    Deploy the gzipped stuff to S3
     """
     local(('\
         s3cmd -P\
@@ -81,9 +81,6 @@ def _deploy_to_s3():
         --guess-mime-type\
         --recursive\
         --exclude states.csv\
-        --exclude house.json\
-        --exclude senate.json\
-        --exclude president.json\
         sync gzip/ s3://%(s3_bucket)s/%(project_name)s/') % env)
 
 
@@ -119,7 +116,7 @@ def clone_repo():
 
 
 def checkout_latest():
-    run('cd %(repo_path)s; git fetch')
+    run('cd %(repo_path)s; git fetch %(branch)s' % env)
     run('cd %(repo_path)s; git checkout %(branch)s; git pull origin %(branch)s' % env)
 
 
@@ -134,7 +131,7 @@ def deploy():
     _gzip_www()
     _deploy_to_s3()
 
-    checkout_latest()
+    # checkout_latest()
 
 
 def deploy_data():
