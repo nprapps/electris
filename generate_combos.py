@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from copy import copy
 from itertools import combinations
 import json
 
@@ -88,11 +87,6 @@ def main():
     output = []
 
     output.append(compute_combos(undecided_states, red_needs, blue_needs))
-
-    #for i in range(0, len(undecided_states)):
-    #    some_states = copy(undecided_states)
-    #    del some_states[i]
-    #    output.append(compute_combos(some_states, red_needs, blue_needs))
 
     with open('www/js/combo_primer.js', 'w') as f:
         f.write('var COMBO_PRIMER = %s' % json.dumps(output) )
