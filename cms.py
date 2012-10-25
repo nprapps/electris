@@ -16,7 +16,7 @@ def president():
     """
     if request.method == 'GET':
 
-        states = State.select().where(State.electoral_votes > 1)
+        states = State.select()
 
         context = {
             'states': states,
