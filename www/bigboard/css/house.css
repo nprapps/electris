@@ -4,7 +4,12 @@
     width:36px;
     display:block;
     font-weight:bold;
+    padding:0 0 0 5px;
 }
 #candidates { height:555px; overflow:hidden; }
-.candidate { width: 157px; text-indent:4px; line-height:22px; font-size:13px;}
-.timezone ul { height:22px; overflow:hidden; }
+.candidate { width: 157px; text-indent:4px; line-height:18px; font-size:12px;}
+.timezone ul { height:18px; overflow:hidden; width:399px;}
+
+.poll-closing-time-label {height:18px;line-height:18px;font-size:12px;}
+
+.first.column{width:399px !important; border-right:1px solid #efefef;}
