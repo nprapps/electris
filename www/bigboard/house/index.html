@@ -70,9 +70,11 @@
                             <%= candidate.first_name %> <%= candidate.last_name %>&nbsp;
                             <% votes = Humanize.intcomma(candidate.vote_count); %>
                         </li>
-
-
-                    <% }); %></ul>
+						
+							
+                    <% }); %>
+                    <li class="status"><%= district.status %></li>
+                    </ul>
                 <% }); %>
             </div>
         </script>

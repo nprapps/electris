@@ -1,5 +1,31 @@
+@font-face {
+    font-family: 'ArmataRegular';
+    src: url('../fonts/Armata-Regular-webfont.eot');
+    src: url('../fonts/Armata-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Armata-Regular-webfont.woff') format('woff'),
+         url('../fonts/Armata-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/Armata-Regular-webfont.svg#ArmataRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'MuliLight';
+    src: url('../fonts/Muli-Light-webfont.eot');
+    src: url('../fonts/Muli-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Muli-Light-webfont.woff') format('woff'),
+         url('../fonts/Muli-Light-webfont.ttf') format('truetype'),
+         url('../fonts/Muli-Light-webfont.svg#MuliLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
 body {
-    font-family:Tahoma;
+    font-family:ArmataRegular;
     border-bottom:5px dashed papayawhip;
     border-right:5px dashed papayawhip;
     height:600px;
@@ -7,6 +33,7 @@ body {
     overflow:hidden;
     background-color:#333;
     color:#fff;
+    font-weight: bolder;
 }
 #refreshing {
     position:absolute;
@@ -151,3 +178,5 @@ ul.called li {
     background-color:#148B34;
     color:white;
 }
+
+li.status{overflow: hidden; white-space: nowrap;}
