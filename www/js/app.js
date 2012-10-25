@@ -18,6 +18,7 @@ $(function() {
     ];
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
     var MAX_COMBO_GROUP = 7;
+    var POLLING_INTERVAL = 2500;
 
     if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); } else { $("body").addClass("no-touch"); }
 
@@ -49,7 +50,11 @@ $(function() {
     function add_state(state) {
         var el = $(states_html[state.id]);
 
-        if (state.id in tossup_picks) {
+        if (state.call === "r") {
+            red_bucket_el.append(el);
+        } else if (state.call === "d") {
+            blue_bucket_el.append(el);
+        } else if (state.id in tossup_picks) {
             if (tossup_picks[state.id] === "r") {
                 red_bucket_el.append(el);
             } else {
@@ -72,22 +77,28 @@ $(function() {
         /*
          * Add states to the tetris graph in an organized fashion.
          */
+        var red_called = [];
         var red_solid = [];
         var red_leans = [];
         var red_predicted = [];
+        var blue_called = [];
         var blue_solid = [];
         var blue_leans = [];
         var blue_predicted = [];
 
         // Group states together
         states_dataset.each(function(state) {
-            if (state.prediction == "sr") {
+            if (state.call === "r") {
+                red_called.push(state)
+            } else if (state.call === "d") {
+                blue_called.push(state)
+            } else if (state.prediction === "sr") {
                 red_solid.push(state);
-            } else if (state.prediction == "sd") {
+            } else if (state.prediction === "sd") {
                 blue_solid.push(state);
-            } else if (state.prediction == "lr") {
+            } else if (state.prediction === "lr") {
                 red_leans.push(state);
-            } else if (state.prediction == "ld") {
+            } else if (state.prediction === "ld") {
                 blue_leans.push(state);
             } else if (state.id in tossup_picks) {
                 if (tossup_picks[state.id] === "r") {
@@ -102,7 +113,7 @@ $(function() {
         $(".state").remove();
 
         // Add states by groups
-        _.each([red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted], function(states) {
+        _.each([red_called, blue_called, red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted], function(states) {
             // Sort alphabetically from *top to bottom*
             states.reverse();
 
@@ -116,6 +127,8 @@ $(function() {
         /*
          * Compute and display vote stats.
          */
+        var states_called_red = [];
+        var states_called_blue = [];
         var states_fixed_red = [];
         var states_fixed_blue = [];
         var states_user_red = [];
@@ -123,7 +136,11 @@ $(function() {
         var states_not_predicted = [];
 
         states_dataset.each(function(state) {
-            if (state.prediction === "sr" || state.prediction === "lr") {
+            if (state.call === "r") {
+                states_called_red.push(state);
+            } else if (state.call === "d") {
+                states_called_blue.push(state)
+            } else if (state.prediction === "sr" || state.prediction === "lr") {
                 states_fixed_red.push(state);
             } else if (state.prediction === "sd" || state.prediction == "ld") {
                 states_fixed_blue.push(state);
@@ -142,16 +159,18 @@ $(function() {
             return _.reduce(states, function(count, state) { return count + state.electoral_votes; }, 0);
         }
 
+        var red_votes_called = sum_votes(states_called_red);
         var red_votes_fixed = sum_votes(states_fixed_red)
         var red_votes_user = sum_votes(states_user_red);
-        red_votes = red_votes_fixed + red_votes_user;
+        red_votes = red_votes_called + red_votes_fixed + red_votes_user;
         $("#p-red-electoral").text(red_votes);
         red_candidate_el.find(".needed .bignum").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - red_votes));
         red_candidate_el.toggleClass("winner", red_votes >= ELECTORAL_VOTES_TO_WIN);
 
+        var blue_votes_called = sum_votes(states_called_blue);
         var blue_votes_fixed = sum_votes(states_fixed_blue);
         var blue_votes_user = sum_votes(states_user_blue);
-        blue_votes = blue_votes_fixed + blue_votes_user;
+        blue_votes = blue_votes_called + blue_votes_fixed + blue_votes_user;
         $("#p-blue-electoral").text(blue_votes);
         blue_candidate_el.find(".needed .bignum").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
         blue_candidate_el.toggleClass("winner", blue_votes >= ELECTORAL_VOTES_TO_WIN);
@@ -486,7 +505,9 @@ $(function() {
         delimiter: ",",
         columns: [
             { name: "polls_close", type: "time", format: "YYYY-MM-DD h:mm A" }
-        ]
+        ],
+        interval: POLLING_INTERVAL,
+        uniqueAgainst: "id"
     });
     
     states_dataset.fetch().then(function() {
@@ -535,4 +556,51 @@ $(function() {
         add_states();
         compute_stats(true);
     });
+
+    //states_dataset.bind("change", function(event) {
+        /*
+         * Process changes to state data from polling.
+         */
+    /*    var real_changes = false;
+
+        _.each(event.deltas, function(delta) {
+            _.each(_.keys(delta.old), function(key) {
+                if (key === "_id") {
+                    return;
+                }
+
+                if (delta.changed[key] != delta.old[key]) {
+                    if (key === "call" || key === "dem_vote_count" || key === "rep_vote_count" || key === "precints_reporting") {
+                        var old_state = delta.old;
+                        var state = delta.changed;
+
+                        $(".state." + state.id).remove();
+                        add_state(state);
+
+                        if (key === "call") {
+                            // Uncalled!
+                            if (!state.call) {
+                                alert(state + " uncalled");
+                            } else {
+                                // Called
+                                if (!old_state.call) {
+                                    alert(state + " called as " + state.call);
+                                } else {
+                                    alert(state + " call changed to " + state.call + " instead of " + old_state.call);
+                                }
+                            }
+                        }
+
+                        real_changes = true;
+                    }
+                }
+            });
+        });
+
+        if (real_changes) {
+            //hide_empty_closing_times();
+            compute_stats(true);
+            //update_call_alert();
+        };
+    });*/
 });

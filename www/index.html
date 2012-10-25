@@ -262,7 +262,7 @@
     </div>
 
     <script id="state-template" type="text/template">
-        <div class="state <%= state.id %> prediction-<%= state.prediction %>" data-id="<%= state.id %>">
+        <div class="state <%= state.id %> prediction-<%= state.prediction %> call-<%= state.call %>" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
                 <i rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><span><%= state.stateface %></span></i>
             <% }); %>

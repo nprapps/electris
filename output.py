@@ -186,7 +186,7 @@ def write_president_csv():
                 state['call'] = state['npr_call']
                 state['called_at'] = state['npr_called_at']
                 state['called_by'] = 'npr'
-            elif state['accept_ap_call'] == 'y' and state['ap_call'] != 'u':
+            elif state['accept_ap_call'] and state['ap_call'] != 'u':
                 state['call'] = state['ap_call']
                 state['called_at'] = state['ap_called_at']
                 state['called_by'] = 'ap'
