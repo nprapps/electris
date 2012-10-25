@@ -22,7 +22,7 @@ CLOSING_TIMES = [
     datetime.datetime(2012, 11, 7, 2, 0),
     datetime.datetime(2012, 11, 7, 3, 0),
     datetime.datetime(2012, 11, 7, 4, 0),
-    datetime.datetime(2012, 11, 7, 5, 0)
+    # datetime.datetime(2012, 11, 7, 5, 0)
 ]
 
 # Constants for static media storage.

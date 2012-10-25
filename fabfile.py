@@ -142,7 +142,7 @@ def deploy_data():
     local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type sync gzip/states.csv s3://%(s3_bucket)s/%(deployed_name)s/') % env)
 
 
-def _recreate_tables():
+def recreate_tables():
     """
     Private function to delete and recreate a blank database.
     """
@@ -154,22 +154,23 @@ def _recreate_tables():
     State.create_table(fail_silently=True)
 
 
-def _bootstrap_races():
+def bootstrap_races():
     """
     Private function to load initial data for races.
     """
-    _recreate_tables()
+    local('rm electris.db && cp initial_data/electris_initial.db electris.db')
 
-    i.bootstrap_president()
 
-    # Right now, bootstrapping the house races involves a call to AP.
-    # Should change this.
-    data = i.get_ap_data()
-    i.parse_ap_data(data)
+def update_polls():
+    """
+    Updates state predictions for presidential races against HuffPo's polling API.
+    """
+    i.update_polls()
+    write_www_files()
 
-    # With appropriate bootstrapping data, this step is unnecessary.
-    i.bootstrap_house_times()
-    i.bootstrap_senate_times()
+
+def generate_initial_combos():
+    o.generate_initial_combos()
 
 
 def write_www_files():
@@ -190,8 +191,54 @@ def write_www_files():
 
 
 def update_ap_data():
+    """
+    Gets actual AP data from the AP's top-of-ticket file.
+    """
     data = i.get_ap_data()
     i.parse_ap_data(data)
+    write_www_files()
+
+
+def update_fake_ap_data():
+    """
+    Gets randomly assigned data from snapshot files in our timemachine.
+    """
+    data = i.get_fake_ap_data()
+    i.parse_ap_data(data)
+    write_www_files()
+
+
+def wipe_status():
+    """
+    Blanks the status fields for congress and presidential races.
+    """
+
+    rq = Race.update(
+        precincts_reporting=0,
+        ap_called=False,
+        ap_called_time=None,
+        npr_called=False,
+        npr_called_time=None
+    )
+    rq.execute()
+
+    cq = Candidate.update(
+        vote_count=0,
+        ap_winner=False,
+        npr_winner=False
+    )
+    cq.execute()
+
+    sq = State.update(
+        ap_call='u',
+        ap_called_at=None,
+        npr_call='u',
+        npr_called_at=None,
+        precincts_reporting=0,
+        rep_vote_count=0,
+        dem_vote_count=0
+    )
+    sq.execute()
     write_www_files()
 
 
@@ -199,25 +246,7 @@ def local_reset():
     """
     Resets the local environment to a fresh copy of the db and data.
     """
-    _bootstrap_races()
-    write_www_files()
-
-
-def load_test_db():
-    """
-    Copies a snapshot of the electris DB with settings as defined in
-    test_data/bigboard/README.md and regenerates output files for www.
-    """
-    local('rm electris.db')
-    local('cp test_data/bigboard/electris_test.db electris.db')
-    write_www_files()
-
-
-def update_polls():
-    """
-    Updates state predictions for presidential races against HuffPo's polling API.
-    """
-    i.update_polls()
+    bootstrap_races()
     write_www_files()
 
 
@@ -229,10 +258,6 @@ def save_ap_data():
         for line in i.get_ap_data():
             data += line
         f.write(data)
-
-
-def generate_initial_combos():
-    o.generate_initial_combos()
 
 
 def shiva_the_destroyer():

@@ -4,6 +4,7 @@ import os
 import csv
 import datetime
 import pytz
+import random
 
 import initial_data.time_zones as time_zones
 
@@ -52,6 +53,15 @@ CANDIDATE_FIELDS = [
 ]
 
 
+def get_fake_ap_data():
+    """
+    Grabs data from the very beginning of the AP test.
+    """
+    path = 'test_data/timemachine/US_14-31.txt'
+    with open(path, 'rb') as f:
+        return f.readlines()
+
+
 def get_ap_data():
     data = StringIO()
     ftp = FTP('electionsonline.ap.org')
@@ -78,13 +88,8 @@ def parse_house(row):
         race_data['state_postal'].lower(), race_data['district_id'])
     candidate_count = (len(row) - len(RACE_FIELDS)) / len(CANDIDATE_FIELDS)
 
-    try:
-        race = Race.select().where(Race.slug == race_data['slug']).get()
-        race.update(**race_data)
-    except Race.DoesNotExist:
-        race = Race.create(**race_data)
-
-    # race.save()
+    race = Race.select().where(Race.slug == race_data['slug']).get()
+    race.update(**race_data)
 
     i = 0
 
@@ -104,17 +109,18 @@ def parse_house(row):
         else:
             candidate_data['incumbent'] = False
 
-        try:
-            cq = Candidate.update(**candidate_data).where(
-                Candidate.npid == candidate_data['npid'])
-            cq.execute()
+        if candidate_data['ap_winner'] == True:
+            if race.ap_called == False:
+                race.ap_called = True
+                race.ap_called_time = datetime.datetime.now(tz=pytz.utc)
 
-        except Candidate.DoesNotExist:
-            candidate = Candidate.create(**candidate_data)
-            candidate.race = race
-            candidate.save()
+        cq = Candidate.update(**candidate_data).where(
+            Candidate.npid == candidate_data['npid'])
+        cq.execute()
 
         i += 1
+
+    race.save()
 
 
 def parse_president(row):

@@ -7,6 +7,8 @@ import gzip
 import shutil
 import boto
 import time
+import datetime
+from datetime import timedelta
 
 from itertools import combinations
 from boto.s3.key import Key
@@ -73,14 +75,19 @@ def _generate_json(house):
     * House is a two-tuple ('house', 'H'), e.g., URL slug and DB representation.
     """
     objects = []
+    now = datetime.datetime(2012, 11, 7, 1, 30)
+
     for timezone in settings.CLOSING_TIMES:
         timezone_dict = {}
         timezone_dict['gmt_epoch_time'] = time.mktime(timezone.timetuple())
         timezone_dict['districts'] = []
 
-        for district in Race.select().where(
+        races = Race.select().where(
             Race.office_code == house[1],
-            Race.poll_closing_time == timezone):
+            Race.poll_closing_time == timezone,
+            Race.featured_race == True)
+
+        for district in races:
 
             district_dict = {}
             district_dict['district'] = u'%s %s' % (
@@ -89,12 +96,28 @@ def _generate_json(house):
             district_dict['candidates'] = []
             district_dict['district_slug'] = district.slug
 
+            district_dict['percent_reporting'] = district.percent_reporting()
+
             if district.accept_ap_call == True:
                 district_dict['called'] = district.ap_called
                 district_dict['called_time'] = district.ap_called_time
             elif district.accept_ap_call == False:
                 district_dict['called'] = district.npr_called
                 district_dict['called_time'] = district.npr_called_time
+
+            if district.poll_closing_time > now:
+                close_time = district.poll_closing_time - timedelta(hours=5)
+                district_dict['status_tag'] = 'Poll closing time.'
+                district_dict['status'] = close_time.strftime('%I:%M').lstrip('0')
+
+            if district.poll_closing_time < now:
+                if district_dict['called'] == True:
+                    etnow = now - timedelta(hours=5)
+                    district_dict['status_tag'] = 'Called time.'
+                    district_dict['status'] = etnow.strftime('%I:%M').lstrip('0')
+                else:
+                    district_dict['status_tag'] = 'Percent reporting.'
+                    district_dict['status'] = district.percent_reporting()
 
             for candidate in Candidate.select().where(
                 Candidate.race == district):
@@ -103,6 +126,8 @@ def _generate_json(house):
                         or candidate.party == u'GOP'
                         or candidate.first_name == 'Angus'):
                             candidate_dict = candidate._data
+
+                            candidate_dict['vote_percent'] = candidate.vote_percent()
                             candidate_dict['winner'] = False
 
                             if district.accept_ap_call == True:
