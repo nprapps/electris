@@ -18,7 +18,7 @@ $(function(){
     var polling_interval = 15;
     var countdown = polling_interval;
 
-    function refresh_countdown() {
+   function refresh_countdown() {
         countdown -= 1;
 
         $("#refreshing").html(countdown+"s");

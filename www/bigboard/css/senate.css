@@ -1,6 +1,6 @@
 .timezone ul {margin-left:0;}
 .poll-closing-time{position:relative;}
-.poll-closing-time-label {margin:0; padding:0; width:400px; font-size:14px; height:25px;line-height:25px;background-color:#999; color:#333;}
+.poll-closing-time-label {margin:0; padding:0; width:400px; font-size:14px; height:25px;line-height:25px;}
 ul.called{}
 .candidate {width:188px; font-size:14px; text-indent: 4px;}
 #candidates ul {width:400px;}
