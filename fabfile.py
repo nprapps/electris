@@ -147,7 +147,9 @@ def recreate_tables():
     """
     Private function to delete and recreate a blank database.
     """
-    local('rm electris.db && touch electris.db')
+    with settings(warn_only=True):
+        local('rm electris.db')
+        local('&& touch electris.db')
 
     # Use the Peewee ORM to recreate tables.
     Candidate.create_table(fail_silently=True)
@@ -159,7 +161,9 @@ def bootstrap_races():
     """
     Private function to load initial data for races.
     """
-    local('rm electris.db && cp initial_data/electris_initial.db electris.db')
+    with settings(warn_only=True):
+        local('rm electris.db')
+        local('cp initial_data/electris_initial.db electris.db')
 
 
 def update_polls():
