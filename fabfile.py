@@ -81,7 +81,7 @@ def _deploy_to_s3():
         --guess-mime-type\
         --recursive\
         --exclude states.csv\
-        sync gzip/ s3://%(s3_bucket)s/%(project_name)s/') % env)
+        sync gzip/ s3://%(s3_bucket)s/%(2012-election-results)s/') % env)
 
 
 def _gzip_www():
