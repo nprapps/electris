@@ -147,7 +147,9 @@ def recreate_tables():
     """
     Private function to delete and recreate a blank database.
     """
-    local('rm electris.db && touch electris.db')
+    with settings(warn_only=True):
+        local('rm electris.db')
+        local('&& touch electris.db')
 
     # Use the Peewee ORM to recreate tables.
     Candidate.create_table(fail_silently=True)
@@ -159,7 +161,9 @@ def bootstrap_races():
     """
     Private function to load initial data for races.
     """
-    local('rm electris.db && cp initial_data/electris_initial.db electris.db')
+    with settings(warn_only=True):
+        local('rm electris.db')
+        local('cp initial_data/electris_initial.db electris.db')
 
 
 def update_polls():
@@ -198,7 +202,10 @@ def update_ap_data():
     Gets actual AP data from the AP's top-of-ticket file.
     """
     data = i.get_ap_data()
-    i.parse_ap_data(data)
+    ne_data = i.get_ap_district_data('NE')
+    me_data = i.get_ap_district_data('ME')
+
+    i.parse_ap_data(data, ne_data, me_data)
     write_www_files()
 
 
@@ -207,7 +214,10 @@ def update_fake_ap_data():
     Gets randomly assigned data from snapshot files in our timemachine.
     """
     data = i.get_fake_ap_data()
-    i.parse_ap_data(data)
+    ne_data = i.get_fake_ap_district_data('NE')
+    me_data = i.get_fake_ap_district_data('ME')
+
+    i.parse_ap_data(data, ne_data, me_data)
     write_www_files()
 
 
@@ -261,6 +271,13 @@ def save_ap_data():
         for line in i.get_ap_data():
             data += line
         f.write(data)
+
+    for state_code in ['NE', 'ME']:
+        with open('test_data/timemachine/%s_D_%s-%s.txt' % (state_code, hour, minute), 'w') as f:
+            data = ''
+            for line in i.get_ap_district_data(state_code):
+                data += line
+            f.write(data)
 
 
 def shiva_the_destroyer():

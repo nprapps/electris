@@ -1,0 +1,3 @@
+t;2012-11-06;ME;SP;1;ME;0;P;G;0;President;;;General;;1;0;0;599;28154;1;Dem;Barack;;Obama;;0;1;0;0;;1918;28155;2;GOP;Mitt;;Romney;;0;0;0;0;;893;28577;3;Lib;Gary;;Johnson;;0;0;0;0;;31708;28578;4;Grn;Jill;;Stein;;0;0;0;0;;895;
+t;2012-11-06;ME;CD;20026;District 1;0;P;G;0;President;;;General;;1;0;0;175;28154;1;Dem;Barack;;Obama;;0;1;0;0;;1918;28155;2;GOP;Mitt;;Romney;;0;0;0;0;;893;28577;3;Lib;Gary;;Johnson;;0;0;0;0;;31708;28578;4;Grn;Jill;;Stein;;0;0;0;0;;895;
+t;2012-11-06;ME;CD;20027;District 2;0;P;G;0;President;;;General;;1;0;0;424;28154;1;Dem;Barack;;Obama;;0;1;0;0;;1918;28155;2;GOP;Mitt;;Romney;;0;0;0;0;;893;28577;3;Lib;Gary;;Johnson;;0;0;0;0;;31708;28578;4;Grn;Jill;;Stein;;0;0;0;0;;895;
