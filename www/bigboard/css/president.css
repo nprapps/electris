@@ -10,9 +10,9 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 #banner li h2{padding-top:4px;}
 
 #candidates ul.swing {width:400px;font-size:14px;text-transform:uppercase;height:27px;border-top:1px solid #999;display:block;}
-.weighted li {display:block; float:left;line-height:27px;padding:0 6px 0 6px;}
+.weighted li {display:block; float:left;line-height:27px;text-indent:4px;padding:0 6px 0 0;}
 .swing li.closeTime {white-space:nowrap;overflow:hidden;}
-.weighted li:first-child{padding-left:4px;}
+.weighted li:first-child{text-indent:4px;}
 .weighted ul.swing li.state{width:45%;white-space:nowrap;overflow:hidden;}
 .weighted ul {clear:left;}
 .weighted {border-bottom: 1px #999 solid; margin-bottom: 5px;}
@@ -20,12 +20,12 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 
 ul.allstates:nth-child(odd){background-color:#444;}
 #candidates ul.allstates {text-transform:uppercase;font-size:12px;height:23px;text-transform:uppercase;display:block;}
-ul.allstates li.state {font-size:11px;width:120px;overflow:hidden;white-space: nowrap;}
+ul.allstates li.state {font-size:11px;width:145px;overflow:hidden;white-space: nowrap;text-indent:4px;}
 
-li.demPercent{color:#a7d7eb;width:10%;overflow:hidden;}
-li.gopPercent{color:#f8a199;width:10%;overflow:hidden;}
-li.percentTime{border-right:solid #666 1px; width:10%;overflow:hidden;}
-li.percentTime {font-size:13px;}
+li.demPercent{color:#a7d7eb;width:14%;overflow:hidden;}
+li.gopPercent{color:#f8a199;width:14%;overflow:hidden;}
+li.percentTime{border-right:solid #666 1px; width:12%;overflow:hidden;}
+li.percentTime {font-size:12px;}
 
 .weighted li.demPercent{width:15%;overflow:hidden;}
 .weighted li.gopPercent{width:15%;overflow:hidden;}
@@ -33,8 +33,8 @@ li.percentTime {font-size:13px;}
 .closeTimeBar{text-align:center; background-color:#ccc; color:#333;font-weight:bolder;font-size:11px;height:23px;line-height:23px;}
 ul.allstates li.percentTime {width:15%;}
 
-.full li {display:block; float:left;line-height:23px;padding:0 6px 0 6px;}
-.full li:first-child{padding-left:4px;}
+.full li {display:block; float:left;line-height:23px;}
+.full li:first-child{text-indent:4px;}
 .full ul {clear:left;}
 .full{border-top: 1px solid #999;}
 
