@@ -60,6 +60,11 @@
                     %>
                     <ul class="<%= called %>"><li class="district"><%= district_name %></li>
                     <%
+                    if(district.district_slug == "vt0"){
+                    %>
+                    	<li class="candidate"></li>
+                    <% } %>
+                    <%
                     _.each(district.candidates, function(candidate){
                         party_class = candidate.party.toLowerCase();
                         incumbent = '';
@@ -70,7 +75,9 @@
                         <li class="<%= party_class %> <%= incumbent %> <%= winner %> candidate">
                             <%= candidate.first_name %> <%= candidate.last_name %>&nbsp;
                         </li>
-                    <% }); %></ul>
+                    <% }); %>
+                    	<li class="status"><%= district.status %></li>
+                    </ul>
                 <% }); %>
             </div>
         </script>
