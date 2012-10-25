@@ -4,7 +4,6 @@ import os
 import csv
 import datetime
 import pytz
-import random
 
 import initial_data.time_zones as time_zones
 
@@ -49,15 +48,59 @@ CANDIDATE_FIELDS = [
     'incumbent',
     'vote_count',
     'ap_winner',
-    'npid',
+    'npid'
 ]
 
+DISTRICT_RACE_FIELDS = [
+    'is_test',
+    'election_date',
+    'state_postal',
+    'district_type',
+    'district_number',
+    'district_name',
+    'race_number',
+    'office_code',
+    'race_type_id',
+    'seat_number',
+    'office_name',
+    'seat_name',
+    'race_type_party',
+    'race_type',
+    'office_description',
+    'number_of_winners',
+    'number_in_runoff',
+    'precincts_reporting',
+    'total_precincts'
+]
+
+DISTRICT_CANDIDATE_FIELDS = [
+    'candidate_number',
+    'ballot_order',
+    'party',
+    'first_name',
+    'middle_name',
+    'last_name',
+    'junior',
+    'use_junior',
+    'incumbent',
+    'delegates',
+    'vote_count',
+    'ap_winner',
+    'npid'
+]
 
 def get_fake_ap_data():
     """
     Grabs data from the very beginning of the AP test.
     """
     path = 'test_data/timemachine/US_14-31.txt'
+    with open(path, 'rb') as f:
+        return f.readlines()
+
+
+def get_fake_ap_district_data(state_code):
+    path = 'test_data/%s_D.txt' % state_code
+
     with open(path, 'rb') as f:
         return f.readlines()
 
@@ -72,7 +115,17 @@ def get_ap_data():
     return data
 
 
-def parse_ap_data(data):
+def get_ap_district_data(state_code):
+    data = StringIO()
+    ftp = FTP('electionsonline.ap.org')
+    ftp.login(os.environ['AP_USERNAME'], os.environ['AP_PASSWORD'])
+    ftp.retrbinary('RETR %s/flat/%s_D.txt' % (state_code, state_code), data.write)
+    ftp.quit()
+    data = StringIO(data.getvalue())
+    return data
+
+
+def parse_ap_data(data, ne_data, me_data):
     for row in data:
         row_data = row.split(';')
         race = row_data[10]
@@ -81,6 +134,20 @@ def parse_ap_data(data):
         if race == 'U.S. House' or race == 'U.S. Senate':
             parse_house(row_data)
 
+    for row in ne_data:
+        row_data = row.split(';')
+        race = row_data[10]
+
+        if race == 'President':
+            parse_president_district('NE', row_data)
+
+    for row in me_data:
+        row_data = row.split(';')
+        race = row_data[10]
+
+        if race == 'President':
+            parse_president_district('ME', row_data)
+    
 
 def parse_house(row):
     race_data = dict(zip(RACE_FIELDS, row[:len(RACE_FIELDS)]))
@@ -150,6 +217,56 @@ def parse_president(row):
     assert obama_data and romney_data
 
     state = State.select().where(State.id == race_data['state_postal'].lower()).get()
+    ap_call = 'r' if romney_data['ap_winner'] else 'd' if obama_data['ap_winner'] else 'u'
+
+    ap_called_at = state.ap_called_at
+
+    if ap_call != state.ap_call:
+        ap_called_at = datetime.datetime.now(tz=pytz.utc)
+
+    state.ap_call = ap_call
+    state.ap_called_at = ap_called_at
+    state.total_precincts = race_data['total_precincts']
+    state.precincts_reporting = race_data['precincts_reporting']
+    state.rep_vote_count = romney_data['vote_count']
+    state.dem_vote_count = obama_data['vote_count']
+
+    state.save()
+
+
+def parse_president_district(state_code, row):
+    race_data = dict(zip(DISTRICT_RACE_FIELDS, row[:len(DISTRICT_RACE_FIELDS)]))
+    candidate_count = (len(row) - len(DISTRICT_RACE_FIELDS)) / len(DISTRICT_CANDIDATE_FIELDS)
+
+    i = 0
+    obama_data = None
+    romney_data = None
+
+    while i < candidate_count:
+        first_field = len(DISTRICT_RACE_FIELDS) + (i * len(DISTRICT_CANDIDATE_FIELDS))
+        last_field = first_field + len(DISTRICT_CANDIDATE_FIELDS)
+
+        candidate_data = dict(zip(DISTRICT_CANDIDATE_FIELDS, row[first_field:last_field]))
+
+        if candidate_data['last_name'] == 'Obama':
+            obama_data = candidate_data
+        elif candidate_data['last_name'] == 'Romney':
+            romney_data = candidate_data
+
+        if obama_data and romney_data:
+            break
+
+        i += 1
+
+    assert obama_data and romney_data
+
+    if race_data['district_name'] == state_code:
+        q = (State.id == state_code.lower())
+    else:
+        district_number = race_data['district_name'][-1:]
+        q = (State.id == state_code.lower() + district_number)
+
+    state = State.select().where(q).get()
     ap_call = 'r' if romney_data['ap_winner'] else 'd' if obama_data['ap_winner'] else 'u'
 
     ap_called_at = state.ap_called_at

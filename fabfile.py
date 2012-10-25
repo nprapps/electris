@@ -202,7 +202,10 @@ def update_ap_data():
     Gets actual AP data from the AP's top-of-ticket file.
     """
     data = i.get_ap_data()
-    i.parse_ap_data(data)
+    ne_data = i.get_ap_district_data('NE')
+    me_data = i.get_ap_district_data('ME')
+
+    i.parse_ap_data(data, ne_data, me_data)
     write_www_files()
 
 
@@ -211,7 +214,10 @@ def update_fake_ap_data():
     Gets randomly assigned data from snapshot files in our timemachine.
     """
     data = i.get_fake_ap_data()
-    i.parse_ap_data(data)
+    ne_data = i.get_fake_ap_district_data('NE')
+    me_data = i.get_fake_ap_district_data('ME')
+
+    i.parse_ap_data(data, ne_data, me_data)
     write_www_files()
 
 
