@@ -74,6 +74,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 /* KEY */
 #key { padding: 6px 0 0 0; margin-bottom: 24px; margin-top: -24px; clear: both; }
+.NPRtablet #key, #NPRphone #key { margin-top: 0; }
 #key ul { list-style: none; margin: 0; padding: 0; }
 #key li { display: inline-block; color: #666; white-space: nowrap; font-size: 12px; margin: 0 .5em .5em 0; padding: 0; line-height: 1.2em; }
 #key .key-title { display: block; font: bold 14px Arial, Helvetica, sans-serif; color: #333; margin-bottom: 6px; }
@@ -143,16 +144,9 @@ a.btn { color: #fff; cursor: pointer; }
     text-align: center;
     background-color: #FFF;
     text-indent: -9999px;
-<<<<<<< HEAD
-    background: url('../img/270-line-1200.png') no-repeat center center;
-    height: 33px;
-    margin-top: -7px;
-
-=======
     background: url('../img/270-line-767.png') no-repeat center center;
     height: 33px;
     margin-top: -7px;
->>>>>>> master
 }
 
 .bucket {
@@ -160,25 +154,6 @@ a.btn { color: #fff; cursor: pointer; }
     -webkit-transform: scaleY(-1);
     -o-transform: scaleY(-1);
     transform: scaleY(-1);
-    
-    /* IE10 Consumer Preview */ 
-   /* background-image: -ms-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
-
-    /* Mozilla Firefox */ 
-   /*  background-image: -moz-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
-
-    /* Opera */ 
-   /*  background-image: -o-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
-
-    /* Webkit (Safari/Chrome 10) */ 
-   /*  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(.9, #FFFFFF), color-stop(1, #B39429));*/ 
-
-    /* Webkit (Chrome 11+) */ 
-    /* background-image: -webkit-linear-gradient(top, #FFFFFF 90%, #B39429 100%);*/ 
-
-    /* W3C Markup, IE10 Release Preview */ 
-   /*  background-image: linear-gradient(to bottom, #FFFFFF 90%, #B39429 100%);*/ 
-     
 }
 .bucket .state i {
     -moz-transform: scaleY(-1);
@@ -474,6 +449,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.vote-tallies .bignum { font-size: 24px; }
 	.vote-tallies span { padding-top: 16px; }
 	#key { margin-top: -32px; }
+	.NPRtablet #key, #NPRphone #key { margin-top: 0; }
 	#key li { margin-right: 1em; }
 }
 @media (max-width: 979px) {
@@ -505,6 +481,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.intro h1 { font-size: 28px; }
 	#bigbox { float: none; width: auto; padding-top: 1em; background-color: #f1f1f1; margin: 0 0 1.8em 0; min-height: auto; }
 	#electris { margin-left: 0; padding-top: 18px; }
+	.NPRtablet #electris, .NPRphone #electris { padding-top: 0; }
 	#key li { margin-right: 1em; }
 	#states { font-size: 10px; }
 /*    #states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }*/
@@ -545,17 +522,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.blue .vote-tallies .bignum { float: left; margin-right: 3%; margin-left: 0; }
 	.blue .vote-tallies span { text-align: left; }
 	.combos { width: auto; height: auto; border: none; }
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-<<<<<<< HEAD
-	#line b {background: url('../img/270-line-767.png') no-repeat center center; height: 42px;margin-top: -12px;}
-=======
-=======
 	#line b {background: url('../img/270-line-767.png') no-repeat center center; height: 42px;margin-top: -10px;}
->>>>>>> master
-=======
-	#line b {background: url('../img/270-line-767.png') no-repeat center center; height: 42px;margin-top: -12px;}
->>>>>>> Stashed changes
 
 	.combinations h4 { width: auto; float: none; margin-bottom: 6px; }
 	.combinations ul li ul { width: auto; float: none; }
