@@ -1,8 +1,10 @@
 .timezone ul {margin-left:0;}
 .poll-closing-time{position:relative;}
-.poll-closing-time-label {margin:0; padding:0; width:400px; font-size:14px; height:25px;line-height:25px;}
+.poll-closing-time-label {margin:0; padding:0; width:400px; font-size:14px; height:26px;line-height:26px;}
 ul.called{}
-.candidate {width:188px; font-size:14px; text-indent: 4px;}
+.candidate {width:163px; font-size:14px; text-indent: 4px;}
 #candidates ul {width:400px;}
-#candidates ul li {height:25px;line-height:25px;}
-.district{font-size:14px; width:24px;}
+#candidates ul li {height:26px;line-height:26px;}
+.district{font-size:14px; width:25px;}
+li.status{padding-left: 4px;font-weight: bold;width: 45px; }
+.emptyleft {margin-left: 160px;}
