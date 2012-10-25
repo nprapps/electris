@@ -67,7 +67,7 @@ body {
 }
 
 #banner li {
-    width:164px;
+    width:175px;
     padding-top:5px;
     padding-left:10px;
     height:46px;
@@ -84,6 +84,8 @@ body {
     font-weight:bold;
 }
 
+li#ind_sec{width:120px;}
+
 #banner #gop_sec h2 {color:#be0f00}
 #banner #gop_sec h2 span.total{background-color:#be0f00; color:#fff; padding:1px 4px 0 3px;}
 #banner #dem_sec h2 {color:#4eaed7}
@@ -92,7 +94,7 @@ body {
 #banner #ind_sec h2 span.total{background-color:#579233; color:#fff; padding:1px 4px 0 3px;}
 #banner #nc_sec h2 {color:#666}
 #banner #nc_sec h2 span.total{background-color:#bbb; color:#333; padding:1px 4px 0 3px;}
-#banner li p {font-size:12px; color:#666; margin-top:-3px;}
+#banner li p {font-size:11px; color:#666; margin-top:-3px;}
 #banner li p span.need_num {color:#333;}
 
 .district {
@@ -101,6 +103,7 @@ body {
     float:left;
     display:block;
     font-weight:bold;
+    font-family: MuliLight;
 }
 
 .column {

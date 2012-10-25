@@ -5,6 +5,6 @@ ul.called{}
 .candidate {width:163px; font-size:14px; text-indent: 4px;}
 #candidates ul {width:400px;}
 #candidates ul li {height:26px;line-height:26px;}
-.district{font-size:14px; width:25px;}
-li.status{padding-left: 4px;font-weight: bold;width: 45px; }
+.district{font-size:12px; width:29px;text-indent: 4px;}
+li.status{text-indent: 4px;width: 44px; font-size:12px;}
 .emptyleft {margin-left: 160px;}
