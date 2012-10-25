@@ -11,6 +11,7 @@
 
 
 /* STRUCTURE */
+#bigbox { min-height: 280px; }
 #states { font-size: 22px; }
 .candidate { width: 48%; }
 .candidate.blue { float: left; }
@@ -60,17 +61,10 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* INTRO */
-.intro { color: #333; padding-bottom: 18px; }
+.intro { color: #333; }
 .intro h1 { font-size: 32px; line-height: 1.125em; margin-bottom: .6em; font-weight: normal; color: #222; }
 .intro p { line-height: 1.45em; }
 .intro p.date { color: #999; font-style: italic; }
-.intro ul { list-style: none; margin: 0; padding: 0; }
-.intro ul li { margin: 0 0 .5em 0; padding: 0; line-height: 1.2em; }
-.intro ul li a { 
-	padding: 0 0 0 7px;
-	font-size: .9em;
-	background: url(http://media.npr.org/chrome/news/bullet_blk.gif) no-repeat left .1em;
-}
 .credits { font-size: .85em; color: #666; margin-top: 1.5em; }
 .credits p { margin: 0 0 .1em 0; }
 .related { margin-top: 1.5em; }
@@ -79,9 +73,9 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* KEY */
-#key { padding: 6px 0 6px 0; }
+#key { padding: 6px 0 0 0; margin-bottom: 24px; margin-top: -24px; clear: both; }
 #key ul { list-style: none; margin: 0; padding: 0; }
-#key li { display: inline-block; color: #666; margin-right: 9px; white-space: nowrap; font-size: 12px; }
+#key li { display: inline-block; color: #666; white-space: nowrap; font-size: 12px; margin: 0 .5em .5em 0; padding: 0; line-height: 1.2em; }
 #key .key-title { display: block; font: bold 14px Arial, Helvetica, sans-serif; color: #333; margin-bottom: 6px; }
 #key b { background-color: #555; color: #fff; text-align: center; padding: 1px 6px; display: inline-block; }
 #key .prediction-sd b { background-color: #3d7fa6; }
@@ -115,7 +109,9 @@ a.btn { color: #fff; cursor: pointer; }
     color: #77631b;
 	border-radius: 3px;
 }
-.state:hover, .state:hover i, .state:hover i span { cursor: default; }
+.no-touch .state:hover, 
+.no-touch .state:hover i, 
+.no-touch .state:hover i span { cursor: default; }
 .state i span { font-size:.7em; }
 
 /* Before election night: shade by forecast */
@@ -130,7 +126,8 @@ a.btn { color: #fff; cursor: pointer; }
 .state.call-d i { background-color: #3d7fa6; color: #fff; }
 .state.call-r i { background-color: #a23520; color: #fff; }
 
-.state:hover i, .state.prediction-t.combo-pick:hover i { color: #fff; }
+.no-touch .state:hover i, 
+.no-touch .state.prediction-t.combo-pick:hover i { color: #fff; }
 
 #line {
 	height: 1px;
@@ -284,7 +281,7 @@ a.btn { color: #fff; cursor: pointer; }
 }
 .histogram h4 strong { font-weight: normal; color: #999; }
 .histogram .active h4 strong { font-weight: bold; color: #333; }
-.histogram .active h4:hover { cursor: pointer; text-decoration: underline; }
+.no-touch .histogram .active h4:hover { cursor: pointer; text-decoration: underline; }
 .histogram .title {
 	padding: 9px 12px 0 12px;
 	display: block;
@@ -348,30 +345,30 @@ a.btn { color: #fff; cursor: pointer; }
 .tossups li div {
 	padding: 6px 0;
 	text-align: center;
-	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	text-shadow: 1px 3px 1px rgba(255, 255, 255, 0.4);
 	color: #B39429;
 	font-weight: bold;
     font-size: 18px;
 	overflow: hidden;
 	background: #f7e39b;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FBF1CD), to(#f7e39b));
-	background-image: -webkit-linear-gradient(top, #FBF1CD, #f7e39b);
-	background-image: -o-linear-gradient(top, #FBF1CD, #f7e39b);
-	background-image: linear-gradient(to bottom, #FBF1CD, #f7e39b);
-	background-image: -moz-linear-gradient(top, #FBF1CD, #f7e39b);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FBF1CD), to(#f4db82));
+	background-image: -webkit-linear-gradient(top, #FBF1CD, #f4db82);
+	background-image: -o-linear-gradient(top, #FBF1CD, #f4db82);
+	background-image: linear-gradient(to bottom, #FBF1CD, #f4db82);
+	background-image: -moz-linear-gradient(top, #FBF1CD, #f4db82);
 	background-repeat: repeat-x;
-	border: 1px solid #f7e39b;
+	border: 1px solid #f4db82;
 	*border: 0;
 	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-	border-color: #faeab2 #f7e39b #e5bf57;
+	border-color: #faeab2 #f4db82 #e5bf57;
 	border-bottom-color: #e5bf57;
 	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
-	filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fff7e39b', endColorstr='#fff7e39b', GradientType=0);
+	filter: progid:dximagetransform.microsoft.gradient(startColorstr='#FBF1CD', endColorstr='#f4db82', GradientType=0);
 	filter: progid:dximagetransform.microsoft.gradient(enabled=false);
 	*zoom: 1;
-	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-	   -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-	        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	-webkit-box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(0, 0, 0, 0.15);
+	   -moz-box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(0, 0, 0, 0.15);
+	        box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 .tossups li.active div {
 	background: #B39429;
@@ -390,9 +387,10 @@ a.btn { color: #fff; cursor: pointer; }
 	background-image: none;
 	color: #f5dc81;
 }
-.tossups li.taken, .tossups li.taken span, .tossups li.taken i { color: #f5dc81; }
-.tossups li:hover div, .tossups li.taken:hover div,
-.tossups li:active div, .tossups li.taken:active div {
+.tossups li.taken, .tossups li.taken span, 
+.tossups li.taken i { color: #f5dc81; }
+.no-touch .tossups li:hover div, 
+.no-touch .tossups li.taken:hover div {
 	cursor: pointer;
 	text-shadow: 0 1px 1px rgba(229, 191, 87, 0.75);
 	background: #E5BF57;
@@ -406,10 +404,14 @@ a.btn { color: #fff; cursor: pointer; }
 	border-top-color: #f5dc81;
 	color: #fff;
 }
-.tossups li:hover span, .tossups li.taken:hover span,
-.tossups li.active div, .tossups li.active span,
-.tossups li:hover i, .tossups li.taken:hover i,
-.tossups li.active i, .tossups li.active i {
+.no-touch .tossups li:hover span, 
+.no-touch .tossups li.taken:hover span,
+.tossups li.active div, 
+.tossups li.active span,
+.no-touch .tossups li:hover i, 
+.no-touch .tossups li.taken:hover i,
+.tossups li.active i, 
+.tossups li.active i {
 	color: #fff;
 }
 .tossups .abbr { display: none; }
@@ -421,8 +423,13 @@ a.btn { color: #fff; cursor: pointer; }
     width: 1.2em;
     height:1em;
 }
-.tossups i { display: none; font-size: 11px; font-weight: normal; font-style: normal; color: #77631B; line-height: 12px; }
-.tossups span { font: normal 11px Arial, Helvetica, sans-serif; text-align: left; color: #77631b; }
+.tossups i { display: none; font-size: 11px; height: 11px; font-weight: normal; font-style: normal; color: #77631B; line-height: 12px; }
+.tossups span { font: normal 11px Arial, Helvetica, sans-serif; text-align: left; color: #77631b; height: 11px; }
+
+.touch-device .tossups b { background: url('../img/ajax-loader.png') no-repeat center -9999px; }
+.touch-device .tossups .spinner b { text-indent: -9999px; background-position: center center; }
+
+
 
 
 /* TOOLTIP */
@@ -466,6 +473,8 @@ a.btn { color: #fff; cursor: pointer; }
 	.vote-tallies { top: 10px; }
 	.vote-tallies .bignum { font-size: 24px; }
 	.vote-tallies span { padding-top: 16px; }
+	#key { margin-top: -32px; }
+	#key li { margin-right: 1em; }
 }
 @media (max-width: 979px) {
     .intro { width: 404px; }
@@ -492,10 +501,11 @@ a.btn { color: #fff; cursor: pointer; }
 	.combos .explainer p { height: 52px; font-size: 13px; }
 }
 @media (max-width: 767px) {
-	.intro { width: auto; }
+	.intro { width: auto; padding-bottom: 18px; }
 	.intro h1 { font-size: 28px; }
-	#bigbox { float: none; width: auto; padding-top: 1em; background-color: #f1f1f1; margin: 0 0 1.8em 0; }
-	#electris { margin-left: 0; padding-top: 0; }
+	#bigbox { float: none; width: auto; padding-top: 1em; background-color: #f1f1f1; margin: 0 0 1.8em 0; min-height: auto; }
+	#electris { margin-left: 0; padding-top: 18px; }
+	#key li { margin-right: 1em; }
 	#states { font-size: 10px; }
 /*    #states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }*/
     .state i {
@@ -551,6 +561,8 @@ a.btn { color: #fff; cursor: pointer; }
 	.combinations ul li ul { width: auto; float: none; }
 	.combinations ul li ul li { padding-left: 12px; }
 	.combinations ul li ul li:first-child { border-top: 1px solid #ddd; }
+	
+	.tossups li div { height: 43px; overflow: hidden; }
 }
 @media (max-width: 480px) {
 	.intro h1 { font-size: 30px; padding-top: 5px; }
@@ -567,4 +579,5 @@ a.btn { color: #fff; cursor: pointer; }
 	.vote-tallies span { 
 		width: auto; float: none; margin-top: 0; text-align: center; padding-top: 3px;
 	}
+	#key span { display: none; }
 }

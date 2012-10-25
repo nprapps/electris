@@ -17,7 +17,9 @@ $(function() {
         moment("2012-11-07T01:00:00 -0500")
     ];
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
-    var MAX_COMBO_GROUP = 8;
+    var MAX_COMBO_GROUP = 7;
+
+    if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); } else { $("body").addClass("no-touch"); }
 
     /* Elements */
     var electris_el = $("#electris");
@@ -108,13 +110,6 @@ $(function() {
                 add_state(state);
             });
         });
-    }
-
-    function remove_state(state) {
-        /*
-         * Remove the HTML for a state.
-         */
-        $(".state." + state.id).remove();
     }
 
     function compute_stats(generate_combos) {
@@ -239,21 +234,18 @@ $(function() {
         var blue_keys = [];
         var red_groups = {};
         var blue_groups = {};
-        
+         
         //sort by electoral vote count
         undecided_states = _.sortBy(undecided_states, 'electoral_votes').reverse()
 
         var state_ids = _.pluck(undecided_states, "id");
 
-        var primer = _.find(COMBO_PRIMER, function(data) {
-            return $(data.undecided_states).not(state_ids).length == 0 && $(state_ids).not(data.undecided_states).length == 0;
-        });
-
-        if (primer) {
-            red_combos = primer.red_combos;
-            blue_combos = primer.blue_combos;
-            red_groups = primer.red_groups;
-            blue_groups = primer.blue_groups;
+        // If this is the first combo, use the primer
+        if (undecided_states.length == COMBO_PRIMER.undecided_states.length) {
+            red_combos = COMBO_PRIMER.red_combos;
+            blue_combos = COMBO_PRIMER.blue_combos;
+            red_groups = COMBO_PRIMER.red_groups;
+            blue_groups = COMBO_PRIMER.blue_groups;
             red_keys = _.keys(red_groups).sort();
             blue_keys = _.keys(blue_groups).sort();
         } else {
@@ -309,28 +301,36 @@ $(function() {
         });
 
         var max_combo_group = _.max([max_red_combo_group.length, max_blue_combo_group.length]);
+        
+        var window_width = $('#maincontent').width();
 
         function show_combos(keys, groups, root_el, base_votes) {
             var combo_groups_el = root_el.find(".combinations ul");
             combo_groups_el.empty();
 
-            _.each(_.range(1, total_tossup_states + 1), function(key) {
+            for (var key = 1; key < total_tossup_states + 1; key++) {
                 var group = groups[key] || [];
+                var count = group.length;
                 var side = root_el.hasClass("red") ? "red" : "blue";
 
                 // Tweak combo group display
                 var histogram_el = root_el.find(".histogram ." + side + key);
-                histogram_el.toggleClass("active", group.length > 0);
-                histogram_el.find(".bar").animate({ width: (group.length / max_combo_group * 100) + '%' }, 300);
+                histogram_el.toggleClass("active", count > 0);
 
-                if (group.length > 0) {
+                if (window_width > 480) {
+                    histogram_el.find(".bar").animate({ width: (count / max_combo_group * 100) + '%' }, 300);
+                } else {
+                    histogram_el.find(".bar").css({ width: (count / max_combo_group * 100) + '%' });
+                }
+
+                if (count > 0) {
                     if (key > MAX_COMBO_GROUP) {
                         var combo_group_el = combo_groups_el.find("#" + side + MAX_COMBO_GROUP);
                     } else {
                         var combo_group_el = $(COMBO_GROUP_TEMPLATE({
                             side: side,
                             key: key,
-                            count: group.length,
+                            count: count,
                             last_group: (key == MAX_COMBO_GROUP)
                         }));
                     }
@@ -355,7 +355,7 @@ $(function() {
                         combo_groups_el.append(combo_group_el);
                     }
                 }
-            });
+            }
         }
 
         var simplest_combo_length = 0;
@@ -402,7 +402,7 @@ $(function() {
         show_combos(blue_keys, blue_groups, blue_candidate_el, blue_votes);
     }
      
-    electris_el.on("click", ".tossups li", function(click) {
+    var tossup_click_handler = function(event) {
         /*
          * Select or unselect a tossup state.
          */
@@ -417,7 +417,7 @@ $(function() {
         other_chiclet.removeClass("active");
         other_chiclet.addClass("taken"); 
                 
-        $('.state[data-id="' + state_id + '"]').remove();
+        $(".state." + state_id).remove();
 
         if (state_id in tossup_picks) {
             // Deselecting
@@ -429,17 +429,20 @@ $(function() {
             // Toggling from opponent
             } else {
                 tossup_picks[state_id] = winner;
+                add_state(states_by_id[state_id]);
             }
         // Initial selection
         } else {
             tossup_picks[state_id] = winner;
+            add_state(states_by_id[state_id]);
         }
 
-        add_state(states_by_id[state_id]);
         compute_stats(true);
+        
+        $(this).removeClass("spinner");
 
         return false;
-    });
+    };
 
     electris_el.on("click", ".histogram h4", function(event) {
         /*
@@ -522,6 +525,8 @@ $(function() {
                 total_tossup_states += 1;
             }
         });
+
+        $(".tossups li").touchClick(tossup_click_handler);
 
         if (SHOW_TOOLTIPS) {
             $(".tossups li").tooltip();

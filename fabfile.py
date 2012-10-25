@@ -13,7 +13,7 @@ from models import Candidate, Race, State
 Base configuration
 """
 env.project_name = 'electris'
-env.deployed_name = 'election-2012-paths-to-victory'
+env.deployed_name = 'swing-state-scorecard'
 env.user = 'ubuntu'
 env.python = 'python2.7'
 env.path = '/home/ubuntu/apps/%(project_name)s' % env
@@ -134,12 +134,13 @@ def deploy():
     # checkout_latest()
 
 
-def deploy_data():
+def deploy_local_data():
     """
     Deploy the local data file to S3 (for electris pre-election.)
     """
     _gzip_www()
-    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type sync gzip/states.csv s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/states.csv s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/js/combo_primer.js s3://%(s3_bucket)s/%(deployed_name)s/js/') % env)
 
 
 def recreate_tables():
@@ -175,7 +176,7 @@ def generate_initial_combos():
 
 def write_www_files():
     """
-    Private function to write output files for www from the database.
+    Function to write output files to www from the database.
     This is probably going to be part of the cron routine on election night.
     """
     with settings(warn_only=True):
@@ -183,11 +184,13 @@ def write_www_files():
         local('rm www/house.json')
         local('rm www/senate.json')
         local('rm www/president.json')
+        local('rm www/js/combo_primer.js')
 
     o.write_president_csv()
     o.write_president_json()
     o.write_house_json()
     o.write_senate_json()
+    o.generate_initial_combos()
 
 
 def update_ap_data():
