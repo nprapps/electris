@@ -36,6 +36,7 @@ $(function() {
     var blue_combinations_el = blue_candidate_el.find(".combinations");
 
     /* State data */
+    var states = [];
     var states_html = {};
     var states_by_id = {};
     var red_votes = 0;
@@ -87,7 +88,7 @@ $(function() {
         var blue_predicted = [];
 
         // Group states together
-        states_dataset.each(function(state) {
+        _.each(states, function(state) {
             if (state.call === "r") {
                 red_called.push(state)
             } else if (state.call === "d") {
@@ -113,11 +114,11 @@ $(function() {
         $(".state").remove();
 
         // Add states by groups
-        _.each([red_called, blue_called, red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted], function(states) {
+        _.each([red_called, blue_called, red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted], function(states_group) {
             // Sort alphabetically from *top to bottom*
-            states.reverse();
+            states_group.reverse();
 
-            _.each(states, function(state) {
+            _.each(states_group, function(state) {
                 add_state(state);
             });
         });
@@ -135,7 +136,7 @@ $(function() {
         var states_user_blue = [];
         var states_not_predicted = [];
 
-        states_dataset.each(function(state) {
+        _.each(states, function(state) {
             if (state.call === "r") {
                 states_called_red.push(state);
             } else if (state.call === "d") {
@@ -155,8 +156,8 @@ $(function() {
             }
         });
 
-        function sum_votes(states) {
-            return _.reduce(states, function(count, state) { return count + state.electoral_votes; }, 0);
+        function sum_votes(states_group) {
+            return _.reduce(states_group, function(count, state) { return count + state.electoral_votes; }, 0);
         }
 
         var red_votes_called = sum_votes(states_called_red);
@@ -498,64 +499,58 @@ $(function() {
 
     /* DATASET LOADING/POLLING */
 
-    var states_dataset = new Miso.Dataset({
-		url : function() { /* have to call as a function or else the timestamp won't refresh w/ each call */
-			return "states.csv?t=" + (new Date()).getTime();
-		},
-        delimiter: ",",
-        columns: [
-            { name: "polls_close", type: "time", format: "YYYY-MM-DD h:mm A" }
-        ],
-        interval: POLLING_INTERVAL,
-        uniqueAgainst: "id"
-    });
-    
-    states_dataset.fetch().then(function() {
-        /*
-         * After initial data load, setup stats and such.
-         */
-        
-         // Sort by electoral college votes
-        states_dataset.sort(function(rowA, rowB){
-            if (rowA.electoral_votes > rowB.electoral_votes) { 
-              return -1; 
-            }
-            if (rowA.electoral_votes < rowB.electoral_votes) { 
-              return 1;  
-            }
-            return 0;
-        });
-         
-        states_dataset.each(function(state) {
-            // Build lookup table
-            states_by_id[state.id] = state;
-            
-            // Pre-render state HTML
-            states_html[state.id] = STATE_TEMPLATE({
-                state: state
-            });
+    function fetch_states() {
+        $.getJSON("states.json?t=" + (new Date()).getTime(), function(data) {
+            // Initial load
+            if (states.length == 0) {
+                states = data;
 
-            if (state.prediction === "t") {
-                var html = TOSSUP_TEMPLATE({
-                    state: state
+                _.sortBy(states, function(a, b) {
+                    if (a.electoral_votes > b.electoral_votes) { 
+                      return -1; 
+                    }
+                    if (a.electoral_votes < b.electoral_votes) { 
+                      return 1;  
+                    }
+                    return 0;
                 });
 
-                red_tossups_el.append(html);
-                blue_tossups_el.append(html);
+                _.each(states, function(state) { 
+                    // Build lookup table (TODO - kill this?)
+                    states_by_id[state.id] = state;
 
-                total_tossup_states += 1;
+                    // Pre-render state HTML
+                    states_html[state.id] = STATE_TEMPLATE({
+                        state: state
+                    });
+
+                    if (state.prediction === "t") {
+                        var html = TOSSUP_TEMPLATE({
+                            state: state
+                        });
+
+                        red_tossups_el.append(html);
+                        blue_tossups_el.append(html);
+
+                        total_tossup_states += 1;
+                    }
+                });
+
+                $(".tossups li").touchClick(tossup_click_handler);
+
+                if (SHOW_TOOLTIPS) {
+                    $(".tossups li").tooltip();
+                }
+
+                add_states();
+                compute_stats(true);
+            // Polling
+            } else {
             }
         });
+    }
 
-        $(".tossups li").touchClick(tossup_click_handler);
-
-        if (SHOW_TOOLTIPS) {
-            $(".tossups li").tooltip();
-        }
-
-        add_states();
-        compute_stats(true);
-    });
+    fetch_states();
 
     //states_dataset.bind("change", function(event) {
         /*

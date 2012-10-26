@@ -171,13 +171,12 @@ def write_senate_json():
         f.write(_generate_json((u'senate', u'S')))
 
 
-def write_president_csv():
+def write_electris_json():
     """
     Rewrites CSV files from the DB for president.
     """
     with open(settings.PRESIDENT_FILENAME, 'w') as f:
-        writer = csv.writer(f)
-        writer.writerow(settings.PRESIDENT_HEADER)
+        output = []
 
         for state in State.select():
             state = state._data
@@ -195,7 +194,14 @@ def write_president_csv():
                 state['called_at'] = None
                 state['called_by'] = None
 
-            writer.writerow([state[f] for f in settings.PRESIDENT_HEADER])
+            del state['npr_call']
+            del state['npr_called_at']
+            del state['ap_call']
+            del state['ap_called_at']
+
+            output.append(state)
+
+        f.write(json.dumps(output))
 
 
 def push_results_to_s3():

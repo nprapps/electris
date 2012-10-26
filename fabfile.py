@@ -80,7 +80,7 @@ def _deploy_to_s3():
         --add-header=Content-encoding:gzip\
         --guess-mime-type\
         --recursive\
-        --exclude states.csv\
+        --exclude states.json\
         sync gzip/ s3://%(s3_bucket)s/%(deployed_name)s/') % env)
 
 
@@ -139,7 +139,7 @@ def deploy_local_data():
     Deploy the local data file to S3 (for electris pre-election.)
     """
     _gzip_www()
-    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/states.csv s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/states.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
     local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/js/combo_primer.js s3://%(s3_bucket)s/%(deployed_name)s/js/') % env)
 
 
@@ -184,13 +184,13 @@ def write_www_files():
     This is probably going to be part of the cron routine on election night.
     """
     with settings(warn_only=True):
-        local('rm www/states.csv')
+        local('rm www/states.json')
         local('rm www/house.json')
         local('rm www/senate.json')
         local('rm www/president.json')
         local('rm www/js/combo_primer.js')
 
-    o.write_president_csv()
+    o.write_electris_json()
     o.write_president_json()
     o.write_house_json()
     o.write_senate_json()

@@ -33,7 +33,7 @@ else:
     S3_BUCKET = 'stage-apps.npr.org'
     DEBUG = True
 PRESIDENT_S3_KEY = '%s/states.csv' % PROJECT_NAME
-PRESIDENT_FILENAME = 'www/states.csv'
+PRESIDENT_FILENAME = 'www/states.json'
 
 HOUSE_S3_KEY = '%s/house.json' % PROJECT_NAME
 HOUSE_FILENAME = 'www/house.json'
