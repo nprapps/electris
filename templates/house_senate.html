@@ -40,7 +40,9 @@
             <td><strong>Featured?</strong></td>
         </tr>
         {% endif %}
-        <tr class="{{ grouper }}{% for race in list %}{% if loop.first %}{% if race.race.featured_race %} warning{% endif %}{% endif %}{% endfor %}">
+        <tr
+            data-state-slug="{{ grouper }}"
+            class="{{ grouper }}{% for race in list %}{% if loop.first %}{% if race.race.featured_race %} warning{% endif %}{% endif %}{% endfor %}">
             <td>{% if house == "senate" %}
                 {{ grouper.replace('0', '').upper() }}
             {% else %}
@@ -115,7 +117,7 @@
 
         $('.npr-call').click(function(){
             // Set up the race slug.
-            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('class');
+            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('data-race-slug');
 
             // Hide all "npr uncall" buttons for this race.
             $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-uncall').addClass('hidden');
@@ -148,7 +150,7 @@
 
         $('.npr-uncall').click(function(){
             // Set up the race slug.
-            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('class');
+            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('data-race-slug');
 
             // Hide this "npr uncall" button.
             $(this).addClass('hidden');
@@ -186,7 +188,8 @@
                         $(options.target).html(options.message);
                     }
                 }
-                var target = $(options.target).parent('td').parent('tr').attr('class');
+                var target = $(options.target).attr('data-race-slug');
+
                 if (options.post_data.accept_ap_call == false) {
                     $('tr.'+target+' .npr-call').removeClass('hidden');
                 } else {
@@ -200,12 +203,12 @@
             $.post('.', options.post_data, function(e){
                 if ( options.post_data.accept_ap_call != undefined ) { acceptAP(); }
                 if ( options.post_data.featured_race != undefined ) { acceptAP(); }
-                console.log(e)
             });
         }
 
         $('.featured .btn').click(function(){
             var race_slug = $(this).attr('data-race-slug');
+
             if ( $(this).hasClass('btn-inverse') ){
                 buttonPOST({
                     post_data: {
@@ -239,7 +242,7 @@
         $('.ap-call .btn').click(function(){
 
             // Identify the race.
-            var race_slug = $(this).attr('id')
+            var race_slug = $(this).attr('id');
 
             // If we're already accepting ap calls, do the opposite.
             if ( $(this).hasClass('btn-success') ) {
