@@ -490,7 +490,7 @@ a.btn { color: #fff; cursor: pointer; }
 @media (min-width: 768px) {
     #results-bar.affix #small-header { display:block; height:50px; background-color:darkgray; color:white; margin-top:20px; }
     #results-bar.affix { top:20px; z-index:2112; }
-    #results-bar.affix div.results { height:50px; margin-top:0; }
+    #results-bar.affix div.results-group { height:50px; margin-top:0; }
     #results-bar.affix + .row { margin-top:120px; }
 }
 
