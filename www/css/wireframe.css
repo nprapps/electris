@@ -37,7 +37,7 @@ a.btn { color: #fff; cursor: pointer; }
 #tabs { display:none; }
 .results-group { background-color:gray; height: 100px; margin-top: 20px; }
 #results-bar #small-header { display:none; }
-#live-blog { background-color:lightgreen; margin-top:20px; height:3000px; float:right; }
+#live-blog { margin-top:20px; height:3000px; float:right; }
 #incoming { background-color:lavender; height:200px; margin-top:20px; }
 
 /* Presidential results */
@@ -455,8 +455,8 @@ a.btn { color: #fff; cursor: pointer; }
 .touch-device .tossups b { background: url('../img/ajax-loader.png') no-repeat center -9999px; }
 .touch-device .tossups .spinner b { text-indent: -9999px; background-position: center center; }
 
-/* Memetracker */
 
+/* Memetracker */
 #backchannel { margin-top:20px; float:left; }
 #memehead { padding: 18px 0; }
 #memehead h3 { padding: 0; margin: 0 }
@@ -469,11 +469,26 @@ a.btn { color: #fff; cursor: pointer; }
 #memetracker p.more { padding: 10px 0 0 0; border-top: 1px dotted #CCC; font-size: 12px; text-align: right; }
 #memetracker p.more a { color: #333; font-weight: bold; background: transparent url(http://media.npr.org/chrome/news/ico-more-sm.gif) no-repeat scroll right center; padding: 0 10px 0 0; }
 
+
+/* LIVE BLOG / "RIVER OF NEWS" */
+#live-blog h2 {
+	font: bold 14px/1.35em Arial, Helvetica, sans-serif;
+	border-top: 3px solid #000;
+	padding-top: 6px;
+}
+#live-blog .post { background-color: #f1f1f1; margin-bottom: 6px; padding: 12px; }
+#live-blog .post.sticky { background-color: #FFF; border: 1px dotted #999; }
+#live-blog p { font: 15px/1.35em Arial, Helvetica, sans-serif; color: #555; margin: 0; }
+#live-blog p.tstamp { font-size: 12px; color: #999; margin-bottom: 3px; }
+#live-blog p a { color: #000; }
+#live-blog p a:hover { color: #36C; text-decoration: none; cursor: pointer; }
+
+
 /* Media queries */
 @media (min-width: 768px) {
     #results-bar.affix #small-header { display:block; height:50px; background-color:darkgray; color:white; margin-top:20px; }
     #results-bar.affix { top:20px; z-index:2112; }
-    #results-bar.affix div.results { height:50px; margin-top:0; }
+    #results-bar.affix div.results-group { height:50px; margin-top:0; }
     #results-bar.affix + .row { margin-top:120px; }
 }
 
@@ -591,11 +606,4 @@ a.btn { color: #fff; cursor: pointer; }
 	.vote-tallies span { 
 		width: auto; float: none; margin-top: 0; text-align: center; padding-top: 3px;
 	}
-}
-
-/* LIVE BLOG / "RIVER OF NEWS " */
-#live-blog h2 {
-	font: bold 14px/1.35em Arial, Helvetica, sans-serif;
-	border-top: 3px solid #000;
-	padding-top: 6px;
 }
