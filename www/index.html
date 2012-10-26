@@ -155,17 +155,6 @@
         <div class="row">
         	<div id="electris">
 
-                <div id="key">
-                	<ul>
-                		<li class="key-title"><strong><a href="http://www.npr.org/blogs/itsallpolitics/2012/10/23/163481015/the-race-to-270-a-swing-state-scorecard">Current NPR Predictions</a></strong></li>
-                		<li class="prediction-sd"><b>142</b> Strong D<span>emocratic</span></li>
-                		<li class="prediction-ld"><b>95</b> Leans/Likely D<span>emocratic</span></li>
-                		<li class="prediction-sr"><b>122</b> Strong R<span>epublican</span></li>
-                		<li class="prediction-lr"><b>84</b> Leans/Likely R<span>epublican</span></li>
-                		<li class="prediction-t"><b>95</b> Tossup</li>
-                	</ul>
-                </div> <!-- end #key -->
-
 				<div id="states">
 					<div id="buckets">
 
@@ -280,7 +269,7 @@
     </div>
 
     <script id="state-template" type="text/template">
-        <div class="state <%= state.id %> prediction-<%= state.prediction %> call-<%= state.call %>" data-id="<%= state.id %>">
+        <div class="state <%= state.id %> call-<%= state.call %>" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
                 <i rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><span><%= state.stateface %></span></i>
             <% }); %>

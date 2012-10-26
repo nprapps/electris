@@ -38,7 +38,6 @@ $(function() {
 
     /* State data */
     var states = [];
-    var states_html = {};
     var states_by_id = {};
     var red_votes = 0;
     var blue_votes = 0;
@@ -50,7 +49,9 @@ $(function() {
     /* DATA PROCESSING & RENDERING */
     
     function add_state(state) {
-        var el = $(states_html[state.id]);
+        var el = $(STATE_TEMPLATE({
+            state: state
+        }));
 
         if (state.call === "r") {
             red_bucket_el.append(el);
@@ -117,11 +118,9 @@ $(function() {
          */
         var states_called_red = [];
         var states_called_blue = [];
-        var states_fixed_red = [];
-        var states_fixed_blue = [];
         var states_user_red = [];
         var states_user_blue = [];
-        var states_not_predicted = [];
+        var states_not_called = [];
 
         _.each(states, function(state) {
             if (state.call === "r") {
@@ -135,7 +134,7 @@ $(function() {
                     states_user_blue.push(state);
                 }
             } else {
-                states_not_predicted.push(state);
+                states_not_called.push(state);
             }
         });
 
@@ -144,25 +143,23 @@ $(function() {
         }
 
         var red_votes_called = sum_votes(states_called_red);
-        var red_votes_fixed = sum_votes(states_fixed_red)
         var red_votes_user = sum_votes(states_user_red);
-        red_votes = red_votes_called + red_votes_fixed + red_votes_user;
+        red_votes = red_votes_called + red_votes_user;
         $("#p-red-electoral").text(red_votes);
         red_candidate_el.find(".needed .bignum").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - red_votes));
         red_candidate_el.toggleClass("winner", red_votes >= ELECTORAL_VOTES_TO_WIN);
 
         var blue_votes_called = sum_votes(states_called_blue);
-        var blue_votes_fixed = sum_votes(states_fixed_blue);
         var blue_votes_user = sum_votes(states_user_blue);
-        blue_votes = blue_votes_called + blue_votes_fixed + blue_votes_user;
+        blue_votes = blue_votes_called + blue_votes_user;
         $("#p-blue-electoral").text(blue_votes);
         blue_candidate_el.find(".needed .bignum").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
         blue_candidate_el.toggleClass("winner", blue_votes >= ELECTORAL_VOTES_TO_WIN);
 
         resize_buckets();
 
-        if (generate_combos && states_not_predicted.length < MAX_STATES_FOR_COMBOS) {
-            generate_winning_combinations(states_not_predicted);
+        if (generate_combos && states_not_called.length < MAX_STATES_FOR_COMBOS) {
+            generate_winning_combinations(states_not_called);
             $(".combos,.combinations").show();
         } else {
             $(".combos,.combinations").hide();
@@ -176,9 +173,9 @@ $(function() {
         var window_width = $('#maincontent').width();
         var bucket_columns = 10;
 
-        if (window_width >= 1170) {
+        /*if (window_width >= 1170) {
             bucket_columns = 15;
-        }
+        }*/
 
         var default_height = ELECTORAL_VOTES_TO_WIN / bucket_columns;
         var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns)
@@ -492,11 +489,6 @@ $(function() {
             // Build lookup table
             states_by_id[state.id] = state;
 
-            // Pre-render state HTML
-            states_html[state.id] = STATE_TEMPLATE({
-                state: state
-            });
-
             if (state.prediction === "t") {
                 var html = TOSSUP_TEMPLATE({
                     state: state
@@ -542,14 +534,14 @@ $(function() {
                 if (old_state["call"] != state["call"]) {
                     // Uncalled
                     if (!state["call"]) {
-                        alert(state["name"] + " uncalled");
+                        console.log(state["name"] + " uncalled");
                     } else {
                         // Called
                         if (!old_state["call"]) {
-                            alert(state["name"] + " called as " + state["call"]);
+                            console.log(state["name"] + " called as " + state["call"]);
                         // Changed
                         } else {
-                            alert(state["name"] + " call changed to " + state["call"] + " instead of " + old_state["call"]);
+                            console.log(state["name"] + " call changed to " + state["call"] + " instead of " + old_state["call"]);
                         }
                     }
                 }
