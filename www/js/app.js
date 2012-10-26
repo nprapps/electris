@@ -18,6 +18,7 @@ $(function() {
     ];
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
     var MAX_STATES_FOR_COMBOS = 12;
+    var MIN_VOTES_FOR_COMBOS = 240;
     var MAX_COMBO_GROUP = 7;
     var POLLING_INTERVAL = 1000;
 
@@ -159,7 +160,12 @@ $(function() {
 
         resize_buckets();
 
-        if (generate_combos && states_not_called.length < MAX_STATES_FOR_COMBOS) {
+        var combos_safe = (
+            states_not_called.length <= MAX_STATES_FOR_COMBOS &&
+            (red_votes >= MIN_VOTES_FOR_COMBOS || blue_votes >= MIN_VOTES_FOR_COMBOS)
+        );
+
+        if (generate_combos && combos_safe) {
             generate_winning_combinations(states_not_called);
         }
     }
