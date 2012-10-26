@@ -255,9 +255,6 @@ $(function() {
         var red_groups = {};
         var blue_groups = {};
          
-        //sort by electoral vote count
-        undecided_states = _.sortBy(undecided_states, 'electoral_votes').reverse()
-
         var state_ids = _.pluck(undecided_states, "id");
 
         // If this is the first combo, use the primer
@@ -499,103 +496,102 @@ $(function() {
 
     /* DATASET LOADING/POLLING */
 
-    function fetch_states() {
-        $.getJSON("states.json?t=" + (new Date()).getTime(), function(data) {
-            // Initial load
-            if (states.length == 0) {
-                states = data;
+    function init_states(data) {
+        /*
+         * Load initial state data from JSON.
+         */
+        states = data;
 
-                _.sortBy(states, function(a, b) {
-                    if (a.electoral_votes > b.electoral_votes) { 
-                      return -1; 
-                    }
-                    if (a.electoral_votes < b.electoral_votes) { 
-                      return 1;  
-                    }
-                    return 0;
+        _.each(states, function(state) { 
+            // Build lookup table
+            states_by_id[state.id] = state;
+
+            // Pre-render state HTML
+            states_html[state.id] = STATE_TEMPLATE({
+                state: state
+            });
+
+            if (state.prediction === "t") {
+                var html = TOSSUP_TEMPLATE({
+                    state: state
                 });
 
-                _.each(states, function(state) { 
-                    // Build lookup table (TODO - kill this?)
-                    states_by_id[state.id] = state;
+                red_tossups_el.append(html);
+                blue_tossups_el.append(html);
 
-                    // Pre-render state HTML
-                    states_html[state.id] = STATE_TEMPLATE({
-                        state: state
-                    });
+                total_tossup_states += 1;
+            }
+        });
 
-                    if (state.prediction === "t") {
-                        var html = TOSSUP_TEMPLATE({
-                            state: state
-                        });
+        $(".tossups li").touchClick(tossup_click_handler);
 
-                        red_tossups_el.append(html);
-                        blue_tossups_el.append(html);
+        if (SHOW_TOOLTIPS) {
+            $(".tossups li").tooltip();
+        }
 
-                        total_tossup_states += 1;
+        add_states();
+        compute_stats(true);
+    }
+
+    function update_states(data) {
+        /*
+         * Update state data from JSON.
+         */
+        var changes = false;
+
+        for (i = 0; i < states.length; i++) {
+            var old_state = states[i];
+            var state = data[i];
+
+            if (old_state["call"] != state["call"] ||
+                old_state["dem_vote_count"] != state["dem_vote_count"] ||
+                old_state["rep_vote_count"] != state["rep_vote_count"] ||
+                old_state["precincts_reporting"] != state["precincts_reporting"]) {
+
+                $(".state." + state.id).remove();
+                add_state(state);
+
+                if (old_state["call"] != state["call"]) {
+                    // Uncalled
+                    if (!state["call"]) {
+                        alert(state["name"] + " uncalled");
+                    } else {
+                        // Called
+                        if (!old_state["call"]) {
+                            alert(state["name"] + " called as " + state["call"]);
+                        // Changed
+                        } else {
+                            alert(state["name"] + " call changed to " + state["call"] + " instead of " + old_state["call"]);
+                        }
                     }
-                });
-
-                $(".tossups li").touchClick(tossup_click_handler);
-
-                if (SHOW_TOOLTIPS) {
-                    $(".tossups li").tooltip();
                 }
 
-                add_states();
-                compute_stats(true);
-            // Polling
+                states[i] = state;
+
+                changes = true;
+            }
+        }
+
+        if (changes) {
+            compute_stats(true);
+        };
+    }
+
+    function fetch_states() {
+        /*
+         * Fetch JSON data from server and apply it.
+         */
+        $.getJSON("states.json?t=" + (new Date()).getTime(), function(data) {
+            if (states.length == 0) {
+                init_states(data);
+
+                window.setInterval(fetch_states, POLLING_INTERVAL);
             } else {
+                update_states(data);
             }
         });
     }
 
+    // Kickoff!
     fetch_states();
-
-    //states_dataset.bind("change", function(event) {
-        /*
-         * Process changes to state data from polling.
-         */
-    /*    var real_changes = false;
-
-        _.each(event.deltas, function(delta) {
-            _.each(_.keys(delta.old), function(key) {
-                if (key === "_id") {
-                    return;
-                }
-
-                if (delta.changed[key] != delta.old[key]) {
-                    if (key === "call" || key === "dem_vote_count" || key === "rep_vote_count" || key === "precints_reporting") {
-                        var old_state = delta.old;
-                        var state = delta.changed;
-
-                        $(".state." + state.id).remove();
-                        add_state(state);
-
-                        if (key === "call") {
-                            // Uncalled!
-                            if (!state.call) {
-                                alert(state + " uncalled");
-                            } else {
-                                // Called
-                                if (!old_state.call) {
-                                    alert(state + " called as " + state.call);
-                                } else {
-                                    alert(state + " call changed to " + state.call + " instead of " + old_state.call);
-                                }
-                            }
-                        }
-
-                        real_changes = true;
-                    }
-                }
-            });
-        });
-
-        if (real_changes) {
-            //hide_empty_closing_times();
-            compute_stats(true);
-            //update_call_alert();
-        };
-    });*/
 });
