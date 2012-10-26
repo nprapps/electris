@@ -86,7 +86,7 @@
             
             <div id="tabs">
                 <ul class="nav nav-tabs">
-                    <li><a href="#results" data-toggle="tab">results</a></li>
+                    <li class="active"><a href="#results" data-toggle="tab">results</a></li>
                     <li><a href="#live-blog" data-toggle="tab">live blog</a></li>
                     <li><a href="#backchannel" data-toggle="tab">the backchannel</a></li>
                 </ul>
@@ -95,7 +95,7 @@
         </div>
                 
         <div class="row" id="creamy-filling">
-            <div class="span5 tab-pane" id="results">
+            <div class="span5 tab-pane active" id="results">
                 <div id="electris" class="skinny">
                     <div id="states">
                         <div id="buckets">
@@ -284,17 +284,6 @@
 
 
     <!-- GOOGLE ANALYTICS -->
-    <script type="text/javascript">
-        $('#results-bar').affix({
-          offset: {
-            top: function () { return 290 }
-          //, bottom: 270
-          }
-        })
-        
-        $('#tabs a[href="#results"]').tab('show');
-	</script>
-
 	<script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-5828686-4']);
