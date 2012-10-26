@@ -595,6 +595,83 @@ $(function() {
         });
     }
 
-    // Kickoff!
+    /* MEME TRACKER */
+
+    var MEME_UPDATE_SECS = 60;
+    var MEME_POSTS_TO_SHOW = 5;
+
+    var MEME_PHOTO_TEMPLATE = _.template($("#meme-photo-template").html());
+    var MEME_QUOTE_TEMPLATE = _.template($("#meme-quote-template").html());
+    var MEME_VIDEO_TEMPLATE = _.template($("#meme-video-template").html());
+    var MEME_REGULAR_TEMPLATE = _.template($("#meme-regular-template").html());
+
+    var posts_el = $("#memetracker .posts");
+
+    var posts_html = {};
+
+    function ISODateString(d) {
+        function pad(n) {
+            return n < 10 ? '0' + n : n
+        }
+
+        return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate()) + 'T' + pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes()) + ':' + pad(d.getUTCSeconds()) + 'Z'
+    }
+
+    function update_memetracker(first_run) {
+        $.getJSON('tumblr.json?t=' + (new Date()).getTime(), {}, function(posts) {
+            _.each(posts, function(post) {
+                var template = null;
+
+                if (post.type === "photo") {
+                    template = MEME_PHOTO_TEMPLATE;
+                } else if (post.type === "quote") {
+                    template = MEME_QUOTE_TEMPLATE;
+                } else if (post.type === "video") {
+                    template = MEME_VIDEO_TEMPLATE;
+                } else if (post.type === "regular") {
+                    template = MEME_REGULAR_TEMPLATE;
+                }
+
+                if (!template) {
+                    return;
+                }
+
+                var html = template({
+                    post: post,
+                    isodate: ISODateString(new Date(post["unix-timestamp"] * 1000))
+                });
+
+                // Old
+                if (post.id in posts_html) {
+                    // Changed
+                    if (html != posts_html[post.id]) {
+                        posts_el.find("#post-" + post.id).replaceWith(html);
+                    }
+                    // New
+                } else {
+                    posts_el.prepend(html);
+
+                    var el = posts_el.find("#post-" + post.id)
+
+                    if (first_run) {
+                        el.show();
+                    } else {
+                        el.slideDown(1000);
+                    }
+
+                    el.find(".tstamp").timeago();
+                }
+
+                posts_html[post.id] = html;
+
+            });
+
+            posts_el.find(".post:nth-child(5)").nextAll().remove();
+        });
+    }
+	
+	// Kickoff!
     fetch_states();
+    update_memetracker(true);
+    setInterval(update_memetracker, MEME_UPDATE_SECS * 1000);
 });

@@ -13,3 +13,5 @@ ssh==1.7.14
 wsgiref==0.1.2
 Pollster==0.1.2
 peewee==2.0.2
+git+https://github.com/jyr/python-tumblr.git@b91d98257
+poster==0.8.1

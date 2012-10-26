@@ -10,7 +10,7 @@
      font-style: normal;
 }
 
-/* Structure */
+/* Placeholders */
 #the-stuff { margin-top:60px; }
 #header { height:250px; background-color:black; color:white; }
 #ad { width:300px; height:250px; background-color:red; }
@@ -20,7 +20,6 @@
 /*#electris { background-color:purple; height: 600px; margin-top:20px; color:white; }*/
 #live-blog { background-color:lightgreen; margin-top:20px; height:3000px; float:right; }
 #incoming { background-color:lavender; height:200px; margin-top:20px; }
-#backchannel { background-color:papayawhip; margin-top:20px; height:1500px; float:left; }
 
 /* Electris */
 #electris {
@@ -193,6 +192,20 @@
 	padding-left: 25px; padding-right: 0; float: right; 
 	background: url('../img/ico-checkmark.png') no-repeat left 20px;
 }
+
+/* Memetracker */
+
+#backchannel { margin-top:20px; float:left; }
+#memehead { padding: 18px 0; }
+#memehead h3 { padding: 0; margin: 0 }
+#memetracker .photo:first-child,.video:first-child,.quote:first-child,.regular:first-child { border-top: none; }
+#memetracker .post { border-top: 1px dotted #ccc; padding: 10px ; clear:both; display: none; }
+#memetracker .post a { color: #000; font: 13px/1.2em Arial }
+#memetracker p { font: 13px/1.2em Arial }
+#memetracker .themedia { float: left; margin-right: 10px; margin-bottom: 10px; }
+#memetracker .tstamp { font: 12px Arial; color: #999; }
+#memetracker p.more { padding: 10px 0 0 0; border-top: 1px dotted #CCC; font-size: 12px; text-align: right; }
+#memetracker p.more a { color: #333; font-weight: bold; background: transparent url(http://media.npr.org/chrome/news/ico-more-sm.gif) no-repeat scroll right center; padding: 0 10px 0 0; }
 
 /* Media queries */
 @media (min-width: 768px) {
