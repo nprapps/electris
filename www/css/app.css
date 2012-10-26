@@ -24,7 +24,7 @@
 .candidate.red .bucket { float: left; }
 .candidate.red .combos { float: right; }
 .bucket { width: 10em; }
-.combos { width: 8em; }
+.combos { width: 7.7em; }
 
 
 /* CLEARFIXES */
