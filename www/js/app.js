@@ -17,6 +17,7 @@ $(function() {
         moment("2012-11-07T01:00:00 -0500")
     ];
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
+    var MAX_STATES_FOR_COMBOS = 12;
     var MAX_COMBO_GROUP = 7;
     var POLLING_INTERVAL = 2500;
 
@@ -61,12 +62,6 @@ $(function() {
             } else {
                 blue_bucket_el.append(el);
             }
-        } else {
-            if (state.prediction === "sr" || state.prediction === "lr") {
-                red_bucket_el.append(el);
-            } else if (state.prediction === "sd" || state.prediction === "ld") {
-                blue_bucket_el.append(el);
-            }
         }
         
         if (SHOW_TOOLTIPS) {
@@ -93,14 +88,6 @@ $(function() {
                 red_called.push(state)
             } else if (state.call === "d") {
                 blue_called.push(state)
-            } else if (state.prediction === "sr") {
-                red_solid.push(state);
-            } else if (state.prediction === "sd") {
-                blue_solid.push(state);
-            } else if (state.prediction === "lr") {
-                red_leans.push(state);
-            } else if (state.prediction === "ld") {
-                blue_leans.push(state);
             } else if (state.id in tossup_picks) {
                 if (tossup_picks[state.id] === "r") {
                     red_predicted.push(state);
@@ -141,10 +128,6 @@ $(function() {
                 states_called_red.push(state);
             } else if (state.call === "d") {
                 states_called_blue.push(state)
-            } else if (state.prediction === "sr" || state.prediction === "lr") {
-                states_fixed_red.push(state);
-            } else if (state.prediction === "sd" || state.prediction == "ld") {
-                states_fixed_blue.push(state);
             } else if (state.id in tossup_picks) {
                 if (tossup_picks[state.id] === "r") {
                     states_user_red.push(state);
@@ -178,8 +161,11 @@ $(function() {
 
         resize_buckets();
 
-        if (generate_combos) {
+        if (generate_combos && states_not_predicted.length < MAX_STATES_FOR_COMBOS) {
             generate_winning_combinations(states_not_predicted);
+            $(".combos,.combinations").show();
+        } else {
+            $(".combos,.combinations").hide();
         }
     }
 
