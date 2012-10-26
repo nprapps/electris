@@ -29,6 +29,7 @@ def president():
 
         # First, try and get the state.
         race_slug = request.form.get('race_slug', None)
+        race_slug = race_slug.strip()
 
         # Next, try to get the AP call.
         accept_ap_call = request.form.get('accept_ap_call', None)
