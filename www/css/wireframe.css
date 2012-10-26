@@ -1,0 +1,16 @@
+#the-stuff { margin-top:60px; }
+#header { height:250px; background-color:black; color:white; }
+#ad { width:300px; height:250px; background-color:red; }
+#results-bar div.results { background-color:gray; height: 100px; margin-top: 20px; }
+#results-bar.affix-top #small-header { display:none; }
+#results-bar.affix #small-header { height:50px; background-color:darkgray; color:white; margin-top:20px; }
+#results-bar.affix { top:20px; }
+#results-bar.affix div.results { height:50px; margin-top:0; }
+#results-bar.affix + .row { margin-top:120px; }
+#electris { background-color:purple; height: 600px; margin-top:20px; color:white; }
+#live-blog { background-color:lightgreen; margin-top:20px; height:3000px; float:right; }
+#incoming { background-color:lavender; height:200px; margin-top:20px; float:left; }
+#backchannel { background-color:papayawhip; margin-top:20px; height:1500px; float:left; }
+@media (max-width: 767px) {
+    #ad { display:none; }
+}

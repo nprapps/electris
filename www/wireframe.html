@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Election 2012: Live Results : NPR</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/template.css" />
+    <link rel="stylesheet" type="text/css" href="css/wireframe.css" />
+
+</head>
+<body>
+
+    <div class="navbar navbar-fixed-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav">
+              <li class="npr"><a href="http://npr.org">NPR</a></li>
+              <li class="news"><a href="http://www.npr.org/sections/news/">News</a></li>
+              <li class="arts"><a href="http://www.npr.org/sections/arts/">Arts &amp; Life</a></li>
+              <li class="music"><a href="http://www.npr.org/music/">Music</a></li>
+              <li class="donate"><a href="http://www.npr.org/stations/donate/">Donate</a></li>
+            </ul>
+            <div id="social">
+            	<ul>
+            		<li><span>Share This Page:</span></li>
+            		<li class="twitter"><a rel="external" href="http://twitter.com/share?text=Plot+Obama+and+Romney%27s+paths+to+victory+with+NPR%27s+Swing+State+Scorecard.&amp;hashtags=election2012&amp;url=http%3A%2F%2Fapps.npr.org%2Fswing-state-scorecard%2F" alt="Share on Twitter" target="_blank" onclick="_gaq.push(['_trackEvent', 'Social', 'Click Twitter In Navbar', 'Electris']);">Share This Page On Twitter</a></li>
+            		<li class="facebook"><a rel="external" href="http://www.facebook.com/sharer/sharer.php?t=Election+2012:+Swing+State+Scorecard&amp;u=http%3A%2F%2Fapps.npr.org%2Fswing-state-scorecard%2F" alt="Share on Facebook" target="_blank" onclick="_gaq.push(['_trackEvent', 'Social', 'Click Facebook In Navbar', 'Electris']);">Like This Page On Facebook</a></li>
+            	</ul>
+			</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="the-stuff">
+
+        <div class="row" id="big-header">
+            <div class="span8" id="header">
+                <h1>THE ELECTION AND STUFF</h1>
+                <p>Listen live, yo.</p>
+            </div>
+            <div class="span4">
+                <div id="ad"></div>
+            </div>
+		</div>
+        
+        <div class="row" id="results-bar">
+            <div class="span12" id="small-header">
+                <h1>THE ELECTION AND STUFF</h1>
+                <p>Listen live, yo.</p>
+            </div>
+            <div class="span4 results">
+                <h2>prez results</h2>
+            </div>
+            <div class="span4 results">
+                <h2>house results</h2>
+            </div>
+            <div class="span4 results">
+                <h2>senate results</h2>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="span5" id="electris">
+                <h2>tetris and stuff</h2>
+            </div>
+            <div class="span7" id="live-blog">
+                <h2>the live blog</h2>
+            </div>
+            <div class="span5" id="incoming">
+                <h2>incoming results</h2>
+            </div>
+            <div class="span5" id="backchannel">
+                <h2>the backchannel</h2>
+            </div>
+        </div>
+
+		<div id="footer" class="row">
+			<div class="span12">
+				<ul class="bottomlist elexLinks">
+					<li class="elex"><a href="http://www.npr.org/">Election 2012</a></li>
+					<li><a href="http://www.npr.org/sections/presidential-race">Presidential Race</a></li>
+					<li><a href="http://www.npr.org/series/139914785/barack-obama">Barack Obama (D)</a></li>
+					<li><a href="http://www.npr.org/series/139589850/mitt-romney">Mitt Romney (R)</a></li>
+					<li><a href="http://apps.npr.org/early-voting-2012/">Early Voting Calendar</a></li>
+					<li><a href="http://www.npr.org/2011/08/15/139648404/campaign-2012-political-calendar">Political Calendar</a></li>
+					<li><a href="http://www.npr.org/series/146345736/money-politics">Money &amp; Politics</a></li>
+					<li><a href="http://www.npr.org/series/128364156/the-message-machine">The Message Machine</a></li>
+				</ul>
+			</div>
+			<div class="span12">
+				<ul class="bottomlist">
+					<li><a href="http://www.npr.org/">Copyright 2012 NPR</a></li>
+					<li><a href="http://www.npr.org/about/termsofuse.html">Terms of Use</a></li>
+					<li><a href="http://www.npr.org/about/privacypolicy.html">Privacy Policy</a></li>
+					<li><a href="http://www.npr.org/about/permissioninfo.html">Permissions</a></li>
+					<li><a href="http://www.npr.org/corrections/">Corrections</a></li>
+					<li><a href="http://thin.npr.org">Text-Only Site</a></li>
+					<li class="help"><a href="http://www.npr.org/help/">Help</a></li>
+					<li class="contact"><a href="http://www.npr.org/contact/">Contact Us</a></li>
+					<li class="donate"><a href="http://www.npr.org/stations/donate/">Donate</a></li>
+				</ul>
+			</div>
+		</div>
+    </div>
+        
+    <!--[if lt IE 9]>
+    <script src="js/lib/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="js/lib/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        $('#results-bar').affix({
+          offset: {
+            top: function () { return 290 }
+          , bottom: 270
+          }
+        })
+    </script>
+
+</body>
+</html>
