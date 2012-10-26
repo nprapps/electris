@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Election Night 2012 : NPR</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script> <!-- FOR CHARTBEAT -->
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/template.css" />
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+
+    <!--[if IE]>
+    <style>
+        .state i { border-radius: 0px; }
+        .bucket { background-color: #f1f1f1; }
+        .bucket-header .vote-tallies .bignum { border-radius: 0px; }
+        .combos .histogram h4 { border-radius: 0px; }
+        .combos .histogram .bar { border-radius: 0px; }
+        .tossups li { border-radius: 0px; }
+    </style>
+    <![endif]-->
+
+    <script>
+        NPR = {};
+        NPR.PageInfo = {};
+        NPR.PageInfo.getUrlParameter = function (param) {
+            return false;
+        };
+    </script>
+
+	<!-- DFP TARGET -->
+	<script type="text/javascript">
+        <!--
+            var DFP = {};
+            DFP.tile = 0;
+            DFP.ord = Number(window.ord) || Math.floor(Math.random() * 1E10);
+            DFP.target = 'http://ad.doubleclick.net/adj/n6735.NPR/news_election_2012;agg=139482413;storyid=139482413';
+        // -->
+        </script>
+
+        <!-- DFP AD MANAGER -->
+        <script type="text/javascript">
+        <!--
+             DFP[0] = {"utype":null,"sz":"300x250","position":"right_main"};
+             DFP[1] = {"utype":null,"sz":"88x31","position":"search_box"};
+
+
+            DFP.renderLocation = function(location) {
+                var params = DFP[location];
+                var toRender = '<scr' + 'ipt src="'
+                                + DFP.target
+                                + ';sz=' + params.sz
+                                + ';tile=' + ++DFP.tile
+                                + ';sc='
+                                + ';ord=' + DFP.ord
+                                + ';" type="text/javascript" language="javascript"></scr' + 'ipt>';
+                document.write(toRender);
+            }
+        // -->
+	</script>
+
+	<meta property="og:title" content="Election 2012: Swing State Scorecard : NPR" />
+	<meta property="og:url" content="http://apps.npr.org/swing-state-scorecard/" />
+	<meta property="og:type" content="article" />
+	<meta property="og:description" content="Plot Obama and Romney's paths to victory with NPR's Swing State Scorecard." />
+	<meta property="og:image" content="http://media.npr.org/news/specials/2012/elections/electris-promo_sq.gif" />
+	<meta property="og:site_name" content="NPR.org" />
+	<meta property="fb:app_id" content="138837436154588" />
+
+</head>
+<body>
+
+    <div class="navbar navbar-fixed-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav">
+              <li class="npr"><a href="http://npr.org">NPR</a></li>
+              <li class="news"><a href="http://www.npr.org/sections/news/">News</a></li>
+              <li class="arts"><a href="http://www.npr.org/sections/arts/">Arts &amp; Life</a></li>
+              <li class="music"><a href="http://www.npr.org/music/">Music</a></li>
+              <li class="donate"><a href="http://www.npr.org/stations/donate/">Donate</a></li>
+            </ul>
+            <div id="social">
+            	<ul>
+            		<li><span>Share This Page:</span></li>
+            		<li class="twitter"><a rel="external" href="http://twitter.com/share?text=Plot+Obama+and+Romney%27s+paths+to+victory+with+NPR%27s+Swing+State+Scorecard.&amp;hashtags=election2012&amp;url=http%3A%2F%2Fapps.npr.org%2Fswing-state-scorecard%2F" alt="Share on Twitter" target="_blank" onclick="_gaq.push(['_trackEvent', 'Social', 'Click Twitter In Navbar', 'Electris']);">Share This Page On Twitter</a></li>
+            		<li class="facebook"><a rel="external" href="http://www.facebook.com/sharer/sharer.php?t=Election+2012:+Swing+State+Scorecard&amp;u=http%3A%2F%2Fapps.npr.org%2Fswing-state-scorecard%2F" alt="Share on Facebook" target="_blank" onclick="_gaq.push(['_trackEvent', 'Social', 'Click Facebook In Navbar', 'Electris']);">Like This Page On Facebook</a></li>
+            	</ul>
+			</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container the-goods" id="maincontent">
+		<div id="header" class="row">
+
+			<div class="span8 intro">
+                <h1>Election Night 2012</h1>
+                <p>The presidency rests not on the national popular vote but on 538 Electoral College votes, allotted almost exclusively in winner-take-all fashion by state.*</p>
+                <p>An NPR analysis using history and polls indicates how 42 states and the District of Columbia are expected to vote. That leaves only eight "tossups" where the race is too close to call, but where the election will likely be decided.</p>
+                <p>NPR puts 21 states and their 237 electoral votes firmly or leaning to President Obama. Republican Mitt Romney starts with 27 states and 206 assumed electoral votes. (<strong><a href="http://www.npr.org/blogs/itsallpolitics/2012/10/23/163481015/the-race-to-270-a-swing-state-scorecard">See the full list.</a></strong>) We've prefilled those projections below, leaving 95 electoral votes up for grabs.</p>
+                <p>Click a tossup state under a candidate’s name to see what it means for his chances of winning. The candidate who secures 270 electoral votes becomes president. <em>(Last updated on Oct. 23, 2012.)</em></p>
+            </div>
+
+			<div class="span4" id="bigbox">
+                <!-- START 300X250 AD -->
+                <div class="adwrapper"><div class="sponsor300">
+
+				<!-- DFP AD MANAGER -->
+				<script type="text/javascript">
+				<!--
+					try{
+						DFP.renderLocation(0);
+					}catch(e){
+						NPR.messaging.warning('Problem fetching/rendering ad server code.','DFP.renderlocation',NPR.messaging.constants.SPONSORSHIP_ERROR);
+					}
+				// -->
+				</script>
+				<!-- END UNDERWRITING -->
+
+				<p class="left">NPR thanks our sponsors</p>
+				<p class="right"><a href="http://www.npr.org/about/place/corpsupport/">Become an NPR Sponsor </a></p>
+				</div></div>
+				<!-- END 300X250 AD -->
+			</div>
+
+        </div>
+
+        <div class="row">
+        	<div id="electris">
+
+                <div id="key">
+                	<ul>
+                		<li class="key-title"><strong><a href="http://www.npr.org/blogs/itsallpolitics/2012/10/23/163481015/the-race-to-270-a-swing-state-scorecard">Current NPR Predictions</a></strong></li>
+                		<li class="prediction-sd"><b>142</b> Strong D<span>emocratic</span></li>
+                		<li class="prediction-ld"><b>95</b> Leans/Likely D<span>emocratic</span></li>
+                		<li class="prediction-sr"><b>122</b> Strong R<span>epublican</span></li>
+                		<li class="prediction-lr"><b>84</b> Leans/Likely R<span>epublican</span></li>
+                		<li class="prediction-t"><b>95</b> Tossup</li>
+                	</ul>
+                </div> <!-- end #key -->
+
+				<div id="states">
+					<div id="buckets">
+
+						<div class="candidate blue">
+							<div class="bucket-header">
+								<h3><i>Barack </i><b>Obama</b></h3>
+
+								<div class="vote-tallies">
+									<div class="electoral">
+										<b id="p-blue-electoral" class="bignum">00</b>
+										<span>total</span>
+									</div>
+									<div class="needed">
+										<b class="bignum">?</b>
+										<span>to win</span>
+									</div>
+								</div>
+
+							</div>
+							<div class="bucket blue"></div>
+
+							<div class="combos">
+								<!-- chicklets -->
+								<h5>Assign Tossups</h5>
+                                <ul class="tossups blue"></ul>
+
+								<!-- HISTOGRAM -->
+								<h5>Ways He Can Win</h5>
+								<ul class="histogram blue"></ul>
+							</div>
+
+							<div class="combinations">
+								<h5>Paths To Victory: Obama's Options</h5>
+								<p class="robotext">If Obama wins <strong><b>d</b> New Hampshire (4)</strong> and <strong><b>t</b> Vermont (3)</strong>, he must still win at <strong>least 4 more tossup states</strong>. Possible combinations:</p>
+								<ul>
+								</ul>
+							</div> <!-- end .combinations -->
+						</div> <!-- end .candidate.blue -->
+
+						<div class="candidate red">
+							<div class="bucket-header">
+								<h3><i>Mitt </i><b>Romney</b></h3>
+
+								<div class="vote-tallies">
+									<div class="electoral">
+										<b id="p-red-electoral" class="bignum">00</b>
+										<span>total</span>
+									</div>
+									<div class="needed">
+										<b class="bignum">?</b>
+										<span>to win</span>
+									</div>
+								</div>
+							</div>
+							<div class="bucket red"></div>
+							<div class="combos">
+								<!-- chicklets -->
+								<h5>Assign Tossups</h5>
+                                <ul class="tossups red"></ul>
+                                
+                                <!-- HISTOGRAM -->
+								<h5>Ways He Can Win</h5>
+								<ul class="histogram red"></ul>
+							</div>
+							<div class="combinations">
+								<h5>Paths To Victory: Romney's Options</h5>
+								<p class="robotext">If Romney wins <strong><b>d</b> New Hampshire (4)</strong> and <strong><b>t</b> Vermont (3)</strong>, he must still win at <strong>least 4 more tossup states</strong>. Possible combinations:</p>
+								<ul>
+								</ul>
+							</div> <!-- end .combinations -->
+						</div> <!-- end .candidate.red -->
+						<div id="line"><b>270</b></div>
+
+					</div> <!-- end #buckets -->
+				</div> <!-- end #states -->
+			</div> <!-- end #electris -->
+		</div>
+
+		<div id="footer" class="row">
+			<div class="span12">
+				<div class="credits" id="attrCredit">
+					<strong>Notes:</strong><br />
+					1. Nebraska and Maine employ proportional allocation, so candidates could share those states' electoral votes.<br />
+					2. The paths to victory for each candidate have been simplified to eliminate any duplication. For example, Obama does not show any three-state combinations involving Florida because Florida and any one other tossup state is enough for him to carry the election, based on NPR’s projections.<br /><br />
+					Source: NPR analysis by Senior Washington Editor Ron Elving. <a href="http://propublica.github.com/stateface/">StateFace</a> copyright (c) 2012, ProPublica<br />
+					Credits: Alyson Hurt, Christopher Groskopf and Brian Boyer / NPR
+				</div>
+			</div>
+			<div class="span12">
+				<ul class="bottomlist elexLinks">
+					<li class="elex"><a href="http://www.npr.org/">Election 2012</a></li>
+					<li><a href="http://www.npr.org/sections/presidential-race">Presidential Race</a></li>
+					<li><a href="http://www.npr.org/series/139914785/barack-obama">Barack Obama (D)</a></li>
+					<li><a href="http://www.npr.org/series/139589850/mitt-romney">Mitt Romney (R)</a></li>
+					<li><a href="http://apps.npr.org/early-voting-2012/">Early Voting Calendar</a></li>
+					<li><a href="http://www.npr.org/2011/08/15/139648404/campaign-2012-political-calendar">Political Calendar</a></li>
+					<li><a href="http://www.npr.org/series/146345736/money-politics">Money &amp; Politics</a></li>
+					<li><a href="http://www.npr.org/series/128364156/the-message-machine">The Message Machine</a></li>
+				</ul>
+			</div>
+			<div class="span12">
+				<ul class="bottomlist">
+					<li><a href="http://www.npr.org/">Copyright 2012 NPR</a></li>
+					<li><a href="http://www.npr.org/about/termsofuse.html">Terms of Use</a></li>
+					<li><a href="http://www.npr.org/about/privacypolicy.html">Privacy Policy</a></li>
+					<li><a href="http://www.npr.org/about/permissioninfo.html">Permissions</a></li>
+					<li><a href="http://www.npr.org/corrections/">Corrections</a></li>
+					<li><a href="http://thin.npr.org">Text-Only Site</a></li>
+					<li class="help"><a href="http://www.npr.org/help/">Help</a></li>
+					<li class="contact"><a href="http://www.npr.org/contact/">Contact Us</a></li>
+					<li class="donate"><a href="http://www.npr.org/stations/donate/">Donate</a></li>
+				</ul>
+			</div>
+		</div>
+    </div>
+
+    <script id="state-template" type="text/template">
+        <div class="state <%= state.id %> prediction-<%= state.prediction %> call-<%= state.call %>" data-id="<%= state.id %>">
+            <% _.times(state.electoral_votes, function(){ %>
+                <i rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><span><%= state.stateface %></span></i>
+            <% }); %>
+        </div>
+    </script>
+
+    <script id="tossup-template" type="text/template">
+        <li data-state-id="<%= state.id %>" data-winner="<%= winner %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><div><b><%= state.stateface %></b> <i><%= state.abbr %></i><span><%= state.electoral_votes %></span></div></li>
+    </script>
+
+    <script id="combo-group-template" type="text/template">
+        <li id="<%= side %><%= key %>">
+            <h4><%= key %><% if (last_group) { %>+<% } %> state<%= key > 1 ? "s" : "" %><br /><a href="#key">(back to top)</a></h4>
+            <ul>
+            </ul>
+        </li>
+    </script>
+
+    <script id="histogram-template" type="text/template">
+        <li class="<%= side %><%= key %>">
+            <h4 data-target="#<%= side %><%= key %>">
+                <span class="title"><strong><%= key %><% if (last_group) { %>+<% } %> state<%= key > 1 ? "s" : "" %></strong></span>
+                <span class="bar" style="width: 0px;"></span>
+            </h4>
+        </li>
+    </script>
+
+    <script id="must-win-template" type="text/template">
+        <% if (votes >= 270) { %>
+            If <%= candidate %> wins <% _.each(states_won, function(state, i, l) { %><strong><b><%= state.stateface %></b> <%= state.name %></strong><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> then he <strong>wins the Electoral College</strong>.
+        <% } else if (simplest_combo_length == 0) { %>
+            <%= candidate %> <strong>cannot win</strong> the Electoral College.
+        <% } else { %>
+            <% if (states_won.length == 0) { %>
+                <%= candidate %> must win <strong>at least <%= simplest_combo_length %></strong> tossup state<% if (simplest_combo_length > 1) { %>s<% } %>. Possible combinations:
+            <% } else { %>
+                If <%= candidate %> wins <% _.each(states_won, function(state, i, l) { %><strong><b><%= state.stateface %></b> <%= state.name %></strong><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> then he must win <strong>at least <%= simplest_combo_length %> more</strong> tossup state<% if (simplest_combo_length > 1) { %>s<% } %>. Possible combinations:
+            <% } %>
+        <% } %>
+    </script>
+        
+    <!--[if lt IE 9]>
+    <script src="js/lib/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="js/lib/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="js/lib/underscore-min.js"></script>
+    <script type="text/javascript" src="js/lib/miso.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.touchclick.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/combinations.js"></script>
+    <script type="text/javascript" src="js/combo_primer.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+
+    
+    <!-- GOOGLE ANALYTICS -->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-5828686-4']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+
+    <!-- CHARTBEAT -->
+    <script type="text/javascript">
+        var _sf_async_config={};
+        /** CONFIGURATION START **/
+        _sf_async_config.uid = 18888;
+        _sf_async_config.domain = "npr.org";
+        /** CONFIGURATION END **/
+        (function(){
+            function loadChartbeat() {
+                window._sf_endpt=(new Date()).getTime();
+                var e = document.createElement("script");
+                e.setAttribute("language", "javascript");
+                e.setAttribute("type", "text/javascript");
+                e.setAttribute("src",
+                    (("https:" == document.location.protocol) ?
+                     "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" :
+                     "http://static.chartbeat.com/") +
+                    "js/chartbeat.js");
+                document.body.appendChild(e);
+            }
+            var oldonload = window.onload;
+            window.onload = (typeof window.onload != "function") ?
+                loadChartbeat : function() { oldonload(); loadChartbeat(); };
+        })();
+    </script>
+
+</body>
+</html>
