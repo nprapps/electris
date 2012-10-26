@@ -476,6 +476,7 @@ a.btn { color: #fff; cursor: pointer; }
     #results-bar.affix div.results { height:50px; margin-top:0; }
     #results-bar.affix + .row { margin-top:120px; }
 }
+
 @media (max-width: 767px) {
     #the-stuff { margin-top:0; }
     #ad { display:none; }
@@ -483,6 +484,113 @@ a.btn { color: #fff; cursor: pointer; }
     #tabs { display:block; margin-top:20px; }
     .tab-pane { display:none; }
     .tab-pane.active { display:block; }
+}
+
+@media (min-width: 1200px) {
+	.states { font-size: 23px; }
+	.combos { width: 7.5em; }
+    .state i {
+        width:21px;
+        height:21px;
+        margin-right:2px;
+        margin-bottom:2px;
+    }
+	.histogram h4 { height: 22px; }
+	.histogram .title { padding: 5px 12px 0 12px; font-size: 12px; }
+	.histogram .bar { height: 24px; margin-top: -20px; }
+	.bucket-header h3 { font-size: 28px; padding-top: 13px; }
+	.vote-tallies { top: 10px; }
+	.vote-tallies .bignum { font-size: 24px; }
+	.vote-tallies span { padding-top: 16px; }
+	.tossups span { text-align: left; display: inline-block; }
+}
+@media (max-width: 979px) {
+	.tossups i { display: block; }
+}
+
+@media (max-width: 979px) and (min-width: 768px) {
+	#main-header, #header-title { width: 724px; }
+	.intro h1 { font-size: 28px; }
+	.states { font-size: 20px; }
+    .state i {
+        width:19px;
+        height:19px;
+        margin-right:1px;
+        margin-bottom:1px;
+    }
+	.bucket { width: 10em; }
+	.combos { width: 6.5em; }
+	.bucket-header { height: 4em; }
+	.bucket-header h3 { font-size: 24px; }
+    .bucket-header h3 i { display: none; }
+    .vote-tallies { width: 9em; }
+	.tossups li b, .tossups li span { display: block; text-align: center; margin: 0 auto; }
+	.combos .explainer p { height: 52px; font-size: 13px; }
+}
+
+@media (max-width: 767px) {
+	#electris { margin-left: 0; padding-top: 18px; }
+	.NPRtablet #electris, .NPRphone #electris { padding-top: 0; }
+	.states { font-size: 10px; }
+    .state i {
+        text-indent: -9999px;
+        width:9.5%;
+        margin-right:.5%;
+        margin-bottom:1px;
+        height:9px;
+    }
+	.bucket-header h3 { font-size: 19px; }
+    .bucket-header h3 i { display: none; }
+	.blue .bucket, .red .bucket { float: none; }
+	.candidate.blue .combos, .candidate.red .combos { 
+		width: auto; clear: none; float: none;
+		margin: 15px 0 0 0;
+	}
+	.bucket { width: 100%; margin-bottom: 10px; }
+	.bucket-header, .blue .bucket-header, .red .bucket-header { 
+		height: 8em;
+		background-position: left 9px;
+	}
+	.bucket-header h3, .blue .bucket-header h3, .red .bucket-header h3 { 
+		padding-top: 6px;
+		text-align: left;
+		margin-bottom: 0;
+	}
+    .bucket-header h3 i { display: inline; }
+	.blue.winner .bucket-header h3 { background-position: right 8px; }
+	.red.winner .bucket-header h3 { padding-right: 25px; padding-left: 0; float: none; background: url('../img/ico-checkmark.png') no-repeat right 8px; }
+	.vote-tallies, .blue .vote-tallies, .red .vote-tallies { 
+		position: static; top: auto; right: auto; left: auto; width: auto;
+		margin-left: 50px; margin-top: 3px;
+	}
+	.winner.blue .vote-tallies, .winner.red .vote-tallies { margin-top: 2px; }
+	.vote-tallies .bignum { font-size: 18px; }
+	.blue .vote-tallies .electoral { float: left; }
+	.blue .vote-tallies .bignum { float: left; margin-right: 3%; margin-left: 0; }
+	.blue .vote-tallies span { text-align: left; }
+	.combos { width: auto; height: auto; border: none; }
+	.line b {background: url('../img/270-line-767.png') no-repeat center center; height: 42px;margin-top: -10px;}
+
+	.combinations h4 { width: auto; float: none; margin-bottom: 6px; }
+	.combinations ul li ul { width: auto; float: none; }
+	.combinations ul li ul li { padding-left: 12px; }
+	.combinations ul li ul li:first-child { border-top: 1px solid #ddd; }
+	
+	.tossups li div { height: 43px; overflow: hidden; }
+}
+@media (max-width: 480px) {
+	.state i { text-indent: -9999px; width: 9%; margin-right: 1%; min-width: 13px; }
+    .bucket-header h3 i { display: none; }
+	.vote-tallies .bignum, .red .vote-tallies .bignum, .blue .vote-tallies .bignum, 
+	.vote-tallies span, .red .vote-tallies span, .blue .vote-tallies span { 
+		float: none; text-align: center;
+	}
+	.vote-tallies .bignum {
+		width: auto; font-size: 14px; font-weight: bold; float: none;
+	}
+	.vote-tallies span { 
+		width: auto; float: none; margin-top: 0; text-align: center; padding-top: 3px;
+	}
 }
 
 /* LIVE BLOG / "RIVER OF NEWS " */
