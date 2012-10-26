@@ -6,6 +6,7 @@ $(function() {
     var COMBO_GROUP_TEMPLATE = _.template($("#combo-group-template").html());
     var HISTOGRAM_TEMPLATE = _.template($("#histogram-template").html());
     var MUST_WIN_TEMPLATE = _.template($("#must-win-template").html());
+    var BLOG_POST_TEMPLATE = _.template($("#blog-post-template").html());
     var POLL_CLOSING_TIMES = [
         moment("2012-11-06T18:00:00 -0500"),
         moment("2012-11-06T19:00:00 -0500"),
@@ -673,14 +674,13 @@ $(function() {
     
 
     /* RIVER OF NEWS */
-	var news_items = $('#live-blog-items');
 	function fetch_news() {
 		$.ajax({
 		    url: 'http://www.npr.org/buckets/agg/series/2012/elections/riverofnews/riverofnews.jsonp',
 		    dataType: 'jsonp',
 		    jsonpCallback: 'nprriverofnews',
 		    success: function(data){
-				if (news_items.length == 1) {
+				if ($('#live-blog-items').length == 1) {
 					window.setInterval(fetch_news, 30000); /* sub in POLLING_INTERVAL later */
 				}
 				update_news(data);
@@ -688,44 +688,19 @@ $(function() {
 		})
 	}
 	function update_news(data) {
+		var template = BLOG_POST_TEMPLATE;
 		var new_news = '';
 		$.each(data.news.sticky, function(j,k) {
-			var item = k.News;
-			if (item.status) {
-				new_news += '<div class="post sticky">';
-				new_news += '<p class="tstamp timeago" title="' + item.created + '">' + item.created + '</p>';
-				if (item.link.length > 0) {
-					new_news += '<a href="' + item.link + '" target="_blank">';
-				}
-				new_news += '<p>'
-				new_news += item.content;
-				if (item.link.length > 0) {
-					new_news += ' | <strong>more &raquo;<\/strong><\/a>';
-				}
-				new_news += '</p>';
-				new_news += '</div>';
+			if (k.News.status) {
+				new_news += template( { post: k.News, sticky: 'sticky' } );
 			}
 		});
 		$.each(data.news.regular, function(j,k) {
-			var item = k.News;
-			if (item.status) {
-				new_news += '<div class="post">';
-				new_news += '<p class="tstamp timeago" title="' + item.created + '">' + item.created + '</p>';
-				if (item.link.length > 0) {
-					new_news += '<a href="' + item.link + '" target="_blank">';
-				}
-				new_news += '<p>'
-				new_news += item.content;
-				if (item.link.length > 0) {
-					new_news += ' | <strong>more &raquo;<\/strong><\/a>';
-				}
-				new_news += '</p>';
-				new_news += '</div>';
+			if (k.News.status) {
+				new_news += template( { post: k.News, sticky: '' } );
 			}
 		});
-
-		news_items.empty();
-		news_items.append(new_news);
+		$('#live-blog-items').empty().append(new_news);
 		jQuery("p.timeago").timeago();
 	}
 	

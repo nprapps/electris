@@ -353,7 +353,7 @@
 	            <div id="memehead">
 	               	<h2>The Back Channel</h2>
 	                   <h3>The debate behind the debate. <strong><a href="http://nprbackchannel.tumblr.com/" target="_blank">See all posts»</a></strong></h3>
-	               </div>
+	            </div>
 
 	               <div id="memetracker">
 	                   <div class="posts">
@@ -361,7 +361,6 @@
 
 	                   <div style="clear:both"></div>
 	                   <p class="more"><a href="http://nprbackchannel.tumblr.com/" target="_blank">See all posts</a></p>
-				</div>
 				</div>
             </div>
         </div>
@@ -466,6 +465,17 @@
 
     <script id="meme-regular-template" type="text/template">
         <div id="post-<%= post['id'] %>" class="post regular"> <p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p> <a href="<%= post['url-with-slug'] %>"><%= post["regular-body"] %></a></div>
+    </script>
+    
+    <script id="blog-post-template" type="text/template">
+    	<div class="post <%= sticky %>">
+    		<p class="tstamp timeago" title="<%= post.created %>"><%= post.created %></p>
+    		<p>
+    			<% if (post.link) { %> <a href="<%= post.link %>" target="_blank"> <% } %>
+    			<%= post.content %>
+    			<% if (post.link) { %> | <strong>more &raquo;</strong></a> <% } %>
+    		</p>
+    	</div>
     </script>
 
     <!--[if lt IE 9]>
