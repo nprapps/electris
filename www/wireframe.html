@@ -1,16 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Election 2012: Live Results : NPR</title>
+    <title>Live Results, Election 2012 : NPR</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
+    <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script> <!-- FOR CHARTBEAT -->
+
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" />
     <link rel="stylesheet" type="text/css" href="css/template.css" />
     <link rel="stylesheet" type="text/css" href="css/wireframe.css" />
+    
+    <!--[if IE]>
+    <style>
+        .state i { border-radius: 0px; }
+        .bucket { background-color: #f1f1f1; }
+        .bucket-header .vote-tallies .bignum { border-radius: 0px; }
+        .combos .histogram h4 { border-radius: 0px; }
+        .combos .histogram .bar { border-radius: 0px; }
+        .tossups li { border-radius: 0px; }
+    </style>
+    <![endif]-->
+    
+	<meta property="og:title" content="Live Results, Election 2012 : NPR" />
+	<meta property="og:url" content="http://apps.npr.org/2012-election-live-results/" />
+	<meta property="og:type" content="article" />
+	<meta property="og:description" content="TKTKTK" />
+	<meta property="og:image" content="TKTKTK" />
+	<meta property="og:site_name" content="NPR.org" />
+	<meta property="fb:app_id" content="138837436154588" />
 
 </head>
 <body>
@@ -48,7 +69,7 @@
             </div>
 		</div>
         
-        <div class="row" id="results-bar">
+        <div class="row" id="results-bar" data-spy="affix" data-offset-top="290">
             <div class="span12" id="small-header">
                 <h1>THE ELECTION AND STUFF</h1>
                 <p>Listen live, yo.</p>
@@ -73,7 +94,7 @@
         </div>
         
         <div class="row">
-            <div class="span5 tab-pane" id="results">
+            <div class="span5 tab-pane active" id="results">
                 <div id="electris">
                     <h2>tetris and stuff</h2>
                 </div>
@@ -90,6 +111,12 @@
         </div>
 
 		<div id="footer" class="row">
+			<div class="span12">
+				<div class="credits" id="attrCredit">
+					Source: <a href="http://propublica.github.com/stateface/">StateFace</a> copyright (c) 2012, ProPublica<br />
+					Credits: Alyson Hurt, Christopher Groskopf, Jeremy Bowers, Stephanie d'Otreppe, Nelson Hsu and Brian Boyer / NPR
+				</div>
+			</div>
 			<div class="span12">
 				<ul class="bottomlist elexLinks">
 					<li class="elex"><a href="http://www.npr.org/">Election 2012</a></li>
@@ -124,16 +151,46 @@
 
     <script type="text/javascript" src="js/lib/jquery-1.8.1.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+
+    <!-- GOOGLE ANALYTICS -->
     <script type="text/javascript">
-        $('#results-bar').affix({
-          offset: {
-            top: function () { return 290 }
-          //, bottom: 270
-          }
-        })
-        
-        $('#tabs a[href="#results"]').tab('show');
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-5828686-4']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
     </script>
+
+
+    <!-- CHARTBEAT -->
+    <script type="text/javascript">
+        var _sf_async_config={};
+        /** CONFIGURATION START **/
+        _sf_async_config.uid = 18888;
+        _sf_async_config.domain = "npr.org";
+        /** CONFIGURATION END **/
+        (function(){
+            function loadChartbeat() {
+                window._sf_endpt=(new Date()).getTime();
+                var e = document.createElement("script");
+                e.setAttribute("language", "javascript");
+                e.setAttribute("type", "text/javascript");
+                e.setAttribute("src",
+                    (("https:" == document.location.protocol) ?
+                     "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" :
+                     "http://static.chartbeat.com/") +
+                    "js/chartbeat.js");
+                document.body.appendChild(e);
+            }
+            var oldonload = window.onload;
+            window.onload = (typeof window.onload != "function") ?
+                loadChartbeat : function() { oldonload(); loadChartbeat(); };
+        })();
+    </script>
+
 
 </body>
 </html>
