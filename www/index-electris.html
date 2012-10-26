@@ -179,7 +179,7 @@
 					</li>
 				</ul>
 				
-				<h5>Upcoming Poll Closings</h5>
+				<h5>Next Poll Closing</h5>
 				<ul id="pres-closing" class="results">
 					<li class="time-0700">
 						<strong>7:00 PM ET</strong>
@@ -223,11 +223,9 @@
 						<span class="st"><b>B</b>Alabama (9)</span>,
 						<span class="st"><b>D</b>Arizona (11)</span>
 					</li>
-					<li class="show-all">
-						Show All
-					</li>
-					<!-- TODO: add show/hide JS -->
 				</ul>
+				<button id="show-poll-closings" class="btn btn-mini" type="button">Show All Closing Times</button>
+				<!-- TODO: pop up full poll closing schedule in a modal -->
 
 				<h5>Called Races</h5>
 				<ul id="pres-called" class="results">
@@ -294,15 +292,11 @@
 
 								<!-- HISTOGRAM -->
 								<h5>Ways He Can Win</h5>
-								<ul class="histogram blue"></ul>
-							</div>
-
-							<div class="combinations">
-								<h5>Paths To Victory: Obama's Options</h5>
 								<p class="robotext">If Obama wins <strong><b>d</b> New Hampshire (4)</strong> and <strong><b>t</b> Vermont (3)</strong>, he must still win at <strong>least 4 more tossup states</strong>. Possible combinations:</p>
-								<ul>
-								</ul>
-							</div> <!-- end .combinations -->
+								<ul class="histogram blue"></ul>
+								<button id="show-blue-combos" class="btn btn-mini btn-inverse" type="button">Show All Paths</button>
+								<!-- TODO: pop up full list of combos in a modal -->
+							</div>
 						</div> <!-- end .candidate.blue -->
 
 						<div class="candidate red">
@@ -328,14 +322,11 @@
                                 
                                 <!-- HISTOGRAM -->
 								<h5>Ways He Can Win</h5>
-								<ul class="histogram red"></ul>
-							</div>
-							<div class="combinations">
-								<h5>Paths To Victory: Romney's Options</h5>
 								<p class="robotext">If Romney wins <strong><b>d</b> New Hampshire (4)</strong> and <strong><b>t</b> Vermont (3)</strong>, he must still win at <strong>least 4 more tossup states</strong>. Possible combinations:</p>
-								<ul>
-								</ul>
-							</div> <!-- end .combinations -->
+								<ul class="histogram red"></ul>
+								<button id="show-red-combos" class="btn btn-mini btn-inverse" type="button">Show All Paths</button>
+								<!-- TODO: pop up full list of combos in a modal -->
+							</div>
 						</div> <!-- end .candidate.red -->
 						<div id="line"><b>270</b></div>
 
