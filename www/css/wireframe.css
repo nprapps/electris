@@ -1,16 +1,216 @@
+/* Fonts */
+@font-face {
+     font-family: 'StateFaceRegular';
+     src: url('../fonts/stateface-regular-webfont.eot');
+     src: url('../fonts/stateface-regular-webfont.eot?#iefix') format('embedded-opentype'),
+          url('../fonts/stateface-regular-webfont.woff') format('woff'),
+          url('../fonts/stateface-regular-webfont.ttf') format('truetype'),
+          url('../fonts/stateface-regular-webfont.svg#StateFaceRegular') format('svg');
+     font-weight: normal;
+     font-style: normal;
+}
+
+/* Placeholders */
 #the-stuff { margin-top:60px; }
 #header { height:250px; background-color:black; color:white; }
 #ad { width:300px; height:250px; background-color:red; }
 #tabs { display:none; }
 #results-bar div.results { background-color:gray; height: 100px; margin-top: 20px; }
 #results-bar #small-header { display:none; }
-#electris { background-color:purple; height: 600px; margin-top:20px; color:white; }
+/*#electris { background-color:purple; height: 600px; margin-top:20px; color:white; }*/
 #live-blog { background-color:lightgreen; margin-top:20px; height:3000px; float:right; }
 #incoming { background-color:lavender; height:200px; margin-top:20px; }
-#backchannel { background-color:papayawhip; margin-top:20px; height:1500px; float:left; }
+
+/* Electris */
+#electris {
+    margin-top: 20px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+#electris:after,
+#states:after,
+#buckets:after,
+.candidate:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+#states { font-size: 22px; }
+.candidate { width: 48%; }
+.candidate.blue,
+.candidate.blue.bucket { float: left; }
+.candidate.red,
+.candidate.red.bucket { float: right; }
+
+#buckets { position: relative; }
+.bucket { width: 10em; }
+
+.state { z-index: 100; }
+
+.state i {
+    float:left;
+    font-family:StateFaceRegular;
+    font-style:normal;
+    text-align: center;
+
+    width:20px;
+    height:20px;
+    margin-right:2px;
+    margin-bottom:2px;
+    
+    overflow: hidden;
+    background-color: #f7e39b;
+    color: #77631b;
+	border-radius: 3px;
+}
+
+.no-touch .state:hover, 
+.no-touch .state:hover i, 
+.no-touch .state:hover i span { cursor: default; }
+.no-touch .state:hover i { color: #333; } 
+
+.state i span { font-size:.7em; }
+.state.call-d i { background-color: #3d7fa6; color: #fff; }
+.state.call-r i { background-color: #a23520; color: #fff; }
+
+#line {
+	height: 1px;
+	background-color: #B39429;
+    position:absolute;
+    z-index:100;
+    width: 100%;
+    text-align:right;
+    line-height:0;
+}
+
+#line b {
+    display: block;
+    text-align: center;
+    background-color: #FFF;
+    text-indent: -9999px;
+    background: url('../img/270-line-767.png') no-repeat center center;
+    height: 33px;
+    margin-top: -7px;
+}
+
+.bucket {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+}
+
+.bucket .state i {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+}
+
+.bucket-header {
+	border-top: 3px solid #000;
+	overflow: hidden;
+	height: 3em;
+	position: relative;
+}
+
+.blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 2px; }
+.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat right 2px; }
+
+.bucket-header h3 {
+	padding-top: 16px;
+	font: normal normal 22px Georgia, serif;
+	color: #333;
+	margin-left: 50px;
+	white-space: nowrap;
+}
+
+.red .bucket-header h3 { text-align: right; margin-right: 50px; }
+.bucket-header h3 i, .bucket-header h3 b {
+	font-weight: normal; font-style: normal;
+}
+
+.bucket-header h3 i { display: none; }
+
+.bucket-header p {
+	font-size: 12px;
+	margin-bottom: 0;
+	color: #666;
+	margin-left: 50px;
+}
+
+.vote-tallies { width: 10em; position: absolute; top: 13px; }
+.blue .vote-tallies { right: 0; }
+.red .vote-tallies { left; 0; }
+.vote-tallies .electoral { width: 50%; float: left; }
+.vote-tallies .needed { width: 50%; float: right; }
+
+.vote-tallies .bignum {
+	display: block;
+	width: 50%;
+	height: .75em;
+	overflow: hidden;
+	text-align: center;
+	background-color: #eee;
+	float: left;
+	margin-right: 3%;
+	padding: .25em 0 .75em 0;
+	font: normal 20px Georgia, serif;
+	border-radius: 3px;
+}
+
+.vote-tallies .needed .bignum { background-color: #f7e39b; color: #77631b; }
+.red .vote-tallies .electoral .bignum { background-color: #a23520; color: #fff; }
+.blue .vote-tallies .electoral .bignum { background-color: #3d7fa6; color: #fff; }
+.blue .vote-tallies .electoral { float: right; }
+.blue .vote-tallies .bignum { float: right; margin-right: 0; margin-left: 3%; }
+
+.vote-tallies span {
+	display: block;
+	width: 47%;
+	float: left;
+	color: #666;
+	font-size: 11px;
+	line-height: 1.2em;
+	padding-top: 12px;
+	text-transform: uppercase;
+}
+.blue .vote-tallies span { text-align: right; }
+.red .vote-tallies span { text-align: left; }
+.winner .bucket-header { border-color: #B39429; }
+
+.winner .bucket-header h3 { 
+	color: #B39429; 
+	padding-right: 25px; display: inline-block; 
+	background: url('../img/ico-checkmark.png') no-repeat right 20px;
+}
+
+.winner.red .bucket-header h3 { 
+	padding-left: 25px; padding-right: 0; float: right; 
+	background: url('../img/ico-checkmark.png') no-repeat left 20px;
+}
+
+/* Memetracker */
+
+#backchannel { margin-top:20px; float:left; }
+#memehead { padding: 18px 0; }
+#memehead h3 { padding: 0; margin: 0 }
+#memetracker .photo:first-child,.video:first-child,.quote:first-child,.regular:first-child { border-top: none; }
+#memetracker .post { border-top: 1px dotted #ccc; padding: 10px ; clear:both; display: none; }
+#memetracker .post a { color: #000; font: 13px/1.2em Arial }
+#memetracker p { font: 13px/1.2em Arial }
+#memetracker .themedia { float: left; margin-right: 10px; margin-bottom: 10px; }
+#memetracker .tstamp { font: 12px Arial; color: #999; }
+#memetracker p.more { padding: 10px 0 0 0; border-top: 1px dotted #CCC; font-size: 12px; text-align: right; }
+#memetracker p.more a { color: #333; font-weight: bold; background: transparent url(http://media.npr.org/chrome/news/ico-more-sm.gif) no-repeat scroll right center; padding: 0 10px 0 0; }
+
+/* Media queries */
 @media (min-width: 768px) {
     #results-bar.affix #small-header { display:block; height:50px; background-color:darkgray; color:white; margin-top:20px; }
-    #results-bar.affix { top:20px; }
+    #results-bar.affix { top:20px; z-index:2112; }
     #results-bar.affix div.results { height:50px; margin-top:0; }
     #results-bar.affix + .row { margin-top:120px; }
 }

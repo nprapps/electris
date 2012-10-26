@@ -8,3 +8,9 @@ ul.called{}
 .district{font-size:12px; width:29px;text-indent: 4px;}
 li.status{text-indent: 4px;width: 44px; font-size:12px;}
 .emptyleft {margin-left: 160px;}
+#candidates ul li.candidate.switch{
+	border:2px #fff solid;
+	width:158px;
+	height:22px;
+	line-height: 22px;
+}

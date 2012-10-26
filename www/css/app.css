@@ -12,9 +12,9 @@
 
 /* STRUCTURE */
 #bigbox { min-height: 280px; }
-#states { font-size: 22px; }
+#states { font-size: 20px; }
 #resultsRow { margin-left: 0; }
-#pres-results { width: 23%; float: left; }
+#pres-results { width: 22%; float: left; }
 #electris { width: 75%; float: right; }
 .candidate { width: 48%; }
 .candidate.blue { float: left; }
@@ -24,7 +24,7 @@
 .candidate.red .bucket { float: left; }
 .candidate.red .combos { float: right; }
 .bucket { width: 10em; }
-.combos { width: 5em; }
+.combos { width: 6em; }
 
 
 /* CLEARFIXES */
@@ -78,14 +78,15 @@ a.btn { color: #fff; cursor: pointer; }
 
 /* PRESIDENTIAL RESULTS */
 #pres-results { margin-bottom: 24px; }
-#pres-results h5 { border-top: 3px solid #000; padding-top: 9px; }
+#pres-results h5 { border-top: 3px solid #000; padding-top: 6px; }
 #pres-results .results { margin: 0 0 18px 0; padding: 0; list-style: none; }
-#pres-results .results li { padding-bottom: 1%; font-size: 12px; color: #333; }
-#pres-results .results li.hdr { 
-	font: normal 10px Arial, Helvetica, sans-serif; text-transform: uppercase;
-	color: #666;
-	padding-top: 0;
+#pres-results .results li { padding-bottom: 1%; font-size: 12px; color: #454545; }
+#pres-results .results li.hdr { padding: 0; }
+#pres-results .results li.hdr,
+#pres-results #pres-closing strong { 
+	font-weight: normal; font-size: 10px; text-transform: uppercase; color: #666;
 }
+#pres-results .results li.hdr span { padding: 0; }
 #pres-results b {
 	font: normal 1em StateFaceRegular;
     text-align: center;
@@ -97,27 +98,9 @@ a.btn { color: #fff; cursor: pointer; }
 #pres-results .st { 
 	white-space: nowrap;
 	padding-top: 3px;
-	width: 25%; 
+	width: 28%; 
 	margin-right: 1%;
 	float: left;
-}
-#pres-results .precincts {
-	color: #666;
-	font-size: 10px;
-	line-height: 11px;
-	white-space: normal;
-	padding-top: 2px;
-	width: 15%;
-	float: left;
-	margin-left: 2%;
-}
-#pres-results .note {
-	display: block;
-	clear: both;
-	color: #666;
-	font-size: 11px;
-	line-height: 1.2em;
-	padding-top: 6px;
 }
 #pres-results .blue,
 #pres-results .red { 
@@ -131,27 +114,31 @@ a.btn { color: #fff; cursor: pointer; }
 #pres-results .hdr .blue, #pres-results .hdr .red { background: transparent; }
 #pres-results .blue.winner { font-weight: bold; color: #fff; background-color: #3d7fa6; }
 #pres-results .red.winner { font-weight: bold; color: #fff; background-color: #a23520; }
-
-#pres-results #pres-closing { margin-top: 6px; padding-bottom: 0; }
-#pres-results #pres-closing strong { display: block; }
-#pres-results #pres-closing .st { display: inline; width: auto; float: none; padding: 0; color: #666; }
-#pres-results #pres-closing li { margin-bottom: .7em; display: none; }
-#pres-results #pres-closing li:first-child, #pres-results #pres-closing li.show-all { display: block; }
-#pres-results #pres-closing li.show-all { 
-	font-weight: bold; 
-	background-color: #eee; 
-	text-align: center; 
-	border-top: 1px solid #e0e0e0;
-	border-radius: 0 0 10px 10px;
-	padding: 3px 0;
-	font-size: 10px; 
-	text-transform: uppercase;
+#pres-results .precincts {
 	color: #666;
+	font-size: 10px;
+	line-height: 11px;
+	white-space: normal;
+	padding-top: 2px;
+	width: 10%;
+	float: left;
+	margin-left: 3%;
 }
-#pres-results #pres-closing li.show-all:hover { 
-	cursor: pointer; color: #36C; text-decoration: none;
-	background-color: #f1f1f1;
+#pres-results .note {
+	display: block;
+	clear: both;
+	color: #666;
+	font-size: 11px;
+	line-height: 1.2em;
+	padding-top: 6px;
 }
+
+#pres-results #pres-closing { margin-top: 6px; padding-bottom: 0; margin-bottom: 0; }
+#pres-results #pres-closing strong { display: block; }
+#pres-results #pres-closing .st { display: inline; width: auto; float: none; padding: 0; color: #454545; }
+#pres-results #pres-closing li { margin-bottom: .7em; display: none; }
+#pres-results #pres-closing li:first-child { display: block; }
+#show-poll-closings { display: block; margin: 0 auto 18px auto; }
 
 
 /* ELECTRIS */
@@ -163,16 +150,10 @@ a.btn { color: #fff; cursor: pointer; }
     font-family:StateFaceRegular;
     font-style:normal;
     text-align: center;
-
-/*    width:.9em;
-    margin-right:.1em; margin-bottom:.1em;
-    height:.9em;*/
-    width:20px;
-    height:20px;
+    width:18px;
+    height:18px;
     margin-right:2px;
     margin-bottom:2px;
-    
-    
     overflow: hidden;
     background-color: #f7e39b;
     color: #77631b;
@@ -297,10 +278,16 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* COMBOS */
-.combos { margin-top: -8px; }
-.combos .explainer p { font-size: 12px; height: 32px; overflow: hidden; }
+/*.combos { margin-top: -8px; } */
+.combos p.robotext { font-size: 12px; line-height: 16px; height: 48px; overflow: hidden; color: #666; }
+.combos p.robotext strong { color: #333; }
 .combos ul { list-style: none; margin: 0; padding: 0; }
 .combos li { margin: 0 0 3px 0; padding: 0; text-indent: 0; }
+.combos b {
+	font-weight: normal;
+	font-family: StateFaceRegular;
+    display: inline-block;
+}
 
 .histogram h4 {
 	font: 13px Arial, Helvetica, sans-serif;
@@ -336,6 +323,9 @@ a.btn { color: #fff; cursor: pointer; }
 	background-image: -moz-linear-gradient(top, #ddd, #aaa);
 	border-radius: 4px;
 }
+
+.combos button { display: block; margin: 9px auto 0 auto; }
+
 
 
 /* COMBINATIONS */
@@ -459,7 +449,7 @@ a.btn { color: #fff; cursor: pointer; }
     height:1em;
 }
 .tossups i { display: none; font-size: 11px; height: 11px; font-weight: normal; font-style: normal; color: #77631B; line-height: 12px; }
-.tossups span { font: normal 11px Arial, Helvetica, sans-serif; text-align: left; color: #77631b; height: 11px; }
+.tossups span { font: normal 11px Arial, Helvetica, sans-serif; text-align: left; color: #77631b; height: 11px; display: block; text-align: center; }
 
 .touch-device .tossups b { background: url('../img/ajax-loader.png') no-repeat center -9999px; }
 .touch-device .tossups .spinner b { text-indent: -9999px; background-position: center center; }
@@ -491,16 +481,14 @@ a.btn { color: #fff; cursor: pointer; }
 @media (min-width: 1200px) {
 	#electris { padding: 0 10px; }
 	#bigbox { width: 300px; }
-	#states { font-size: 25px; }
-	/*.state i { padding-top: .05em; height: .85em; }*/
+	#states { font-size: 23px; }
+	.combos { width: 7.5em; }
     .state i {
-        width:23px;
-        height:23px;
+        width:21px;
+        height:21px;
         margin-right:2px;
         margin-bottom:2px;
     }
-	.bucket { width: 15em; }
-	.combos { width: 6.5em; }
 	.histogram h4 { height: 22px; }
 	.histogram .title { padding: 5px 12px 0 12px; font-size: 12px; }
 	.histogram .bar { height: 24px; margin-top: -20px; }
@@ -508,14 +496,11 @@ a.btn { color: #fff; cursor: pointer; }
 	.vote-tallies { top: 10px; }
 	.vote-tallies .bignum { font-size: 24px; }
 	.vote-tallies span { padding-top: 16px; }
-	#key { margin-top: -32px; }
-	.NPRtablet #key, #NPRphone #key { margin-top: 0; }
-	#key li { margin-right: 1em; }
+	.tossups span { text-align: left; display: inline-block; }
 }
 @media (max-width: 979px) {
     .intro { width: 404px; }
 	.tossups i { display: block; }
-	.tossups span { display: block; text-align: center; }
 }
 @media (max-width: 979px) and (min-width: 768px) {
 	#main-header, #header-title { width: 724px; }

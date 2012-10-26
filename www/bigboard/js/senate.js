@@ -25,11 +25,13 @@ $(function(){
 
     var polling_interval = 15;
     var countdown = polling_interval;
+
     function refresh_countdown() {
         countdown -= 1;
         $("#refreshing").html(countdown + "s");
         if (countdown === 0) {
             nukeTarget('#candidates');
+            fetchBOP();
             fetchData();
             countdown = polling_interval + 1;
         }
