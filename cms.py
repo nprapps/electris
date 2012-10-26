@@ -8,6 +8,7 @@ from flask import render_template, request
 
 import cms_settings as settings
 from models import Race, Candidate, State
+from output import write_electris_json
 
 app = Flask(__name__)
 
@@ -76,6 +77,9 @@ def president():
         if race_slug != None and party != None:
             uq = State.update(npr_call=party, npr_called_at=datetime.datetime.now(tz=pytz.utc)).where(State.id == race_slug)
             uq.execute()
+
+        if settings.DEBUG:
+            write_electris_json()
 
         # TODO
         # Return a 200. This is probably bad.
