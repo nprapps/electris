@@ -674,25 +674,51 @@ $(function() {
     /* RIVER OF NEWS */
 	var news_items = $('#live-blog-items');
 	function fetch_news() {
-//        $.getJSON('http://www.npr.org/buckets/agg/series/2012/elections/riverofnews/riverofnews.jsonp?t=' + (new Date()).getTime(), function(data) {
-        $.getJSON('riverofnews.json?t=' + (new Date()).getTime(), function(data) {
-            if (news_items.length == 1) {
-//                window.setInterval(fetch_news, POLLING_INTERVAL);
-                window.setInterval(fetch_news, 30000);
-            }
-			update_news(data);
-        });
+		$.ajax({
+		    url: 'http://www.npr.org/buckets/agg/series/2012/elections/riverofnews/riverofnews.jsonp',
+		    dataType: 'jsonp',
+		    jsonpCallback: 'nprriverofnews',
+		    success: function(data){
+				if (news_items.length == 1) {
+					window.setInterval(fetch_news, 30000); /* sub in POLLING_INTERVAL later */
+				}
+				update_news(data);
+		    }
+		})
 	}
 	function update_news(data) {
 		var new_news = '';
-		console.log('update news');
-		console.log(data.news.sticky);
-		console.log(data.news.regular[0].News.status);
+		$.each(data.news.sticky, function(j,k) {
+			var item = k.News;
+			if (item.status) {
+				new_news += '<div class="post sticky">';
+				new_news += '<p class="tstamp timeago" title="' + item.created + '">' + item.created + '</p>';
+				if (item.link.length > 0) {
+					new_news += '<a href="' + item.link + '" target="_blank">';
+				}
+				new_news += '<p>'
+				new_news += item.content;
+				if (item.link.length > 0) {
+					new_news += ' | <strong>more &raquo;<\/strong><\/a>';
+				}
+				new_news += '</p>';
+				new_news += '</div>';
+			}
+		});
 		$.each(data.news.regular, function(j,k) {
-			if (k.News.status) {
+			var item = k.News;
+			if (item.status) {
 				new_news += '<div class="post">';
-				new_news += '<p class="tstamp timeago" title="' + k.News.created + '"></p>';
-				new_news += '<p>' + k.News.content + '</p>';
+				new_news += '<p class="tstamp timeago" title="' + item.created + '">' + item.created + '</p>';
+				if (item.link.length > 0) {
+					new_news += '<a href="' + item.link + '" target="_blank">';
+				}
+				new_news += '<p>'
+				new_news += item.content;
+				if (item.link.length > 0) {
+					new_news += ' | <strong>more &raquo;<\/strong><\/a>';
+				}
+				new_news += '</p>';
 				new_news += '</div>';
 			}
 		});
@@ -702,31 +728,7 @@ $(function() {
 		jQuery("p.timeago").timeago();
 	}
 	
-	/*
-	riverOfNews.fetch({
-		success: function() {
-			river.empty();
-			for (var i = 0; i < riverOfNews.length; i++) {
-				var item = '<div class="update">';
-				item += '<h3 class="slug timeago" title="' + riverOfNews.column('timestamp').data[i] + '"></h3>';
-				item += '<p>';
-				if (riverOfNews.column('link').data[i]) {
-					item += '<a href="' + riverOfNews.column('link').data[i] + '" target="_blank">';
-				}
-				item += '<strong>' + riverOfNews.column('headline').data[i] + ':</strong> ';
-				item += riverOfNews.column('text').data[i];
-				if (riverOfNews.column('link').data[i]) {
-					item += ' | <strong>more &raquo;<\/strong><\/a>';
-				}
-				item += '<\/p><\/div>';
-				sb.prepend(item);
-			}
-			
-		}
-	});
-	*/
 
-	
 	// Kickoff!
     fetch_states();
     fetch_news();
