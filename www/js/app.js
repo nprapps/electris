@@ -19,7 +19,7 @@ $(function() {
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
     var MAX_STATES_FOR_COMBOS = 12;
     var MAX_COMBO_GROUP = 7;
-    var POLLING_INTERVAL = 2500;
+    var POLLING_INTERVAL = 1000;
 
     if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); } else { $("body").addClass("no-touch"); }
 
@@ -525,7 +525,9 @@ $(function() {
          */
         var changes = false;
 
-        for (i = 0; i < states.length; i++) {
+        console.log("updating");
+
+        for (var i = 0; i < states.length; i++) {
             var old_state = states[i];
             var state = data[i];
 
