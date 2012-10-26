@@ -167,12 +167,17 @@ $(function() {
         /*
          * Resize state buckets.
          */
-        var window_width = $('#maincontent').width();
+        var window_width = $("#maincontent").width();
+        var is_skinny = electris_el.hasClass("skinny");
         var bucket_columns = 10;
 
-        /*if (window_width >= 1170) {
-            bucket_columns = 15;
-        }*/
+        if (is_skinny) {
+            // pass
+        } else {
+            if (window_width >= 1170) {
+                bucket_columns = 15;
+            }
+        }
 
         var default_height = ELECTORAL_VOTES_TO_WIN / bucket_columns;
         var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns)
@@ -180,12 +185,20 @@ $(function() {
         $(".bucket").css("height", height + "em");
 
         // position 270 line
-        var header_height = 3;
-        if (window_width == 724) {
-        	header_height = 4;
-    	} else if (window_width < 724) {
-        	header_height = 8;
+
+        if (is_skinny) {
+            // TODO -- skinny responsive
+            var header_height = 4;
+        } else {
+            var header_height = 3;
+            
+            if (window_width == 724) {
+                header_height = 4;
+            } else if (window_width < 724) {
+                header_height = 8;
+            }
         }
+
     	var line_height = .1;
 
         if ($.browser.msie) {
@@ -198,10 +211,16 @@ $(function() {
     	var bucket2_pos = $('.bucket.red').position();
     	var line_left = 0;
     	var line_width = '100%';
-    	if (window_width >= 724) {
-	    	line_left = bucket_pos.left;
-	    	line_width = (bucket2_pos.left + $('.bucket.red').width()) - bucket_pos.left + 'px';
-	    }
+
+        if (is_skinny) {
+            // TODO -- skinny responsive
+        } else {
+            if (window_width >= 724) {
+                line_left = bucket_pos.left;
+                line_width = (bucket2_pos.left + $('.bucket.red').width()) - bucket_pos.left + 'px';
+            }
+        }
+
     	$('#line').css('top', line_top + 'em').css('left', line_left + 'px').width(line_width);
     }
 
