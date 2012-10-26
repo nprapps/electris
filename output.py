@@ -127,6 +127,9 @@ def _generate_json(house):
                         or candidate.first_name == 'Angus'):
                             candidate_dict = candidate._data
 
+                            if candidate_dict['party'] == 'NPA':
+                                candidate_dict['party'] = 'Alt'
+
                             candidate_dict['vote_percent'] = candidate.vote_percent()
                             candidate_dict['winner'] = False
 

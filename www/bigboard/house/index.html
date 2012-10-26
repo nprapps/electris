@@ -11,25 +11,7 @@
         <link rel="stylesheet" type="text/css" href="../css/house.css" />
     </head>
     <body>
-        <div id="banner">
-            <h1>House</h1>
-            <ul>
-                <li id="dem_sec">
-                    <h2>Dem <span class="total">180</span> <span class="flux">-3</span></h2>
-                    <p><span class="need_num">+38</span> needed for majority</p>
-                </li>
-                <li id="gop_sec">
-                    <h2>GOP <span class="total">215</span> <span class="flux">+1</span></h2>
-                    <p><span class="need_num">+3</span> needed for majority</p>
-                </li>
-                <li id="ind_sec">
-                    <h2>Other <span class="total">2</span> <span class="flux">+1</span></h2>
-                </li>
-                <li id="nc_sec">
-                    <h2><span class="total">38</span> <span class="flux">Not called</span></h2>
-                </li>
-            </ul>
-        </div>
+        <div id="banner"><h1>House</h1></div>
         <div id="candidates"></div>
 
 
@@ -43,6 +25,25 @@
         <!--[if lt IE 9]>
         <script src="js/lib/html5.js"></script>
         <![endif]-->
+
+        <script id="banner-template" type="text/template">
+            <ul>
+                <li id="dem_sec">
+                    <h2>Dem <span class="total"><%= data.house.democrats.total %></span> <span class="flux"><%= data.house.democrats.delta %></span></h2>
+                    <p><span class="need_num"><%= data.house.democrats.needed_for_majority %></span> needed for majority</p>
+                </li>
+                <li id="gop_sec">
+                    <h2>GOP <span class="total"><%= data.house.republicans.total %></span> <span class="flux"><%= data.house.republicans.delta %></span></h2>
+                    <p><span class="need_num"><%= data.house.republicans.needed_for_majority %></span> needed for majority</p>
+                </li>
+                <li id="ind_sec">
+                    <h2>Other <span class="total"><%= data.house.other.total %></span> <span class="flux"><%= data.house.other.delta %></span></h2>
+                </li>
+                <li id="nc_sec">
+                    <h2><span class="total"><%= data.house.not_called %></span> <span class="flux">Not called</span></h2>
+                </li>
+            </ul>
+        </script>
 
         <script id="timezone-template" type="text/template">
             <div class="timezone">
@@ -70,8 +71,8 @@
                             <%= candidate.first_name %> <%= candidate.last_name %>&nbsp;
                             <% votes = Humanize.intcomma(candidate.vote_count); %>
                         </li>
-						
-							
+
+
                     <% }); %>
                     <li class="status"><%= district.status %></li>
                     </ul>

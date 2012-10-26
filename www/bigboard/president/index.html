@@ -8,83 +8,11 @@
         <link rel="stylesheet" type="text/css" href="../css/president.css" />
     </head>
     <body>
-        <div id="banner">
-            <h1>President</h1>
-            <ul>
-                <li id="dem_sec">
-                    <h2>Obama <span class="total">234</span> <span class="need">Needs </span><span class="neednum">36</span></h2>
-                </li>
-                <li id="gop_sec">
-                    <h2>Romney <span class="total">206</span> <span class="need">Needs </span><span class="neednum">64</span></h2>
-                </li>
-            </ul>
-        </div>
+        <div id="banner"><h1>President</h1></div>
         <div id="candidates">
-        <div class="weighted">
-            <!-- Faking this for now. Will un-fake it later. -->
-           <ul class="swing">
-                <li class="percentTime">80%</li>
-                <li class="state gop winner">Virginia (13)</li>
-                <li class="demPercent">48</li>
-                <li class="gopPercent">48</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">70%</li>
-                <li class="state gop winner">N. Carolina (15)</li>
-                <li class="demPercent">44.7</li>
-                <li class="gopPercent">50.3</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">10%</li>
-                <li class="state dem winner">Ohio (18)</li>
-                <li class="demPercent">47.6</li>
-                <li class="gopPercent">45.7</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">12:00</li>
-                <li class="state">New Hampshire (4)</li>
-                <li class="demPercent">48.6</li>
-                <li class="gopPercent">47.2</li>
-			</ul>
-            <ul class="swing">
-                <li class="percentTime">12:00</li>
-                <li class="state">Pennsylvania (20)</li>
-                <li class="demPercent">30</li>
-                <li class="gopPercent">40</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">10%</li>
-                <li class="state">Florida (29)</li>
-                <li class="demPercent">46.6</li>
-                <li class="gopPercent">48.4</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">70%</li>
-                <li class="state">Colorado (9)</li>
-                <li class="demPercent">47.6</li>
-                <li class="gopPercent">47.8</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">8:00</li>
-                <li class="state">Wisconsin (10)</li>
-                <li class="demPercent">49.8</li>
-                <li class="gopPercent">47</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">80%</li>
-                <li class="state">Iowa (6)</li>
-                <li class="demPercent">48.8</li>
-                <li class="gopPercent">46.8</li>
-            </ul>
-            <ul class="swing">
-                <li class="percentTime">8:00</li>
-                <li class="state">Nevada (6)</li>
-                <li class="demPercent">49</li>
-                <li class="gopPercent">46.2</li>
-            </ul>
+            <div class="weighted"></div>
+            <div class="full"></div>
         </div>
-        <div class="full"></div>
-    </div>
 
         <script type="text/javascript" src="../../js/lib/jquery-1.8.1.min.js"></script>
         <script type="text/javascript" src="../../js/lib/jquery.columnizer.js"></script>
@@ -93,31 +21,28 @@
         <script type="text/javascript" src="../../js/lib/moment.min.js"></script>
         <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
         <script type="text/javascript" src="../js/president.js"></script>
+        <script type="text/javascript">
+            function roundNumber(number, digits) {
+                var multiple = Math.pow(10, digits);
+                var rndedNum = Math.round(number * multiple) / multiple;
+                return rndedNum;
+            }
+        </script>
         <!--[if lt IE 9]>
         <script src="js/lib/html5.js"></script>
         <![endif]-->
 
-        <!-- STEPH
-        The variables you have are:
-            stateface
-            name
-            abbr
-            electoral_votes
-            prediction
-            ap_call
-            ap_called_at
-            accept_ap_call
-            npr_call
-            npr_called_at
-            total_precincts
-            precincts_reporting
-            rep_vote_count
-            dem_vote_count
-            human_rep_vote_count
-            human_dem_vote_count
-            rep_vote_percent
-            dem_vote_percent
-        -->
+        <script id="banner-template" type="text/template">
+            <ul>
+                <li id="dem_sec">
+                    <h2>Obama <span class="total"><%= data.president.democrats.total %></span> <span class="need">Needs </span><span class="neednum"><%= data.president.democrats.needed_for_majority %></span></h2>
+                </li>
+                <li id="gop_sec">
+                    <h2>Romney <span class="total"><%= data.president.republicans.total %></span> <span class="need">Needs </span><span class="neednum"><%= data.president.republicans.needed_for_majority %></span></h2>
+                </li>
+            </ul>
+        </script>
+
         <script id="timezone-template" type="text/template">
             <div class="closeTimeBar">
                 <% date = moment.unix(timezone.gmt_epoch_time).format('h:mm'); %>
@@ -130,8 +55,8 @@
                 %>
                 <ul class="allstates <%= called %>">
                 	<li class="percentTime"><%
-                        var percent = state.precincts_reporting / state.total_precincts
-                        percent = percent * 100
+                        var percent = state.precincts_reporting / state.total_precincts;
+                        percent = roundNumber(percent * 100, 1);
                     %>
                     <%= percent %>%
                     </li>
@@ -143,68 +68,19 @@
             <% }); %>
         </script>
 
-        <!-- <div class="full">
-        	<div class="closeTimeBar">7:00</div>
-        	<ul class="allstates">
-        		<li class="percentTime">12:00</li>
-        		<li class="state dem winner">N. Carolina (15)</li>
-        		<li class="demPercent">30%</li>
-        		<li class="gopPercent">40%</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="percentTime">12:00</li>
-        		<li class="state gop winner">S. Carolina (9)</li>
-        		<li class="demPercent">29%</li>
-        		<li class="gopPercent">41%</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<div class="closeTimeBar">7:30</div>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        	<ul class="allstates">
-        		<li class="state">Alabama (9)</li>
-        	</ul>
-        </div>
-        </div> -->
-
+        <script id="featured-template" type="text/template">
+            <ul class="swing">
+                <li class="percentTime"><%
+                    var percent = state.precincts_reporting / state.total_precincts;
+                    percent = roundNumber(percent * 100, 1);
+                %>
+                <%= percent %>%
+                </li>
+                <li class="district"></li>
+                <li class="state"><span><%= state.name %></span> (<%= state.electoral_votes %>)</li>
+                <li class="demPercent"><%= state.dem_vote_percent %></li>
+                <li class="gopPercent"><%= state.rep_vote_percent %></li>
+            </ul>
+        </script>
     </body>
 </html>

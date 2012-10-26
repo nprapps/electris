@@ -147,7 +147,7 @@ def parse_ap_data(data, ne_data, me_data):
 
         if race == 'President':
             parse_president_district('ME', row_data)
-    
+
 
 def parse_house(row):
     race_data = dict(zip(RACE_FIELDS, row[:len(RACE_FIELDS)]))

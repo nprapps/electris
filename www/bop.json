@@ -1,0 +1,46 @@
+{
+	"house": {
+		"democrats": {
+			"total": 55,
+			"delta": "+3",
+			"needed_for_majority": "22"
+		},
+		"republicans": {
+			"total": 55,
+			"delta": "+3",
+			"needed_for_majority": "22"
+		},
+		"other": {
+			"total": 55,
+			"delta": "+3"
+		},
+		"not_called": 55
+	},
+	"senate": {
+		"democrats": {
+			"total": 55,
+			"delta": "+3",
+			"needed_for_majority": "22"
+		},
+		"republicans": {
+			"total": 55,
+			"delta": "+3",
+			"needed_for_majority": "22"
+		},
+		"other": {
+			"total": 55,
+			"delta": "+3"
+		},
+		"not_called": 55
+	},
+	"president": {
+		"democrats": {
+			"total": 55,
+			"needed_for_majority": "22"
+		},
+		"republicans": {
+			"total": 55,
+			"needed_for_majority": "22"
+		}
+	}
+}

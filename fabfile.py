@@ -273,11 +273,14 @@ def save_ap_data():
         f.write(data)
 
     for state_code in ['NE', 'ME']:
-        with open('test_data/timemachine/%s_D_%s-%s.txt' % (state_code, hour, minute), 'w') as f:
-            data = ''
-            for line in i.get_ap_district_data(state_code):
-                data += line
-            f.write(data)
+        try:
+            with open('test_data/timemachine/%s_D_%s-%s.txt' % (state_code, hour, minute), 'w') as f:
+                data = ''
+                for line in i.get_ap_district_data(state_code):
+                    data += line
+                f.write(data)
+        except:
+            pass
 
 
 def shiva_the_destroyer():
