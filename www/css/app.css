@@ -165,20 +165,11 @@ a.btn { color: #fff; cursor: pointer; }
 .no-touch .state:hover i span { cursor: default; }
 .state i span { font-size:.7em; }
 
-/* Before election night: shade by forecast */
-.state.prediction-sd i { background-color: #3d7fa6; color: #A8D5EF; }
-.state.prediction-ld i { background-color: #7dbfe6; color: #A8D5EF; }
-.state.prediction-t i { background-color: #E5BF57; color: #FBF1CD; }
-.state.prediction-t.combo-pick i { background-color: #bcbcbc; color: #f1f1f1; }
-.state.prediction-lr i { background-color: #e27560; color: #ECA395; }
-.state.prediction-sr i { background-color: #a23520; color: #ECA395; }
-
 /* On election night: shade by call */
 .state.call-d i { background-color: #3d7fa6; color: #fff; }
 .state.call-r i { background-color: #a23520; color: #fff; }
 
-.no-touch .state:hover i, 
-.no-touch .state.prediction-t.combo-pick:hover i { color: #fff; }
+.no-touch .state:hover i { color: #333; } 
 
 #line {
 	height: 1px;

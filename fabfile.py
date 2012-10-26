@@ -116,7 +116,7 @@ def clone_repo():
 
 
 def checkout_latest():
-    run('cd %(repo_path)s; git fetch %(branch)s' % env)
+    run('cd %(repo_path)s; git fetch' % env)
     run('cd %(repo_path)s; git checkout %(branch)s; git pull origin %(branch)s' % env)
 
 
@@ -131,7 +131,7 @@ def deploy():
     _gzip_www()
     _deploy_to_s3()
 
-    # checkout_latest()
+    checkout_latest()
 
 
 def deploy_local_data():

@@ -25,6 +25,27 @@
     </style>
     <![endif]-->
 
+    <style>
+        #electris { width: 400px; }
+        #main-header, #header-title { width: 724px; }
+        .intro h1 { font-size: 28px; }
+        #states { font-size: 20px; }
+        .state i {
+            width:19px;
+            height:19px;
+            margin-right:1px;
+            margin-bottom:1px;
+        }
+        .bucket { width: 10em; }
+        .combos { width: 6.5em; }
+        .bucket-header { height: 4em; }
+        .bucket-header h3 { font-size: 24px; }
+        .bucket-header h3 i { display: none; }
+        .vote-tallies { width: 9em; }
+        .tossups li b, .tossups li span { display: block; text-align: center; margin: 0 auto; }
+        .combos .explainer p { height: 52px; font-size: 13px; }
+    </style>
+
     <script>
         NPR = {};
         NPR.PageInfo = {};
@@ -96,7 +117,7 @@
       </div>
     </div>
 
-    <div class="container the-goods" id="maincontent">
+    <div class="container the-goods skinny" id="maincontent">
 		<div id="header" class="row">
 
 			<div class="span8 intro">
@@ -166,12 +187,10 @@
 							</div>
 							<div class="bucket blue"></div>
 
-							<div class="combos">
-								<!-- chicklets -->
+							<!--<div class="combos">
 								<h5>Assign Tossups</h5>
                                 <ul class="tossups blue"></ul>
 
-								<!-- HISTOGRAM -->
 								<h5>Ways He Can Win</h5>
 								<ul class="histogram blue"></ul>
 							</div>
@@ -181,8 +200,8 @@
 								<p class="robotext"></p>
 								<ul>
 								</ul>
-							</div> <!-- end .combinations -->
-						</div> <!-- end .candidate.blue -->
+                            </div>-->
+                        </div>
 
 						<div class="candidate red">
 							<div class="bucket-header">
@@ -200,12 +219,11 @@
 								</div>
 							</div>
 							<div class="bucket red"></div>
-							<div class="combos">
-								<!-- chicklets -->
+                            
+                            <!--<div class="combos">
 								<h5>Assign Tossups</h5>
                                 <ul class="tossups red"></ul>
                                 
-                                <!-- HISTOGRAM -->
 								<h5>Ways He Can Win</h5>
 								<ul class="histogram red"></ul>
 							</div>
@@ -214,8 +232,8 @@
 								<p class="robotext"></p>
 								<ul>
 								</ul>
-							</div> <!-- end .combinations -->
-						</div> <!-- end .candidate.red -->
+                            </div>-->
+                        </div>
 						<div id="line"><b>270</b></div>
 
 					</div> <!-- end #buckets -->
