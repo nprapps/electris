@@ -138,7 +138,7 @@ li#ind_sec{width:120px;}
     font-weight:bold;
     text-align:center;
     margin:0;
-    padding:0; 
+    padding:0;
     width:400px;
 }
 
@@ -156,7 +156,7 @@ ul.called li {
 .candidate.gop {
     color:#f8a199;
 }
-.candidate.npa {
+.candidate.alt {
     color:#85c65e;
 }
 .candidate.incumbent {
