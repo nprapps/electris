@@ -24,6 +24,7 @@ $(function() {
     if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); } else { $("body").addClass("no-touch"); }
 
     /* Elements */
+    var maincontent_el = $("#maincontent");
     var electris_el = $("#electris");
     var red_candidate_el = $(".candidate.red");
     var blue_candidate_el = $(".candidate.blue");
@@ -167,7 +168,7 @@ $(function() {
         /*
          * Resize state buckets.
          */
-        var window_width = $("#maincontent").width();
+        var window_width = maincontent_el.width();
         var is_skinny = electris_el.hasClass("skinny");
         var bucket_columns = 10;
 
