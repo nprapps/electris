@@ -57,7 +57,7 @@ def write_president_json():
             timezone_dict['gmt_epoch_time'] = timezone['time']
             timezone_dict['states'] = []
             for s in timezone['states']:
-                for state in State.select().where(State.electoral_votes > 1):
+                for state in State.select():
                     if state.id == s.lower():
                         state_dict = state._data
                         state_dict['rep_vote_percent'] = state.rep_vote_percent()
