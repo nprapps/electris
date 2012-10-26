@@ -38,7 +38,9 @@
             <td><strong>Accept AP calls?</strong></td>
         </tr>
         {% endif %}
-        <tr class="{{ state.id }}
+        <tr
+        data-race-slug="{{ state.id }}"
+        class="{{ state.id }}
             {% if state.prediction == 't' %} warning{% endif %}">
             <td>{{ state.name }}</td>
 
@@ -107,7 +109,7 @@
 
         $('.npr-call').click(function(){
             // Set up the race slug.
-            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('class');
+            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('data-race-slug');
 
             // Hide all "npr uncall" buttons for this race.
             $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-uncall').addClass('hidden');
@@ -139,7 +141,7 @@
 
         $('.npr-uncall').click(function(){
             // Set up the race slug.
-            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('class');
+            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('data-race-slug');
 
             // Hide this "npr uncall" button.
             $(this).addClass('hidden');
@@ -172,7 +174,10 @@
                     $(options.target).addClass(options.button.post_state);
                     $(options.target).html(options.message);
                 }
-                var target = $(options.target).parent('td').parent('tr').attr('class');
+                var target = $(options.target).parent('td').parent('tr').attr('data-race-slug');
+
+                console.log(options.target);
+
                 if (options.post_data.accept_ap_call == false) {
                     $('tr.'+target+' .npr-call').removeClass('hidden');
                 } else {
