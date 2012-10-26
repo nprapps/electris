@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" />
     <link rel="stylesheet" type="text/css" href="css/template.css" />
     <link rel="stylesheet" type="text/css" href="css/app.css" />
+    <link rel="stylesheet" type="text/css" href="css/sponsorship.css" />
 
     <!--[if IE]>
     <style>
@@ -24,7 +25,8 @@
         .tossups li { border-radius: 0px; }
     </style>
     <![endif]-->
-
+    <script type="text/javascript" src="http://dev-ddebelius.npr.org/templates/javascript/lib/modernizr/modernizr.custom.js">
+   </script>
     <script type="text/javascript" src="js/lib/jquery-1.8.1.min.js"></script>
     <script>
         NPR = {};
@@ -37,18 +39,19 @@
     <!-- AD CODE -->
     <script type="text/javascript" src="js/responsive-ad.js"></script>
 	<script>
-//	AddNamespace('NPR.serverVars'); jQuery.extend(NPR.serverVars,{"storyId":"139482413","serverType":"prod","DFPtarget":"\/news;agg=139482413;theme=139482413;storyid=139482413","DFPuserver":"u.npr.org","DFPserver":"ad.doubleclick.net","DFPnetwork":"n6735","DFPsite":"NPR","DFPmobile":"NPR.MOBILE"});
-	AddNamespace('NPR.serverVars'); 
-	jQuery.extend(NPR.serverVars,{
-		"storyId":"139482413",
-		"serverType":"prod",
-		"DFPtarget":"\/news_election_results",
-		"DFPuserver":"u.npr.org",
-		"DFPserver":"ad.doubleclick.net",
-		"DFPnetwork":"n6735",
-		"DFPsite":"NPR",
-		"DFPmobile":"NPR.MOBILE"
-	});
+    AddNamespace('NPR.serverVars'); 
+    jQuery.extend(NPR.serverVars,{"storyId":"93559255","serverType":"dev","DFPtarget":"\/no_topic;agg=94427042;storyid=93559255;blog=93559255;testserver=true","DFPuserver":"u.npr.org","DFPserver":"ad.doubleclick.net","DFPnetwork":"n6735","DFPsite":"NPRTEST","DFPmobile":"NPR.MOBILE"})
+	// AddNamespace('NPR.serverVars'); 
+	// jQuery.extend(NPR.serverVars,{
+	// 	"storyId":"139482413",
+	// 	"serverType":"prod",
+	// 	"DFPtarget":"\/news_election_results",
+	// 	"DFPuserver":"u.npr.org",
+	// 	"DFPserver":"ad.doubleclick.net",
+	// 	"DFPnetwork":"n6735",
+	// 	"DFPsite":"NPR",
+	// 	"DFPmobile":"NPR.MOBILE"
+	// });
 	</script>
 
 	<meta property="og:title" content="Election 2012: Swing State Scorecard : NPR" />
@@ -205,7 +208,7 @@
 			</div> <!-- end #electris -->
 		</div>
 		
-		<div id="adhesion" class="adwrapper">
+		<div id="adhesion">
             <script type="text/javascript">
             <!--
 			try {
