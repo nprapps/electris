@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+import datetime
+import pytz
+
 from flask import Flask
 from flask import render_template, request
 
@@ -29,11 +32,12 @@ def president():
 
         # First, try and get the state.
         race_slug = request.form.get('race_slug', None)
+        race_slug = race_slug.strip()
 
         # Next, try to get the AP call.
         accept_ap_call = request.form.get('accept_ap_call', None)
-        if accept_ap_call:
 
+        if accept_ap_call:
             # Figure out which direction we're going and send an appropriate message.
             if accept_ap_call.lower() == 'true':
                 accept_ap_call = True
@@ -50,7 +54,7 @@ def president():
             # Clear the NPR winner status of candidates who we accept AP calls for.
             if accept_ap_call == False:
 
-                uq = State.update(npr_call='n').where(State.id == race_slug)
+                uq = State.update(npr_call='n', npr_called_at=None).where(State.id == race_slug)
                 uq.execute()
 
         # Try and get the winner.
@@ -65,14 +69,13 @@ def president():
             if clear_all == 'true':
 
                 # Clear the NPR winner status of all of the candidates.
-                uq = State.update(npr_call='n').where(State.id == race_slug)
+                uq = State.update(npr_call='n', npr_called_at=None).where(State.id == race_slug)
                 uq.execute()
 
         # If all of the pieces are here, do something.
         if race_slug != None and party != None:
-
-            uq = State.update(npr_call="%s" % party).where(State.id == race_slug)
-            print uq.execute()
+            uq = State.update(npr_call=party, npr_called_at=datetime.datetime.now(tz=pytz.utc)).where(State.id == race_slug)
+            uq.execute()
 
         # TODO
         # Return a 200. This is probably bad.
