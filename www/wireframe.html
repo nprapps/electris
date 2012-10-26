@@ -74,9 +74,52 @@
         
         <div class="row">
             <div class="span5 tab-pane" id="results">
-                <div id="electris">
-                    <h2>tetris and stuff</h2>
-                </div>
+                <div id="electris" class="skinny">
+                    <div id="states">
+                        <div id="buckets">
+                            <div class="candidate blue">
+                                <div class="bucket-header">
+                                    <h3><i>Barack </i><b>Obama</b></h3>
+
+                                    <div class="vote-tallies">
+                                        <div class="electoral">
+                                            <b id="p-blue-electoral" class="bignum">00</b>
+                                            <span>total</span>
+                                        </div>
+                                        <div class="needed">
+                                            <b class="bignum">?</b>
+                                            <span>to win</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bucket blue"></div>
+                            </div>
+
+                            <div class="candidate red">
+                                <div class="bucket-header">
+                                    <h3><i>Mitt </i><b>Romney</b></h3>
+
+                                    <div class="vote-tallies">
+                                        <div class="electoral">
+                                            <b id="p-red-electoral" class="bignum">00</b>
+                                            <span>total</span>
+                                        </div>
+                                        <div class="needed">
+                                            <b class="bignum">?</b>
+                                            <span>to win</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bucket red"></div>
+                            </div>
+                            <div id="line"><b>270</b></div>
+
+                        </div> <!-- end #buckets -->
+                    </div> <!-- end #states -->
+                </div> <!-- end #electris -->
+
                 <div id="incoming">
                     <h2>incoming results</h2>
                 </div>
@@ -118,12 +161,62 @@
 		</div>
     </div>
         
+    <script id="state-template" type="text/template">
+        <div class="state <%= state.id %> call-<%= state.call %>" data-id="<%= state.id %>">
+            <% _.times(state.electoral_votes, function(){ %>
+                <i rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><span><%= state.stateface %></span></i>
+            <% }); %>
+        </div>
+    </script>
+
+    <script id="tossup-template" type="text/template">
+        <li data-state-id="<%= state.id %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><div><b><%= state.stateface %></b> <i><%= state.abbr %></i><span><%= state.electoral_votes %></span></div></li>
+    </script>
+
+    <script id="combo-group-template" type="text/template">
+        <li id="<%= side %><%= key %>">
+            <h4><%= key %><% if (last_group) { %>+<% } %> state<%= key > 1 ? "s" : "" %><br /><a href="#key">(back to top)</a></h4>
+            <ul>
+            </ul>
+        </li>
+    </script>
+
+    <script id="histogram-template" type="text/template">
+        <li class="<%= side %><%= key %>">
+            <h4 data-target="#<%= side %><%= key %>">
+                <span class="title"><strong><%= key %><% if (last_group) { %>+<% } %> state<%= key > 1 ? "s" : "" %></strong></span>
+                <span class="bar" style="width: 0px;"></span>
+            </h4>
+        </li>
+    </script>
+
+    <script id="must-win-template" type="text/template">
+        <% if (votes >= 270) { %>
+            If <%= candidate %> wins <% _.each(states_won, function(state, i, l) { %><strong><b><%= state.stateface %></b> <%= state.name %></strong><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> then he <strong>wins the Electoral College</strong>.
+        <% } else if (simplest_combo_length == 0) { %>
+            <%= candidate %> <strong>cannot win</strong> the Electoral College.
+        <% } else { %>
+            <% if (states_won.length == 0) { %>
+                <%= candidate %> must win <strong>at least <%= simplest_combo_length %></strong> tossup state<% if (simplest_combo_length > 1) { %>s<% } %>. Possible combinations:
+            <% } else { %>
+                If <%= candidate %> wins <% _.each(states_won, function(state, i, l) { %><strong><b><%= state.stateface %></b> <%= state.name %></strong><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> then he must win <strong>at least <%= simplest_combo_length %> more</strong> tossup state<% if (simplest_combo_length > 1) { %>s<% } %>. Possible combinations:
+            <% } %>
+        <% } %>
+    </script>
+
     <!--[if lt IE 9]>
     <script src="js/lib/html5.js"></script>
     <![endif]-->
 
     <script type="text/javascript" src="js/lib/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="js/lib/underscore-min.js"></script>
+    <script type="text/javascript" src="js/lib/moment.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.touchclick.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/combinations.js"></script>
+    <script type="text/javascript" src="js/combo_primer.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+
     <script type="text/javascript">
         $('#results-bar').affix({
           offset: {
