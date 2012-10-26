@@ -64,17 +64,27 @@
             </div>
         </div>
         
+        <div class="row" id="tabs">
+            <ul class="nav nav-tabs">
+                <li><a href="#results" data-toggle="tab">results</a></li>
+                <li><a href="#live-blog" data-toggle="tab">live blog</a></li>
+                <li><a href="#backchannel" data-toggle="tab">the backchannel</a></li>
+            </ul>
+        </div>
+        
         <div class="row">
-            <div class="span5" id="electris">
-                <h2>tetris and stuff</h2>
+            <div class="span5 tab-pane" id="results">
+                <div id="electris">
+                    <h2>tetris and stuff</h2>
+                </div>
+                <div id="incoming">
+                    <h2>incoming results</h2>
+                </div>
             </div>
-            <div class="span7" id="live-blog">
+            <div class="span7 tab-pane" id="live-blog">
                 <h2>the live blog</h2>
             </div>
-            <div class="span5" id="incoming">
-                <h2>incoming results</h2>
-            </div>
-            <div class="span5" id="backchannel">
+            <div class="span5 tab-pane" id="backchannel">
                 <h2>the backchannel</h2>
             </div>
         </div>
@@ -118,9 +128,11 @@
         $('#results-bar').affix({
           offset: {
             top: function () { return 290 }
-          , bottom: 270
+          //, bottom: 270
           }
         })
+        
+        $('#tabs a[href="#results"]').tab('show');
     </script>
 
 </body>
