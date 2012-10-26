@@ -21,12 +21,14 @@ $(function() {
     var MIN_VOTES_FOR_COMBOS = 240;
     var MAX_COMBO_GROUP = 7;
     var POLLING_INTERVAL = 1000;
+    var WIDE_MODE = false;
 
     if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); } else { $("body").addClass("no-touch"); }
 
     /* Elements */
-    var maincontent_el = $("#maincontent");
     var electris_el = $("#electris");
+    var electris_skinny_el = $("#electris-skinny");
+    var maincontent_el = $("#maincontent");
     var red_candidate_el = $(".candidate.red");
     var blue_candidate_el = $(".candidate.blue");
     var red_bucket_el = red_candidate_el.find(".bucket");
@@ -175,10 +177,9 @@ $(function() {
          * Resize state buckets.
          */
         var window_width = maincontent_el.width();
-        var is_skinny = electris_el.hasClass("skinny");
         var bucket_columns = 10;
 
-        if (is_skinny) {
+        if (!WIDE_MODE) {
             // pass
         } else {
             if (window_width >= 1170) {
@@ -193,7 +194,7 @@ $(function() {
 
         // position 270 line
 
-        if (is_skinny) {
+        if (!WIDE_MODE) {
             // TODO -- skinny responsive
             var header_height = 4;
         } else {
@@ -219,7 +220,7 @@ $(function() {
     	var line_left = 0;
     	var line_width = '100%';
 
-        if (is_skinny) {
+        if (!WIDE_MODE) {
             // TODO -- skinny responsive
         } else {
             if (window_width >= 724) {
