@@ -12,9 +12,9 @@
 
 /* STRUCTURE */
 #bigbox { min-height: 280px; }
-#states { font-size: 22px; }
+#states { font-size: 18px; }
 #resultsRow { margin-left: 0; }
-#pres-results { width: 23%; float: left; }
+#pres-results { width: 22%; float: left; }
 #electris { width: 75%; float: right; }
 .candidate { width: 48%; }
 .candidate.blue { float: left; }
@@ -24,7 +24,7 @@
 .candidate.red .bucket { float: left; }
 .candidate.red .combos { float: right; }
 .bucket { width: 10em; }
-.combos { width: 5em; }
+.combos { width: 8em; }
 
 
 /* CLEARFIXES */
@@ -80,12 +80,13 @@ a.btn { color: #fff; cursor: pointer; }
 #pres-results { margin-bottom: 24px; }
 #pres-results h5 { border-top: 3px solid #000; padding-top: 9px; }
 #pres-results .results { margin: 0 0 18px 0; padding: 0; list-style: none; }
-#pres-results .results li { padding-bottom: 1%; font-size: 12px; color: #333; }
-#pres-results .results li.hdr { 
-	font: normal 10px Arial, Helvetica, sans-serif; text-transform: uppercase;
-	color: #666;
-	padding-top: 0;
+#pres-results .results li { padding-bottom: 1%; font-size: 12px; color: #454545; }
+#pres-results .results li.hdr { padding: 0; }
+#pres-results .results li.hdr,
+#pres-results #pres-closing strong { 
+	font-weight: normal; font-size: 10px; text-transform: uppercase; color: #666;
 }
+#pres-results .results li.hdr span { padding: 0; }
 #pres-results b {
 	font: normal 1em StateFaceRegular;
     text-align: center;
@@ -134,7 +135,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 #pres-results #pres-closing { margin-top: 6px; padding-bottom: 0; }
 #pres-results #pres-closing strong { display: block; }
-#pres-results #pres-closing .st { display: inline; width: auto; float: none; padding: 0; color: #666; }
+#pres-results #pres-closing .st { display: inline; width: auto; float: none; padding: 0; color: #454545; }
 #pres-results #pres-closing li { margin-bottom: .7em; display: none; }
 #pres-results #pres-closing li:first-child, #pres-results #pres-closing li.show-all { display: block; }
 #pres-results #pres-closing li.show-all { 
@@ -297,7 +298,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* COMBOS */
-.combos { margin-top: -8px; }
+/*.combos { margin-top: -8px; } */
 .combos .explainer p { font-size: 12px; height: 32px; overflow: hidden; }
 .combos ul { list-style: none; margin: 0; padding: 0; }
 .combos li { margin: 0 0 3px 0; padding: 0; text-indent: 0; }
@@ -491,8 +492,8 @@ a.btn { color: #fff; cursor: pointer; }
 @media (min-width: 1200px) {
 	#electris { padding: 0 10px; }
 	#bigbox { width: 300px; }
+	/*
 	#states { font-size: 25px; }
-	/*.state i { padding-top: .05em; height: .85em; }*/
     .state i {
         width:23px;
         height:23px;
@@ -501,6 +502,7 @@ a.btn { color: #fff; cursor: pointer; }
     }
 	.bucket { width: 15em; }
 	.combos { width: 6.5em; }
+	*/
 	.histogram h4 { height: 22px; }
 	.histogram .title { padding: 5px 12px 0 12px; font-size: 12px; }
 	.histogram .bar { height: 24px; margin-top: -20px; }
