@@ -160,9 +160,6 @@ $(function() {
 
         if (generate_combos && states_not_called.length < MAX_STATES_FOR_COMBOS) {
             generate_winning_combinations(states_not_called);
-            $(".combos,.combinations").show();
-        } else {
-            $(".combos,.combinations").hide();
         }
     }
 
