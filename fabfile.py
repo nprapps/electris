@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 
-import input as i
-import output as o
 import datetime
+import json
 
+import boto
+from boto.s3.key import Key
 from fabric.api import *
 from peewee import *
-from models import Candidate, Race, State
+from tumblr import Api
 
+import input as i
+from models import Candidate, Race, State
+import output as o
 
 """
 Base configuration
@@ -173,6 +177,34 @@ def update_polls():
     i.update_polls()
     write_www_files()
 
+
+def update_backchannel():
+    """
+    Update data for the backchannel from Tumblr
+    """
+    TUMBLR_FILENAME = 'www/tumblr.json'
+    TUMBLR_BLOG_ID = 'nprbackchannel'
+    TUMBLR_MAX_POSTS = 10
+
+    api = Api(TUMBLR_BLOG_ID)
+
+    posts = list(api.read(max=TUMBLR_MAX_POSTS))
+
+    posts.reverse()
+
+    with open(TUMBLR_FILENAME, 'w') as f:
+        f.write(json.dumps(posts))
+
+    if 'settings' in env:
+        conn = boto.connect_s3()
+        bucket = conn.get_bucket(env.s3_bucket)
+        key = Key(bucket)
+        key.key = '/'.join([env.deployed_name, TUMBLR_FILENAME])
+        key.set_contents_from_filename(
+            TUMBLR_FILENAME,
+            policy='public-read',
+            headers={'Cache-Control': 'max-age=0 no-cache no-store must-revalidate'}
+        )
 
 def generate_initial_combos():
     o.generate_initial_combos()
