@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Election 2012: Swing State Scorecard : NPR</title>
+    <title>Election Night 2012 : NPR</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
@@ -24,27 +24,6 @@
         .tossups li { border-radius: 0px; }
     </style>
     <![endif]-->
-
-    <style>
-        #electris { width: 400px; }
-        #main-header, #header-title { width: 724px; }
-        .intro h1 { font-size: 28px; }
-        #states { font-size: 20px; }
-        .state i {
-            width:19px;
-            height:19px;
-            margin-right:1px;
-            margin-bottom:1px;
-        }
-        .bucket { width: 10em; }
-        .combos { width: 6.5em; }
-        .bucket-header { height: 4em; }
-        .bucket-header h3 { font-size: 24px; }
-        .bucket-header h3 i { display: none; }
-        .vote-tallies { width: 9em; }
-        .tossups li b, .tossups li span { display: block; text-align: center; margin: 0 auto; }
-        .combos .explainer p { height: 52px; font-size: 13px; }
-    </style>
 
     <script>
         NPR = {};
@@ -117,11 +96,11 @@
       </div>
     </div>
 
-    <div class="container the-goods skinny" id="maincontent">
+    <div class="container the-goods" id="maincontent">
 		<div id="header" class="row">
 
 			<div class="span8 intro">
-                <h1>Swing State Scorecard</h1>
+                <h1>Election Night 2012</h1>
                 <p>The presidency rests not on the national popular vote but on 538 Electoral College votes, allotted almost exclusively in winner-take-all fashion by state.*</p>
                 <p>An NPR analysis using history and polls indicates how 42 states and the District of Columbia are expected to vote. That leaves only eight "tossups" where the race is too close to call, but where the election will likely be decided.</p>
                 <p>NPR puts 21 states and their 237 electoral votes firmly or leaning to President Obama. Republican Mitt Romney starts with 27 states and 206 assumed electoral votes. (<strong><a href="http://www.npr.org/blogs/itsallpolitics/2012/10/23/163481015/the-race-to-270-a-swing-state-scorecard">See the full list.</a></strong>) We've prefilled those projections below, leaving 95 electoral votes up for grabs.</p>
@@ -152,8 +131,139 @@
 
         </div>
 
-        <div class="row">
-        	<div id="electris" class="skinny">
+        <div id="resultsRow" class="row">
+
+        	<div id="pres-results">
+				<h5>Incoming Results</h5>
+				<ul id="pres-watching" class="results">
+					<li class="hdr">
+						<span class="st">&nbsp;</span>
+						<span class="blue">Obama</span>
+						<span class="red">Romney</span>
+					</li>
+					<li>
+						<span class="st"><b>B</b>Ala.</span>
+						<span class="blue">50%</span>
+						<span class="red">50%</span>
+						<span class="precincts">20% rept.</span>
+					</li>
+					<li>
+						<span class="st"><b>q</b>Texas</span>
+						<span class="blue">50%</span>
+						<span class="red">50%</span>
+						<span class="precincts">20% rept.</span>
+					</li>
+					<li>
+						<span class="st"><b>B</b>Ala.</span>
+						<span class="blue">50%</span>
+						<span class="red">50%</span>
+						<span class="precincts">20% rept.</span>
+					</li>
+					<li>
+						<span class="st"><b>q</b>Texas</span>
+						<span class="blue">50%</span>
+						<span class="red">50%</span>
+						<span class="precincts">20% rept.</span>
+					</li>
+					<li>
+						<span class="st"><b>B</b>Ala.</span>
+						<span class="blue">50%</span>
+						<span class="red">50%</span>
+						<span class="precincts">20% rept.</span>
+					</li>
+					<li>
+						<span class="st"><b>q</b>Texas</span>
+						<span class="blue">50%</span>
+						<span class="red">50%</span>
+						<span class="precincts">20% rept.</span>
+					</li>
+				</ul>
+				
+				<h5>Next Poll Closing</h5>
+				<ul id="pres-closing" class="results">
+					<li class="time-0700">
+						<strong>7:00 PM ET</strong>
+						<span class="st"><b>q</b>Texas (38)</span>,
+						<span class="st"><b>B</b>Alabama (9)</span>,
+						<span class="st"><b>D</b>Arizona (11)</span>
+					</li>
+					<li class="time-0730">
+						<strong>7:30 PM ET</strong>
+						<span class="st"><b>q</b>Texas (38)</span>,
+						<span class="st"><b>B</b>Alabama (9)</span>,
+						<span class="st"><b>D</b>Arizona (11)</span>
+					</li>
+					<li class="time-0800">
+						<strong>8:00 PM ET</strong>
+						<span class="st"><b>q</b>Texas (38)</span>,
+						<span class="st"><b>B</b>Alabama (9)</span>,
+						<span class="st"><b>D</b>Arizona (11)</span>
+					</li>
+					<li class="time-0900">
+						<strong>9:00 PM ET</strong>
+						<span class="st"><b>q</b>Texas (38)</span>,
+						<span class="st"><b>B</b>Alabama (9)</span>,
+						<span class="st"><b>D</b>Arizona (11)</span>
+					</li>
+					<li class="time-1000">
+						<strong>10:00 PM ET</strong>
+						<span class="st"><b>q</b>Texas (38)</span>,
+						<span class="st"><b>B</b>Alabama (9)</span>,
+						<span class="st"><b>D</b>Arizona (11)</span>
+					</li>
+					<li class="time-1100">
+						<strong>11:00 PM ET</strong>
+						<span class="st"><b>q</b>Texas (38)</span>,
+						<span class="st"><b>B</b>Alabama (9)</span>,
+						<span class="st"><b>D</b>Arizona (11)</span>
+					</li>
+					<li class="time-0100">
+						<strong>1:00 AM ET</strong>
+						<span class="st"><b>q</b>Texas (38)</span>,
+						<span class="st"><b>B</b>Alabama (9)</span>,
+						<span class="st"><b>D</b>Arizona (11)</span>
+					</li>
+				</ul>
+				<button id="show-poll-closings" class="btn btn-mini" type="button">Show All Closing Times</button>
+				<!-- TODO: pop up full poll closing schedule in a modal -->
+
+				<h5>Called Races</h5>
+				<ul id="pres-called" class="results">
+					<li class="hdr">
+						<span class="st">&nbsp;</span>
+						<span class="blue">Obama</span>
+						<span class="red">Romney</span>
+					</li>
+					<li>
+						<span class="st"><b>B</b>Ala.</span>
+						<span class="blue">50%</span>
+						<span class="red winner">50%</span>
+						<span class="precincts">100% rept.</span>
+					</li>
+					<li>
+						<span class="st"><b>q</b>Texas</span>
+						<span class="blue winner">50%</span>
+						<span class="red">50%</span>
+						<span class="precincts">100% rept.</span>
+					</li>
+					<li>
+						<span class="st"><b>B</b>Ala.</span>
+						<span class="blue">50%</span>
+						<span class="red winner">50%</span>
+						<span class="precincts">100% rept.</span>
+					</li>
+					<li>
+						<span class="st"><b>q</b>Texas</span>
+						<span class="blue winner">50%</span>
+						<span class="red">50%</span>
+						<span class="precincts">100% rept.</span>
+					</li>
+				</ul>
+				
+        	</div> <!-- end #pres-results -->
+        
+        
+        	<div id="electris">
 
 				<div id="states">
 					<div id="buckets">
@@ -175,22 +285,19 @@
 
 							</div>
 							<div class="bucket blue"></div>
-
-							<!--<div class="combos">
-								<h5>Assign Tossups</h5>
+							<div class="combos">
+								<!-- chicklets -->
+								<h5>Predict Races</h5>
                                 <ul class="tossups blue"></ul>
 
+								<!-- HISTOGRAM -->
 								<h5>Ways He Can Win</h5>
+								<p class="robotext">If Obama wins <strong><b>d</b> New Hampshire (4)</strong> and <strong><b>t</b> Vermont (3)</strong>, he must still win at <strong>least 4 more tossup states</strong>. Possible combinations:</p>
 								<ul class="histogram blue"></ul>
+								<button id="show-blue-combos" class="btn btn-mini btn-inverse" type="button">Show All Paths</button>
+								<!-- TODO: pop up full list of combos in a modal -->
 							</div>
-
-							<div class="combinations">
-								<h5>Paths To Victory: Obama's Options</h5>
-								<p class="robotext"></p>
-								<ul>
-								</ul>
-                            </div>-->
-                        </div>
+						</div> <!-- end .candidate.blue -->
 
 						<div class="candidate red">
 							<div class="bucket-header">
@@ -208,21 +315,19 @@
 								</div>
 							</div>
 							<div class="bucket red"></div>
-                            
-                            <!--<div class="combos">
-								<h5>Assign Tossups</h5>
+							<div class="combos">
+								<!-- chicklets -->
+								<h5>Predict Races</h5>
                                 <ul class="tossups red"></ul>
                                 
+                                <!-- HISTOGRAM -->
 								<h5>Ways He Can Win</h5>
+								<p class="robotext">If Romney wins <strong><b>d</b> New Hampshire (4)</strong> and <strong><b>t</b> Vermont (3)</strong>, he must still win at <strong>least 4 more tossup states</strong>. Possible combinations:</p>
 								<ul class="histogram red"></ul>
+								<button id="show-red-combos" class="btn btn-mini btn-inverse" type="button">Show All Paths</button>
+								<!-- TODO: pop up full list of combos in a modal -->
 							</div>
-							<div class="combinations">
-								<h5>Paths To Victory: Romney's Options</h5>
-								<p class="robotext"></p>
-								<ul>
-								</ul>
-                            </div>-->
-                        </div>
+						</div> <!-- end .candidate.red -->
 						<div id="line"><b>270</b></div>
 
 					</div> <!-- end #buckets -->
@@ -269,7 +374,7 @@
     </div>
 
     <script id="state-template" type="text/template">
-        <div class="state <%= state.id %> call-<%= state.call %>" data-id="<%= state.id %>">
+        <div class="state <%= state.id %> prediction-<%= state.prediction %> call-<%= state.call %>" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
                 <i rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><span><%= state.stateface %></span></i>
             <% }); %>

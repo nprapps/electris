@@ -17,12 +17,15 @@ $(function() {
         moment("2012-11-07T01:00:00 -0500")
     ];
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
+    var MAX_STATES_FOR_COMBOS = 12;
+    var MIN_VOTES_FOR_COMBOS = 240;
     var MAX_COMBO_GROUP = 7;
-    var POLLING_INTERVAL = 2500;
+    var POLLING_INTERVAL = 1000;
 
     if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); } else { $("body").addClass("no-touch"); }
 
     /* Elements */
+    var maincontent_el = $("#maincontent");
     var electris_el = $("#electris");
     var red_candidate_el = $(".candidate.red");
     var blue_candidate_el = $(".candidate.blue");
@@ -37,7 +40,6 @@ $(function() {
 
     /* State data */
     var states = [];
-    var states_html = {};
     var states_by_id = {};
     var red_votes = 0;
     var blue_votes = 0;
@@ -49,7 +51,9 @@ $(function() {
     /* DATA PROCESSING & RENDERING */
     
     function add_state(state) {
-        var el = $(states_html[state.id]);
+        var el = $(STATE_TEMPLATE({
+            state: state
+        }));
 
         if (state.call === "r") {
             red_bucket_el.append(el);
@@ -59,12 +63,6 @@ $(function() {
             if (tossup_picks[state.id] === "r") {
                 red_bucket_el.append(el);
             } else {
-                blue_bucket_el.append(el);
-            }
-        } else {
-            if (state.prediction === "sr" || state.prediction === "lr") {
-                red_bucket_el.append(el);
-            } else if (state.prediction === "sd" || state.prediction === "ld") {
                 blue_bucket_el.append(el);
             }
         }
@@ -93,14 +91,6 @@ $(function() {
                 red_called.push(state)
             } else if (state.call === "d") {
                 blue_called.push(state)
-            } else if (state.prediction === "sr") {
-                red_solid.push(state);
-            } else if (state.prediction === "sd") {
-                blue_solid.push(state);
-            } else if (state.prediction === "lr") {
-                red_leans.push(state);
-            } else if (state.prediction === "ld") {
-                blue_leans.push(state);
             } else if (state.id in tossup_picks) {
                 if (tossup_picks[state.id] === "r") {
                     red_predicted.push(state);
@@ -130,21 +120,15 @@ $(function() {
          */
         var states_called_red = [];
         var states_called_blue = [];
-        var states_fixed_red = [];
-        var states_fixed_blue = [];
         var states_user_red = [];
         var states_user_blue = [];
-        var states_not_predicted = [];
+        var states_not_called = [];
 
         _.each(states, function(state) {
             if (state.call === "r") {
                 states_called_red.push(state);
             } else if (state.call === "d") {
                 states_called_blue.push(state)
-            } else if (state.prediction === "sr" || state.prediction === "lr") {
-                states_fixed_red.push(state);
-            } else if (state.prediction === "sd" || state.prediction == "ld") {
-                states_fixed_blue.push(state);
             } else if (state.id in tossup_picks) {
                 if (tossup_picks[state.id] === "r") {
                     states_user_red.push(state);
@@ -152,7 +136,7 @@ $(function() {
                     states_user_blue.push(state);
                 }
             } else {
-                states_not_predicted.push(state);
+                states_not_called.push(state);
             }
         });
 
@@ -161,25 +145,28 @@ $(function() {
         }
 
         var red_votes_called = sum_votes(states_called_red);
-        var red_votes_fixed = sum_votes(states_fixed_red)
         var red_votes_user = sum_votes(states_user_red);
-        red_votes = red_votes_called + red_votes_fixed + red_votes_user;
+        red_votes = red_votes_called + red_votes_user;
         $("#p-red-electoral").text(red_votes);
         red_candidate_el.find(".needed .bignum").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - red_votes));
         red_candidate_el.toggleClass("winner", red_votes >= ELECTORAL_VOTES_TO_WIN);
 
         var blue_votes_called = sum_votes(states_called_blue);
-        var blue_votes_fixed = sum_votes(states_fixed_blue);
         var blue_votes_user = sum_votes(states_user_blue);
-        blue_votes = blue_votes_called + blue_votes_fixed + blue_votes_user;
+        blue_votes = blue_votes_called + blue_votes_user;
         $("#p-blue-electoral").text(blue_votes);
         blue_candidate_el.find(".needed .bignum").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
         blue_candidate_el.toggleClass("winner", blue_votes >= ELECTORAL_VOTES_TO_WIN);
 
         resize_buckets();
 
-        if (generate_combos) {
-            generate_winning_combinations(states_not_predicted);
+        var combos_safe = (
+            states_not_called.length <= MAX_STATES_FOR_COMBOS &&
+            (red_votes >= MIN_VOTES_FOR_COMBOS || blue_votes >= MIN_VOTES_FOR_COMBOS)
+        );
+
+        if (generate_combos && combos_safe) {
+            generate_winning_combinations(states_not_called);
         }
     }
 
@@ -187,11 +174,16 @@ $(function() {
         /*
          * Resize state buckets.
          */
-        var window_width = $('#maincontent').width();
+        var window_width = maincontent_el.width();
+        var is_skinny = electris_el.hasClass("skinny");
         var bucket_columns = 10;
 
-        if (window_width >= 1170) {
-            bucket_columns = 15;
+        if (is_skinny) {
+            // pass
+        } else {
+            if (window_width >= 1170) {
+                bucket_columns = 15;
+            }
         }
 
         var default_height = ELECTORAL_VOTES_TO_WIN / bucket_columns;
@@ -200,12 +192,20 @@ $(function() {
         $(".bucket").css("height", height + "em");
 
         // position 270 line
-        var header_height = 3;
-        if (window_width == 724) {
-        	header_height = 4;
-    	} else if (window_width < 724) {
-        	header_height = 8;
+
+        if (is_skinny) {
+            // TODO -- skinny responsive
+            var header_height = 4;
+        } else {
+            var header_height = 3;
+            
+            if (window_width == 724) {
+                header_height = 4;
+            } else if (window_width < 724) {
+                header_height = 8;
+            }
         }
+
     	var line_height = .1;
 
         if ($.browser.msie) {
@@ -218,10 +218,16 @@ $(function() {
     	var bucket2_pos = $('.bucket.red').position();
     	var line_left = 0;
     	var line_width = '100%';
-    	if (window_width >= 724) {
-	    	line_left = bucket_pos.left;
-	    	line_width = (bucket2_pos.left + $('.bucket.red').width()) - bucket_pos.left + 'px';
-	    }
+
+        if (is_skinny) {
+            // TODO -- skinny responsive
+        } else {
+            if (window_width >= 724) {
+                line_left = bucket_pos.left;
+                line_width = (bucket2_pos.left + $('.bucket.red').width()) - bucket_pos.left + 'px';
+            }
+        }
+
     	$('#line').css('top', line_top + 'em').css('left', line_left + 'px').width(line_width);
     }
 
@@ -506,11 +512,6 @@ $(function() {
             // Build lookup table
             states_by_id[state.id] = state;
 
-            // Pre-render state HTML
-            states_html[state.id] = STATE_TEMPLATE({
-                state: state
-            });
-
             if (state.prediction === "t") {
                 var html = TOSSUP_TEMPLATE({
                     state: state
@@ -539,7 +540,9 @@ $(function() {
          */
         var changes = false;
 
-        for (i = 0; i < states.length; i++) {
+        console.log("updating");
+
+        for (var i = 0; i < states.length; i++) {
             var old_state = states[i];
             var state = data[i];
 
@@ -554,14 +557,14 @@ $(function() {
                 if (old_state["call"] != state["call"]) {
                     // Uncalled
                     if (!state["call"]) {
-                        alert(state["name"] + " uncalled");
+                        console.log(state["name"] + " uncalled");
                     } else {
                         // Called
                         if (!old_state["call"]) {
-                            alert(state["name"] + " called as " + state["call"]);
+                            console.log(state["name"] + " called as " + state["call"]);
                         // Changed
                         } else {
-                            alert(state["name"] + " call changed to " + state["call"] + " instead of " + old_state["call"]);
+                            console.log(state["name"] + " call changed to " + state["call"] + " instead of " + old_state["call"]);
                         }
                     }
                 }
