@@ -342,7 +342,7 @@
                 </div> <!-- end #electris-skinny -->
 
                 <div id="incoming">
-                    <h2>incoming results</h2>
+                    <h2>Incoming Results</h2>
                 </div>
             </div>
             <div class="span7 tab-pane" id="live-blog">
@@ -352,15 +352,11 @@
             <div class="span5 tab-pane" id="backchannel">
 	            <div id="memehead">
 	               	<h2>The Back Channel</h2>
-	                   <h3>The debate behind the debate. <strong><a href="http://nprbackchannel.tumblr.com/" target="_blank">See all posts»</a></strong></h3>
+	               	<h3>The debate behind the debate. <strong><a href="http://nprbackchannel.tumblr.com/" target="_blank">See all posts &raquo;</a></strong></h3>
 	            </div>
-
-	               <div id="memetracker">
-	                   <div class="posts">
-	                   </div>
-
-	                   <div style="clear:both"></div>
-	                   <p class="more"><a href="http://nprbackchannel.tumblr.com/" target="_blank">See all posts</a></p>
+	            <div id="memetracker">
+	            	<div class="posts"></div>
+	            	<p class="more"><a href="http://nprbackchannel.tumblr.com/" target="_blank">see all posts</a></p>
 				</div>
             </div>
         </div>
@@ -368,7 +364,7 @@
 		<div id="footer" class="row">
 			<div class="span12">
 				<div class="credits" id="attrCredit">
-					Source: <a href="http://propublica.github.com/stateface/">StateFace</a> copyright (c) 2012, ProPublica<br />
+					Source: <a href="http://propublica.github.com/stateface/">StateFace</a> &copy; 2012, ProPublica<br />
 					Credits: Alyson Hurt, Christopher Groskopf, Jeremy Bowers, Stephanie d'Otreppe, Nelson Hsu and Brian Boyer / NPR
 				</div>
 			</div>
@@ -378,8 +374,6 @@
 					<li><a href="http://www.npr.org/sections/presidential-race">Presidential Race</a></li>
 					<li><a href="http://www.npr.org/series/139914785/barack-obama">Barack Obama (D)</a></li>
 					<li><a href="http://www.npr.org/series/139589850/mitt-romney">Mitt Romney (R)</a></li>
-					<li><a href="http://apps.npr.org/early-voting-2012/">Early Voting Calendar</a></li>
-					<li><a href="http://www.npr.org/2011/08/15/139648404/campaign-2012-political-calendar">Political Calendar</a></li>
 					<li><a href="http://www.npr.org/series/146345736/money-politics">Money &amp; Politics</a></li>
 					<li><a href="http://www.npr.org/series/128364156/the-message-machine">The Message Machine</a></li>
 				</ul>
@@ -473,7 +467,7 @@
     		<p>
     			<% if (post.link) { %> <a href="<%= post.link %>" target="_blank"> <% } %>
     			<%= post.content %>
-    			<% if (post.link) { %> | <strong>more &raquo;</strong></a> <% } %>
+    			<% if (post.link) { %> <span class="more">| <strong>more &raquo;</strong></span></a> <% } %>
     		</p>
     	</div>
     </script>
