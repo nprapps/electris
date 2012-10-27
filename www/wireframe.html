@@ -74,8 +74,35 @@
                 <h1>THE ELECTION AND STUFF</h1>
                 <p>Listen live, yo.</p>
             </div>
-            <div class="span4 results-group">
+            <div class="span4 results-group" id="pres-header">
                 <h2>prez results</h2>
+
+				<h3><i>Barack </i><b>Obama</b></h3>
+
+				<div class="vote-tallies">
+					<div class="electoral">
+						<b id="p-blue-electoral" class="bignum">00</b>
+						<span>total</span>
+					</div>
+					<div class="needed">
+						<b class="bignum">?</b>
+						<span>to win</span>
+					</div>
+				</div>
+
+				<h3><i>Mitt </i><b>Romney</b></h3>
+
+				<div class="vote-tallies">
+					<div class="electoral">
+						<b id="p-red-electoral" class="bignum">00</b>
+						<span>total</span>
+					</div>
+					<div class="needed">
+						<b class="bignum">?</b>
+						<span>to win</span>
+					</div>
+				</div>
+
             </div>
             <div class="span4 results-group">
                 <h2>house results</h2>
@@ -95,134 +122,105 @@
         </div>
 
         <div class="row" id="electris">
-        	<div id="pres-results" class="span3">
-				<h5>Incoming Results</h5>
-				<ul id="pres-watching" class="results">
-					<li class="hdr">
-						<span class="st">&nbsp;</span>
-						<span class="blue">Obama</span>
-						<span class="red">Romney</span>
-					</li>
-					<li>
-						<span class="st"><b>B</b>Ala.</span>
-						<span class="blue">50%</span>
-						<span class="red">50%</span>
-						<span class="precincts">20% rept.</span>
-					</li>
-					<li>
-						<span class="st"><b>q</b>Texas</span>
-						<span class="blue">50%</span>
-						<span class="red">50%</span>
-						<span class="precincts">20% rept.</span>
-					</li>
-					<li>
-						<span class="st"><b>B</b>Ala.</span>
-						<span class="blue">50%</span>
-						<span class="red">50%</span>
-						<span class="precincts">20% rept.</span>
-					</li>
-					<li>
-						<span class="st"><b>q</b>Texas</span>
-						<span class="blue">50%</span>
-						<span class="red">50%</span>
-						<span class="precincts">20% rept.</span>
-					</li>
-					<li>
-						<span class="st"><b>B</b>Ala.</span>
-						<span class="blue">50%</span>
-						<span class="red">50%</span>
-						<span class="precincts">20% rept.</span>
-					</li>
-					<li>
-						<span class="st"><b>q</b>Texas</span>
-						<span class="blue">50%</span>
-						<span class="red">50%</span>
-						<span class="precincts">20% rept.</span>
-					</li>
-				</ul>
-				
-				<h5>Next Poll Closing</h5>
-				<ul id="pres-closing" class="results">
-					<li class="time-0700">
-						<strong>7:00 PM ET</strong>
-						<span class="st"><b>q</b>Texas (38)</span>,
-						<span class="st"><b>B</b>Alabama (9)</span>,
-						<span class="st"><b>D</b>Arizona (11)</span>
-					</li>
-					<li class="time-0730">
-						<strong>7:30 PM ET</strong>
-						<span class="st"><b>q</b>Texas (38)</span>,
-						<span class="st"><b>B</b>Alabama (9)</span>,
-						<span class="st"><b>D</b>Arizona (11)</span>
-					</li>
-					<li class="time-0800">
-						<strong>8:00 PM ET</strong>
-						<span class="st"><b>q</b>Texas (38)</span>,
-						<span class="st"><b>B</b>Alabama (9)</span>,
-						<span class="st"><b>D</b>Arizona (11)</span>
-					</li>
-					<li class="time-0900">
-						<strong>9:00 PM ET</strong>
-						<span class="st"><b>q</b>Texas (38)</span>,
-						<span class="st"><b>B</b>Alabama (9)</span>,
-						<span class="st"><b>D</b>Arizona (11)</span>
-					</li>
-					<li class="time-1000">
-						<strong>10:00 PM ET</strong>
-						<span class="st"><b>q</b>Texas (38)</span>,
-						<span class="st"><b>B</b>Alabama (9)</span>,
-						<span class="st"><b>D</b>Arizona (11)</span>
-					</li>
-					<li class="time-1100">
-						<strong>11:00 PM ET</strong>
-						<span class="st"><b>q</b>Texas (38)</span>,
-						<span class="st"><b>B</b>Alabama (9)</span>,
-						<span class="st"><b>D</b>Arizona (11)</span>
-					</li>
-					<li class="time-0100">
-						<strong>1:00 AM ET</strong>
-						<span class="st"><b>q</b>Texas (38)</span>,
-						<span class="st"><b>B</b>Alabama (9)</span>,
-						<span class="st"><b>D</b>Arizona (11)</span>
-					</li>
-				</ul>
-				<button id="show-poll-closings" class="btn btn-mini" type="button">Show All Closing Times</button>
-				<!-- TODO: pop up full poll closing schedule in a modal -->
+        	<div class="pres-results span3">
 
-				<h5>Called Races</h5>
-				<ul id="pres-called" class="results">
-					<li class="hdr">
-						<span class="st">&nbsp;</span>
-						<span class="blue">Obama</span>
-						<span class="red">Romney</span>
-					</li>
-					<li>
-						<span class="st"><b>B</b>Ala.</span>
-						<span class="blue">50%</span>
-						<span class="red winner">50%</span>
-						<span class="precincts">100% rept.</span>
-					</li>
-					<li>
-						<span class="st"><b>q</b>Texas</span>
-						<span class="blue winner">50%</span>
-						<span class="red">50%</span>
-						<span class="precincts">100% rept.</span>
-					</li>
-					<li>
-						<span class="st"><b>B</b>Ala.</span>
-						<span class="blue">50%</span>
-						<span class="red winner">50%</span>
-						<span class="precincts">100% rept.</span>
-					</li>
-					<li>
-						<span class="st"><b>q</b>Texas</span>
-						<span class="blue winner">50%</span>
-						<span class="red">50%</span>
-						<span class="precincts">100% rept.</span>
-					</li>
-				</ul>
+				<div class="pres-watching results">
+					<h5>Incoming Results</h5>
+					<ul>
+						<li class="hdr">
+							<span class="st">&nbsp;</span>
+							<span class="blue">Obama</span>
+							<span class="red">Romney</span>
+						</li>
+						<li>
+							<span class="st"><b>B</b>Ala.</span>
+							<span class="blue">50%</span>
+							<span class="red">50%</span>
+							<span class="precincts">20% rept.</span>
+						</li>
+						<li>
+							<span class="st"><b>q</b>Texas</span>
+							<span class="blue">50%</span>
+							<span class="red">50%</span>
+							<span class="precincts">20% rept.</span>
+						</li>
+						<li>
+							<span class="st"><b>B</b>Ala.</span>
+							<span class="blue">50%</span>
+							<span class="red">50%</span>
+							<span class="precincts">20% rept.</span>
+						</li>
+						<li>
+							<span class="st"><b>q</b>Texas</span>
+							<span class="blue">50%</span>
+							<span class="red">50%</span>
+							<span class="precincts">20% rept.</span>
+						</li>
+						<li>
+							<span class="st"><b>B</b>Ala.</span>
+							<span class="blue">50%</span>
+							<span class="red">50%</span>
+							<span class="precincts">20% rept.</span>
+						</li>
+						<li>
+							<span class="st"><b>q</b>Texas</span>
+							<span class="blue">50%</span>
+							<span class="red">50%</span>
+							<span class="precincts">20% rept.</span>
+						</li>
+					</ul>
+				</div>
 				
-        	</div> <!-- end #pres-results -->
+				<div class="pres-closing results">
+					<h5>Next Poll Closing</h5>
+					<ul>
+						<li class="time-0700">
+							<strong>7:00 PM ET</strong>
+							<span class="st"><b>q</b>Texas (38)</span>,
+							<span class="st"><b>B</b>Alabama (9)</span>,
+							<span class="st"><b>D</b>Arizona (11)</span>
+						</li>
+					</ul>
+					<button class="btn btn-mini btn-inverse show-poll-closings" type="button">Show All Closing Times</button>
+					<!-- TODO: pop up full poll closing schedule in a modal -->
+				</div>
+
+				<div class="pres-called results">
+					<h5>Called Races</h5>
+					<ul>
+						<li class="hdr">
+							<span class="st">&nbsp;</span>
+							<span class="blue">Obama</span>
+							<span class="red">Romney</span>
+						</li>
+						<li>
+							<span class="st"><b>B</b>Ala.</span>
+							<span class="blue">50%</span>
+							<span class="red winner">50%</span>
+							<span class="precincts">100% rept.</span>
+						</li>
+						<li>
+							<span class="st"><b>q</b>Texas</span>
+							<span class="blue winner">50%</span>
+							<span class="red">50%</span>
+							<span class="precincts">100% rept.</span>
+						</li>
+						<li>
+							<span class="st"><b>B</b>Ala.</span>
+							<span class="blue">50%</span>
+							<span class="red winner">50%</span>
+							<span class="precincts">100% rept.</span>
+						</li>
+						<li>
+							<span class="st"><b>q</b>Texas</span>
+							<span class="blue winner">50%</span>
+							<span class="red">50%</span>
+							<span class="precincts">100% rept.</span>
+						</li>
+					</ul>
+				</div>
+				
+        	</div> <!-- end .pres-results -->
 
             <div class="states span9">
                 <div class="buckets">
@@ -296,43 +294,14 @@
         <div class="row" id="creamy-filling">
             <div class="span5 tab-pane active" id="results">
                 <div id="electris-skinny">
+                	<h2>Race For The White House</h2>
                     <div class="states">
                         <div class="buckets">
                             <div class="candidate blue">
-                                <div class="bucket-header">
-                                    <h3><i>Barack </i><b>Obama</b></h3>
-
-                                    <div class="vote-tallies">
-                                        <div class="electoral">
-                                            <b id="p-blue-electoral" class="bignum">00</b>
-                                            <span>total</span>
-                                        </div>
-                                        <div class="needed">
-                                            <b class="bignum">?</b>
-                                            <span>to win</span>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="bucket blue"></div>
                             </div>
 
                             <div class="candidate red">
-                                <div class="bucket-header">
-                                    <h3><i>Mitt </i><b>Romney</b></h3>
-
-                                    <div class="vote-tallies">
-                                        <div class="electoral">
-                                            <b id="p-red-electoral" class="bignum">00</b>
-                                            <span>total</span>
-                                        </div>
-                                        <div class="needed">
-                                            <b class="bignum">?</b>
-                                            <span>to win</span>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="bucket red"></div>
                             </div>
                             <div class="line"><b>270</b></div>
@@ -341,8 +310,102 @@
                     </div> <!-- end .states -->
                 </div> <!-- end #electris-skinny -->
 
-                <div id="incoming">
-                    <h2>Incoming Results</h2>
+                <div id="incoming" class="pres-results">
+                	<div class="pres-watching results">
+						<h5>Incoming Results</h5>
+						<ul>
+							<li class="hdr">
+								<span class="st">&nbsp;</span>
+								<span class="blue">Obama</span>
+								<span class="red">Romney</span>
+							</li>
+							<li>
+								<span class="st"><b>B</b>Ala.</span>
+								<span class="blue">50%</span>
+								<span class="red">50%</span>
+								<span class="precincts">20% rept.</span>
+							</li>
+							<li>
+								<span class="st"><b>q</b>Texas</span>
+								<span class="blue">50%</span>
+								<span class="red">50%</span>
+								<span class="precincts">20% rept.</span>
+							</li>
+							<li>
+								<span class="st"><b>B</b>Ala.</span>
+								<span class="blue">50%</span>
+								<span class="red">50%</span>
+								<span class="precincts">20% rept.</span>
+							</li>
+							<li>
+								<span class="st"><b>q</b>Texas</span>
+								<span class="blue">50%</span>
+								<span class="red">50%</span>
+								<span class="precincts">20% rept.</span>
+							</li>
+							<li>
+								<span class="st"><b>B</b>Ala.</span>
+								<span class="blue">50%</span>
+								<span class="red">50%</span>
+								<span class="precincts">20% rept.</span>
+							</li>
+							<li>
+								<span class="st"><b>q</b>Texas</span>
+								<span class="blue">50%</span>
+								<span class="red">50%</span>
+								<span class="precincts">20% rept.</span>
+							</li>
+						</ul>
+					</div>
+					
+					<div class="pres-closing results">
+						<h5>Next Poll Closing</h5>
+						<ul>
+							<li class="time-0700">
+								<strong>7:00 PM ET</strong>
+								<span class="st"><b>q</b>Texas (38)</span>,
+								<span class="st"><b>B</b>Alabama (9)</span>,
+								<span class="st"><b>D</b>Arizona (11)</span>
+							</li>
+						</ul>
+						<button class="btn btn-mini btn-inverse show-poll-closings" type="button">Show All Closing Times</button>
+						<!-- TODO: pop up full poll closing schedule in a modal -->
+					</div>
+	
+					<div class="pres-called results">
+						<h5>Called Races</h5>
+						<ul>
+							<li class="hdr">
+								<span class="st">&nbsp;</span>
+								<span class="blue">Obama</span>
+								<span class="red">Romney</span>
+							</li>
+							<li>
+								<span class="st"><b>B</b>Ala.</span>
+								<span class="blue">50%</span>
+								<span class="red winner">50%</span>
+								<span class="precincts">100% rept.</span>
+							</li>
+							<li>
+								<span class="st"><b>q</b>Texas</span>
+								<span class="blue winner">50%</span>
+								<span class="red">50%</span>
+								<span class="precincts">100% rept.</span>
+							</li>
+							<li>
+								<span class="st"><b>B</b>Ala.</span>
+								<span class="blue">50%</span>
+								<span class="red winner">50%</span>
+								<span class="precincts">100% rept.</span>
+							</li>
+							<li>
+								<span class="st"><b>q</b>Texas</span>
+								<span class="blue winner">50%</span>
+								<span class="red">50%</span>
+								<span class="precincts">100% rept.</span>
+							</li>
+						</ul>
+					</div>
                 </div>
             </div>
             <div class="span7 tab-pane" id="live-blog">
