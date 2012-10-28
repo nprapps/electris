@@ -32,8 +32,9 @@ $(function() {
     /* Elements */
     var electris_el = $("#electris");
     var electris_skinny_el = $("#electris-skinny");
+    var electris_line_el = electris_el.find(".line");
     var incoming_el = $("#incoming");
-    var maincontent_el = $("#maincontent");
+    var maincontent_el = $("#the-stuff");
     var red_candidate_el = $(".candidate.red");
     var blue_candidate_el = $(".candidate.blue");
     var red_bucket_el = red_candidate_el.find(".bucket");
@@ -194,12 +195,6 @@ $(function() {
         var window_width = maincontent_el.width();
         var bucket_columns = 10;
 
-        if (wide_mode) {
-            if (window_width >= 1170) {
-                bucket_columns = 15;
-            }
-        }
-
         var default_height = ELECTORAL_VOTES_TO_WIN / bucket_columns;
         var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns)
         var height = Math.max(default_height, vote_height);
@@ -220,6 +215,9 @@ $(function() {
             header_height = 8;
         }
 
+        console.log(window_width);
+        console.log(header_height);
+
     	var line_height = .1;
 
         if ($.browser.msie) {
@@ -238,7 +236,7 @@ $(function() {
             line_width = (bucket2_pos.left + red_bucket_el.width()) - bucket_pos.left + 'px';
         }
 
-    	$('.line').css('top', line_top + 'em').css('left', line_left + 'px').width(line_width);
+    	electris_line_el.css('top', line_top + 'em').css('left', line_left + 'px').width(line_width);
     }
 
     $(window).resize(resize_buckets);

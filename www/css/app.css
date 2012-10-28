@@ -170,7 +170,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 .no-touch .state:hover i { color: #333; } 
 
-#line {
+.line {
 	height: 1px;
 	background-color: #B39429;
     position:absolute;
@@ -179,7 +179,7 @@ a.btn { color: #fff; cursor: pointer; }
     text-align:right;
     line-height:0;
 }
-#line b {
+.line b {
     display: block;
     text-align: center;
     background-color: #FFF;
@@ -567,7 +567,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.blue .vote-tallies .bignum { float: left; margin-right: 3%; margin-left: 0; }
 	.blue .vote-tallies span { text-align: left; }
 	.combos { width: auto; height: auto; border: none; }
-	#line b {background: url('../img/270-line-767.png') no-repeat center center; height: 42px;margin-top: -10px;}
+	.line b {background: url('../img/270-line-767.png') no-repeat center center; height: 42px;margin-top: -10px;}
 
 	.combinations h4 { width: auto; float: none; margin-bottom: 6px; }
 	.combinations ul li ul { width: auto; float: none; }
