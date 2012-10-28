@@ -154,15 +154,15 @@ $(function() {
         var red_votes_called = sum_votes(states_called_red);
         var red_votes_user = sum_votes(states_user_red);
         red_votes = red_votes_called + red_votes_user;
-        $("#p-red-electoral").text(red_votes);
-        red_candidate_el.find(".needed .bignum").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - red_votes));
+        $(".red-votes").text(red_votes);
+        $(".red-needs").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - red_votes));
         red_candidate_el.toggleClass("winner", red_votes >= ELECTORAL_VOTES_TO_WIN);
 
         var blue_votes_called = sum_votes(states_called_blue);
         var blue_votes_user = sum_votes(states_user_blue);
         blue_votes = blue_votes_called + blue_votes_user;
-        $("#p-blue-electoral").text(blue_votes);
-        blue_candidate_el.find(".needed .bignum").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
+        $(".blue-votes").text(blue_votes);
+        $(".blue-needs").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
         blue_candidate_el.toggleClass("winner", blue_votes >= ELECTORAL_VOTES_TO_WIN);
 
 
