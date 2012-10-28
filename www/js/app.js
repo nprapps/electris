@@ -198,7 +198,6 @@ $(function() {
             if (window_width >= 1170) {
                 bucket_columns = 15;
             }
-        } else {
         }
 
         var default_height = ELECTORAL_VOTES_TO_WIN / bucket_columns;
@@ -206,19 +205,19 @@ $(function() {
         var height = Math.max(default_height, vote_height);
         $(".bucket").css("height", height + "em");
 
-        // position 270 line
+        if (!wide_mode) {
+            // In skinny mode, the 270 line will never move
+            return;
+        }
 
-        if (wide_mode) {
-            var header_height = 3;
-            
-            if (window_width == 724) {
-                header_height = 4;
-            } else if (window_width < 724) {
-                header_height = 8;
-            }
-        } else {
-            // TODO -- skinny responsive
-            var header_height = 0;
+        // Compute current position of 270 line
+
+        var header_height = 3;
+        
+        if (window_width == 724) {
+            header_height = 4;
+        } else if (window_width < 724) {
+            header_height = 8;
         }
 
     	var line_height = .1;
@@ -229,21 +228,17 @@ $(function() {
     	    var line_top = header_height + height - default_height + line_height;
         }
 
-    	var bucket_pos = $('.bucket.blue').position();
-    	var bucket2_pos = $('.bucket.red').position();
+    	var bucket_pos = blue_bucket_el.position();
+    	var bucket2_pos = red_bucket_el.position();
     	var line_left = 0;
     	var line_width = '100%';
 
-        if (wide_mode) {
-            if (window_width >= 724) {
-                line_left = bucket_pos.left;
-                line_width = (bucket2_pos.left + $('.bucket.red').width()) - bucket_pos.left + 'px';
-            }
-        } else {
-            // TODO -- skinny responsive
+        if (window_width >= 724) {
+            line_left = bucket_pos.left;
+            line_width = (bucket2_pos.left + red_bucket_el.width()) - bucket_pos.left + 'px';
         }
 
-    	$('#line').css('top', line_top + 'em').css('left', line_left + 'px').width(line_width);
+    	$('.line').css('top', line_top + 'em').css('left', line_left + 'px').width(line_width);
     }
 
     $(window).resize(resize_buckets);
