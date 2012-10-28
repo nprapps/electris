@@ -172,30 +172,6 @@
 							<span class="blue">Obama</span>
 							<span class="red">Romney</span>
 						</li>
-						<li>
-							<span class="st"><b>B</b>Ala.</span>
-							<span class="blue">50%</span>
-							<span class="red winner">50%</span>
-							<span class="precincts">100% rept.</span>
-						</li>
-						<li>
-							<span class="st"><b>q</b>Texas</span>
-							<span class="blue winner">50%</span>
-							<span class="red">50%</span>
-							<span class="precincts">100% rept.</span>
-						</li>
-						<li>
-							<span class="st"><b>B</b>Ala.</span>
-							<span class="blue">50%</span>
-							<span class="red winner">50%</span>
-							<span class="precincts">100% rept.</span>
-						</li>
-						<li>
-							<span class="st"><b>q</b>Texas</span>
-							<span class="blue winner">50%</span>
-							<span class="red">50%</span>
-							<span class="precincts">100% rept.</span>
-						</li>
 					</ul>
 				</div>
 				
@@ -359,30 +335,6 @@
 								<span class="blue">Obama</span>
 								<span class="red">Romney</span>
 							</li>
-							<li>
-								<span class="st"><b>B</b>Ala.</span>
-								<span class="blue">50%</span>
-								<span class="red winner">50%</span>
-								<span class="precincts">100% rept.</span>
-							</li>
-							<li>
-								<span class="st"><b>q</b>Texas</span>
-								<span class="blue winner">50%</span>
-								<span class="red">50%</span>
-								<span class="precincts">100% rept.</span>
-							</li>
-							<li>
-								<span class="st"><b>B</b>Ala.</span>
-								<span class="blue">50%</span>
-								<span class="red winner">50%</span>
-								<span class="precincts">100% rept.</span>
-							</li>
-							<li>
-								<span class="st"><b>q</b>Texas</span>
-								<span class="blue winner">50%</span>
-								<span class="red">50%</span>
-								<span class="precincts">100% rept.</span>
-							</li>
 						</ul>
 					</div>
                 </div>
@@ -442,6 +394,15 @@
                 <i rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><span><%= state.stateface %></span></i>
             <% }); %>
         </div>
+    </script>
+
+    <script id="called-template" type="text/template">
+        <li class="called <%= state.id %>" <% if (!state.call) { %>style="display:none;"<% } %>>
+            <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
+            <span class="blue <% if (state.call === "d") { %>winner<% } %>"><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
+            <span class="red <% if (state.call === "r") { %>winner<% } %>"><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
+            <span class="precincts"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% rept.</span>
+        </li>
     </script>
 
     <script id="tossup-template" type="text/template">

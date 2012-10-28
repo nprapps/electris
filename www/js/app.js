@@ -2,6 +2,7 @@ $(function() {
     /* Settings */
     var ELECTORAL_VOTES_TO_WIN = 270;
     var STATE_TEMPLATE = _.template($("#state-template").html());
+    var CALLED_TEMPLATE = _.template($("#called-template").html());
     var TOSSUP_TEMPLATE = _.template($("#tossup-template").html());
     var COMBO_GROUP_TEMPLATE = _.template($("#combo-group-template").html());
     var HISTOGRAM_TEMPLATE = _.template($("#histogram-template").html());
@@ -63,21 +64,38 @@ $(function() {
             state: state
         }));
 
-        if (state.call === "r") {
-            red_bucket_el.append(el);
-        } else if (state.call === "d") {
-            blue_bucket_el.append(el);
-        } else if (state.id in tossup_picks) {
-            if (tossup_picks[state.id] === "r") {
+        // Called states
+        if (state.call) {
+            if (state.call === "r") {
                 red_bucket_el.append(el);
-            } else {
+            } else if (state.call === "d") {
                 blue_bucket_el.append(el);
+            } 
+            
+            if (SHOW_TOOLTIPS) {
+                el.find("i").tooltip({});
+            }
+        // Reporting states
+        } else if (state.precincts_reporting > 0 || moment() > state.polls_close) {
+            if (state.id in tossup_picks) {
+                if (tossup_picks[state.id] === "r") {
+                    red_bucket_el.append(el);
+                } else {
+                    blue_bucket_el.append(el);
+                }
+            }
+        // States not yet closed
+        } else {
+            if (state.id in tossup_picks) {
+                if (tossup_picks[state.id] === "r") {
+                    red_bucket_el.append(el);
+                } else {
+                    blue_bucket_el.append(el);
+                }
             }
         }
-        
-        if (SHOW_TOOLTIPS) {
-            el.find("i").tooltip({});
-        }
+
+
     }
 
     function add_states() {
@@ -518,9 +536,17 @@ $(function() {
          */
         states = data;
 
+        var pres_called_ul = $(".pres-called ul");
+
         _.each(states, function(state) { 
             // Build lookup table
             states_by_id[state.id] = state;
+
+            var called_el = $(CALLED_TEMPLATE({
+                state: state
+            }));
+
+            pres_called_ul.append(called_el);
 
             if (!state.call) {
                 var html = TOSSUP_TEMPLATE({
@@ -561,6 +587,12 @@ $(function() {
 
                 $(".state." + state.id).remove();
                 add_state(state);
+                
+                var called_html = CALLED_TEMPLATE({
+                    state: state
+                });
+
+                $(".called." + state.id).replaceWith(called_html);
 
                 if (old_state["call"] != state["call"]) {
                     // Uncalled
