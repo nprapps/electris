@@ -15,7 +15,7 @@
 #states { font-size: 20px; }
 #resultsRow { margin-left: 0; }
 #pres-results { width: 22%; float: left; }
-#electris { width: 75%; float: right; }
+#electris { width: 75%; float: right; display: none; }
 .candidate { width: 48%; }
 .candidate.blue { float: left; }
 .candidate.red { float: right; }

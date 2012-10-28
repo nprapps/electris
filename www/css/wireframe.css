@@ -152,6 +152,7 @@ a.btn { color: #fff; cursor: pointer; }
     margin-top: 20px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
+#electris { display: none; }
 
 #electris:after,
 #electris-skinny:after,
