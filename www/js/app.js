@@ -215,9 +215,6 @@ $(function() {
             header_height = 8;
         }
 
-        console.log(window_width);
-        console.log(header_height);
-
     	var line_height = .1;
 
         if ($.browser.msie) {
@@ -520,7 +517,7 @@ $(function() {
             // Build lookup table
             states_by_id[state.id] = state;
 
-            if (state.prediction === "t") {
+            if (!state.call) {
                 var html = TOSSUP_TEMPLATE({
                     state: state
                 });
@@ -547,8 +544,6 @@ $(function() {
          * Update state data from JSON.
          */
         var changes = false;
-
-        console.log("updating");
 
         for (var i = 0; i < states.length; i++) {
             var old_state = states[i];
