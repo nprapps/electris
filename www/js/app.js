@@ -218,8 +218,7 @@ $(function() {
             }
         } else {
             // TODO -- skinny responsive
-            var header_height = 4;
-
+            var header_height = 0;
         }
 
     	var line_height = .1;
