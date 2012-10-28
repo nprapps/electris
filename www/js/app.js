@@ -3,6 +3,7 @@ $(function() {
     var ELECTORAL_VOTES_TO_WIN = 270;
     var STATE_TEMPLATE = _.template($("#state-template").html());
     var CALLED_TEMPLATE = _.template($("#called-template").html());
+    var INCOMING_TEMPLATE = _.template($("#incoming-template").html());
     var TOSSUP_TEMPLATE = _.template($("#tossup-template").html());
     var COMBO_GROUP_TEMPLATE = _.template($("#combo-group-template").html());
     var HISTOGRAM_TEMPLATE = _.template($("#histogram-template").html());
@@ -536,17 +537,24 @@ $(function() {
          */
         states = data;
 
-        var pres_called_ul = $(".pres-called ul");
+        var called_ul = $(".pres-called ul");
+        var incoming_ul = $(".pres-watching ul");
 
         _.each(states, function(state) { 
             // Build lookup table
             states_by_id[state.id] = state;
 
-            var called_el = $(CALLED_TEMPLATE({
+            var called_html = CALLED_TEMPLATE({
                 state: state
-            }));
+            });
 
-            pres_called_ul.append(called_el);
+            called_ul.append(called_html);
+
+            var incoming_html = INCOMING_TEMPLATE({
+                state: state
+            });
+
+            incoming_ul.append(incoming_html);
 
             if (!state.call) {
                 var html = TOSSUP_TEMPLATE({
@@ -593,6 +601,12 @@ $(function() {
                 });
 
                 $(".called." + state.id).replaceWith(called_html);
+
+                var incoming_html = INCOMING_TEMPLATE({
+                    state: state
+                });
+
+                $(".incoming." + state.id).replaceWith(incoming_html);
 
                 if (old_state["call"] != state["call"]) {
                     // Uncalled
