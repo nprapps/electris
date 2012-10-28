@@ -322,15 +322,18 @@ $(function() {
 
         var max_red_combo_group = _.max(_.values(red_groups), function(combo_group) {
             return combo_group.length;
-        });
+        }) || 0;
 
         var max_blue_combo_group = _.max(_.values(blue_groups), function(combo_group) {
             return combo_group.length;
-        });
-
-        var max_combo_group = _.max([max_red_combo_group.length, max_blue_combo_group.length]);
+        }) || 0;
         
-        var window_width = $('#maincontent').width();
+        max_red_combo_group = max_red_combo_group.length || 0;
+        max_blue_combo_group = max_blue_combo_group.length || 0;
+
+        var max_combo_group = _.max([max_red_combo_group, max_blue_combo_group]);
+
+        var window_width = maincontent_el.width();
 
         function show_combos(keys, groups, root_el, base_votes) {
             var combo_groups_el = root_el.find(".combinations ul");
@@ -345,13 +348,13 @@ $(function() {
                 var histogram_el = root_el.find(".histogram ." + side + key);
                 histogram_el.toggleClass("active", count > 0);
 
-                if (window_width > 480) {
-                    histogram_el.find(".bar").animate({ width: (count / max_combo_group * 100) + '%' }, 300);
-                } else {
-                    histogram_el.find(".bar").css({ width: (count / max_combo_group * 100) + '%' });
-                }
-
                 if (count > 0) {
+                    if (window_width > 480) {
+                        histogram_el.find(".bar").animate({ width: (count / max_combo_group * 100) + '%' }, 300);
+                    } else {
+                        histogram_el.find(".bar").css({ width: (count / max_combo_group * 100) + '%' });
+                    }
+
                     if (key > MAX_COMBO_GROUP) {
                         var combo_group_el = combo_groups_el.find("#" + side + MAX_COMBO_GROUP);
                     } else {
@@ -382,6 +385,8 @@ $(function() {
                     if (key <= MAX_COMBO_GROUP) {
                         combo_groups_el.append(combo_group_el);
                     }
+                } else {
+                    histogram_el.find(".bar").css({ width: '0%' });
                 }
             }
         }
@@ -405,7 +410,7 @@ $(function() {
             }
         });
 
-        red_candidate_el.find(".combinations .robotext").html(MUST_WIN_TEMPLATE({
+        red_candidate_el.find(".combos .robotext").html(MUST_WIN_TEMPLATE({
             candidate: "Romney",
             simplest_combo_length: simplest_combo_length,
             votes: red_votes,
@@ -420,7 +425,7 @@ $(function() {
             simplest_combo_length = 0;
         }
 
-        blue_candidate_el.find(".combinations .robotext").html(MUST_WIN_TEMPLATE({
+        blue_candidate_el.find(".combos .robotext").html(MUST_WIN_TEMPLATE({
             candidate: "Obama",
             simplest_combo_length: simplest_combo_length,
             votes: blue_votes,
