@@ -144,7 +144,6 @@ def deploy_local_data():
     """
     _gzip_www()
     local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/states.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
-    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/js/combo_primer.js s3://%(s3_bucket)s/%(deployed_name)s/js/') % env)
 
 
 def recreate_tables():
@@ -206,10 +205,6 @@ def update_backchannel():
             headers={'Cache-Control': 'max-age=0 no-cache no-store must-revalidate'}
         )
 
-def generate_initial_combos():
-    o.generate_initial_combos()
-
-
 def write_www_files():
     """
     Function to write output files to www from the database.
@@ -220,14 +215,11 @@ def write_www_files():
         local('rm www/house.json')
         local('rm www/senate.json')
         local('rm www/president.json')
-        local('rm www/js/combo_primer.js')
 
     o.write_electris_json()
     o.write_president_json()
     o.write_house_json()
     o.write_senate_json()
-    o.generate_initial_combos()
-
 
 def update_ap_data():
     """

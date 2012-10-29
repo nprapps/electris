@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import csv
 import json
 import os
 import gzip
@@ -319,23 +318,3 @@ def compute_combos(undecided_states, red_needs, blue_needs):
     }
 
 
-def generate_initial_combos():
-    """
-    Generates initial combos and writes them to JSON.
-    """
-    undecided_states = []
-    red_needs = 270
-    blue_needs = 270
-
-    for state in State.select().order_by(State.electoral_votes.desc()):
-        if state.prediction in ['sr', 'lr']:
-            red_needs -= state.electoral_votes
-        elif state.prediction in ['sd', 'ld']:
-            blue_needs -= state.electoral_votes
-        else:
-            undecided_states.append(state)
-
-    output = compute_combos(undecided_states, red_needs, blue_needs)
-
-    with open('www/js/combo_primer.js', 'w') as f:
-        f.write('var COMBO_PRIMER = %s' % json.dumps(output))
