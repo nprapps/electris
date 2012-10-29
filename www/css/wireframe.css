@@ -577,9 +577,10 @@ a.btn { color: #fff; cursor: pointer; }
 
 /* LIVE BLOG / "RIVER OF NEWS" */
 #live-blog .post { background-color: #f1f1f1; margin-bottom: 6px; padding: 15px; }
-#live-blog .post.sticky { background-color: #FFF; border: 1px dotted #999; }
+#live-blog .sticky { background-color: #FFF; border: 1px dotted #999; }
 #live-blog p { font: 15px/1.35em Arial, Helvetica, sans-serif; color: #555; margin: 0; }
-#live-blog p.tstamp { font-size: 12px; color: #999; margin-bottom: 3px; }
+#live-blog .sticky p { font-color: #333; font-weight: bold; }
+#live-blog p.tstamp, #live-blog .sticky p.tstamp { font-size: 12px; color: #999; margin-bottom: 3px; font-weight: normal; }
 #live-blog p a { color: #000; }
 #live-blog p a:hover { color: #36C; text-decoration: none; cursor: pointer; }
 #live-blog .more { white-space: nowrap; }
