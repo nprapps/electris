@@ -93,6 +93,7 @@ a.btn { color: #fff; cursor: pointer; }
 	padding: 1%;
 	border-top: 1px solid #3064d3;
 	border-bottom: 1px solid #3064d3;
+	margin-bottom: 0;
 }
 #tabs .nav-tabs li { 
 	width: 33%; text-align: center;
@@ -664,7 +665,8 @@ a.btn { color: #fff; cursor: pointer; }
 @media (max-width: 767px) {
 	#electris { margin-left: 0; padding-top: 18px; }
 	.NPRtablet #electris, .NPRphone #electris { padding-top: 0; }
-	.states { font-size: 10px; }
+	#electris-skinny .states, .states { font-size: 10px; }
+    #electris-skinny .state i,
     .state i {
         text-indent: -9999px;
         width:9.5%;
