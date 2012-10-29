@@ -40,6 +40,9 @@ h5 {
 	margin-bottom: 3px;
 }
 a.btn { color: #fff; cursor: pointer; }
+.modal-header { background-color: #f1f1f1; border-radius: 4px 4px 0 0; }
+.modal-header h3 { font: normal 20px Georgia, serif; }
+.modal-header .close { margin-top: -3px; }
 
 
 /* Placeholders */
@@ -194,6 +197,10 @@ a.btn { color: #fff; cursor: pointer; }
 .pres-results .pres-closing li, #closing-modal li { margin-bottom: .7em; }
 .show-poll-closings { display: block; margin: 0 auto 18px auto; }
 #incoming .pres-closing .show-poll-closings { position: absolute; top: 10px; right: 0; margin: 0; }
+
+#closing-modal li { padding-left: 100px; padding-top: 18px;  border-top: 1px dotted #CCC; }
+#closing-modal li:first-child { border: none; padding-top: 0; }
+#closing-modal li strong { margin-left: -100px; width: 90px; display: inline-block; font-size: 12px; }
 
 
 /* Electris */
@@ -726,4 +733,8 @@ a.btn { color: #fff; cursor: pointer; }
 	.vote-tallies span { 
 		width: auto; float: none; margin-top: 0; text-align: center; padding-top: 3px;
 	}
+
+	#closing-modal li { padding-left: 0; padding-top: 12px; }
+	#closing-modal li:first-child { border: none; padding-top: 0; }
+	#closing-modal li strong { margin-left: 0; width: auto; display: block; font-size: 11px; }
 }
