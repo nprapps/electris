@@ -347,8 +347,8 @@
     <script id="incoming-template" type="text/template">
         <li class="incoming <%= state.id %>" <% if (state.call) { %>style="display:none;"<% } %>>
             <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
-            <span class="blue"><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
-            <span class="red"><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
+            <span class="blue"><% if (state.dem_vote_count) { %><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) || 0 %>%<% } else { %>&mdash;<% } %></span>
+            <span class="red"><% if (state.rep_vote_count) { %><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) || 0 %>%<% } else { %>&mdash;<% } %></span>
             <span class="precincts"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% rept.</span>
         </li>
     </script>
