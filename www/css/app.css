@@ -1,3 +1,4 @@
+/* Fonts */
 @font-face {
      font-family: 'StateFaceRegular';
      src: url('../fonts/stateface-regular-webfont.eot');
@@ -9,31 +10,61 @@
      font-style: normal;
 }
 
+/* General */
+h2 {
+	font-size: 1.3em;
+	margin-bottom: 3px;
+	text-transform: lowercase;
+}
+#electris-skinny h2,
+#incoming h2,
+#backchannel h2,
+#live-blog h2,
+.pres-results h5 {
+/*	font: bold 14px/1.35em Arial, Helvetica, sans-serif; */
+	font: normal 20px/1.35em Georgia, serif;
+	border-top: 3px solid #000;
+	padding-top: 6px;
+	margin-bottom: 12px;
+	text-transform: none;
+}
 
-/* STRUCTURE */
-#bigbox { min-height: 280px; }
-#states { font-size: 20px; }
-#resultsRow { margin-left: 0; }
-#pres-results { width: 22%; float: left; }
-#electris { width: 75%; float: right; display: none; }
-.candidate { width: 48%; }
-.candidate.blue { float: left; }
-.candidate.red { float: right; }
-.candidate.blue .bucket { float: right; }
-.candidate.blue .combos { float: left; }
-.candidate.red .bucket { float: left; }
-.candidate.red .combos { float: right; }
-.bucket { width: 10em; }
-.combos { width: 6em; }
+h3 {
+	font: bold 1.1em Arial, Helvetica, sans-serif;
+	color: #333;
+}
+
+h5 {
+	font: bold 14px Arial, Helvetica, sans-serif;
+	color: #333;
+	margin-bottom: 3px;
+}
+a.btn { color: #fff; cursor: pointer; }
+.modal-header { background-color: #f1f1f1; border-radius: 4px 4px 0 0; }
+.modal-header h3 { font: normal 20px Georgia, serif; }
+.modal-header .close { margin-top: -3px; }
+
+
+/* Placeholders */
+#the-stuff { margin-top:60px; }
+#header { height:250px; background-color:black; color:white; }
+#ad { width:300px; height:250px; background-color:red; }
+#tabs { display:none; }
+.results-group { background-color:gray; height: 100px; margin-top: 20px; }
+#results-bar #small-header { display:none; }
+#live-blog { margin-top:20px; /*height:3000px;*/ float:right; }
+#incoming { /*background-color:lavender; height:200px;*/ margin-top:20px; }
 
 
 /* CLEARFIXES */
 #electris:after,
-#states:after,
-#buckets:after,
+#electris-skinny:after,
+.states:after,
+.buckets:after,
 .tossups:after,
 .candidate:after,
-#pres-results li:after { 
+.pres-results li:after,
+#memetracker .posts:after { 
 	content: "."; display: block; height: 0; clear: both; visibility: hidden;
 }
 
@@ -46,48 +77,75 @@
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-/* GENERAL STYLES */
-h2 {
-	font-size: 1.3em;
-	margin-bottom: 3px;
-	text-transform: lowercase;
+
+/* RESULTS GROUPINGS (TOPLINE) */
+.results-group { position: relative; }
+#pres-header {}
+
+
+/* TABS (FOR TABLET/MOBILE) */
+#tabs .nav-tabs {
+	background: #638adf; /* Old browsers */
+	background: -moz-linear-gradient(top,  #638adf 0%, #4a78d9 50%, #3064d3 51%, #3064d3 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#638adf), color-stop(50%,#4a78d9), color-stop(51%,#3064d3), color-stop(100%,#3064d3)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #638adf 0%,#4a78d9 50%,#3064d3 51%,#3064d3 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #638adf 0%,#4a78d9 50%,#3064d3 51%,#3064d3 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #638adf 0%,#4a78d9 50%,#3064d3 51%,#3064d3 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #638adf 0%,#4a78d9 50%,#3064d3 51%,#3064d3 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#638adf', endColorstr='#3064d3',GradientType=0 ); /* IE6-9 */
+	padding: 1%;
+	border-top: 1px solid #3064d3;
+	border-bottom: 1px solid #3064d3;
+	margin-bottom: 0;
 }
-h3 {
-	font: bold 1.1em Arial, Helvetica, sans-serif;
-	color: #333;
+#tabs .nav-tabs li { 
+	width: 33%; text-align: center;
 }
-h5 {
-	font: bold 14px Arial, Helvetica, sans-serif;
-	color: #333;
-	margin-bottom: 3px;
+#tabs .nav-tabs li.active {
+	background: #6c93e5; /* Old browsers */
+	background: -moz-linear-gradient(top,  #6c93e5 0%, #799be3 50%, #658bdf 51%, #658be0 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6c93e5), color-stop(50%,#799be3), color-stop(51%,#658bdf), color-stop(100%,#658be0)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #6c93e5 0%,#799be3 50%,#658bdf 51%,#658be0 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #6c93e5 0%,#799be3 50%,#658bdf 51%,#658be0 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #6c93e5 0%,#799be3 50%,#658bdf 51%,#658be0 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #6c93e5 0%,#799be3 50%,#658bdf 51%,#658be0 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6c93e5', endColorstr='#658be0',GradientType=0 ); /* IE6-9 */
+	border-radius: 4px;
 }
-a.btn { color: #fff; cursor: pointer; }
+.nav-tabs > li > a {
+	color: #fff;
+	padding: 3px 0;
+	display: block;
+	font-weight: bold;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+	font-size: 12px;
+}
+.nav-tabs > li > a:hover {
+	background: none;
+	border: none;
+}
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+	color: #fff;
+	cursor: pointer;
+	background: none;
+	border: none;
+}
 
 
-/* INTRO */
-.intro { color: #333; }
-.intro h1 { font-size: 32px; line-height: 1.125em; margin-bottom: .6em; font-weight: normal; color: #222; }
-.intro p { line-height: 1.45em; }
-.intro p.date { color: #999; font-style: italic; }
-.credits { font-size: .85em; color: #666; margin-top: 1.5em; }
-.credits p { margin: 0 0 .1em 0; }
-.related { margin-top: 1.5em; }
-.related h3 { margin-top: 0; }
-.credits h4 { font: bold 1em Arial, Helvetica, sans-serif; color: #333; margin: 0 0 .3em 0; text-transform: uppercase; }
-
-
-/* PRESIDENTIAL RESULTS */
-#pres-results { margin-bottom: 24px; }
-#pres-results h5 { border-top: 3px solid #000; padding-top: 6px; }
-#pres-results .results { margin: 0 0 18px 0; padding: 0; list-style: none; }
-#pres-results .results li { padding-bottom: 1%; font-size: 12px; color: #454545; }
-#pres-results .results li.hdr { padding: 0; }
-#pres-results .results li.hdr,
-#pres-results #pres-closing strong { 
+/* Presidential results */
+.pres-results { margin-bottom: 24px; }
+.pres-results h5 { margin-bottom: 3px; }
+.pres-results .results { position: relative; }
+.pres-results .results ul, #closing-modal ul { margin: 0 0 18px 0; padding: 0; list-style: none; }
+.pres-results li:after, #closing-modal li:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.pres-results .results li, #closing-modal li { padding-bottom: 1%; font-size: 12px; color: #454545; }
+.pres-results .results li.hdr { padding: 0; }
+.pres-results .results li.hdr,
+.pres-results .pres-closing strong, #closing-modal strong { 
 	font-weight: normal; font-size: 10px; text-transform: uppercase; color: #666;
 }
-#pres-results .results li.hdr span { padding: 0; }
-#pres-results b {
+.pres-results .results li.hdr span { padding: 0; }
+.pres-results b, #closing-modal b {
 	font: normal 1em StateFaceRegular;
     text-align: center;
     display: inline-block;
@@ -95,26 +153,26 @@ a.btn { color: #fff; cursor: pointer; }
     margin-right: 4px;
     height:1em;
 }
-#pres-results .st { 
+.pres-results .st, #closing-modal .st { 
 	white-space: nowrap;
 	padding-top: 3px;
 	width: 28%; 
 	margin-right: 1%;
 	float: left;
 }
-#pres-results .blue,
-#pres-results .red { 
+.pres-results .blue,
+.pres-results .red { 
 	text-align: center;
 	background-color: #f1f1f1;
 	width: 28%;
 	float: left;
 	padding: 3px 0;
 }
-#pres-results .blue { margin-right: 1%; }
-#pres-results .hdr .blue, #pres-results .hdr .red { background: transparent; }
-#pres-results .blue.winner { font-weight: bold; color: #fff; background-color: #3d7fa6; }
-#pres-results .red.winner { font-weight: bold; color: #fff; background-color: #a23520; }
-#pres-results .precincts {
+.pres-results .blue { margin-right: 1%; }
+.pres-results .hdr .blue, .pres-results .hdr .red { background: transparent; }
+.pres-results .blue.winner { font-weight: bold; color: #fff; background-color: #3d7fa6; }
+.pres-results .red.winner { font-weight: bold; color: #fff; background-color: #a23520; }
+.pres-results .precincts {
 	color: #666;
 	font-size: 10px;
 	line-height: 11px;
@@ -124,7 +182,7 @@ a.btn { color: #fff; cursor: pointer; }
 	float: left;
 	margin-left: 3%;
 }
-#pres-results .note {
+.pres-results .note {
 	display: block;
 	clear: both;
 	color: #666;
@@ -133,42 +191,81 @@ a.btn { color: #fff; cursor: pointer; }
 	padding-top: 6px;
 }
 
-#pres-results #pres-closing { margin-top: 6px; padding-bottom: 0; margin-bottom: 0; }
-#pres-results #pres-closing strong { display: block; }
-#pres-results #pres-closing .st { display: inline; width: auto; float: none; padding: 0; color: #454545; }
-#pres-results #pres-closing li { margin-bottom: .7em; display: none; }
-#pres-results #pres-closing li:first-child { display: block; }
-#show-poll-closings { display: block; margin: 0 auto 18px auto; }
+.pres-results .pres-closing { margin-top: 6px; padding-bottom: 0; margin-bottom: 0; }
+.pres-results .pres-closing strong, #closing-modal strong { display: block; }
+.pres-results .pres-closing .st, #closing-modal .st { display: inline; width: auto; float: none; padding: 0; color: #454545; }
+.pres-results .pres-closing li, #closing-modal li { margin-bottom: .7em; }
+.show-poll-closings { display: block; margin: 0 auto 18px auto; }
+#incoming .pres-closing .show-poll-closings { position: absolute; top: 10px; right: 0; margin: 0; }
+
+#closing-modal li { padding-left: 100px; padding-top: 18px;  border-top: 1px dotted #CCC; }
+#closing-modal li:first-child { border: none; padding-top: 0; }
+#closing-modal li strong { margin-left: -100px; width: 90px; display: inline-block; font-size: 12px; }
 
 
-/* ELECTRIS */
-#electris { -webkit-tap-highlight-color: rgba(0,0,0,0); }
-#buckets { position: relative; }
+/* Electris */
+#electris-skinny {
+    margin-top: 20px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+#electris { display: none; }
+
+#electris:after,
+#electris-skinny:after,
+.states:after,
+.buckets:after,
+.candidate:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.states { font-size: 20px; }
+#electris-skinny .states { font-size: 18px; }
+.candidate { width: 48%; }
+.candidate.blue { float: left; }
+.candidate.red { float: right; }
+.candidate.blue .bucket { float: right; }
+#electris-skinny .candidate.blue .bucket { float: left; }
+.candidate.blue .combos { float: left; }
+.candidate.red .bucket { float: left; }
+#electris-skinny .candidate.red .bucket { float: right; }
+.candidate.red .combos { float: right; }
+
+.buckets { position: relative; }
+.bucket { width: 10em; }
+#electris-skinny .bucket { background-color: #f1f1f1; }
+
 .state { z-index: 100; }
+
 .state i {
     float:left;
     font-family:StateFaceRegular;
     font-style:normal;
     text-align: center;
+
     width:18px;
     height:18px;
     margin-right:2px;
     margin-bottom:2px;
+    
     overflow: hidden;
     background-color: #f7e39b;
     color: #77631b;
 	border-radius: 3px;
 }
+#electris-skinny .state i { width: 16px; height: 16px; font-size: .9em; line-height: .9em; }
+
 .no-touch .state:hover, 
 .no-touch .state:hover i, 
 .no-touch .state:hover i span { cursor: default; }
-.state i span { font-size:.7em; }
+.no-touch .state:hover i { color: #333; } 
 
-/* On election night: shade by call */
+.state i span { font-size:.7em; }
 .state.call-d i { background-color: #3d7fa6; color: #fff; }
 .state.call-r i { background-color: #a23520; color: #fff; }
-
-.no-touch .state:hover i { color: #333; } 
 
 .line {
 	height: 1px;
@@ -179,6 +276,7 @@ a.btn { color: #fff; cursor: pointer; }
     text-align:right;
     line-height:0;
 }
+
 .line b {
     display: block;
     text-align: center;
@@ -195,6 +293,7 @@ a.btn { color: #fff; cursor: pointer; }
     -o-transform: scaleY(-1);
     transform: scaleY(-1);
 }
+
 .bucket .state i {
     -moz-transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
@@ -208,6 +307,7 @@ a.btn { color: #fff; cursor: pointer; }
 	height: 3em;
 	position: relative;
 }
+
 .blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 2px; }
 .red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat right 2px; }
 
@@ -218,11 +318,14 @@ a.btn { color: #fff; cursor: pointer; }
 	margin-left: 50px;
 	white-space: nowrap;
 }
+
 .red .bucket-header h3 { text-align: right; margin-right: 50px; }
 .bucket-header h3 i, .bucket-header h3 b {
 	font-weight: normal; font-style: normal;
 }
+
 .bucket-header h3 i { display: none; }
+
 .bucket-header p {
 	font-size: 12px;
 	margin-bottom: 0;
@@ -235,6 +338,7 @@ a.btn { color: #fff; cursor: pointer; }
 .red .vote-tallies { left; 0; }
 .vote-tallies .electoral { width: 50%; float: left; }
 .vote-tallies .needed { width: 50%; float: right; }
+
 .vote-tallies .bignum {
 	display: block;
 	width: 50%;
@@ -248,11 +352,13 @@ a.btn { color: #fff; cursor: pointer; }
 	font: normal 20px Georgia, serif;
 	border-radius: 3px;
 }
+
 .vote-tallies .needed .bignum { background-color: #f7e39b; color: #77631b; }
 .red .vote-tallies .electoral .bignum { background-color: #a23520; color: #fff; }
 .blue .vote-tallies .electoral .bignum { background-color: #3d7fa6; color: #fff; }
 .blue .vote-tallies .electoral { float: right; }
 .blue .vote-tallies .bignum { float: right; margin-right: 0; margin-left: 3%; }
+
 .vote-tallies span {
 	display: block;
 	width: 47%;
@@ -266,19 +372,20 @@ a.btn { color: #fff; cursor: pointer; }
 .blue .vote-tallies span { text-align: right; }
 .red .vote-tallies span { text-align: left; }
 .winner .bucket-header { border-color: #B39429; }
+
 .winner .bucket-header h3 { 
 	color: #B39429; 
 	padding-right: 25px; display: inline-block; 
 	background: url('../img/ico-checkmark.png') no-repeat right 20px;
 }
+
 .winner.red .bucket-header h3 { 
 	padding-left: 25px; padding-right: 0; float: right; 
 	background: url('../img/ico-checkmark.png') no-repeat left 20px;
 }
 
-
-/* COMBOS */
-/*.combos { margin-top: -8px; } */
+/* Combos */
+.combos { width: 6em; }
 .combos p.robotext { font-size: 12px; line-height: 16px; height: 48px; overflow: hidden; color: #666; }
 .combos p.robotext strong { color: #333; }
 .combos ul { list-style: none; margin: 0; padding: 0; }
@@ -326,9 +433,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 .combos button { display: block; margin: 9px auto 0 auto; }
 
-
-
-/* COMBINATIONS */
+/* Combinations */
 .combinations { clear: both; padding-top: 18px; }
 .combinations b {
 	font-weight: normal;
@@ -359,9 +464,8 @@ a.btn { color: #fff; cursor: pointer; }
 .combinations ul li ul li:first-child { border: none; }
 .combinations ul strong { white-space: nowrap; color: #555; }
 
-
-/* TOSSUPS */
-.combos .tossups { margin: 6px 0 18px 0; }
+/* Tossups */
+.tossups { margin: 6px 0 18px 0; }
 .tossups li { 
 	float: left; 
 	width: 31%;
@@ -455,20 +559,31 @@ a.btn { color: #fff; cursor: pointer; }
 .touch-device .tossups .spinner b { text-indent: -9999px; background-position: center center; }
 
 
+/* Memetracker */
+#backchannel { margin-top:20px; float:left; }
+#memehead { margin-bottom: 9px; }
+#backchannel #memehead h2 { margin-bottom: 3px; }
+#memehead h3 { padding: 0; margin: 0; font-weight: normal; color: #999; font-size: 13px; }
+#memetracker .post:first-child { border-top: none; }
+#memetracker .post { border-top: 1px dotted #ccc; padding: 10px 0; clear:both; display: none; }
+#memetracker .post a { color: #000; font: 13px/1.2em Arial }
+#memetracker .post.quote a { font-size: 20px; font-family: Georgia, serif; }
+#memetracker p { font: 13px/1.2em Arial }
+#memetracker .themedia { float: left; margin-right: 10px; margin-bottom: 10px; }
+#memetracker .tstamp { font: 12px Arial; color: #999; }
+#memetracker p.more { padding: 10px 0 0 0; border-top: 1px dotted #CCC; font-size: 12px; text-align: right; }
+#memetracker p.more a { color: #333; font-weight: bold; background: transparent url(http://media.npr.org/chrome/news/ico-more-sm.gif) no-repeat scroll right center; padding: 0 10px 0 0; }
 
 
-/* TOOLTIP */
-.tooltip.in { opacity: 1; filter: alpha(opacity=100); }
-.tooltip-inner {
-	font-weight: bold;
-	color: #333;
-	border: 1px solid #999;
-	background-color: #fff;
-}
-.tooltip.top .tooltip-arrow { border-top-color: #999; }
-.tooltip.right .tooltip-arrow { border-right-color: #999; }
-.tooltip.left .tooltip-arrow { border-left-color: #999; }
-.tooltip.bottom .tooltip-arrow { border-bottom-color: #999; }
+/* LIVE BLOG / "RIVER OF NEWS" */
+#live-blog .post { background-color: #f1f1f1; margin-bottom: 6px; padding: 15px; }
+#live-blog .sticky { background-color: #FFF; border: 1px dotted #999; }
+#live-blog p { font: 15px/1.35em Arial, Helvetica, sans-serif; color: #555; margin: 0; }
+#live-blog .sticky p { font-color: #333; font-weight: bold; }
+#live-blog p.tstamp, #live-blog .sticky p.tstamp { font-size: 12px; color: #999; margin-bottom: 3px; font-weight: normal; }
+#live-blog p a { color: #000; }
+#live-blog p a:hover { color: #36C; text-decoration: none; cursor: pointer; }
+#live-blog .more { white-space: nowrap; }
 
 
 /* FOOTER EXTRAS */
@@ -477,11 +592,25 @@ a.btn { color: #fff; cursor: pointer; }
 #footer ul.bottomlist li.elex a { color: black; font-weight: bold; }
 
 
-/* RESPONSIVE FUN */
+/* Media queries */
+@media (min-width: 768px) {
+    #results-bar.affix #small-header { display:block; height:50px; background-color:darkgray; color:white; margin-top:20px; }
+    #results-bar.affix { top:20px; z-index:2112; }
+    #results-bar.affix div.results-group { height:50px; margin-top:0; }
+    #results-bar.affix + .row { margin-top:120px; }
+}
+
+@media (max-width: 767px) {
+    #the-stuff { margin-top:0; }
+    #ad { display:none; }
+    #results-bar.affix { position:static; }
+    #tabs { display:block; margin-top:20px; }
+    .tab-pane { display:none; }
+    .tab-pane.active { display:block; }
+}
+
 @media (min-width: 1200px) {
-	#electris { padding: 0 10px; }
-	#bigbox { width: 300px; }
-	#states { font-size: 23px; }
+	.states { font-size: 23px; }
 	.combos { width: 7.5em; }
     .state i {
         width:21px;
@@ -489,6 +618,9 @@ a.btn { color: #fff; cursor: pointer; }
         margin-right:2px;
         margin-bottom:2px;
     }
+	#electris-skinny .states { font-size: 22px; }
+	#electris-skinny .state i { width: 20px; height: 20px; font-size: .9em; line-height: .9em; }
+
 	.histogram h4 { height: 22px; }
 	.histogram .title { padding: 5px 12px 0 12px; font-size: 12px; }
 	.histogram .bar { height: 24px; margin-top: -20px; }
@@ -499,13 +631,13 @@ a.btn { color: #fff; cursor: pointer; }
 	.tossups span { text-align: left; display: inline-block; }
 }
 @media (max-width: 979px) {
-    .intro { width: 404px; }
 	.tossups i { display: block; }
 }
+
 @media (max-width: 979px) and (min-width: 768px) {
 	#main-header, #header-title { width: 724px; }
 	.intro h1 { font-size: 28px; }
-	#states { font-size: 20px; }
+	.states { font-size: 20px; }
     .state i {
         width:19px;
         height:19px;
@@ -513,23 +645,36 @@ a.btn { color: #fff; cursor: pointer; }
         margin-bottom:1px;
     }
 	.bucket { width: 10em; }
-	.combos { width: 6.5em; }
+	.combos { width: auto; height: auto; border: none; }
 	.bucket-header { height: 4em; }
 	.bucket-header h3 { font-size: 24px; }
     .bucket-header h3 i { display: none; }
     .vote-tallies { width: 9em; }
-	.tossups li b, .tossups li span { display: block; text-align: center; margin: 0 auto; }
+	.tossups li div { height: 43px; overflow: hidden; }
 	.combos .explainer p { height: 52px; font-size: 13px; }
+
+    #electris-skinny .candidate { width: 47%; max-width: 130px; }
+    #electris-skinny .bucket {
+    	width: 100%;
+    }
+	#electris-skinny .states {
+		font-size: 10px;
+	}
+	#electris-skinny .state i {
+        text-indent: -9999px;
+        width:9.5%;
+        margin-right:.5%;
+        margin-bottom:1px;
+        height:9px;
+	}
+
 }
+
 @media (max-width: 767px) {
-	.intro { width: auto; padding-bottom: 18px; }
-	.intro h1 { font-size: 28px; }
-	#bigbox { float: none; width: auto; padding-top: 1em; background-color: #f1f1f1; margin: 0 0 1.8em 0; min-height: auto; }
 	#electris { margin-left: 0; padding-top: 18px; }
 	.NPRtablet #electris, .NPRphone #electris { padding-top: 0; }
-	#key li { margin-right: 1em; }
-	#states { font-size: 10px; }
-/*    #states .bucket .state i { text-indent: -9999px; width: 9.5%; margin-right: .5%; }*/
+	#electris-skinny .states, .states { font-size: 10px; }
+    #electris-skinny .state i,
     .state i {
         text-indent: -9999px;
         width:9.5%;
@@ -577,9 +722,7 @@ a.btn { color: #fff; cursor: pointer; }
 	.tossups li div { height: 43px; overflow: hidden; }
 }
 @media (max-width: 480px) {
-	.intro h1 { font-size: 30px; padding-top: 5px; }
-	#bigbox { margin-left: -10px; margin-right: -10px; padding-left: 10px; padding-right: 10px; width: auto; margin-bottom: 1.8em; float: none; }
-	#states .bucket .state i { text-indent: -9999px; width: 9%; margin-right: 1%; min-width: 13px; }
+	.state i { text-indent: -9999px; width: 9%; margin-right: 1%; min-width: 13px; }
     .bucket-header h3 i { display: none; }
 	.vote-tallies .bignum, .red .vote-tallies .bignum, .blue .vote-tallies .bignum, 
 	.vote-tallies span, .red .vote-tallies span, .blue .vote-tallies span { 
@@ -591,5 +734,8 @@ a.btn { color: #fff; cursor: pointer; }
 	.vote-tallies span { 
 		width: auto; float: none; margin-top: 0; text-align: center; padding-top: 3px;
 	}
-	#key span { display: none; }
+
+	#closing-modal li { padding-left: 0; padding-top: 12px; }
+	#closing-modal li:first-child { border: none; padding-top: 0; }
+	#closing-modal li strong { margin-left: 0; width: auto; display: block; font-size: 11px; }
 }

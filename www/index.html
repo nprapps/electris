@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Election 2012: Swing State Scorecard : NPR</title>
+    <title>Live Results, Election 2012 : NPR</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
@@ -12,8 +12,9 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" />
     <link rel="stylesheet" type="text/css" href="css/template.css" />
-    <link rel="stylesheet" type="text/css" href="css/app.css" />
-
+    <link rel="stylesheet" type="text/css" href="css/wireframe.css" />
+    <link rel="stylesheet" type="text/css" href="css/sponsorship.css" />
+    
     <!--[if IE]>
     <style>
         .state i { border-radius: 0px; }
@@ -24,28 +25,12 @@
         .tossups li { border-radius: 0px; }
     </style>
     <![endif]-->
-
-    <style>
-        #electris { width: 400px; }
-        #main-header, #header-title { width: 724px; }
-        .intro h1 { font-size: 28px; }
-        #states { font-size: 20px; }
-        .state i {
-            width:19px;
-            height:19px;
-            margin-right:1px;
-            margin-bottom:1px;
-        }
-        .bucket { width: 10em; }
-        .combos { width: 6.5em; }
-        .bucket-header { height: 4em; }
-        .bucket-header h3 { font-size: 24px; }
-        .bucket-header h3 i { display: none; }
-        .vote-tallies { width: 9em; }
-        .tossups li b, .tossups li span { display: block; text-align: center; margin: 0 auto; }
-        .combos .explainer p { height: 52px; font-size: 13px; }
-    </style>
-
+    
+    <script type="text/javascript" src="js/lib/jquery-1.8.1.min.js"></script>
+    
+    <!-- AD CODE -->
+    <script type="text/javascript" src="js/lib/modernizr.js"></script>
+    
     <script>
         NPR = {};
         NPR.PageInfo = {};
@@ -53,43 +38,28 @@
             return false;
         };
     </script>
-
-	<!-- DFP TARGET -->
-	<script type="text/javascript">
-        <!--
-            var DFP = {};
-            DFP.tile = 0;
-            DFP.ord = Number(window.ord) || Math.floor(Math.random() * 1E10);
-            DFP.target = 'http://ad.doubleclick.net/adj/n6735.NPR/news_election_2012;agg=139482413;storyid=139482413';
-        // -->
-        </script>
-
-        <!-- DFP AD MANAGER -->
-        <script type="text/javascript">
-        <!--
-             DFP[0] = {"utype":null,"sz":"300x250","position":"right_main"};
-             DFP[1] = {"utype":null,"sz":"88x31","position":"search_box"};
-
-
-            DFP.renderLocation = function(location) {
-                var params = DFP[location];
-                var toRender = '<scr' + 'ipt src="'
-                                + DFP.target
-                                + ';sz=' + params.sz
-                                + ';tile=' + ++DFP.tile
-                                + ';sc='
-                                + ';ord=' + DFP.ord
-                                + ';" type="text/javascript" language="javascript"></scr' + 'ipt>';
-                document.write(toRender);
-            }
-        // -->
+    <script type="text/javascript" src="js/responsive-ad.js"></script>
+	<script>
+    AddNamespace('NPR.serverVars'); 
+    jQuery.extend(NPR.serverVars,{"storyId":"93559255","serverType":"dev","DFPtarget":"\/no_topic;agg=94427042;storyid=93559255;blog=93559255;testserver=true","DFPuserver":"u.npr.org","DFPserver":"ad.doubleclick.net","DFPnetwork":"n6735","DFPsite":"NPRTEST","DFPmobile":"NPR.MOBILE"})
+	// AddNamespace('NPR.serverVars'); 
+	// jQuery.extend(NPR.serverVars,{
+	// 	"storyId":"139482413",
+	// 	"serverType":"prod",
+	// 	"DFPtarget":"\/news_election_results",
+	// 	"DFPuserver":"u.npr.org",
+	// 	"DFPserver":"ad.doubleclick.net",
+	// 	"DFPnetwork":"n6735",
+	// 	"DFPsite":"NPR",
+	// 	"DFPmobile":"NPR.MOBILE"
+	// });
 	</script>
-
-	<meta property="og:title" content="Election 2012: Swing State Scorecard : NPR" />
-	<meta property="og:url" content="http://apps.npr.org/swing-state-scorecard/" />
+    
+	<meta property="og:title" content="Live Results, Election 2012 : NPR" />
+	<meta property="og:url" content="http://apps.npr.org/2012-election-live-results/" />
 	<meta property="og:type" content="article" />
-	<meta property="og:description" content="Plot Obama and Romney's paths to victory with NPR's Swing State Scorecard." />
-	<meta property="og:image" content="http://media.npr.org/news/specials/2012/elections/electris-promo_sq.gif" />
+	<meta property="og:description" content="TKTKTK" />
+	<meta property="og:image" content="TKTKTK" />
 	<meta property="og:site_name" content="NPR.org" />
 	<meta property="fb:app_id" content="138837436154588" />
 
@@ -117,127 +87,248 @@
       </div>
     </div>
 
-    <div class="container the-goods skinny" id="maincontent">
-		<div id="header" class="row">
+    <div class="container" id="the-stuff">
 
-			<div class="span8 intro">
-                <h1>Swing State Scorecard</h1>
-                <p>The presidency rests not on the national popular vote but on 538 Electoral College votes, allotted almost exclusively in winner-take-all fashion by state.*</p>
-                <p>An NPR analysis using history and polls indicates how 42 states and the District of Columbia are expected to vote. That leaves only eight "tossups" where the race is too close to call, but where the election will likely be decided.</p>
-                <p>NPR puts 21 states and their 237 electoral votes firmly or leaning to President Obama. Republican Mitt Romney starts with 27 states and 206 assumed electoral votes. (<strong><a href="http://www.npr.org/blogs/itsallpolitics/2012/10/23/163481015/the-race-to-270-a-swing-state-scorecard">See the full list.</a></strong>) We've prefilled those projections below, leaving 95 electoral votes up for grabs.</p>
-                <p>Click a tossup state under a candidate’s name to see what it means for his chances of winning. The candidate who secures 270 electoral votes becomes president. <em>(Last updated on Oct. 23, 2012.)</em></p>
+        <div class="row" id="big-header">
+            <div class="span8" id="header">
+                <h1>THE ELECTION AND STUFF</h1>
+                <p>Listen live, yo.</p>
             </div>
+            <div class="span4" id="bigbox">
+                <div class="adwrapper sponsor300">
+					<div id="ad_impression">
+						<script type="text/javascript">
+						<!--
+						try {
+							DFP.renderLocation('desktop');
+						} catch (e) {
+							// error
+						}
+						// -->
+						</script>
+					</div>
+				</div>
+            </div>
+		</div>
+        
+        <div class="row" id="results-bar" data-spy="affix" data-offset-top="290">
+            <div class="span12" id="small-header">
+                <h1>THE ELECTION AND STUFF</h1>
+                <p>Listen live, yo.</p>
+            </div>
+            <div class="span4 results-group" id="pres-header">
+                <h2>prez results</h2>
 
-			<div class="span4" id="bigbox">
-                <!-- START 300X250 AD -->
-                <div class="adwrapper"><div class="sponsor300">
+                Obama has: <b class="blue-votes"></b><br />
+                Obama needs: <b class="blue-needs"></b><br />
+                Romney has: <b class="red-votes"></b><br />
+                Romney needs: <b class="red-needs"></b>
 
-				<!-- DFP AD MANAGER -->
-				<script type="text/javascript">
-				<!--
-					try{
-						DFP.renderLocation(0);
-					}catch(e){
-						NPR.messaging.warning('Problem fetching/rendering ad server code.','DFP.renderlocation',NPR.messaging.constants.SPONSORSHIP_ERROR);
-					}
-				// -->
-				</script>
-				<!-- END UNDERWRITING -->
-
-				<p class="left">NPR thanks our sponsors</p>
-				<p class="right"><a href="http://www.npr.org/about/place/corpsupport/">Become an NPR Sponsor </a></p>
-				</div></div>
-				<!-- END 300X250 AD -->
-			</div>
-
+            </div>
+            <div class="span4 results-group">
+                <h2>house results</h2>
+            </div>
+            <div class="span4 results-group">
+                <h2>senate results</h2>
+            </div>
+            
+            <div id="tabs">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#results" data-toggle="tab">Results</a></li>
+                    <li><a href="#live-blog" data-toggle="tab">Live Blog</a></li>
+                    <li><a href="#backchannel" data-toggle="tab">The Back Channel</a></li>
+                </ul>
+            </div>
+            
         </div>
 
-        <div class="row">
-        	<div id="electris" class="skinny">
+        <div class="row" id="electris">
+        	<div class="pres-results span3">
 
-				<div id="states">
-					<div id="buckets">
+				<div class="pres-watching results">
+					<h5>Incoming Results</h5>
+					<ul>
+						<li class="hdr">
+							<span class="st">&nbsp;</span>
+							<span class="blue">Obama</span>
+							<span class="red">Romney</span>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="pres-closing results">
+					<h5>Next Poll Closing</h5>
+					<ul>
+					</ul>
+					<a class="btn btn-mini btn-inverse show-poll-closings" type="button" role="button" data-toggle="modal" href="#closing-modal">Show All Closing Times</a>
+				</div>
 
-						<div class="candidate blue">
-							<div class="bucket-header">
-								<h3><i>Barack </i><b>Obama</b></h3>
+				<div class="pres-called results">
+					<h5>Called Races</h5>
+					<ul>
+						<li class="hdr">
+							<span class="st">&nbsp;</span>
+							<span class="blue">Obama</span>
+							<span class="red">Romney</span>
+						</li>
+					</ul>
+				</div>
+				
+        	</div> <!-- end .pres-results -->
 
-								<div class="vote-tallies">
-									<div class="electoral">
-										<b id="p-blue-electoral" class="bignum">00</b>
-										<span>total</span>
-									</div>
-									<div class="needed">
-										<b class="bignum">?</b>
-										<span>to win</span>
-									</div>
-								</div>
+            <div class="states span9">
+                <div class="buckets">
 
-							</div>
-							<div class="bucket blue"></div>
+                    <div class="candidate blue">
+                        <div class="bucket-header">
+                            <h3><i>Barack </i><b>Obama</b></h3>
 
-							<!--<div class="combos">
-								<h5>Assign Tossups</h5>
-                                <ul class="tossups blue"></ul>
+                            <div class="vote-tallies">
+                                <div class="electoral">
+                                    <b class="blue-votes bignum">00</b>
+                                    <span>total</span>
+                                </div>
+                                <div class="needed">
+                                    <b class="blue-needs bignum">?</b>
+                                    <span>to win</span>
+                                </div>
+                            </div>
 
-								<h5>Ways He Can Win</h5>
-								<ul class="histogram blue"></ul>
-							</div>
-
-							<div class="combinations">
-								<h5>Paths To Victory: Obama's Options</h5>
-								<p class="robotext"></p>
-								<ul>
-								</ul>
-                            </div>-->
                         </div>
+                        <div class="bucket blue"></div>
+                        <div class="combos">
+                            <!-- chicklets -->
+                            <h5>Predict Races</h5>
+                            <ul class="tossups blue"></ul>
 
-						<div class="candidate red">
-							<div class="bucket-header">
-								<h3><i>Mitt </i><b>Romney</b></h3>
+                            <!-- HISTOGRAM -->
+                            <h5>Ways He Can Win</h5>
+                            <p class="robotext"></p>
+                            <ul class="histogram blue"></ul>
+                            <button id="show-blue-combos" class="btn btn-mini btn-inverse" type="button">Show All Paths</button>
+                            <!-- TODO: pop up full list of combos in a modal -->
+                        </div>
+                    </div> <!-- end .candidate.blue -->
 
-								<div class="vote-tallies">
-									<div class="electoral">
-										<b id="p-red-electoral" class="bignum">00</b>
-										<span>total</span>
-									</div>
-									<div class="needed">
-										<b class="bignum">?</b>
-										<span>to win</span>
-									</div>
-								</div>
-							</div>
-							<div class="bucket red"></div>
+                    <div class="candidate red">
+                        <div class="bucket-header">
+                            <h3><i>Mitt </i><b>Romney</b></h3>
+
+                            <div class="vote-tallies">
+                                <div class="electoral">
+                                    <b class="red-votes bignum">00</b>
+                                    <span>total</span>
+                                </div>
+                                <div class="needed">
+                                    <b class="red-needs bignum">?</b>
+                                    <span>to win</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bucket red"></div>
+                        <div class="combos">
+                            <!-- chicklets -->
+                            <h5>Predict Races</h5>
+                            <ul class="tossups red"></ul>
                             
-                            <!--<div class="combos">
-								<h5>Assign Tossups</h5>
-                                <ul class="tossups red"></ul>
-                                
-								<h5>Ways He Can Win</h5>
-								<ul class="histogram red"></ul>
-							</div>
-							<div class="combinations">
-								<h5>Paths To Victory: Romney's Options</h5>
-								<p class="robotext"></p>
-								<ul>
-								</ul>
-                            </div>-->
+                            <!-- HISTOGRAM -->
+                            <h5>Ways He Can Win</h5>
+                            <p class="robotext"></p>
+                            <ul class="histogram red"></ul>
+                            <button id="show-red-combos" class="btn btn-mini btn-inverse" type="button">Show All Paths</button>
+                            <!-- TODO: pop up full list of combos in a modal -->
                         </div>
-						<div id="line"><b>270</b></div>
+                    </div> <!-- end .candidate.red -->
+                    <div class="line"><b>270</b></div>
 
-					</div> <!-- end #buckets -->
-				</div> <!-- end #states -->
-			</div> <!-- end #electris -->
+                </div> <!-- end .buckets -->
+            </div> <!-- end .states -->
+        </div> <!-- end #electris -->
+                
+        <div class="row" id="creamy-filling">
+            <div class="span5 tab-pane active" id="results">
+                <div id="electris-skinny">
+                	<h2>Race For The White House</h2>
+                    <div class="states">
+                        <div class="buckets">
+                            <div class="candidate blue">
+                                <div class="bucket blue"></div>
+                            </div>
+
+                            <div class="candidate red">
+                                <div class="bucket red"></div>
+                            </div>
+                            <div class="line"><b>270</b></div>
+
+                        </div> <!-- end .buckets -->
+                    </div> <!-- end .states -->
+                </div> <!-- end #electris-skinny -->
+
+                <div id="incoming" class="pres-results">
+                	<div class="pres-watching results">
+						<h5>Incoming Results</h5>
+						<ul>
+							<li class="hdr">
+								<span class="st">&nbsp;</span>
+								<span class="blue">Obama</span>
+								<span class="red">Romney</span>
+							</li>
+						</ul>
+					</div>
+					
+					<div class="pres-closing results">
+						<h5>Next Poll Closing</h5>
+						<ul>
+						</ul>
+						<a class="btn btn-mini btn-inverse show-poll-closings" type="button" role="button" data-toggle="modal" href="#closing-modal">Show All Closing Times</a>
+						<!-- TODO: pop up full poll closing schedule in a modal -->
+					</div>
+	
+					<div class="pres-called results">
+						<h5>Called Races</h5>
+						<ul>
+							<li class="hdr">
+								<span class="st">&nbsp;</span>
+								<span class="blue">Obama</span>
+								<span class="red">Romney</span>
+							</li>
+						</ul>
+					</div>
+                </div>
+            </div>
+            <div class="span7 tab-pane" id="live-blog">
+                <h2>This Just In</h2>
+                <div id="live-blog-items"></div>
+            </div>
+            <div class="span5 tab-pane" id="backchannel">
+	            <div id="memehead">
+	               	<h2>The Back Channel</h2>
+	               	<h3>The debate behind the debate. <strong><a href="http://nprbackchannel.tumblr.com/" target="_blank">See all posts &raquo;</a></strong></h3>
+	            </div>
+	            <div id="memetracker">
+	            	<div class="posts"></div>
+	            	<p class="more"><a href="http://nprbackchannel.tumblr.com/" target="_blank">see all posts</a></p>
+				</div>
+            </div>
+        </div>
+        
+		<div id="adhesion">
+            <script type="text/javascript">
+            <!--
+			try {
+				DFP.renderLocation('mobile');
+			} catch (e) {
+				// error
+			}
+            // -->
+            </script>   
 		</div>
 
 		<div id="footer" class="row">
 			<div class="span12">
 				<div class="credits" id="attrCredit">
-					<strong>Notes:</strong><br />
-					1. Nebraska and Maine employ proportional allocation, so candidates could share those states' electoral votes.<br />
-					2. The paths to victory for each candidate have been simplified to eliminate any duplication. For example, Obama does not show any three-state combinations involving Florida because Florida and any one other tossup state is enough for him to carry the election, based on NPR’s projections.<br /><br />
-					Source: NPR analysis by Senior Washington Editor Ron Elving. <a href="http://propublica.github.com/stateface/">StateFace</a> copyright (c) 2012, ProPublica<br />
-					Credits: Alyson Hurt, Christopher Groskopf and Brian Boyer / NPR
+					Sources: Associated Press and NPR analysis. <a href="http://propublica.github.com/stateface/">StateFace</a> &copy; 2012, ProPublica<br />
+					Credits: Alyson Hurt, Christopher Groskopf, Jeremy Bowers, Stephanie d'Otreppe, Nelson Hsu and Brian Boyer / NPR
 				</div>
 			</div>
 			<div class="span12">
@@ -246,8 +337,6 @@
 					<li><a href="http://www.npr.org/sections/presidential-race">Presidential Race</a></li>
 					<li><a href="http://www.npr.org/series/139914785/barack-obama">Barack Obama (D)</a></li>
 					<li><a href="http://www.npr.org/series/139589850/mitt-romney">Mitt Romney (R)</a></li>
-					<li><a href="http://apps.npr.org/early-voting-2012/">Early Voting Calendar</a></li>
-					<li><a href="http://www.npr.org/2011/08/15/139648404/campaign-2012-political-calendar">Political Calendar</a></li>
 					<li><a href="http://www.npr.org/series/146345736/money-politics">Money &amp; Politics</a></li>
 					<li><a href="http://www.npr.org/series/128364156/the-message-machine">The Message Machine</a></li>
 				</ul>
@@ -268,6 +357,20 @@
 		</div>
     </div>
 
+    <div id="closing-modal" class="modal hide">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Poll closing times</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">Close</a>
+        </div>
+    </div>
+        
     <script id="state-template" type="text/template">
         <div class="state <%= state.id %> call-<%= state.call %>" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
@@ -276,8 +379,35 @@
         </div>
     </script>
 
+    <script id="closing-template" type="text/template">
+        <li class="time-<%= closing_time.format("hhmm") %>">
+            <strong><%= closing_time.format("hh:mm a") %> ET</strong>
+            <% _.each(states, function(state, i, l) { %>
+                <span class="st"><b><%= state.stateface %></b><%= state.name %> (<%= state.electoral_votes %>)</span><% if (i != l.length - 1) { %>,<% } %>
+            <% }); %>
+        </li>
+    </script>
+
+    <script id="called-template" type="text/template">
+        <li class="called <%= state.id %>" <% if (!state.call) { %>style="display:none;"<% } %>>
+            <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
+            <span class="blue <% if (state.call === "d") { %>winner<% } %>"><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
+            <span class="red <% if (state.call === "r") { %>winner<% } %>"><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
+            <span class="precincts"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% rept.</span>
+        </li>
+    </script>
+
+    <script id="incoming-template" type="text/template">
+        <li class="incoming <%= state.id %>" <% if (state.call || state.polls_close > moment()) { %>style="display:none;"<% } %>>
+            <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
+            <span class="blue"><% if (state.dem_vote_count) { %><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) || 0 %>%<% } else { %>&mdash;<% } %></span>
+            <span class="red"><% if (state.rep_vote_count) { %><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) || 0 %>%<% } else { %>&mdash;<% } %></span>
+            <span class="precincts"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% rept.</span>
+        </li>
+    </script>
+
     <script id="tossup-template" type="text/template">
-        <li data-state-id="<%= state.id %>" data-winner="<%= winner %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><div><b><%= state.stateface %></b> <i><%= state.abbr %></i><span><%= state.electoral_votes %></span></div></li>
+        <li data-state-id="<%= state.id %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><div><b><%= state.stateface %></b> <i><%= state.abbr %></i><span><%= state.electoral_votes %></span></div></li>
     </script>
 
     <script id="combo-group-template" type="text/template">
@@ -310,22 +440,58 @@
             <% } %>
         <% } %>
     </script>
-        
+
+    <script id="meme-photo-template" type="text/template">
+        <div id="post-<%= post['id'] %>" class="post photo"> 
+        	<div class="themedia"><img src="<%= post['photo-url-250'] %>" /></div> 
+            <p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p> 
+        	<a href="<%= post['url-with-slug'] %>"><%= post["photo-caption"] %></a>
+        </div>
+    </script>
+    
+    <script id="meme-video-template" type="text/template">
+        <div id="post-<%= post['id'] %>" class="post video"> 
+        	<div class="themedia"><%= post['video-player-250'] %></div> 
+        	<p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p> 
+        	<a href="<%= post['url-with-slug'] %>"><%= post["video-caption"] %></a>
+        </div>
+    </script>
+    
+    <script id="meme-quote-template" type="text/template">
+        <div id="post-<%= post['id'] %>" class="post quote"><p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p>  <a href="<%= post['url-with-slug'] %>">&quot;<%= post["quote-text"] %>&quot; &mdash;<%= post["quote-source"] %></a></div>
+    </script>
+
+    <script id="meme-regular-template" type="text/template">
+        <div id="post-<%= post['id'] %>" class="post regular"> <p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p> <a href="<%= post['url-with-slug'] %>"><%= post["regular-body"] %></a></div>
+    </script>
+    
+    <script id="blog-post-template" type="text/template">
+    	<div class="post <%= sticky %>">
+    		<p class="tstamp timeago" title="<%= post.created %>"><%= post.created %></p>
+    		<p>
+    			<% if (post.link) { %> <a href="<%= post.link %>" target="_blank"> <% } %>
+    			<%= post.content %>
+    			<% if (post.link) { %> <span class="more">| <strong>more &raquo;</strong></span></a> <% } %>
+    		</p>
+    	</div>
+    </script>
+
     <!--[if lt IE 9]>
     <script src="js/lib/html5.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="js/lib/jquery-1.8.1.min.js"></script>
     <script type="text/javascript" src="js/lib/underscore-min.js"></script>
+    <script type="text/javascript" src="js/lib/moment.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.timeago.js"></script>
     <script type="text/javascript" src="js/lib/jquery.touchclick.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/combinations.js"></script>
     <script type="text/javascript" src="js/combo_primer.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 
-    
+
     <!-- GOOGLE ANALYTICS -->
-    <script type="text/javascript">
+	<script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-5828686-4']);
         _gaq.push(['_trackPageview']);
@@ -362,6 +528,7 @@
                 loadChartbeat : function() { oldonload(); loadChartbeat(); };
         })();
     </script>
+
 
 </body>
 </html>
