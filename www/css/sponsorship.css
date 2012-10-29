@@ -1,5 +1,9 @@
 /* .adhesion { */
 
+.adhesion #bigbox {
+    display: none;
+}
+
 #adhesion {
     position: fixed;
     bottom: 0;
