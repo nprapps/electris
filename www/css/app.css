@@ -388,7 +388,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 /* Combos */
 .combos { width: 6em; }
-.combos p.robotext { font-size: 12px; line-height: 16px; height: 48px; overflow: hidden; color: #666; }
+.combos p.robotext { font-size: 12px; line-height: 16px; height: 72px; overflow: hidden; color: #666; }
 .combos p.robotext strong { color: #333; }
 .combos ul { list-style: none; margin: 0; padding: 0; }
 .combos li { margin: 0 0 3px 0; padding: 0; text-indent: 0; }
