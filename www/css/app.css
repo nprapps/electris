@@ -636,12 +636,11 @@ a.btn { color: #fff; cursor: pointer; }
 /* Media queries */
 @media (min-width: 768px) {
     #results-bar.affix { 
-    	top:0;
-    	z-index:2112;
+    	top:0; z-index:2112;
     }
     #results-bar.affix #small-header { 
     	position: relative;
-    	width: 704px; height: 50px;
+    	height: 50px;
     	display:block; 
     	padding: 0 10px;
     	color:white;
@@ -657,15 +656,6 @@ a.btn { color: #fff; cursor: pointer; }
     	height:50px; margin-top:0;
     }
     #results-bar.affix + .row { margin-top:120px; }
-}
-
-@media (max-width: 767px) {
-    #the-stuff { margin-top:0; }
-    #ad { display:none; }
-    #results-bar.affix { position:static; }
-    #tabs { display:block; margin-top:20px; }
-    .tab-pane { display:none; }
-    .tab-pane.active { display:block; }
 }
 
 @media (min-width: 1200px) {
@@ -690,9 +680,10 @@ a.btn { color: #fff; cursor: pointer; }
 	.vote-tallies span { padding-top: 16px; }
 	.tossups span { text-align: left; display: inline-block; }
 }
+@media (min-width: 980px) and (max-width: 1199px) {
+    #results-bar.affix #small-header { width: 920px; }
+}
 @media (max-width: 979px) {
-    #results-bar.affix #small-header { width: 940px; }
-
 	.tossups i { display: block; }
 	#electris .bucket { 
 		width: 100%; 
@@ -733,7 +724,8 @@ a.btn { color: #fff; cursor: pointer; }
 
 @media (max-width: 979px) and (min-width: 768px) {
 	#main-header, #header-title { width: 724px; }
-	.intro h1 { font-size: 28px; }
+    #results-bar.affix #small-header { width: 704px; }
+
 	.states { font-size: 20px; }
     .state i {
         width:19px;
@@ -762,6 +754,13 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 @media (max-width: 767px) {
+    #the-stuff { margin-top:0; }
+    #ad { display:none; }
+    #results-bar.affix { position:static; }
+    #tabs { display:block; margin-top:20px; }
+    .tab-pane { display:none; }
+    .tab-pane.active { display:block; }
+
 	#electris { margin-left: 0; padding-top: 18px; }
 	.NPRtablet #electris, .NPRphone #electris { padding-top: 0; }
 	#electris-skinny .states, .states { font-size: 10px; }
