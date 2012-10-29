@@ -425,7 +425,7 @@
     </script>
 
     <script id="tossup-template" type="text/template">
-        <li data-state-id="<%= state.id %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><div><b><%= state.stateface %></b> <i><%= state.abbr %></i><span><%= state.electoral_votes %></span></div></li>
+        <li class="tossup <%= state.id %>" data-state-id="<%= state.id %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false" <% if (state.call) { %>style="display:none;"<% } %>><div><b><%= state.stateface %></b> <i><%= state.abbr %></i><span><%= state.electoral_votes %></span></div></li>
     </script>
 
     <script id="combo-group-template" type="text/template">

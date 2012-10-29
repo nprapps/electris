@@ -536,14 +536,14 @@ $(function() {
             // Build lookup table
             states_by_id[state.id] = state;
 
+            var html = TOSSUP_TEMPLATE({
+                state: state
+            });
+
+            red_tossups_el.append(html);
+            blue_tossups_el.append(html);
+
             if (!state.call) {
-                var html = TOSSUP_TEMPLATE({
-                    state: state
-                });
-
-                red_tossups_el.append(html);
-                blue_tossups_el.append(html);
-
                 total_tossup_states += 1;
             }
         });
@@ -665,10 +665,24 @@ $(function() {
                 if (old_state["call"] != state["call"]) {
                     // Uncalled
                     if (!state["call"]) {
+                        // Show chiclet
+                        $(".tossup." + state.id).show(); 
+
+                        total_tossup_states += 1;
+
                         console.log(state["name"] + " uncalled");
                     } else {
                         // Called
                         if (!old_state["call"]) {
+                            // Hide chiclet
+                            $(".tossup." + state.id).hide(); 
+
+                            if (state.id in tossup_picks) {
+                                delete tossup_picks[state.id];
+                            }
+
+                            total_tossup_states -= 1;
+
                             console.log(state["name"] + " called as " + state["call"]);
                         // Changed
                         } else {
