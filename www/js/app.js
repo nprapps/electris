@@ -25,6 +25,7 @@ $(function() {
     var MAX_COMBO_GROUP = 7;
     var POLLING_INTERVAL = 1000;
     var FORCE_WIDE_MODE = false;
+    var RIVER_TIMER = null;
 
     if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); } else { $("body").addClass("no-touch"); }
 
@@ -732,8 +733,8 @@ $(function() {
 		    dataType: 'jsonp',
 		    jsonpCallback: 'nprriverofnews',
 		    success: function(data){
-				if ($('#live-blog-items').length == 1) {
-					window.setInterval(fetch_news, 30000); /* sub in POLLING_INTERVAL later */
+				if (RIVER_TIMER == null) {
+					RIVER_TIMER = window.setInterval(fetch_news, 1000); /* TODO: sub in POLLING_INTERVAL later */
 				}
 				update_news(data);
 		    }
