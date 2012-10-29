@@ -759,4 +759,6 @@ a.btn { color: #fff; cursor: pointer; }
 	#closing-modal li { padding-left: 0; padding-top: 12px; }
 	#closing-modal li:first-child { border: none; padding-top: 0; }
 	#closing-modal li strong { margin-left: 0; width: auto; display: block; font-size: 11px; }
+	
+	.modal-header .close { margin-top: -10px; }
 }
