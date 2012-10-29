@@ -4,7 +4,6 @@ h1, h2, h3, h4, h5, h6 { font-family: Georgia, serif; margin: 0 0 12px 0; line-h
 a, a:link, a:visited { color: #000; }
 a:hover, a:active { color: #36c; }
 
-.navbar .container { position: relative; }
 .navbar-inverse .navbar-inner {
 	background-color: #2C2C2C;
 	background-image: -moz-linear-gradient(top,#333,#222);
@@ -13,6 +12,13 @@ a:hover, a:active { color: #36c; }
 	background-image: -webkit-linear-gradient(top,#333,#222);
 	background-image: -o-linear-gradient(top,#333,#222);
 	background-image: linear-gradient(top,#333,#222);
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+}
+.navbar .container { 
+	width: 940px;
+	position: relative;
 }
 .navbar .nav li.npr { background: url('../img/npr_55x38.jpg') no-repeat center left; text-indent: -999px; }
 .navbar .nav > li.npr > a { display: block; width: 55px; padding-left: 0; }
@@ -44,37 +50,36 @@ a:hover, a:active { color: #36c; }
 .sponsor300 p.left { float: left; margin-top: 4px; }
 .NPRtablet #bigbox, .NPRphone #bigbox { display: none; }
 
+@media (min-width: 1200px) {
+	.navbar .container { width: 1150px; }
+}
 @media (max-width: 979px) {
     .container.the-goods { margin-top:0; }
     .navbar-fixed-top .navbar-inner { padding-left: 20px; padding-right: 20px; }
 }
 
 @media (min-width: 768px) and (max-width: 979px) {
-	.navbar-fixed-top .container { width: 724px; }
-	#social { top: -5px; }
-	#social ul li span { padding: 14px 10px 16px 10px; }
-	#social a { height: 51px; }
-	#social .facebook a { background-position: 19px 15px; }
-	#social .twitter a { background-position: 12px -100px; }
+	.navbar .container { width: 724px; }
 }
 @media (max-width: 767px) {
-	.navbar-fixed-top { margin-left: -20px; margin-right: -20px; }
-	.navbar-fixed-top .container { width: auto; position: static; }
-	.navbar-fixed-top .navbar-inner { padding-left: 15px; padding-right: 15px; }
+	.navbar { margin-left: -20px; margin-right: -20px; }
+	.navbar .container { width: auto; position: static; }
+	.navbar .navbar-inner { padding-left: 15px; padding-right: 15px; }
+	/*
 	#social ul li span { padding: 15px 10px 16px 10px; }
 	#social a { height: 50px; }
 	#social .facebook a { background-position: 19px 15px; }
 	#social .twitter a { background-position: 12px -100px; }
+	*/
 }
 @media (max-width: 580px) {
     .nav .arts, .nav .music { display: none; }
 }
 @media (max-width: 480px) {
 	body { padding-right: 10px; padding-left: 10px; }
-	.navbar-fixed-top { margin-left: -10px; margin-right: -10px; }
+	.navbar { margin-left: -10px; margin-right: -10px; margin-bottom: 1px; }
 	.navbar .nav li { display: none; }
 	.navbar .nav li.npr { display: block; }
-	.navbar-fixed-top { margin-bottom: 1px; }
 	#header { padding-top: 10px; }
 	#footer { border-top: 1px solid #CCC; margin-top: 24px; }
 }
