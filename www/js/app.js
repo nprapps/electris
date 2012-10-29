@@ -495,9 +495,14 @@ $(function() {
         /*
          * Scroll to combos list.
          */
-        $("html, body").animate({
-            scrollTop: $($(this).data("target")).offset().top - 45
+        $("#combinations-modal").modal("show");
+
+        /*
+         * Doesn't seem to work within modal
+        $("#combinations-modal .modal-body").animate({
+            scrollTop: $($(this).data("target")).position().top
         }, 1000);
+        */
     });
 
     // Render combo groups
