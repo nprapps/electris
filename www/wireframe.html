@@ -134,9 +134,9 @@
             
             <div id="tabs">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#results" data-toggle="tab">results</a></li>
-                    <li><a href="#live-blog" data-toggle="tab">live blog</a></li>
-                    <li><a href="#backchannel" data-toggle="tab">the backchannel</a></li>
+                    <li class="active"><a href="#results" data-toggle="tab">Results</a></li>
+                    <li><a href="#live-blog" data-toggle="tab">Live Blog</a></li>
+                    <li><a href="#backchannel" data-toggle="tab">The Back Channel</a></li>
                 </ul>
             </div>
             
@@ -328,7 +328,7 @@
 		<div id="footer" class="row">
 			<div class="span12">
 				<div class="credits" id="attrCredit">
-					Source: <a href="http://propublica.github.com/stateface/">StateFace</a> &copy; 2012, ProPublica<br />
+					Sources: Associated Press and NPR analysis. <a href="http://propublica.github.com/stateface/">StateFace</a> &copy; 2012, ProPublica<br />
 					Credits: Alyson Hurt, Christopher Groskopf, Jeremy Bowers, Stephanie d'Otreppe, Nelson Hsu and Brian Boyer / NPR
 				</div>
 			</div>
@@ -401,8 +401,8 @@
     <script id="incoming-template" type="text/template">
         <li class="incoming <%= state.id %>" <% if (state.call) { %>style="display:none;"<% } %>>
             <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
-            <span class="blue"><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
-            <span class="red"><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
+            <span class="blue"><% if (state.dem_vote_count) { %><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) || 0 %>%<% } else { %>&mdash;<% } %></span>
+            <span class="red"><% if (state.rep_vote_count) { %><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) || 0 %>%<% } else { %>&mdash;<% } %></span>
             <span class="precincts"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% rept.</span>
         </li>
     </script>
