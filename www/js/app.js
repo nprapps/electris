@@ -378,8 +378,6 @@ $(function() {
 
                             new_combo_group = true;
                         }
-
-                        console.log(combo_group_el);
                     } else {
                         var combo_group_el = $(COMBO_GROUP_TEMPLATE({
                             side: side,
@@ -452,21 +450,9 @@ $(function() {
     }
 
     function must_win_robotext(candidate, combos, votes, states_won) {
-        var states_text = "";
-
-        _.each(states_won, function(state, i, l) {
-            states_text += "<strong><b>" + state.stateface + "</b> " + state.name +  "</strong>";
-
-            if (i <= l.length - 1) {
-                states_text += ", ";
-            } else if (i == l.length - 2) {
-                states_text += " and ";
-            }
-        });
-
         // Winner
         if (votes >= 270) {
-            return "If " + candidate + " wins " + states_text + " then he <strong>wins the Electoral College</strong>.";
+            return "If " + candidate + " wins the states you have selected then he will <strong>win the Electoral College</strong>.";
         }
 
         // Loser
@@ -481,7 +467,7 @@ $(function() {
             if (states_won.length == 0) {
                 return candidate + " must win <strong><b>" + state.stateface + "</b> " + state.name + "</strong> to win the Electoral College.";
             } else {
-                return "If " + candidate + " wins " + states_text + " then he must win <strong><b>" + state.stateface + "</b> " + state.name + "</strong> to win the Electoral College.";
+                return "If " + candidate + " wins the states you have selected then he must win <strong><b>" + state.stateface + "</b> " + state.name + "</strong> to win the Electoral College.";
             }
         }
 
@@ -497,7 +483,7 @@ $(function() {
         }
         
         // Path w/ picks
-        return "If " + candidate + " wins " + states_text + " then he must win <strong>at least " + simplest_combo_length  + " more</strong> tossup state" + (simplest_combo_length > 1 ? "s" : "") + ".";
+        return "If " + candidate + " wins the states you have selected then he must win <strong>at least " + simplest_combo_length  + " more</strong> tossup state" + (simplest_combo_length > 1 ? "s" : "") + ".";
     }
      
     var tossup_click_handler = function(event) {
