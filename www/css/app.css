@@ -77,6 +77,24 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 
+/* PEGGED HEADER */
+#small-header h1 {
+	text-indent: -9999px;
+	background: url('../img/hd-sticky.png') no-repeat;
+	height: 43px; width: 291px; overflow: hidden;
+	margin: 4px 0;
+}
+#small-header .playercon {
+	width: 150px; height: 50px;
+	position: absolute; top: 0; right: 0;
+	color: #fff; background-color: #282828;
+	font: bold 12px Arial, Helvetica, sans-serif;
+}
+#small-header .playercon p {
+	padding: 18px 10px 0 10px;
+}
+
+
 /* RESULTS GROUPINGS (TOPLINE) */
 .results-group { position: relative; }
 #pres-header {}
@@ -206,6 +224,7 @@ a.btn { color: #fff; cursor: pointer; }
 .pres-watching { display: none; }
 .pres-closing { display: none; }
 .pres-called { display: none; }
+
 
 /* Electris */
 #electris-skinny {
@@ -617,9 +636,27 @@ a.btn { color: #fff; cursor: pointer; }
 
 /* Media queries */
 @media (min-width: 768px) {
-    #results-bar.affix #small-header { display:block; height:50px; background-color:darkgray; color:white; margin-top:20px; }
-    #results-bar.affix { top:20px; z-index:2112; }
-    #results-bar.affix div.results-group { height:50px; margin-top:0; }
+    #results-bar.affix { 
+    	top:0;
+    	z-index:2112;
+    }
+    #results-bar.affix #small-header { 
+    	position: relative;
+    	width: 704px; height: 50px;
+    	display:block; 
+    	padding: 0 10px;
+    	color:white;
+		background: #2C2C2C;
+		background-image: -moz-linear-gradient(top,#333,#222);
+		background-image: -ms-linear-gradient(top,#333,#222);
+		background-image: -webkit-gradient(linear,0 0,0 100%,from(#333),to(#222));
+		background-image: -webkit-linear-gradient(top,#333,#222);
+		background-image: -o-linear-gradient(top,#333,#222);
+		background-image: linear-gradient(top,#333,#222);
+    }
+    #results-bar.affix div.results-group { 
+    	height:50px; margin-top:0;
+    }
     #results-bar.affix + .row { margin-top:120px; }
 }
 
@@ -633,6 +670,7 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 @media (min-width: 1200px) {
+    #results-bar.affix #small-header { width: 1150px; }
 	.states { font-size: 23px; }
 	.combos { width: 7.5em; }
     .state i {
@@ -654,6 +692,8 @@ a.btn { color: #fff; cursor: pointer; }
 	.tossups span { text-align: left; display: inline-block; }
 }
 @media (max-width: 979px) {
+    #results-bar.affix #small-header { width: 940px; }
+
 	.tossups i { display: block; }
 	#electris .bucket { 
 		width: 100%; 
