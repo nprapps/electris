@@ -441,7 +441,6 @@ a.btn { color: #fff; cursor: pointer; }
 .combos button { display: block; margin: 9px auto 0 auto; }
 
 /* Combinations */
-#combinations-modal { clear: both; padding-top: 18px; }
 #combinations-modal b {
 	font-weight: normal;
 	font-family: StateFaceRegular;
