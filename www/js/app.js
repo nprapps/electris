@@ -27,7 +27,7 @@ $(function() {
     var electris_el = $("#electris");
     var electris_skinny_el = $("#electris-skinny");
     var electris_line_el = electris_el.find(".line");
-    var incoming_el = $("#incoming");
+    var results_el = $("#incoming");
     var maincontent_el = $("#the-stuff");
     var red_candidate_el = $(".candidate.red");
     var blue_candidate_el = $(".candidate.blue");
@@ -37,6 +37,9 @@ $(function() {
     var blue_tossups_el = blue_candidate_el.find(".tossups");
     var red_histogram_el = red_candidate_el.find(".histogram");
     var blue_histogram_el = blue_candidate_el.find(".histogram");
+    var called_el = $(".pres-called");
+    var incoming_el = $(".pres-watching");
+    var closing_el = $(".pres-closing");
 
     /* State data */
     var states = [];
@@ -45,6 +48,8 @@ $(function() {
     var blue_votes = 0;
     var total_tossup_states = 0;
     var polls_closing_html = {};
+    var incoming_count = 0;
+    var called_count = 0;
 
     /* User data */
     var tossup_picks = {};
@@ -187,7 +192,7 @@ $(function() {
 
         if (wide_mode) {
             electris_skinny_el.hide();
-            incoming_el.hide();
+            results_el.hide();
             electris_el.show();
         }
 
@@ -528,8 +533,8 @@ $(function() {
          */
         states = data;
 
-        var called_ul = $(".pres-called ul");
-        var incoming_ul = $(".pres-watching ul");
+        var called_ul = called_el.find("ul");
+        var incoming_ul = incoming_el.find("ul");
         var closing_ul = $("#closing-modal ul");
 
         _.each(states, function(state) { 
@@ -555,17 +560,31 @@ $(function() {
         var closing_times = {};
 
         _.each(alpha_states, function(state) {
-            var called_html = CALLED_TEMPLATE({
+            var called_state_el = $(CALLED_TEMPLATE({
                 state: state
-            });
+            }));
+            
+            if (!state.call) {
+                called_state_el.hide();
+            } else {
+                called_count += 1;
+            }
 
-            called_ul.append(called_html);
+            called_ul.append(called_state_el);
+            called_state_el = null;
 
-            var incoming_html = INCOMING_TEMPLATE({
+            var incoming_state_el = $(INCOMING_TEMPLATE({
                 state: state
-            });
+            }));
 
-            incoming_ul.append(incoming_html)
+            if (state.call || state.polls_close > moment()) {
+                incoming_state_el.hide();
+            } else {
+                incoming_count += 1; 
+            }
+
+            incoming_ul.append(incoming_state_el)
+            incoming_state_el = null;
             
             var timestamp = state.polls_close.valueOf();
 
@@ -575,6 +594,9 @@ $(function() {
 
             closing_times[timestamp].push(state);
         });
+
+        called_el.toggle(called_count > 0);
+        incoming_el.toggle(incoming_count > 0);
 
         var times = _.keys(closing_times).sort();
 
@@ -620,19 +642,25 @@ $(function() {
         });
 
         if (next) {
-            $(".pres-closing ul").html(polls_closing_html[next]);
+            closing_el.find("ul").html(polls_closing_html[next]);
+            closing_el.show();
         } else {
-            $(".pres-closing").hide();
+            closing_el.hide();
         }
 
         // Toggle visibility of states which closed
+        incoming_count = 0;
+
         _.each(states, function(state) {
             if (state.call || state.polls_close > now) {
                 $(".incoming." + state.id).hide();
             } else {
                 $(".incoming." + state.id).show();
+                incoming_count += 1;
             }
         });
+
+        incoming_el.toggle(incoming_count > 0);
     }
 
     function update_states(data) {
@@ -671,6 +699,7 @@ $(function() {
                         // Show chiclet
                         $(".tossup." + state.id).show(); 
 
+                        called_count -= 1;
                         total_tossup_states += 1;
 
                         console.log(state["name"] + " uncalled");
@@ -684,6 +713,7 @@ $(function() {
                                 delete tossup_picks[state.id];
                             }
 
+                            called_count += 1;
                             total_tossup_states -= 1;
 
                             console.log(state["name"] + " called as " + state["call"]);
@@ -702,6 +732,8 @@ $(function() {
         }
 
         if (changes) {
+            called_el.toggle(called_count > 0);
+
             compute_stats(true);
         };
     }

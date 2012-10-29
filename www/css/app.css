@@ -201,6 +201,9 @@ a.btn { color: #fff; cursor: pointer; }
 #closing-modal li:first-child { border: none; padding-top: 0; }
 #closing-modal li strong { margin-left: -100px; width: 90px; display: inline-block; font-size: 12px; }
 
+.pres-watching { display: none; }
+.pres-closing { display: none; }
+.pres-called { display: none; }
 
 /* Electris */
 #electris-skinny {
