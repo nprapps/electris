@@ -75,7 +75,7 @@ $(document).ready(function () {
 	}
 
     // No box ad when we have adhesion, so #header gets 12 columns
-    if (NPR.Devices.isOnTablet || NPR.Devices.isOnPhone){
+    if ($('body').hasClass('adhesion')){
         $('#header').removeClass('span8').addClass('span12');
     }
 });
