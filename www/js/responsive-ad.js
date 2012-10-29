@@ -75,7 +75,7 @@ $(document).ready(function () {
 	}
 
     // No box ad when we have adhesion, so #header gets 12 columns
-    if ($('body').hasClass('adhesion')){
+    if (Modernizr.touch){
         $('#header').removeClass('span8').addClass('span12');
     }
 });
