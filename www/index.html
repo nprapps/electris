@@ -227,7 +227,7 @@
                             <h5>Ways He Can Win</h5>
                             <p class="robotext"></p>
                             <ul class="histogram blue"></ul>
-                            <button id="show-blue-combos" class="btn btn-mini btn-inverse" type="button">Show All Paths</button>
+                            <a class="btn btn-mini btn-inverse" type="button" role="button" data-toggle="modal" href="#combinations-modal">Show All Paths</a>
                             <!-- TODO: pop up full list of combos in a modal -->
                         </div>
                     </div> <!-- end .candidate.blue -->
@@ -257,7 +257,7 @@
                             <h5>Ways He Can Win</h5>
                             <p class="robotext"></p>
                             <ul class="histogram red"></ul>
-                            <button id="show-red-combos" class="btn btn-mini btn-inverse" type="button">Show All Paths</button>
+                            <a class="btn btn-mini btn-inverse" type="button" role="button" data-toggle="modal" href="#combinations-modal">Show All Paths</a>
                             <!-- TODO: pop up full list of combos in a modal -->
                         </div>
                     </div> <!-- end .candidate.red -->
@@ -392,6 +392,24 @@
             <button type="button" class="btn" data-dismiss="modal">Close</a>
         </div>
     </div>
+
+    <div id="combinations-modal" class="modal hide">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Paths to victory</h3>
+        </div>
+        <div class="modal-body">
+            <h1>OBAMA</h1>
+            <ul class="blue">
+            </ul>
+            <h1>ROMNEY</h1>
+            <ul class="red">
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">Close</a>
+        </div>
+    </div>
         
     <script id="state-template" type="text/template">
         <div class="state <%= state.id %> call-<%= state.call %>" data-id="<%= state.id %>">
@@ -429,7 +447,7 @@
     </script>
 
     <script id="tossup-template" type="text/template">
-        <li data-state-id="<%= state.id %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><div><b><%= state.stateface %></b> <i><%= state.abbr %></i><span><%= state.electoral_votes %></span></div></li>
+        <li class="tossup <%= state.id %>" data-state-id="<%= state.id %>" rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false" <% if (state.call) { %>style="display:none;"<% } %>><div><b><%= state.stateface %></b> <i><%= state.abbr %></i><span><%= state.electoral_votes %></span></div></li>
     </script>
 
     <script id="combo-group-template" type="text/template">
