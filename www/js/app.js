@@ -4,21 +4,12 @@ $(function() {
     var STATE_TEMPLATE = _.template($("#state-template").html());
     var CALLED_TEMPLATE = _.template($("#called-template").html());
     var INCOMING_TEMPLATE = _.template($("#incoming-template").html());
+    var CLOSING_TEMPLATE = _.template($("#closing-template").html());
     var TOSSUP_TEMPLATE = _.template($("#tossup-template").html());
     var COMBO_GROUP_TEMPLATE = _.template($("#combo-group-template").html());
     var HISTOGRAM_TEMPLATE = _.template($("#histogram-template").html());
     var MUST_WIN_TEMPLATE = _.template($("#must-win-template").html());
     var BLOG_POST_TEMPLATE = _.template($("#blog-post-template").html());
-    var POLL_CLOSING_TIMES = [
-        moment("2012-11-06T18:00:00 -0500"),
-        moment("2012-11-06T19:00:00 -0500"),
-        moment("2012-11-06T19:30:00 -0500"),
-        moment("2012-11-06T20:00:00 -0500"),
-        moment("2012-11-06T21:00:00 -0500"),
-        moment("2012-11-06T22:00:00 -0500"),
-        moment("2012-11-06T23:00:00 -0500"),
-        moment("2012-11-07T01:00:00 -0500")
-    ];
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
     var MAX_STATES_FOR_WIDE_MODE = 12;
     var MIN_VOTES_FOR_WIDE_MODE = 240;
@@ -55,6 +46,7 @@ $(function() {
     var red_votes = 0;
     var blue_votes = 0;
     var total_tossup_states = 0;
+    var polls_closing_html = {};
 
     /* User data */
     var tossup_picks = {};
@@ -540,6 +532,7 @@ $(function() {
 
         var called_ul = $(".pres-called ul");
         var incoming_ul = $(".pres-watching ul");
+        var closing_ul = $("#closing-modal ul");
 
         _.each(states, function(state) { 
             // Build lookup table
@@ -558,6 +551,7 @@ $(function() {
         });
 
         var alpha_states = _.sortBy(states, "name");
+        var closing_times = {};
 
         _.each(alpha_states, function(state) {
             var called_html = CALLED_TEMPLATE({
@@ -571,6 +565,31 @@ $(function() {
             });
 
             incoming_ul.append(incoming_html);
+
+            if (!(state.polls_close in closing_times)) {
+                closing_times[state.polls_close] = [];
+            }
+
+            closing_times[state.polls_close].push(state);
+        });
+
+        var times = _.keys(closing_times).sort();
+
+        _.each(times, function(time) {
+            var closing_time = moment(time + " -0500", "MM-DD-YYYY hh:mm a Z");
+
+            var closing_html = CLOSING_TEMPLATE({
+                closing_time: closing_time,
+                states: closing_times[time]
+            });
+
+            if (!(closing_time in polls_closing_html)) {
+                polls_closing_html[time] = [];
+            }
+
+            polls_closing_html[time].push(closing_html);
+
+            closing_ul.append(closing_html);
         });
 
         $(".tossups li").touchClick(tossup_click_handler);
@@ -579,8 +598,29 @@ $(function() {
             $(".tossups li").tooltip();
         }
 
+        update_next_closing();
+        setInterval(update_next_closing, 1000);
+
         add_states();
         compute_stats(true);
+    }
+
+    function update_next_closing() {
+        /*
+         * Update what poll closing time (if any) is display.
+         */
+        var now = moment();
+
+        var next = _.find(_.keys(polls_closing_html), function(time) {
+            var closing_time = moment(time + " -0500", "YYYY-MM-DD hh:mm a Z");
+            return closing_time > now;
+        });
+
+        if (next) {
+            $(".pres-closing ul").html(polls_closing_html[next]);
+        } else {
+            $(".pres-closing").hide();
+        }
     }
 
     function update_states(data) {

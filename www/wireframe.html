@@ -117,14 +117,8 @@
 				<div class="pres-closing results">
 					<h5>Next Poll Closing</h5>
 					<ul>
-						<li class="time-0700">
-							<strong>7:00 PM ET</strong>
-							<span class="st"><b>q</b>Texas (38)</span>,
-							<span class="st"><b>B</b>Alabama (9)</span>,
-							<span class="st"><b>D</b>Arizona (11)</span>
-						</li>
 					</ul>
-					<button class="btn btn-mini btn-inverse show-poll-closings" type="button">Show All Closing Times</button>
+					<a class="btn btn-mini btn-inverse show-poll-closings" type="button" role="button" data-toggle="modal" href="#closing-modal">Show All Closing Times</a>
 					<!-- TODO: pop up full poll closing schedule in a modal -->
 				</div>
 
@@ -244,14 +238,8 @@
 					<div class="pres-closing results">
 						<h5>Next Poll Closing</h5>
 						<ul>
-							<li class="time-0700">
-								<strong>7:00 PM ET</strong>
-								<span class="st"><b>q</b>Texas (38)</span>,
-								<span class="st"><b>B</b>Alabama (9)</span>,
-								<span class="st"><b>D</b>Arizona (11)</span>
-							</li>
 						</ul>
-						<button class="btn btn-mini btn-inverse show-poll-closings" type="button">Show All Closing Times</button>
+						<a class="btn btn-mini btn-inverse show-poll-closings" type="button" role="button" data-toggle="modal" href="#closing-modal">Show All Closing Times</a>
 						<!-- TODO: pop up full poll closing schedule in a modal -->
 					</div>
 	
@@ -315,6 +303,20 @@
 			</div>
 		</div>
     </div>
+
+    <div id="closing-modal" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Poll closing times</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">Close</a>
+        </div>
+    </div>
         
     <script id="state-template" type="text/template">
         <div class="state <%= state.id %> call-<%= state.call %>" data-id="<%= state.id %>">
@@ -322,6 +324,15 @@
                 <i rel="tooltip" title="<%= state.name %> (<%= state.electoral_votes %>)" data-animation="false"><span><%= state.stateface %></span></i>
             <% }); %>
         </div>
+    </script>
+
+    <script id="closing-template" type="text/template">
+        <li class="time-<%= closing_time.format("hhmm") %>">
+            <strong><%= closing_time.format("hh:mm a") %> ET</strong>
+            <% _.each(states, function(state, i, l) { %>
+                <span class="st"><b><%= state.stateface %></b><%= state.name %> (<%= state.electoral_votes %>)</span><% if (i != l.length - 1) { %>,<% } %>
+            <% }); %>
+        </li>
     </script>
 
     <script id="called-template" type="text/template">

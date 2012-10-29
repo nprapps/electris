@@ -84,16 +84,16 @@ a.btn { color: #fff; cursor: pointer; }
 .pres-results { margin-bottom: 24px; }
 .pres-results h5 { margin-bottom: 3px; }
 .pres-results .results { position: relative; }
-.pres-results .results ul { margin: 0 0 18px 0; padding: 0; list-style: none; }
-.pres-results li:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-.pres-results .results li { padding-bottom: 1%; font-size: 12px; color: #454545; }
+.pres-results .results ul, #closing-modal ul { margin: 0 0 18px 0; padding: 0; list-style: none; }
+.pres-results li:after, #closing-modal li:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.pres-results .results li, #closing-modal li { padding-bottom: 1%; font-size: 12px; color: #454545; }
 .pres-results .results li.hdr { padding: 0; }
 .pres-results .results li.hdr,
-.pres-results .pres-closing strong { 
+.pres-results .pres-closing strong, #closing-modal strong { 
 	font-weight: normal; font-size: 10px; text-transform: uppercase; color: #666;
 }
 .pres-results .results li.hdr span { padding: 0; }
-.pres-results b {
+.pres-results b, #closing-modal b {
 	font: normal 1em StateFaceRegular;
     text-align: center;
     display: inline-block;
@@ -101,7 +101,7 @@ a.btn { color: #fff; cursor: pointer; }
     margin-right: 4px;
     height:1em;
 }
-.pres-results .st { 
+.pres-results .st, #closing-modal .st { 
 	white-space: nowrap;
 	padding-top: 3px;
 	width: 28%; 
@@ -140,9 +140,9 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 .pres-results .pres-closing { margin-top: 6px; padding-bottom: 0; margin-bottom: 0; }
-.pres-results .pres-closing strong { display: block; }
-.pres-results .pres-closing .st { display: inline; width: auto; float: none; padding: 0; color: #454545; }
-.pres-results .pres-closing li { margin-bottom: .7em; }
+.pres-results .pres-closing strong, #closing-modal strong { display: block; }
+.pres-results .pres-closing .st, #closing-modal .st { display: inline; width: auto; float: none; padding: 0; color: #454545; }
+.pres-results .pres-closing li, #closing-modal li { margin-bottom: .7em; }
 .show-poll-closings { display: block; margin: 0 auto 18px auto; }
 #incoming .pres-closing .show-poll-closings { position: absolute; top: 10px; right: 0; margin: 0; }
 
