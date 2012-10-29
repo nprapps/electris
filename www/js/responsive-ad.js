@@ -188,14 +188,6 @@ DFP.shouldRenderForDevice = function(deviceEnv) {
         var winWidth = $(window).width();
         var winOrientation = window.orientation;
 
-        var start = navigator.userAgent.indexOf("Android ");
-        if (start >= 0) {
-            var majorversion = parseInt(navigator.userAgent.substr(start+8,1));
-            if (!isNaN(majorversion) && parseInt(majorversion) < 3) {
-                return false;
-            }
-        }
-
         switch (deviceEnv) {
             case 'desktop':
                 var ieEightCheck = ($.browser.msie === true && ($.browser.version === '7.0' || $.browser.version === '8.0'));

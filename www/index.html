@@ -331,17 +331,6 @@
             </div>
         </div>
         
-		<div id="adhesion">
-            <script type="text/javascript">
-            <!--
-			try {
-				DFP.renderLocation('mobile');
-			} catch (e) {
-				// error
-			}
-            // -->
-            </script>   
-		</div>
 
 		<div id="footer" class="row">
 			<div class="span12">
@@ -376,6 +365,18 @@
 		</div>
     </div>
 
+    <div id="adhesion">
+            <script type="text/javascript">
+            <!--
+            try {
+                DFP.renderLocation('mobile');
+            } catch (e) {
+                // error
+            }
+            // -->
+            </script>   
+        </div>
+
     <div id="closing-modal" class="modal hide">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -386,7 +387,7 @@
             </ul>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal">Close</a>
+            <button type="button" class="btn" data-dismiss="modal">Close</button>
         </div>
     </div>
 
@@ -404,7 +405,7 @@
             </ul>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal">Close</a>
+            <button type="button" class="btn" data-dismiss="modal">Close</button>
         </div>
     </div>
         
@@ -426,7 +427,7 @@
     </script>
 
     <script id="called-template" type="text/template">
-        <li class="called <%= state.id %>" <% if (!state.call) { %>style="display:none;"<% } %>>
+        <li class="called <%= state.id %>">
             <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
             <span class="blue <% if (state.call === "d") { %>winner<% } %>"><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
             <span class="red <% if (state.call === "r") { %>winner<% } %>"><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
@@ -435,7 +436,7 @@
     </script>
 
     <script id="incoming-template" type="text/template">
-        <li class="incoming <%= state.id %>" <% if (state.call || state.polls_close > moment()) { %>style="display:none;"<% } %>>
+        <li class="incoming <%= state.id %>">
             <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
             <span class="blue"><% if (state.dem_vote_count) { %><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) || 0 %>%<% } else { %>&mdash;<% } %></span>
             <span class="red"><% if (state.rep_vote_count) { %><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) || 0 %>%<% } else { %>&mdash;<% } %></span>
