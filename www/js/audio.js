@@ -105,6 +105,7 @@ $(function(){
 		});
 	}
     
+    // live audio
     // TODO: refactor so that it works based on a bit we flip or something, probably a nice function
     
 	var _status = '';
@@ -126,5 +127,24 @@ $(function(){
 		$('#playercon').show();
 		$('#playercon').css("visibility", "visible");
 		_status = 'TRUE';
+	}
+    
+	// totn audio
+    // TODO: refactor this into the main audio player
+    var _totnstatus = '';
+    var totnShowNow = 'TRUE';
+    
+	if (_totnstatus != 'TRUE' && totnShowNow == 'TRUE') {
+		var totnAudioLink = 'http://pd.npr.org/anon.npr-mp3/npr/totn/2012/10/20121010_totn_01.mp3'
+		$('body').addClass('totn');
+		$('#totnAudio').show();
+		$('#audiocon').empty().append('<audio src="' + totnAudioLink + '" preload="none"></audio>');
+		var as = audiojs.createAll();
+		_totnstatus = 'TRUE';
+	} else if (_totnstatus != 'FALSE' && totnShowNow == 'FALSE') {
+		$('body').removeClass('totn');
+		$('#totnAudio').hide();
+		$('#audiocon').empty();
+		_totnstatus = 'FALSE';
 	}
 });
