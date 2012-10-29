@@ -544,6 +544,21 @@ $(function() {
             // Build lookup table
             states_by_id[state.id] = state;
 
+            if (!state.call) {
+                var html = TOSSUP_TEMPLATE({
+                    state: state
+                });
+
+                red_tossups_el.append(html);
+                blue_tossups_el.append(html);
+
+                total_tossup_states += 1;
+            }
+        });
+
+        var alpha_states = _.sortBy(states, "name");
+
+        _.each(alpha_states, function(state) {
             var called_html = CALLED_TEMPLATE({
                 state: state
             });
@@ -555,17 +570,6 @@ $(function() {
             });
 
             incoming_ul.append(incoming_html);
-
-            if (!state.call) {
-                var html = TOSSUP_TEMPLATE({
-                    state: state
-                });
-
-                red_tossups_el.append(html);
-                blue_tossups_el.append(html);
-
-                total_tossup_states += 1;
-            }
         });
 
         $(".tossups li").touchClick(tossup_click_handler);
