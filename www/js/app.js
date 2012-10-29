@@ -37,8 +37,6 @@ $(function() {
     var blue_tossups_el = blue_candidate_el.find(".tossups");
     var red_histogram_el = red_candidate_el.find(".histogram");
     var blue_histogram_el = blue_candidate_el.find(".histogram");
-    var red_combinations_el = red_candidate_el.find(".combinations");
-    var blue_combinations_el = blue_candidate_el.find(".combinations");
 
     /* State data */
     var states = [];
@@ -345,17 +343,16 @@ $(function() {
 
         var window_width = maincontent_el.width();
 
-        function show_combos(keys, groups, root_el, base_votes) {
-            var combo_groups_el = root_el.find(".combinations ul");
+        function show_combos(keys, groups, side, base_votes) {
+            var combo_groups_el = $("#combinations-modal ul." + side);
             combo_groups_el.empty();
 
             for (var key = 1; key < total_tossup_states + 1; key++) {
                 var group = groups[key] || [];
                 var count = group.length;
-                var side = root_el.hasClass("red") ? "red" : "blue";
 
                 // Tweak combo group display
-                var histogram_el = root_el.find(".histogram ." + side + key);
+                var histogram_el = $(".histogram ." + side + key);
                 histogram_el.toggleClass("active", count > 0);
 
                 if (count > 0) {
@@ -427,7 +424,7 @@ $(function() {
             states_won: red_states_won 
         }));
 
-        show_combos(red_keys, red_groups, red_candidate_el, red_votes);
+        show_combos(red_keys, red_groups, "red", red_votes);
 
         if (blue_combos.length > 0) {
             simplest_combo_length = blue_combos[0].combo.length;
@@ -442,7 +439,7 @@ $(function() {
             states_won: blue_states_won
         }));
 
-        show_combos(blue_keys, blue_groups, blue_candidate_el, blue_votes);
+        show_combos(blue_keys, blue_groups, "blue", blue_votes);
     }
      
     var tossup_click_handler = function(event) {
