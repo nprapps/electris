@@ -507,7 +507,8 @@ a.btn { color: #fff; cursor: pointer; }
 	   -moz-box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(0, 0, 0, 0.15);
 	        box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(0, 0, 0, 0.15);
 }
-.tossups li.active div {
+.tossups li.active div,
+.no-touch .tossups li.active:hover div {
 	background: #B39429;
 	text-shadow: 0 1px 1px rgba(179, 148, 41, 0.75);
 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#E5BF57), to(#B39429));
@@ -519,15 +520,15 @@ a.btn { color: #fff; cursor: pointer; }
 	border-color: #E5BF57;
 	border-bottom-color: #B39429;
 }
-.tossups li.taken div { 
+.tossups li.taken div,
+.no-touch .tossups li.taken:hover div { 
 	background: #FBF1CD;
 	background-image: none;
 	color: #f5dc81;
 }
 .tossups li.taken, .tossups li.taken span, 
 .tossups li.taken i { color: #f5dc81; }
-.no-touch .tossups li:hover div, 
-.no-touch .tossups li.taken:hover div {
+.no-touch .tossups li:hover div {
 	cursor: pointer;
 	text-shadow: 0 1px 1px rgba(229, 191, 87, 0.75);
 	background: #E5BF57;
@@ -541,12 +542,21 @@ a.btn { color: #fff; cursor: pointer; }
 	border-top-color: #f5dc81;
 	color: #fff;
 }
-.no-touch .tossups li:hover span, 
+.no-touch .tossups li.active:hover div,
+.no-touch .tossups li.active:hover span,
+.no-touch .tossups li.active:hover i {
+	color: #FBF1CD;
+}
+.no-touch .tossups li.taken:hover div,
 .no-touch .tossups li.taken:hover span,
+.no-touch .tossups li.taken:hover i {
+	color: #E5BF57;
+}
+
+.no-touch .tossups li:hover span, 
 .tossups li.active div, 
 .tossups li.active span,
 .no-touch .tossups li:hover i, 
-.no-touch .tossups li.taken:hover i,
 .tossups li.active i, 
 .tossups li.active i {
 	color: #fff;
