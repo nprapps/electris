@@ -4,7 +4,8 @@
     <title>Live Results, Election 2012 : NPR</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
     <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script> <!-- FOR CHARTBEAT -->
@@ -400,7 +401,7 @@
     <div id="combinations-modal" class="modal hide">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Paths to victory</h3>
+            <h3>Paths To Victory</h3>
         </div>
         <div class="modal-body">
             <h1>OBAMA</h1>
@@ -456,7 +457,7 @@
 
     <script id="combo-group-template" type="text/template">
         <li id="<%= side %><%= key %>">
-            <h4><%= key %><% if (last_group) { %>+<% } %> state<%= key > 1 ? "s" : "" %><br /><a href="#key">(back to top)</a></h4>
+            <h4><%= key %><% if (last_group) { %>+<% } %> state<%= key > 1 ? "s" : "" %></h4>
             <ul>
             </ul>
         </li>
@@ -469,20 +470,6 @@
                 <span class="bar" style="width: 0px;"></span>
             </h4>
         </li>
-    </script>
-
-    <script id="must-win-template" type="text/template">
-        <% if (votes >= 270) { %>
-            If <%= candidate %> wins <% _.each(states_won, function(state, i, l) { %><strong><b><%= state.stateface %></b> <%= state.name %></strong><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> then he <strong>wins the Electoral College</strong>.
-        <% } else if (simplest_combo_length == 0) { %>
-            <%= candidate %> <strong>cannot win</strong> the Electoral College.
-        <% } else { %>
-            <% if (states_won.length == 0) { %>
-                <%= candidate %> must win <strong>at least <%= simplest_combo_length %></strong> tossup state<% if (simplest_combo_length > 1) { %>s<% } %>. Possible combinations:
-            <% } else { %>
-                If <%= candidate %> wins <% _.each(states_won, function(state, i, l) { %><strong><b><%= state.stateface %></b> <%= state.name %></strong><% if (i == l.length - 2) { %> and <% } else if (i == l.length - 1) { %><% } else { %>, <% } %><% }); %> then he must win <strong>at least <%= simplest_combo_length %> more</strong> tossup state<% if (simplest_combo_length > 1) { %>s<% } %>. Possible combinations:
-            <% } %>
-        <% } %>
     </script>
 
     <script id="meme-photo-template" type="text/template">
@@ -530,7 +517,6 @@
     <script type="text/javascript" src="js/lib/jquery.touchclick.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/combinations.js"></script>
-    <script type="text/javascript" src="js/combo_primer.js"></script>
     <script type="text/javascript" src="http://www.npr.org/templates/javascript/jwplayer/jwplayer.js"></script>
     <script type="text/javascript" src="js/lib/audio.min.js"></script>
     <script type="text/javascript" src="js/audio.js"></script>

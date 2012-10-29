@@ -73,6 +73,11 @@ $(document).ready(function () {
 			});
 		}, 500);
 	}
+
+    // No box ad when we have adhesion, so #header gets 12 columns
+    if (Modernizr.touch){
+        $('#header').removeClass('span8').addClass('span12');
+    }
 });
 
 var DFP = {};
@@ -150,7 +155,7 @@ DFP.renderLocation = function(deviceEnv) {
             + ';orient=' + orient
             + ';" type="text/javascript" language="javascript"></scr' + 'ipt>' + sponsorshiptext;
 
-		console.log(toRender);
+		//console.log(toRender);
 		document.write(toRender);
 
         if (NPR.Devices.isOnPhone()) {
@@ -214,7 +219,7 @@ DFP.shouldRenderForDevice = function(deviceEnv) {
             default:
                 break;
         }
-		console.log(deviceEnv + ' shouldRender: ' + shouldRender);
+		//console.log(deviceEnv + ' shouldRender: ' + shouldRender);
         return shouldRender;
     }
 }
