@@ -479,11 +479,11 @@ $(function() {
 
         // Path w/o picks
         if (states_won.length == 0) {
-            return candidate + " must win <strong>at least " + simplest_combo_length + "</strong> tossup state" + (simplest_combo_length > 1 ? "s" : "") + ".";
+            return candidate + " must win <strong>at least " + simplest_combo_length + " more</strong> state" + (simplest_combo_length > 1 ? "s" : "") + ".";
         }
         
         // Path w/ picks
-        return "If " + candidate + " wins the states you have selected then he must win <strong>at least " + simplest_combo_length  + " more</strong> tossup state" + (simplest_combo_length > 1 ? "s" : "") + ".";
+        return "If " + candidate + " wins the states you have selected then he must win <strong>at least " + simplest_combo_length  + " more</strong> state" + (simplest_combo_length > 1 ? "s" : "") + ".";
     }
      
     var tossup_click_handler = function(event) {
