@@ -190,7 +190,9 @@ a.btn { color: #fff; cursor: pointer; }
 	padding-top: 6px;
 }
 
-.pres-results .pres-closing { margin-top: 6px; padding-bottom: 0; margin-bottom: 0; }
+.pres-results .pres-watching { margin-bottom: 6px; }
+
+.pres-results .pres-closing { padding-bottom: 0; margin-bottom: 0; }
 .pres-results .pres-closing strong, #closing-modal strong { display: block; }
 .pres-results .pres-closing .st, #closing-modal .st { display: inline; width: auto; float: none; padding: 0; color: #454545; }
 .pres-results .pres-closing li, #closing-modal li { margin-bottom: .7em; }
@@ -263,11 +265,11 @@ a.btn { color: #fff; cursor: pointer; }
 .no-touch .state:hover, 
 .no-touch .state:hover i, 
 .no-touch .state:hover i span { cursor: default; }
-.no-touch .state:hover i { color: #333; } 
+.no-touch .state:hover i { color: #fff; } 
 
 .state i span { font-size:.7em; }
-.state.call-d i { background-color: #3d7fa6; color: #fff; }
-.state.call-r i { background-color: #a23520; color: #fff; }
+.state.call-d i { background-color: #3d7fa6; color: #A8D5EF; }
+.state.call-r i { background-color: #a23520; color: #ECA395; }
 
 .line {
 	height: 1px;
