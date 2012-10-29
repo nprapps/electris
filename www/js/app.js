@@ -8,14 +8,11 @@ $(function() {
     var TOSSUP_TEMPLATE = _.template($("#tossup-template").html());
     var COMBO_GROUP_TEMPLATE = _.template($("#combo-group-template").html());
     var HISTOGRAM_TEMPLATE = _.template($("#histogram-template").html());
-    var MUST_WIN_TEMPLATE = _.template($("#must-win-template").html());
     var BLOG_POST_TEMPLATE = _.template($("#blog-post-template").html());
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
     var MAX_STATES_FOR_WIDE_MODE = 12;
-    var MIN_VOTES_FOR_WIDE_MODE = 240;
     var MAX_COMBO_GROUP = 7;
     var POLLING_INTERVAL = 5000;
-    var FORCE_WIDE_MODE = false;
     var RIVER_TIMER = null;
 
     if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); } else { $("body").addClass("no-touch"); }
@@ -181,14 +178,10 @@ $(function() {
         $(".blue-needs").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
         blue_candidate_el.toggleClass("winner", blue_votes >= ELECTORAL_VOTES_TO_WIN);
 
-
         // Potentially flip modes
         old_wide_mode = wide_mode;
 
-        wide_mode = FORCE_WIDE_MODE || (
-            states_not_called.length <= MAX_STATES_FOR_WIDE_MODE &&
-            (red_votes >= MIN_VOTES_FOR_WIDE_MODE || blue_votes >= MIN_VOTES_FOR_WIDE_MODE)
-        );
+        wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE);
 
         if (wide_mode) {
             electris_skinny_el.hide();
@@ -283,57 +276,49 @@ $(function() {
          
         var state_ids = _.pluck(undecided_states, "id");
 
-        // If this is the first combo, use the primer
-        if (undecided_states.length == COMBO_PRIMER.undecided_states.length) {
-            red_combos = COMBO_PRIMER.red_combos;
-            blue_combos = COMBO_PRIMER.blue_combos;
-            red_groups = COMBO_PRIMER.red_groups;
-            blue_groups = COMBO_PRIMER.blue_groups;
-            red_keys = _.keys(red_groups).sort();
-            blue_keys = _.keys(blue_groups).sort();
-        } else {
-            // NB: A sorted input list generates a sorted output list
-            // from our combinations algorithm.
-            combos = combinations(state_ids, 1);
+        // NB: A sorted input list generates a sorted output list
+        // from our combinations algorithm.
+        combos = combinations(state_ids, 1);
 
-            _.each(combos, function(combo) {
-                var combo_votes = _.reduce(combo, function(memo, id) { return memo + states_by_id[id].electoral_votes; }, 0);
+        _.each(combos, function(combo) {
+            var combo_votes = _.reduce(combo, function(memo, id) {
+                return memo + states_by_id[id].electoral_votes;
+            }, 0);
 
-                if (combo_votes >= red_needs && red_needs > 0) {
-                    if (!is_subset(red_combos, combo)) {
-                        var combo_obj = { combo: combo, votes: combo_votes };
+            if (combo_votes >= red_needs && red_needs > 0) {
+                if (!is_subset(red_combos, combo)) {
+                    var combo_obj = { combo: combo, votes: combo_votes };
 
-                        red_combos.push(combo_obj);
+                    red_combos.push(combo_obj);
 
-                        var key = combo.length;
+                    var key = combo.length;
 
-                        if (!(key in red_groups)) {
-                            red_keys.push(key);
-                            red_groups[key] = [];
-                        }
-
-                        red_groups[key].push(combo_obj);
+                    if (!(key in red_groups)) {
+                        red_keys.push(key);
+                        red_groups[key] = [];
                     }
+
+                    red_groups[key].push(combo_obj);
                 }
+            }
 
-                if (combo_votes >= blue_needs && blue_needs > 0) {
-                    if (!is_subset(blue_combos, combo)) {
-                        var combo_obj = { combo: combo, votes: combo_votes };
+            if (combo_votes >= blue_needs && blue_needs > 0) {
+                if (!is_subset(blue_combos, combo)) {
+                    var combo_obj = { combo: combo, votes: combo_votes };
 
-                        blue_combos.push(combo_obj);
+                    blue_combos.push(combo_obj);
 
-                        var key = combo.length;
+                    var key = combo.length;
 
-                        if (!(key in blue_groups)) {
-                            blue_keys.push(key);
-                            blue_groups[key] = [];
-                        }
-
-                        blue_groups[key].push(combo_obj);
+                    if (!(key in blue_groups)) {
+                        blue_keys.push(key);
+                        blue_groups[key] = [];
                     }
+
+                    blue_groups[key].push(combo_obj);
                 }
-            });
-        }
+            }
+        });
 
         var max_red_combo_group = _.max(_.values(red_groups), function(combo_group) {
             return combo_group.length;
@@ -352,15 +337,23 @@ $(function() {
 
         function show_combos(keys, groups, side, base_votes) {
             var combo_groups_el = $("#combinations-modal ul." + side);
+            var max_group_count = 0; 
             combo_groups_el.empty();
 
             for (var key = 1; key < total_tossup_states + 1; key++) {
                 var group = groups[key] || [];
                 var count = group.length;
 
-                // Tweak combo group display
-                var histogram_el = $(".histogram ." + side + key);
-                histogram_el.toggleClass("active", count > 0);
+                if (key > MAX_COMBO_GROUP) {
+                    max_group_count += count;
+                    count = max_group_count;
+
+                    var histogram_el = $(".histogram ." + side + MAX_COMBO_GROUP);
+                    histogram_el.toggleClass("active", max_group_count > 0);
+                } else {
+                    var histogram_el = $(".histogram ." + side + key);
+                    histogram_el.toggleClass("active", count > 0);
+                }
 
                 if (count > 0) {
                     if (window_width > 480) {
@@ -369,8 +362,22 @@ $(function() {
                         histogram_el.find(".bar").css({ width: (count / max_combo_group * 100) + '%' });
                     }
 
+                    var new_combo_group = false;
+
                     if (key > MAX_COMBO_GROUP) {
                         var combo_group_el = combo_groups_el.find("#" + side + MAX_COMBO_GROUP);
+
+                        // Handle edge-case where MAX group may have had no combos and thus not exist
+                        if (combo_group_el.length == 0) {
+                            combo_group_el = $(COMBO_GROUP_TEMPLATE({
+                                side: side,
+                                key: MAX_COMBO_GROUP,
+                                count: count,
+                                last_group: true
+                            }));
+
+                            new_combo_group = true;
+                        }
                     } else {
                         var combo_group_el = $(COMBO_GROUP_TEMPLATE({
                             side: side,
@@ -378,8 +385,10 @@ $(function() {
                             count: count,
                             last_group: (key == MAX_COMBO_GROUP)
                         }));
+
+                        new_combo_group = true;
                     }
-                    
+
                     var combo_list_el = combo_group_el.find("ul");
 
                     _.each(group, function(combo) {
@@ -392,13 +401,13 @@ $(function() {
                         });
 						
                         var el = $("<li>" + state_text.join(" + ") + " = " + (base_votes + combo.votes) + "</li>"); 
-                        
+
                         combo_list_el.append(el);
 
                         el = null;
                     });
 
-                    if (key <= MAX_COMBO_GROUP) {
+                    if (new_combo_group) {
                         combo_groups_el.append(combo_group_el);
                     }
 
@@ -408,14 +417,6 @@ $(function() {
                     histogram_el.find(".bar").css({ width: '0%' });
                 }
             }
-        }
-
-        var simplest_combo_length = 0;
-
-        if (red_combos.length > 0) {
-            simplest_combo_length = red_combos[0].combo.length;
-        } else {
-            simplest_combo_length = 0;
         }
 
         var red_states_won = [];
@@ -429,29 +430,60 @@ $(function() {
             }
         });
 
-        red_candidate_el.find(".combos .robotext").html(MUST_WIN_TEMPLATE({
-            candidate: "Romney",
-            simplest_combo_length: simplest_combo_length,
-            votes: red_votes,
-            states_won: red_states_won 
-        }));
+        red_candidate_el.find(".combos .robotext").html(must_win_robotext(
+            "Romney",
+            red_combos,
+            red_votes,
+            red_states_won 
+        ));
 
         show_combos(red_keys, red_groups, "red", red_votes);
 
-        if (blue_combos.length > 0) {
-            simplest_combo_length = blue_combos[0].combo.length;
-        } else {
-            simplest_combo_length = 0;
-        }
-
-        blue_candidate_el.find(".combos .robotext").html(MUST_WIN_TEMPLATE({
-            candidate: "Obama",
-            simplest_combo_length: simplest_combo_length,
-            votes: blue_votes,
-            states_won: blue_states_won
-        }));
+        blue_candidate_el.find(".combos .robotext").html(must_win_robotext(
+            "Obama",
+            blue_combos,
+            blue_votes,
+            blue_states_won
+        ));
 
         show_combos(blue_keys, blue_groups, "blue", blue_votes);
+    }
+
+    function must_win_robotext(candidate, combos, votes, states_won) {
+        // Winner
+        if (votes >= 270) {
+            return "If " + candidate + " wins the states you have selected then he will <strong>win the Electoral College</strong>.";
+        }
+
+        // Loser
+        if (simplest_combo_length == 0) {
+            return candidate + " <strong>cannot win</strong> the Electoral College.";
+        }
+
+        // One state left!
+        if (combos.length == 1) {
+            var state = states_by_id[combos[0].combo[0]];
+
+            if (states_won.length == 0) {
+                return candidate + " must win <strong><b>" + state.stateface + "</b> " + state.name + "</strong> to win the Electoral College.";
+            } else {
+                return "If " + candidate + " wins the states you have selected then he must win <strong><b>" + state.stateface + "</b> " + state.name + "</strong> to win the Electoral College.";
+            }
+        }
+
+        if (combos.length > 0) {
+            var simplest_combo_length = combos[0].combo.length;
+        } else {
+            var simplest_combo_length = 0;
+        }
+
+        // Path w/o picks
+        if (states_won.length == 0) {
+            return candidate + " must win <strong>at least " + simplest_combo_length + "</strong> tossup state" + (simplest_combo_length > 1 ? "s" : "") + ".";
+        }
+        
+        // Path w/ picks
+        return "If " + candidate + " wins the states you have selected then he must win <strong>at least " + simplest_combo_length  + " more</strong> tossup state" + (simplest_combo_length > 1 ? "s" : "") + ".";
     }
      
     var tossup_click_handler = function(event) {
