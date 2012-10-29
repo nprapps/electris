@@ -88,8 +88,6 @@ $(function() {
                 }
             }
         }
-
-
     }
 
     function add_states() {
@@ -535,6 +533,9 @@ $(function() {
         var closing_ul = $("#closing-modal ul");
 
         _.each(states, function(state) { 
+            // Convert poll closing time to a moment() 
+            state.polls_close = moment(state.polls_close + " -0500", "YYYY-MM-DD hh:mm a Z");
+
             // Build lookup table
             states_by_id[state.id] = state;
 
@@ -564,26 +565,28 @@ $(function() {
                 state: state
             });
 
-            incoming_ul.append(incoming_html);
+            incoming_ul.append(incoming_html)
+            
+            var timestamp = state.polls_close.valueOf();
 
-            if (!(state.polls_close in closing_times)) {
-                closing_times[state.polls_close] = [];
+            if (!(timestamp in closing_times)) {
+                closing_times[timestamp] = [];
             }
 
-            closing_times[state.polls_close].push(state);
+            closing_times[timestamp].push(state);
         });
 
         var times = _.keys(closing_times).sort();
 
         _.each(times, function(time) {
-            var closing_time = moment(time + " -0500", "MM-DD-YYYY hh:mm a Z");
+            var closing_time = moment(parseInt(time));
 
             var closing_html = CLOSING_TEMPLATE({
                 closing_time: closing_time,
                 states: closing_times[time]
             });
 
-            if (!(closing_time in polls_closing_html)) {
+            if (!(time in polls_closing_html)) {
                 polls_closing_html[time] = [];
             }
 
@@ -611,8 +614,8 @@ $(function() {
          */
         var now = moment();
 
-        var next = _.find(_.keys(polls_closing_html), function(time) {
-            var closing_time = moment(time + " -0500", "YYYY-MM-DD hh:mm a Z");
+        var next = _.find(_.keys(polls_closing_html).sort(), function(time) {
+            var closing_time = moment(parseInt(time));
             return closing_time > now;
         });
 
@@ -621,6 +624,15 @@ $(function() {
         } else {
             $(".pres-closing").hide();
         }
+
+        // Toggle visibility of states which closed
+        _.each(states, function(state) {
+            if (state.call || state.polls_close > now) {
+                $(".incoming." + state.id).hide();
+            } else {
+                $(".incoming." + state.id).show();
+            }
+        });
     }
 
     function update_states(data) {
@@ -669,6 +681,7 @@ $(function() {
                 }
 
                 states[i] = state;
+                states[i].polls_close = old_state.polls_close;
 
                 changes = true;
             }
