@@ -64,6 +64,9 @@ $(function() {
     /* DATA PROCESSING & RENDERING */
     
     function add_state(state) {
+        /*
+         * Render a single state and add it to the correct bucket(s).
+         */
         var el = $(STATE_TEMPLATE({
             state: state
         }));
@@ -110,9 +113,10 @@ $(function() {
         var red_predicted = [];
         var blue_called = [];
         var blue_predicted = [];
+        var states_length = states.length;
 
         // Group states together
-        for (var i = 0; i < states.length; i++) {
+        for (var i = 0; i < states_length; i++) {
             var state = states[i];
             
             if (state.call === "r") {
@@ -133,14 +137,16 @@ $(function() {
 
         // Add states by groups
         var groups = [red_called, blue_called, red_predicted, blue_predicted];
+        var groups_length = groups.length;
 
-        for (var i = 0; i < groups.length; i++) {
+        for (var i = 0; i < groups_length; i++) {
             var states_group = groups[i];
+            var states_group_length = states_group.length;
 
             // Sort by votes *top to bottom*
             states_group.reverse();
 
-            for (var j = 0; j < states_group.length; j++) {
+            for (var j = 0; j < states_group_length; j++) {
                 add_state(states_group[j]);
             }
         }
@@ -155,8 +161,9 @@ $(function() {
         var states_user_red = [];
         var states_user_blue = [];
         var states_not_called = [];
+        var states_length = states.length;
 
-        for (var i = 0; i < states.length; i++) {
+        for (var i = 0; i < states_length; i++) {
             var state = states[i];
 
             if (state.call === "r") {
@@ -302,11 +309,17 @@ $(function() {
         // NB: A sorted input list generates a sorted output list
         // from our combinations algorithm.
         combos = combinations(state_ids, 1);
+        combos_length = combos.length;
 
-        _.each(combos, function(combo) {
-            var combo_votes = _.reduce(combo, function(memo, id) {
-                return memo + states_by_id[id].electoral_votes;
-            }, 0);
+        var then = new Date();
+        for (var i = 0; i < combos_length; i++) {
+            var combo = combos[i];
+            var combo_length = combo.length;
+            var combo_votes = 0;
+
+            for (var j = 0; j < combo_length; j++) {
+                combo_votes += states_by_id[combo[j]].electoral_votes;
+            }
 
             if (combo_votes >= red_needs && red_needs > 0) {
                 if (!is_subset(red_combos, combo)) {
@@ -314,7 +327,7 @@ $(function() {
 
                     red_combos.push(combo_obj);
 
-                    var key = combo.length;
+                    var key = combo_length;
 
                     // Combine large combos into one group
                     if (key > MAX_COMBO_GROUP) {
@@ -336,7 +349,7 @@ $(function() {
 
                     blue_combos.push(combo_obj);
 
-                    var key = combo.length;
+                    var key = combo_length;
 
                     // Combine large combos into one group
                     if (key > MAX_COMBO_GROUP) {
@@ -351,7 +364,8 @@ $(function() {
                     blue_groups[key].push(combo_obj);
                 }
             }
-        });
+        }
+        console.log((new Date()) - then);
 
         var max_red_combo_group = _.max(_.values(red_groups), function(combo_group) {
             return combo_group.length;
@@ -373,22 +387,22 @@ $(function() {
 
             for (var key = 1; key < MAX_COMBO_GROUP + 1; key++) {
                 var group = groups[key] || [];
-                var count = group.length;
+                var group_length = group.length;
 
                 var histogram_el = $(".histogram ." + side + key);
-                histogram_el.toggleClass("active", count > 0);
+                histogram_el.toggleClass("active", group_length > 0);
 
-                if (count > 0) {
+                if (group_length > 0) {
                     if (window_width > 480) {
-                        histogram_el.find(".bar").animate({ width: (count / max_combo_group * 100) + '%' }, 300);
+                        histogram_el.find(".bar").animate({ width: (group_length / max_combo_group * 100) + '%' }, 300);
                     } else {
-                        histogram_el.find(".bar").css({ width: (count / max_combo_group * 100) + '%' });
+                        histogram_el.find(".bar").css({ width: (group_length / max_combo_group * 100) + '%' });
                     }
 
                     var combo_group_el = $(COMBO_GROUP_TEMPLATE({
                         side: side,
                         key: key,
-                        count: count,
+                        count: group_length,
                         last_group: (key == MAX_COMBO_GROUP)
                     }));
 
@@ -397,16 +411,17 @@ $(function() {
                     var combo_list_el = combo_group_el.find("ul");
                     var combo_els = [];
 
-                    for (var i = 0; i < group.length; i++) {
+                    for (var i = 0; i < group_length; i++) {
                         var combo = group[i];
+                        var combo_length = combo.combo.length;
                         var state_text = "";
                         
-                        for (var j = 0; j < combo.combo.length; j++) {
+                        for (var j = 0; j < combo_length; j++) {
                             var state = states_by_id[combo.combo[j]];
 
                             state_text += "<strong><b>" + state.stateface + "</b> " + state.name + " (" + state.electoral_votes + ")</strong>";
 
-                            if (j != combo.combo.length - 1) {
+                            if (j != combo_length - 1) {
                                 state_text += " + ";
                             }
                         };
@@ -462,6 +477,9 @@ $(function() {
     }
 
     function must_win_robotext(candidate, combos, votes, states_won) {
+        /*
+         * Generate robotext describing election scenario.
+         */
         // Winner
         if (votes >= 270) {
             return "If " + candidate + " wins the states you have selected then he will <strong>win the Electoral College</strong>.";
@@ -760,8 +778,9 @@ $(function() {
          * Update state data from JSON.
          */
         var changes = false;
+        var states_length = states.length;
 
-        for (var i = 0; i < states.length; i++) {
+        for (var i = 0; i < states_length; i++) {
             var old_state = states[i];
             var state = data[i];
 
@@ -960,7 +979,9 @@ $(function() {
          * Update the memetracker from our tumblr feed.
          */
         $.getJSON('tumblr.json?t=' + (new Date()).getTime(), {}, function(posts) {
-            for (var i = 0; i < posts.length; i++) {
+            var posts_length = posts.length;
+
+            for (var i = 0; i < posts_length; i++) {
                 var post = posts[i];
                 var template = null;
 
