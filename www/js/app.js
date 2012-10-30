@@ -306,6 +306,11 @@ $(function() {
 
                     var key = combo.length;
 
+                    // Combine large combos into one group
+                    if (key > MAX_COMBO_GROUP) {
+                        key = MAX_COMBO_GROUP;
+                    }
+
                     if (!(key in red_groups)) {
                         red_keys.push(key);
                         red_groups[key] = [];
@@ -322,6 +327,11 @@ $(function() {
                     blue_combos.push(combo_obj);
 
                     var key = combo.length;
+
+                    // Combine large combos into one group
+                    if (key > MAX_COMBO_GROUP) {
+                        key = MAX_COMBO_GROUP;
+                    }
 
                     if (!(key in blue_groups)) {
                         blue_keys.push(key);
@@ -353,20 +363,12 @@ $(function() {
             var max_group_count = 0; 
             combo_groups_el.empty();
 
-            for (var key = 1; key < total_tossup_states + 1; key++) {
+            for (var key = 1; key < MAX_COMBO_GROUP + 1; key++) {
                 var group = groups[key] || [];
                 var count = group.length;
 
-                if (key > MAX_COMBO_GROUP) {
-                    max_group_count += count;
-                    count = max_group_count;
-
-                    var histogram_el = $(".histogram ." + side + MAX_COMBO_GROUP);
-                    histogram_el.toggleClass("active", max_group_count > 0);
-                } else {
-                    var histogram_el = $(".histogram ." + side + key);
-                    histogram_el.toggleClass("active", count > 0);
-                }
+                var histogram_el = $(".histogram ." + side + key);
+                histogram_el.toggleClass("active", count > 0);
 
                 if (count > 0) {
                     if (window_width > 480) {
@@ -375,32 +377,14 @@ $(function() {
                         histogram_el.find(".bar").css({ width: (count / max_combo_group * 100) + '%' });
                     }
 
-                    var new_combo_group = false;
+                    var combo_group_el = $(COMBO_GROUP_TEMPLATE({
+                        side: side,
+                        key: key,
+                        count: count,
+                        last_group: (key == MAX_COMBO_GROUP)
+                    }));
 
-                    if (key > MAX_COMBO_GROUP) {
-                        var combo_group_el = combo_groups_el.find("#" + side + MAX_COMBO_GROUP);
-
-                        // Handle edge-case where MAX group may have had no combos and thus not exist
-                        if (combo_group_el.length == 0) {
-                            combo_group_el = $(COMBO_GROUP_TEMPLATE({
-                                side: side,
-                                key: MAX_COMBO_GROUP,
-                                count: count,
-                                last_group: true
-                            }));
-
-                            new_combo_group = true;
-                        }
-                    } else {
-                        var combo_group_el = $(COMBO_GROUP_TEMPLATE({
-                            side: side,
-                            key: key,
-                            count: count,
-                            last_group: (key == MAX_COMBO_GROUP)
-                        }));
-
-                        new_combo_group = true;
-                    }
+                    new_combo_group = true;
 
                     var combo_list_el = combo_group_el.find("ul");
                     var combo_els = [];
@@ -426,10 +410,7 @@ $(function() {
                     };
                         
                     combo_list_el.append(combo_els);
-
-                    if (new_combo_group) {
-                        combo_groups_el.append(combo_group_el);
-                    }
+                    combo_groups_el.append(combo_group_el);
 
                     combo_group_el = null;
                     combo_list_el = null;
@@ -438,6 +419,8 @@ $(function() {
                     histogram_el.find(".bar").css({ width: '0%' });
                 }
             }
+
+            combo_groups_el = null;
         }
 
         var red_states_won = [];
