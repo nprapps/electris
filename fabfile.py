@@ -205,6 +205,7 @@ def update_backchannel():
             headers={'Cache-Control': 'max-age=0 no-cache no-store must-revalidate'}
         )
 
+
 def write_www_files():
     """
     Function to write output files to www from the database.
@@ -215,11 +216,14 @@ def write_www_files():
         local('rm www/house.json')
         local('rm www/senate.json')
         local('rm www/president.json')
+        local('rm www/bop.json')
 
     o.write_electris_json()
     o.write_president_json()
     o.write_house_json()
     o.write_senate_json()
+    o.write_bop_json()
+
 
 def update_ap_data():
     """

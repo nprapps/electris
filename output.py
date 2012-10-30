@@ -45,6 +45,98 @@ def gzip_www():
             f_out.close()
 
 
+def calculate_president_bop(data, votes):
+    """
+    A function for calculating the presidential balance-of-power.
+    """
+    data['total'] += votes
+    data['needed_for_majority'] -= votes
+    return data
+
+
+def calculate_house_senate_bop(data, delta, featured):
+    """
+    A function for calculating house/senate balance-of-power.
+    """
+    data['total'] += 1
+    data['needed_for_majority'] -= 1
+    if featured == True:
+        data['featured_total'] += 1
+        data['delta'] += 1
+    return data
+
+
+def bootstrap_bop_data():
+    """
+    President: All 271 electoral votes matter for the majority. That's our delta.
+    Senate: 51 is sufficient for a majority. That's our delta.
+    House: We'll use 50 as the delta to match the number of featured races. Confirm with Evie.
+    """
+    return {
+        'house': {
+            'democrats': {'total': 0, 'needed_for_majority': 218, 'delta': -50, 'featured_total': 0},
+            'republicans': {'total': 0, 'needed_for_majority': 218, 'delta': -50, 'featured_total': 0},
+            'other': {'total': 0, 'needed_for_majority': 218, 'delta': 0, 'featured_total': 0},
+            'not_called': 0
+        },
+        'senate': {
+            'democrats': {'total': 0, 'needed_for_majority': 51, 'delta': -51, 'featured_total': 0},
+            'republicans': {'total': 0, 'needed_for_majority': 51, 'delta': -47, 'featured_total': 0},
+            'other': {'total': 0, 'needed_for_majority': 51, 'delta': 2, 'featured_total': 0},
+            'not_called': 0
+        },
+        'president': {
+            'democrats': {'total': 0, 'needed_for_majority': 271},
+            'republicans': {'total': 0, 'needed_for_majority': 271}
+        }
+    }
+
+
+def write_bop_json():
+    # Party mapping.
+    parties = [('republicans', 'r'), ('democrats', 'd'), ('other', 'o')]
+
+    # House/seats/delta mapping.
+    houses = [('house', 'H'), ('senate', 'S')]
+
+    # Blank dataset.
+    data = bootstrap_bop_data()
+
+    # President.
+    for state in State.select().where(State.called == True):
+        for party, abbr in parties:
+            if state.winner == abbr:
+                data['president'][party] = calculate_president_bop(data['president'][party], state.electoral_votes)
+
+    # House/senate.
+    for office, short in houses:
+        for race in Race.select().where(
+            (Race.ap_called == True) | (Race.npr_called == True), Race.office_code == short):
+            for party, abbr in parties:
+                if race.winner == abbr:
+                    data[office][party] = calculate_house_senate_bop(data[office][party], data[office][party]['delta'], race.featured_race)
+
+        # Write the number of uncalled races.
+        # First, the races where we accept AP calls but no calls have come in.
+        data[office]['not_called'] += Race.select()\
+            .where(
+                Race.accept_ap_call == True,
+                Race.ap_called == False,
+                Race.office_code == short)\
+            .count()
+
+        # Second, the races where we don't accept AP calls and no NPR calls are in.
+        data[office]['not_called'] += Race.select()\
+            .where(
+                Race.accept_ap_call == False,
+                Race.npr_called == False,
+                Race.office_code == short)\
+            .count()
+
+    with open('www/bop.json', 'w') as f:
+        f.write(json.dumps(data))
+
+
 def write_president_json():
     """
     Outputs the president json file for bigboard's frontend.

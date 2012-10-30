@@ -72,8 +72,38 @@ class Race(Model):
             self.state_postal,
             self.district_id)
 
-    def has_incumbents(self):
+    @property
+    def winner(self):
+        for candidate in Candidate.select().where(Candidate.race == self):
+            if self.accept_ap_call == True:
+                if candidate.ap_winner == True:
+                    if candidate.party == 'GOP':
+                        return 'r'
+                    elif candidate.party == 'Dem':
+                        return 'd'
+                    else:
+                        return 'o'
+            else:
+                if candidate.npr_winner == True:
+                    if candidate.party == 'GOP':
+                        return 'r'
+                    elif candidate.party == 'Dem':
+                        return 'd'
+                    else:
+                        return 'o'
+        return None
 
+    @property
+    def called(self):
+        if self.accept_ap_call == True:
+            return self.ap_called
+
+        else:
+            return self.npr_called
+
+        return False
+
+    def has_incumbents(self):
         for candidate in Candidate.select().where(Candidate.race == self):
             if candidate.incumbent == True:
                 return True
@@ -169,6 +199,28 @@ class State(Model):
 
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.electoral_votes)
+
+    @property
+    def winner(self):
+        if self.accept_ap_call == True:
+            if self.ap_call != 'u':
+                return self.ap_call
+        else:
+            if self.npr_call != 'u':
+                return self.npr_call
+
+        return None
+
+    @property
+    def called(self):
+        if self.accept_ap_call == True:
+            if self.ap_call != 'u':
+                return True
+        else:
+            if self.npr_call != 'u':
+                return True
+
+        return False
 
     def human_rep_vote_count(self):
         if self.rep_vote_count > 0:
