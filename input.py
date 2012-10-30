@@ -89,6 +89,7 @@ DISTRICT_CANDIDATE_FIELDS = [
     'npid'
 ]
 
+
 def get_fake_ap_data():
     """
     Grabs data from the very beginning of the AP test.
@@ -155,8 +156,8 @@ def parse_house(row):
         race_data['state_postal'].lower(), race_data['district_id'])
     candidate_count = (len(row) - len(RACE_FIELDS)) / len(CANDIDATE_FIELDS)
 
-    race = Race.select().where(Race.slug == race_data['slug']).get()
-    race.update(**race_data)
+    rq = Race.update(**race_data).where(Race.slug == race_data['slug'])
+    rq.execute()
 
     i = 0
 
@@ -177,17 +178,18 @@ def parse_house(row):
             candidate_data['incumbent'] = False
 
         if candidate_data['ap_winner'] == True:
+            race = Race.select().where(Race.slug == race_data['slug']).get()
+
             if race.ap_called == False:
                 race.ap_called = True
                 race.ap_called_time = datetime.datetime.now(tz=pytz.utc)
+                race.save()
 
         cq = Candidate.update(**candidate_data).where(
             Candidate.npid == candidate_data['npid'])
         cq.execute()
 
         i += 1
-
-    race.save()
 
 
 def parse_president(row):

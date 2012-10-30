@@ -9,8 +9,21 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 #banner li#gop_sec span.neednum{background-color:#8f0b00;}
 #banner li h2{padding-top:4px;}
 
-#candidates ul.swing {width:400px;font-size:14px;text-transform:uppercase;height:27px;border-top:1px solid #999;display:block;}
-.weighted li {display:block; float:left;line-height:27px;text-indent:4px;padding:0 6px 0 0;}
+.swing {
+    width:400px;
+    text-transform:uppercase;
+    height:30px;
+    border-top:1px solid #999;
+    display:block;
+}
+.swing li {
+    display:block;
+    float:left;
+    font-size:16px;
+    line-height:30px;
+    text-indent:4px;
+    padding:0 6px 0 0;
+}
 .swing li.closeTime {white-space:nowrap;overflow:hidden;}
 .weighted li:first-child{text-indent:4px;}
 .weighted ul.swing li.state{width:45%;white-space:nowrap;overflow:hidden;}
@@ -18,15 +31,31 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 .weighted {border-bottom: 1px #999 solid; margin-bottom: 5px;}
 
 
-ul.allstates:nth-child(odd){background-color:#444;}
-#candidates ul.allstates {text-transform:uppercase;font-size:12px;height:23px;text-transform:uppercase;display:block;}
-ul.allstates li.state {font-size:11px;width:145px;overflow:hidden;white-space: nowrap;text-indent:4px;}
+.allstates:nth-child(odd){background-color:#444;}
+.allstates {
+    text-transform:uppercase;
+    height:24px;
+    text-transform:uppercase;
+    display:block;
+}
+.allstates .state {
+    font-size:14px;
+    line-height:24px;
+    width:145px;
+    overflow:hidden;
+    white-space: nowrap;
+    text-indent:4px;
+}
+.allstates .state .name { font-size:13px; line-height:13px;}
+.allstates .state .votes { font-size:11px; letter-spacing:-1px; line-height:13px; }
 
-li.demPercent{color:#a7d7eb;width:14%;overflow:hidden;}
-li.gopPercent{color:#f8a199;width:14%;overflow:hidden;}
-li.percentTime{border-right:solid #666 1px; width:12%;overflow:hidden;}
-li.percentTime {font-size:12px;}
+.demPercent{ text-indent:4px; color:#a7d7eb; width:14%; overflow:hidden;}
+.gopPercent{ text-indent:4px; color:#f8a199; width:14%; overflow:hidden;}
+.swing .demPercent { text-indent:8px; }
+.swing .gopPercent { text-indent:8px; }
 
+.percentTime{ border-right:solid #666 1px; width:12%; overflow:hidden; font-size:12px; text-align:center;}
+.percentTime.called { background-color:goldenrod; color:#000; }
 .weighted li.demPercent{width:15%;overflow:hidden;}
 .weighted li.gopPercent{width:15%;overflow:hidden;}
 
@@ -38,12 +67,12 @@ ul.allstates li.percentTime {width:15%;}
 .full ul {clear:left;}
 .full{border-top: 1px solid #999;}
 
-.dem.winner {
+.dem.state {
     background-color:#1B7BA4;
     color:white;
 }
 
-.gop.winner {
+.gop.state {
     background-color:#BE0F00;
     color:white;
 }

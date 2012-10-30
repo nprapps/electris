@@ -1,16 +1,80 @@
 .district {
-    font-size:12px;
+    font-size:11px;
     float:left;
-    width:39px;
+    width:35px;
     display:block;
-    font-weight:bold;
-    text-indent: 4px;
+    text-indent:2px;
+    letter-spacing:-1px;
 }
-#candidates { height:555px; overflow:hidden; }
-.candidate { width: 155px; text-indent:4px; line-height:19px; font-size:13px;}
-.timezone ul { height:19px; overflow:hidden; width:399px;}
+#candidates {
+    height:555px;
+    overflow:hidden;
+}
+.candidate {
+    width: 168px;
+    text-indent:4px;
+    line-height:20px;
+    font-size:14px;
+    letter-spacing:-1px;
+}
+.timezone ul {
+    height:19px;
+    overflow:hidden;
+    width:399px;
+}
+.poll-closing-time-label {
+    height:19px;
+    line-height:20px;
+    font-size:12px;
+}
 
-.poll-closing-time-label {height:19px;line-height:19px;font-size:12px;}
-
-.first.column{width:399px !important; border-right:1px solid #efefef;}
-li.status{padding-left: 4px;font-weight: bold;font-size: 12px;width: 40px; }
+.first.column {
+    width:399px !important;
+    border-right:1px solid #efefef;
+}
+.status{
+    font-size:11px;
+    width:28px;
+    letter-spacing:-1px;
+    text-align:center;
+}
+.called.status {
+    background-color:goldenrod;
+    color:#333;
+}
+.vote-percent {
+    font-size:12px;
+    display:block;
+    width:33px;
+    text-align:center;
+}
+.left {
+    float:left;
+}
+.right {
+    float:right;
+}
+li.swap {
+    border:1px solid #fff;
+    height:16px;
+    line-height:16px;
+    width:166px;
+}
+ul.swap .district {
+    background-color:#fff;
+    color:#000;
+    height:18px;
+    line-height:18px;
+}
+.candidate-1581,
+.candidate-535,
+.candidate-51631,
+.candidate-135,
+.candidate-53539 {
+    font-size:12px;
+}
+.candidate-60930,
+.candidate-55336 {
+    font-size:12px;
+    letter-spacing:-2px;
+}

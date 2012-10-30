@@ -63,6 +63,20 @@ def write_president_json():
                         state_dict['dem_vote_percent'] = state.dem_vote_percent()
                         state_dict['human_gop_vote_count'] = state.human_rep_vote_count()
                         state_dict['human_dem_vote_count'] = state.human_dem_vote_count()
+
+                        if state_dict['npr_call'] != 'n' and state_dict['npr_call'] != 'u':
+                            state_dict['call'] = state_dict['npr_call']
+                            state_dict['called_at'] = state_dict['npr_called_at']
+                            state_dict['called_by'] = 'npr'
+                        elif state_dict['accept_ap_call'] and state_dict['ap_call'] != 'u':
+                            state_dict['call'] = state_dict['ap_call']
+                            state_dict['called_at'] = state_dict['ap_called_at']
+                            state_dict['called_by'] = 'ap'
+                        else:
+                            state_dict['call'] = None
+                            state_dict['called_at'] = None
+                            state_dict['called_by'] = None
+
                         timezone_dict['states'].append(state_dict)
             objects.append(timezone_dict)
         f.write(json.dumps(objects))
@@ -105,9 +119,11 @@ def _generate_json(house):
                 district_dict['called_time'] = district.npr_called_time
 
             if district.poll_closing_time > now:
-                close_time = district.poll_closing_time - timedelta(hours=5)
+                # close_time = district.poll_closing_time - timedelta(hours=5)
+                # district_dict['status_tag'] = 'Poll closing time.'
+                # district_dict['status'] = close_time.strftime('%I:%M').lstrip('0')
                 district_dict['status_tag'] = 'Poll closing time.'
-                district_dict['status'] = close_time.strftime('%I:%M').lstrip('0')
+                district_dict['status'] = ''
 
             if district.poll_closing_time < now:
                 if district_dict['called'] == True:
@@ -117,6 +133,8 @@ def _generate_json(house):
                 else:
                     district_dict['status_tag'] = 'Percent reporting.'
                     district_dict['status'] = district.percent_reporting()
+
+            district_dict['swap'] = False
 
             for candidate in Candidate.select().where(
                 Candidate.race == district):
@@ -138,6 +156,12 @@ def _generate_json(house):
                             else:
                                 if candidate_dict['npr_winner'] == True:
                                     candidate_dict['winner'] = True
+
+                            candidate_dict['swap'] = False
+                            if candidate_dict['winner'] == True:
+                                if candidate_dict['incumbent'] == False:
+                                    candidate_dict['swap'] = True
+                                    district_dict['swap'] = True
 
                             district_dict['called_time'] = None
 
@@ -175,7 +199,7 @@ def write_senate_json():
 
 def write_electris_json():
     """
-    Rewrites CSV files from the DB for president.
+    Rewrites JSON files from the DB for president.
     """
     with open(settings.PRESIDENT_FILENAME, 'w') as f:
         output = []

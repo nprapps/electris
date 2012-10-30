@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="../css/senate.css" />
     </head>
     <body>
-       <div id="banner"><h1>Senate</h1></div>
+        <div id="banner"><h1>Senate</h1></div>
         <div id="candidates"></div>
 
 
@@ -63,25 +63,29 @@
                     <%
                     if(district.district_slug == "vt0"){
                     %>
-                    	<li class="candidate"></li>
+                    	<li class="candidate left">&nbsp;</li>
                     <% } %>
                     <%
-                    _.each(district.candidates, function(candidate){
-                        party_class = candidate.party.toLowerCase();
-                        incumbent = '';
-                        winner = '';
+                    _.each(district.candidates, function(candidate, index, list){
+                        var party_class = candidate.party.toLowerCase();
+                        var incumbent = '';
+                        var winner = '';
+                        var float_position = 'right';
                         if (candidate.winner == true) { winner = 'winner'; }
                         if (candidate.incumbent == true) { incumbent = 'incumbent'; }
+                        if (index == 1){ float_position = 'left'; }
+                        if (district.district_slug == 'vt0') { float_position = 'left'; }
                     %>
-                        <li class="<%= party_class %> <%= incumbent %> <%= winner %> candidate <%= district.district_slug %>">
-                            <%= candidate.first_name %> <%= candidate.last_name %>&nbsp;
+                        <li class="<%= party_class %> <%= incumbent %> <%= winner %> candidate <%= district.district_slug %> candidate-<%= candidate.npid %>">
+                            <%= candidate.first_name %>&nbsp;<%= candidate.last_name %>&nbsp;
+                            <span class="vote-percent <%= float_position %>"><%= candidate.vote_percent %></span>
                         </li>
                     <% }); %>
-                    	<li class="status <%= district.district_slug %>"><%= district.status %></li>
+                        <% var called = ''; if (district.called == true){ called = 'called'; } %>
+                    	<li class="status <%= district.district_slug %> <%= called %>"><%= district.status %></li>
                     </ul>
                 <% }); %>
             </div>
-        </script>
         </script>
 
     </body>
