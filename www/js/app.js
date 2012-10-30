@@ -460,8 +460,8 @@ $(function() {
             return candidate + " <strong>cannot win</strong> the Electoral College.";
         }
 
-        // One state left!
-        if (combos.length == 1) {
+        // One one-state combo left
+        if (combos.length == 1 && combos[0].combo.length == 1) {
             var state = states_by_id[combos[0].combo[0]];
 
             if (states_won.length == 0) {
@@ -471,10 +471,44 @@ $(function() {
             }
         }
 
+        // One two-state combo left
+        if (combos.length == 1 && combos[0].combo.length == 2) {
+            var stateA = states_by_id[combos[0].combo[0]];
+            var stateB = states_by_id[combos[0].combo[1]];
+
+            if (states_won.length == 0) {
+                return candidate + " must win <strong><b>" + stateA.stateface + "</b> " + stateA.name + " and <b>" + stateB.stateface + "</b> " + stateB.name + "</strong> to win the Electoral College.";
+            } else {
+                return "If " + candidate + " wins the states you have selected then he must win <strong><b>" + stateA.stateface + "</b> " + stateA.name + " and <b>" + stateB.stateface + "</b> " + stateB.name + "</strong> to win the Electoral College.";
+            }
+        }
+
         if (combos.length > 0) {
             var simplest_combo_length = combos[0].combo.length;
+            var longest_combo_length = combos[combos.length - 1].combo.length;
         } else {
             var simplest_combo_length = 0;
+            var longest_combo_length = 0;
+        }
+
+        // Several one-state combos left
+        if (longest_combo_length == 1) {
+            var states_text = "";
+
+            _.each(combos, function(combo, i, l) {
+                var state = states_by_id[combo.combo[0]];
+                states_text += "<b>" + state.stateface + "</b> " + state.name;
+
+                if (i != l.length - 1) {
+                    states_text += " or ";
+                }
+            });
+
+            if (states_won.length == 0) {
+                return candidate + " must win <strong>" + states_text + "</strong> to win the Electoral College.";
+            } else {
+                return "If " + candidate + " wins the states you have selected then he must win <strong>" + states_text + "</strong> to win the Electoral College.";
+            }
         }
 
         // Path w/o picks
