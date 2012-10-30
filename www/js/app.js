@@ -206,10 +206,6 @@ $(function() {
             bucket_els = $("#electris .bucket");
             red_bucket_el = red_candidate_el.find(".bucket");
             blue_bucket_el = blue_candidate_el.find(".bucket");
-            red_tossups_el = red_candidate_el.find(".tossups");
-            blue_tossups_el = blue_candidate_el.find(".tossups");
-            red_histogram_el = red_candidate_el.find(".histogram");
-            blue_histogram_el = blue_candidate_el.find(".histogram");
 
             electris_skinny_el.hide();
             results_el.hide();
