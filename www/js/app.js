@@ -30,6 +30,7 @@ $(function() {
     var maincontent_el = $("#the-stuff");
     var red_candidate_el = $(".candidate.red");
     var blue_candidate_el = $(".candidate.blue");
+    var bucket_els = $(".bucket");
     var red_bucket_el = red_candidate_el.find(".bucket");
     var blue_bucket_el = blue_candidate_el.find(".bucket");
     var red_tossups_el = red_candidate_el.find(".tossups");
@@ -108,7 +109,7 @@ $(function() {
         var blue_predicted = [];
 
         // Group states together
-        for (i = 0; i < states.length; i++) {
+        for (var i = 0; i < states.length; i++) {
             var state = states[i];
             
             if (state.call === "r") {
@@ -189,7 +190,7 @@ $(function() {
         blue_candidate_el.toggleClass("winner", blue_votes >= ELECTORAL_VOTES_TO_WIN);
 
         // Potentially flip modes
-        old_wide_mode = wide_mode;
+        var old_wide_mode = wide_mode;
 
         wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE);
 
@@ -199,9 +200,7 @@ $(function() {
             electris_el.show();
         }
 
-        var then = new Date();
         resize_buckets();
-        console.log((new Date()) - then);
 
         if (wide_mode && generate_combos) {
             generate_winning_combinations(states_not_called);
@@ -218,7 +217,7 @@ $(function() {
         var default_height = ELECTORAL_VOTES_TO_WIN / bucket_columns;
         var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns)
         var height = Math.max(default_height, vote_height);
-        $(".bucket").css("height", height + "em");
+        bucket_els.css("height", height + "em");
 
         if (!wide_mode) {
             // In skinny mode, the 270 line will never move
@@ -402,22 +401,29 @@ $(function() {
                     }
 
                     var combo_list_el = combo_group_el.find("ul");
+                    var combo_els = [];
 
-                    _.each(group, function(combo) {
-                        var state_text = [];
+                    for (var i = 0; i < group.length; i++) {
+                        var combo = group[i];
+                        var state_text = "";
                         
-                        _.each(combo.combo, function(state_id, i, l) {
-                            var state = states_by_id[state_id];
+                        for (var j = 0; j < combo.combo.length; j++) {
+                            var state = states_by_id[combo.combo[j]];
 
-                            state_text.push("<strong><b>" + state.stateface + "</b> " + state.name + " (" + state.electoral_votes + ")</strong>");
-                        });
+                            state_text += "<strong><b>" + state.stateface + "</b> " + state.name + " (" + state.electoral_votes + ")</strong>";
+
+                            if (j != combo.combo.length - 1) {
+                                state_text += " + ";
+                            }
+                        };
 						
-                        var el = $("<li>" + state_text.join(" + ") + " = " + (base_votes + combo.votes) + "</li>"); 
+                        var el = $("<li>" + state_text + " = " + (base_votes + combo.votes) + "</li>"); 
+                        combo_els.push(el);
 
-                        combo_list_el.append(el);
-
-                        el = null;
-                    });
+                        var el = null;
+                    };
+                        
+                    combo_list_el.append(combo_els);
 
                     if (new_combo_group) {
                         combo_groups_el.append(combo_group_el);
@@ -425,6 +431,7 @@ $(function() {
 
                     combo_group_el = null;
                     combo_list_el = null;
+                    combo_els = null;
                 } else {
                     histogram_el.find(".bar").css({ width: '0%' });
                 }
@@ -536,6 +543,7 @@ $(function() {
         /*
          * Select or unselect a tossup state.
          */
+        //var then = new Date();
         var state_id = $(this).data("state-id");
         var winner = $(this).parent().hasClass("red") ? "r" : "d";
         var opposite_selector = winner === "r" ? "blue" : "red";
@@ -566,6 +574,7 @@ $(function() {
             tossup_picks[state_id] = winner;
             add_state(states_by_id[state_id]);
         }
+        //console.log((new Date()) - then);
 
         compute_stats(true);
         
