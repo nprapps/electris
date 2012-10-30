@@ -99,16 +99,14 @@ $(function() {
          * Add states to the tetris graph in an organized fashion.
          */
         var red_called = [];
-        var red_solid = [];
-        var red_leans = [];
         var red_predicted = [];
         var blue_called = [];
-        var blue_solid = [];
-        var blue_leans = [];
         var blue_predicted = [];
 
         // Group states together
-        _.each(states, function(state) {
+        for (i = 0; i < states.length; i++) {
+            var state = states[i];
+            
             if (state.call === "r") {
                 red_called.push(state)
             } else if (state.call === "d") {
@@ -120,20 +118,26 @@ $(function() {
                     blue_predicted.push(state);
                 }
             }
-        });
+        }
         
         // Clear old state graphics
         $(".state").remove();
 
+        //var then = new Date();
         // Add states by groups
-        _.each([red_called, blue_called, red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted], function(states_group) {
+        var groups = [red_called, blue_called, red_predicted, blue_predicted];
+
+        for (var i = 0; i < groups.length; i++) {
+            var states_group = groups[i];
+
             // Sort by votes *top to bottom*
             states_group.reverse();
 
-            _.each(states_group, function(state) {
-                add_state(state);
-            });
-        });
+            for (var j = 0; j < states_group.length; j++) {
+                add_state(states_group[j]);
+            }
+        }
+        //console.log((new Date()) - then);
     }
 
     function compute_stats(generate_combos) {
@@ -702,10 +706,8 @@ $(function() {
         update_next_closing();
         setInterval(update_next_closing, UPDATE_CLOSING_INTERVAL);
 
-        //var then = new Date();
         add_states();
         compute_stats(true);
-        //console.log((new Date()) - then);
     }
 
     function update_next_closing() {
