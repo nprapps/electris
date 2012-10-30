@@ -76,6 +76,15 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 
+/* MAIN HEADER */
+#header h1 {
+	text-indent: -9999px;
+	background: url('../img/hd-election-night.png') no-repeat;
+	height: 56px;
+	margin: 12px 7px 7px 7px;
+}
+
+
 /* PEGGED HEADER */
 #small-header h1 {
 	text-indent: -9999px;
@@ -635,6 +644,8 @@ a.btn { color: #fff; cursor: pointer; }
 
 /* Media queries */
 @media (min-width: 768px) {
+	#bigbox { min-width: 300px; }
+
     #results-bar.affix { 
     	top:0; z-index:2112;
     }
@@ -723,6 +734,8 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 @media (max-width: 979px) and (min-width: 768px) {
+	#header { width: 404px; }
+
 	#main-header, #header-title { width: 724px; }
     #results-bar.affix #small-header { width: 704px; }
 
@@ -754,6 +767,12 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 @media (max-width: 767px) {
+	.navbar { margin-bottom: 1px; }
+
+	#big-header { margin: 0 -20px 0 -20px; padding: 0; }
+	#header { margin: 0; padding: 10px 0 0 0; height: 240px; }
+	#header h1 { margin-top: 0; }
+
     #the-stuff { margin-top:0; }
     #ad { display:none; }
     #results-bar.affix { position:static; }

@@ -80,6 +80,5 @@ a:hover, a:active { color: #36c; }
 	.navbar { margin-left: -10px; margin-right: -10px; margin-bottom: 1px; }
 	.navbar .nav li { display: none; }
 	.navbar .nav li.npr { display: block; }
-	#header { padding-top: 10px; }
 	#footer { border-top: 1px solid #CCC; margin-top: 24px; }
 }
