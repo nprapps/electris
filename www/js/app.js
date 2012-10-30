@@ -311,7 +311,6 @@ $(function() {
         combos = combinations(state_ids, 1);
         combos_length = combos.length;
 
-        var then = new Date();
         for (var i = 0; i < combos_length; i++) {
             var combo = combos[i];
             var combo_length = combo.length;
@@ -365,7 +364,6 @@ $(function() {
                 }
             }
         }
-        console.log((new Date()) - then);
 
         var max_red_combo_group = _.max(_.values(red_groups), function(combo_group) {
             return combo_group.length;
