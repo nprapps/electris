@@ -105,9 +105,11 @@ def _generate_json(house):
                 district_dict['called_time'] = district.npr_called_time
 
             if district.poll_closing_time > now:
-                close_time = district.poll_closing_time - timedelta(hours=5)
+                # close_time = district.poll_closing_time - timedelta(hours=5)
+                # district_dict['status_tag'] = 'Poll closing time.'
+                # district_dict['status'] = close_time.strftime('%I:%M').lstrip('0')
                 district_dict['status_tag'] = 'Poll closing time.'
-                district_dict['status'] = close_time.strftime('%I:%M').lstrip('0')
+                district_dict['status'] = ''
 
             if district.poll_closing_time < now:
                 if district_dict['called'] == True:
@@ -117,6 +119,8 @@ def _generate_json(house):
                 else:
                     district_dict['status_tag'] = 'Percent reporting.'
                     district_dict['status'] = district.percent_reporting()
+
+            district_dict['swap'] = False
 
             for candidate in Candidate.select().where(
                 Candidate.race == district):
@@ -138,6 +142,12 @@ def _generate_json(house):
                             else:
                                 if candidate_dict['npr_winner'] == True:
                                     candidate_dict['winner'] = True
+
+                            candidate_dict['swap'] = False
+                            if candidate_dict['winner'] == True:
+                                if candidate_dict['incumbent'] == False:
+                                    candidate_dict['swap'] = True
+                                    district_dict['swap'] = True
 
                             district_dict['called_time'] = None
 

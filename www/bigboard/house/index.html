@@ -56,25 +56,31 @@
                 <% _.each(timezone.districts, function(district){ %>
                     <%
                         var called = '';
+                        var swap = '';
                         if (district.called == true) { called = 'called'; }
+                        if (district.swap == true) { swap = 'swap'; }
+                        var district_name = district.district.replace(' ', '&nbsp;');
                     %>
-                    <ul class="<%= called %>"><li class="district"><%= district.district %></li>
+                    <ul class="<%= called %> <%= swap %>"><li class="district"><%= district_name %></li>
                     <%
-                    _.each(district.candidates, function(candidate){
-                        party_class = candidate.party.toLowerCase();
-                        incumbent = '';
-                        winner = '';
+                    _.each(district.candidates, function(candidate, index, list){
+                        var party_class = candidate.party.toLowerCase();
+                        var incumbent = '';
+                        var winner = '';
+                        var swap = '';
+                        var float_position = 'right';
                         if (candidate.winner == true) { winner = 'winner'; }
-                        if (candidate.incumbent == 1) { incumbent = 'incumbent'; }
+                        if (candidate.incumbent == true) { incumbent = 'incumbent'; }
+                        if (candidate.swap == true) { swap = 'swap'; }
+                        if (index == 1){ float_position = 'left'; }
                     %>
-                        <li class="<%= party_class %> <%= incumbent %> <%= winner %> candidate">
-                            <%= candidate.first_name %> <%= candidate.last_name %>&nbsp;
-                            <% votes = Humanize.intcomma(candidate.vote_count); %>
+                        <li class="<%= party_class %> <%= incumbent %> <%= swap %> <%= winner %> candidate <%= district.district_slug %> candidate-<%= candidate.npid %>">
+                            <%= candidate.first_name %>&nbsp;<%= candidate.last_name %>&nbsp;
+                            <span class="vote-percent <%= float_position %>"><%= candidate.vote_percent %></span>
                         </li>
-
-
                     <% }); %>
-                    <li class="status"><%= district.status %></li>
+                        <% var called = ''; if (district.called == true){ called = 'called'; } %>
+                        <li class="status <%= district.district_slug %> <%= called %>"><%= district.status %></li>
                     </ul>
                 <% }); %>
             </div>

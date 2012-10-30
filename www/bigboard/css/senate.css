@@ -1,16 +1,44 @@
-.timezone ul {margin-left:0;}
-.poll-closing-time{position:relative;}
-.poll-closing-time-label {margin:0; padding:0; width:400px; font-size:14px; height:26px;line-height:26px;}
-ul.called{}
-.candidate {width:163px; font-size:14px; text-indent: 4px;}
-#candidates ul {width:400px;}
-#candidates ul li {height:26px;line-height:26px;}
-.district{font-size:12px; width:29px;text-indent: 4px;}
-li.status{text-indent: 4px;width: 44px; font-size:12px;}
-.emptyleft {margin-left: 160px;}
+.timezone ul { margin-left:0; }
+.poll-closing-time{ position:relative; }
+.poll-closing-time-label { margin:0; padding:0; width:400px; font-size:14px; height:27px;line-height:27px; }
+.candidate { width:172px; font-size:15px; text-indent: 4px; letter-spacing:-2px; }
+#candidates ul { width:400px;}
+#candidates ul li { height:27px;line-height:27px; }
+.district{ font-size:12px; width:25px; letter-spacing:-2px; text-align:center; }
+.status{ width: 30px; font-size:13px; letter-spacing:-2px; text-align:center; }
+.emptyleft {margin-left: 160px; }
 #candidates ul li.candidate.switch{
 	border:2px #fff solid;
 	width:158px;
 	height:22px;
 	line-height: 22px;
+}
+.called.status {
+    background-color:goldenrod;
+    color:#333;
+}
+.vote-percent {
+    font-size:12px;
+    float:right;
+    display:block;
+    width:33px;
+    text-align:center;
+}
+.left {
+    float:left;
+}
+.right {
+    float:right;
+}
+/* Some people have long names. */
+.candidate-51916 {
+    font-size:14px;
+}
+/* Super-long names. */
+.candidate-62292 {
+    font-size:13px;
+}
+/* Really, really long names. */
+.candidate-40102 {
+    font-size:12px;
 }

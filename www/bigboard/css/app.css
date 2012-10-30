@@ -7,7 +7,6 @@
          url('../fonts/Armata-Regular-webfont.svg#ArmataRegular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 @font-face {
@@ -19,10 +18,7 @@
          url('../fonts/Muli-Light-webfont.svg#MuliLight') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
-
-
 
 body {
     font-family:ArmataRegular;
@@ -35,18 +31,7 @@ body {
     color:#fff;
     font-weight: bolder;
 }
-#refreshing {
-    position:absolute;
-    top:5px;
-    left:762px;
-    font-size:18px;
-    font-weight:bold;
-    color:#fff;
-    background-color:#FCA63E;
-    width:38px;
-    padding:4px 0;
-    text-align:center;
-}
+
 #banner {
     background-color:#efefef;
     color:#333;
@@ -105,11 +90,9 @@ li#ind_sec{width:120px;}
     font-weight:bold;
     font-family: MuliLight;
 }
-
 .column {
     width:400px;float:left;
 }
-
 .timezone {
     float:left;
 }
@@ -125,13 +108,12 @@ li#ind_sec{width:120px;}
     display:block;
     float:left;
 }
-
 .timezone ul:nth-child(odd){
 	background-color:#444;
 }
-
-.poll-closing-time{position:relative;}
-
+.poll-closing-time{
+    position:relative;
+}
 .poll-closing-time-label {
     color:#333;
     background-color:#ccc;
@@ -141,14 +123,9 @@ li#ind_sec{width:120px;}
     padding:0;
     width:400px;
 }
-
 .candidate {
-    font-weight:bold;
     overflow:hidden;
     white-space:nowrap;
-}
-ul.called li {
-
 }
 .candidate.dem {
     color:#a7d7eb;
@@ -175,5 +152,6 @@ ul.called li {
     background-color:#148B34;
     color:white;
 }
-
-li.status{overflow: hidden; white-space: nowrap;}
+li.status{
+    overflow: hidden; white-space: nowrap;
+}
