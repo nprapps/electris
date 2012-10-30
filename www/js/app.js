@@ -7,7 +7,6 @@ $(function() {
     var CLOSING_TEMPLATE = _.template($("#closing-template").html());
     var TOSSUP_TEMPLATE = _.template($("#tossup-template").html());
     var COMBO_GROUP_TEMPLATE = _.template($("#combo-group-template").html());
-    var HISTOGRAM_TEMPLATE = _.template($("#histogram-template").html());
     var BLOG_POST_TEMPLATE = _.template($("#blog-post-template").html());
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
     var MAX_STATES_FOR_WIDE_MODE = 12;
@@ -543,7 +542,6 @@ $(function() {
         /*
          * Select or unselect a tossup state.
          */
-        //var then = new Date();
         var state_id = $(this).data("state-id");
         var winner = $(this).parent().hasClass("red") ? "r" : "d";
         var opposite_selector = winner === "r" ? "blue" : "red";
@@ -574,7 +572,6 @@ $(function() {
             tossup_picks[state_id] = winner;
             add_state(states_by_id[state_id]);
         }
-        //console.log((new Date()) - then);
 
         compute_stats(true);
         
@@ -595,21 +592,6 @@ $(function() {
             scrollTop: $($(this).data("target")).position().top
         }, 1000);
         */
-    });
-
-    // Render combo groups
-    _.each(_.range(1, MAX_COMBO_GROUP + 1), function(key) {
-        blue_histogram_el.append(HISTOGRAM_TEMPLATE({
-            side: "blue",
-            key: key,
-            last_group: (key == MAX_COMBO_GROUP)
-        }));
-        
-        red_histogram_el.append(HISTOGRAM_TEMPLATE({
-            side: "red",
-            key: key,
-            last_group: (key == MAX_COMBO_GROUP)
-        }));
     });
 
     /* DATASET LOADING/POLLING */
@@ -874,6 +856,7 @@ $(function() {
 
     function update_memetracker(first_run) {
         $.getJSON('tumblr.json?t=' + (new Date()).getTime(), {}, function(posts) {
+            //var then = new Date();
             _.each(posts, function(post) {
                 var template = null;
 
@@ -923,6 +906,7 @@ $(function() {
             });
 
             posts_el.find(".post:nth-child(5)").nextAll().remove();
+            //console.log((new Date()) - then);
         });
     }
 
