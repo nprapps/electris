@@ -40,9 +40,6 @@ a.btn { color: #fff; cursor: pointer; }
 
 /* Placeholders */
 #ad { width:300px; height:250px; background-color:red; }
-#tabs { display:none; }
-#live-blog { margin-top:20px; /*height:3000px;*/ float:right; }
-#incoming { /*background-color:lavender; height:200px;*/ margin-top:20px; }
 
 
 /* CLEARFIXES */
@@ -170,40 +167,29 @@ a.btn { color: #fff; cursor: pointer; }
 #pres-header .blue { background: url('../img/silo-obama-45.png') no-repeat left 6px; }
 #pres-header .red  { background: url('../img/silo-romney-45.png') no-repeat left 6px; }
 #pres-header .wrapper { margin-left: 50px; }
-#pres-header h3 { border-top: none; }
 #pres-header i { font-style: normal; display: none; }
 
-.results-group .total { text-align: center; width: 30%; float: left; }
-#pres-header .total { width: 45%; }
+.results-group .total { text-align: center; width: 45%; float: left; }
 .results-group .total span { display: block; font-size: 30px; line-height: 30px; font-weight: bold; }
 .results-group .blue .total span { color: #3d7fa6; }
 .results-group .red .total span { color: #a23520; }
 
 .results-group .towin {
-	line-height: 15px;
+	line-height: 11px;
+	text-align: center; 
+	width: 45%; float: right;
 }
 .results-group .towin span { 
-	text-align: center;
-	display: inline-block;
-	width: 30px;
+	display: block;
 	font-weight: bold;
-	margin-bottom: 2px;
-}
-#pres-header .towin span { 
-	width: auto;
-	display: block; 
 	background-color: #F7E39B; color: #77631B; 
 	font-size: 16px; line-height: 27px; 
-	margin-bottom: 0;
+	margin-bottom: 3px;
 }
-#pres-header .towin { text-align: center; width: 45%; float: right; }
-
-.results-group .majority { background-color: #F7E39B; color: #77631B; }
-.results-group .blue .seats { background-color: #D3EAF7; color: #3D7FA6; }
-.results-group .red .seats { background-color: #F5D1CA; color: #a23520; }
 
 
 /* TABS (FOR TABLET/MOBILE) */
+#tabs { display:none; }
 #tabs .nav-tabs {
 	background: #3b3b3b; /* Old browsers */
 	background: -moz-linear-gradient(top,  #3b3b3b 0%, #1e1e1e 50%, #000000 51%, #000000 100%); /* FF3.6+ */
@@ -253,6 +239,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* Presidential results */
+#incoming { margin-top:20px; }
 .pres-results { margin-bottom: 24px; }
 .pres-results h5 { margin-bottom: 3px; }
 .pres-results .results { position: relative; }
@@ -749,6 +736,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* LIVE BLOG / "RIVER OF NEWS" */
+#live-blog { margin-top:20px; float:right; }
 #live-blog .post { background-color: #f1f1f1; margin-bottom: 6px; padding: 15px; }
 #live-blog .sticky { background-color: #FFF; border: 1px dotted #999; }
 #live-blog p { font: 15px/1.35em Arial, Helvetica, sans-serif; color: #555; margin: 0; }
@@ -785,27 +773,34 @@ a.btn { color: #fff; cursor: pointer; }
 		background-image: linear-gradient(top,#333,#222);
     }
     #results-bar.affix div.results-row {
-    	margin-top:0;
-    	padding-bottom: 10px;
     	border-bottom: 2px solid #CCC;
+    	padding: 0 0 10px 0;
+    	margin: 0 20px;
     }
-/*    #results-bar.affix .results-row h2 { border-top: none; font-size: 16px; } */
     #results-bar.affix .results-row h2 { 
-    	border-top: none; background-color: #f1f1f1; 
+    	border-top: none; border-bottom: 1px solid #CCC;
     	font: bold 12px Arial, Helvetica, sans-serif;
-    	padding: 6px; margin-bottom: 0;
-    	color: #121212;
+    	text-transform: uppercase;
+    	color: #333;
+    	padding: 6px 0 3px 0;
+    	margin-bottom: 0;
     }
 	#results-bar.affix .results-group h3 { font-size: 12px; margin-bottom: 3px; }
 	#results-bar.affix .results-group .blue,
 	#results-bar.affix .results-group .red { border: none; }
     #results-bar.affix .results-group .total span { font-size: 20px; line-height: 22px; }
-    #results-bar.affix #pres-header .towin span { line-height: 20px; font-size: 14px; }
+    #results-bar.affix #pres-header { margin-left: 0; }
+    #results-bar.affix .towin span { line-height: 20px; font-size: 14px; margin-bottom: 2px; }
     #results-bar.affix + .row { margin-top:120px; font-size: 14px; }
 }
 
 @media (min-width: 1200px) {
     #results-bar.affix #small-header { width: 1150px; }
+    #results-bar.affix div.results-row {
+    	border-bottom: 2px solid #CCC;
+    	padding: 0 0 10px 0;
+    	margin: 0 20px 0 30px;
+    }
 	#pres-header i { display: inline; }
 
 	.states { font-size: 23px; }
@@ -872,12 +867,13 @@ a.btn { color: #fff; cursor: pointer; }
 
 @media (max-width: 979px) and (min-width: 768px) {
 	#header { width: 404px; }
+	#header-promos { width: 710px; }
 
 	#main-header, #header-title { width: 724px; }
     #results-bar.affix #small-header { width: 704px; }
+	#pres-header .blue, #pres-header .red  { background: none; }
+	#pres-header .wrapper { margin-left: 0; }
     
-	#header-promos { width: 710px; }
-
 	.states { font-size: 20px; }
     .state i {
         width:19px;
