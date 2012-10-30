@@ -67,6 +67,11 @@ def calculate_house_senate_bop(data, delta, featured):
 
 
 def bootstrap_bop_data():
+    """
+    President: All 271 electoral votes matter for the majority. That's our delta.
+    Senate: 51 is sufficient for a majority. That's our delta.
+    House: We'll use 50 as the delta to match the number of featured races. Confirm with Evie.
+    """
     return {
         'house': {
             'democrats': {'total': 0, 'needed_for_majority': 218, 'delta': -50, 'featured_total': 0},
@@ -111,12 +116,16 @@ def write_bop_json():
                 if race.winner == abbr:
                     data[office][party] = calculate_house_senate_bop(data[office][party], data[office][party]['delta'], race.featured_race)
 
+        # Write the number of uncalled races.
+        # First, the races where we accept AP calls but no calls have come in.
         data[office]['not_called'] += Race.select()\
             .where(
                 Race.accept_ap_call == True,
                 Race.ap_called == False,
                 Race.office_code == short)\
             .count()
+
+        # Second, the races where we don't accept AP calls and no NPR calls are in.
         data[office]['not_called'] += Race.select()\
             .where(
                 Race.accept_ap_call == False,
