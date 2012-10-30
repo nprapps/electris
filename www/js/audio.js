@@ -133,6 +133,7 @@ $(function(){
     // TODO: refactor this into the main audio player
     var _totnstatus = '';
     var totnShowNow = 'TRUE';
+//    var totnShowNow = 'FALSE';
     
 	if (_totnstatus != 'TRUE' && totnShowNow == 'TRUE') {
 		var totnAudioLink = 'http://pd.npr.org/anon.npr-mp3/npr/totn/2012/10/20121010_totn_01.mp3'
