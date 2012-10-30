@@ -761,17 +761,9 @@ $(function() {
                 $(".state." + state.id).remove();
                 add_state(state);
                 
-                var called_html = CALLED_TEMPLATE({
-                    state: state
-                });
-
-                $(".called." + state.id).replaceWith(called_html);
-
-                var incoming_html = INCOMING_TEMPLATE({
-                    state: state
-                });
-
-                $(".incoming." + state.id).replaceWith(incoming_html);
+                var state_els = $("." + state.id);
+                state_els.find(".red").text(Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100)); 
+                state_els.find(".blue").text(Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100)); 
 
                 if (old_state["call"] != state["call"]) {
                     // Uncalled
@@ -779,8 +771,20 @@ $(function() {
                         // Show chiclet
                         $(".tossup." + state.id).show(); 
 
+                        state_els.find(".red,.blue").removeClass("winner");
+
+                        state_els.filter(".called").hide();
+
+                        if (state.polls_close > moment()) {
+                            state_els.filter(".incoming").show();
+                        }
+
                         called_count -= 1;
+                        incoming_count += 1;
                         total_tossup_states += 1;
+
+                        called_el.toggle(called_count > 0);
+                        incoming_el.toggle(incoming_count > 0);
 
                         console.log(state["name"] + " uncalled");
                     } else {
@@ -792,13 +796,34 @@ $(function() {
                             if (state.id in tossup_picks) {
                                 delete tossup_picks[state.id];
                             }
-
+                        
+                            if (state["call"] === "r") {
+                                state_els.find(".red").addClass("winner");
+                            } else {
+                                state_els.find(".blue").addClass("winner");
+                            }
+                        
+                            state_els.filter(".called").show();
+                            state_els.filter(".incoming").hide();
+        
                             called_count += 1;
+                            incoming_count -= 1;
                             total_tossup_states -= 1;
 
+                            called_el.toggle(called_count > 0);
+                            incoming_el.toggle(incoming_count > 0);
+                            
                             console.log(state["name"] + " called as " + state["call"]);
                         // Changed
                         } else {
+                            if (state["call"] === "r") {
+                                state_els.find(".blue").removeClass("winner");
+                                state_els.find(".red").addClass("winner");
+                            } else {
+                                state_els.find(".red").removeClass("winner");
+                                state_els.find(".blue").addClass("winner");
+                            }
+                            
                             console.log(state["name"] + " call changed to " + state["call"] + " instead of " + old_state["call"]);
                         }
                     }
