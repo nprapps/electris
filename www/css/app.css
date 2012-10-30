@@ -699,6 +699,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 /* ALERTS */
 .electris-alert {
+    display: none;
 	position: absolute; top: 16%; left: 35%; width: 30%;
 	z-index: 2100;
 	background-color: #B39429;

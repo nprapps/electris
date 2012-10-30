@@ -19,12 +19,14 @@ $(function() {
 
     /* Global state */
     var wide_mode = false;
+    var alerts = [];
     var next_closing = null;
 
     /* Elements */
     var electris_el = $("#electris");
     var electris_skinny_el = $("#electris-skinny");
     var electris_line_el = electris_el.find(".line");
+    var alert_el = $(".electris-alert");
     var results_el = $("#incoming");
     var maincontent_el = $("#the-stuff");
     var red_candidate_el = $(".candidate.red");
@@ -786,7 +788,12 @@ $(function() {
                         called_el.toggle(called_count > 0);
                         incoming_el.toggle(incoming_count > 0);
 
-                        console.log(state["name"] + " uncalled");
+                        var candidate = (old_state["call"] == "d" ? "Barack Obama" : "Mitt Romney");
+
+                        alerts.push({
+                            body: 'NPR has retracted its earlier projection that <strong class="alert-name">' + candidate + '</strong> would win <strong class="alert-state"><b>' + state.stateface + '</b> ' + state.name + ' (' + state.electoral_votes + ')</strong>',
+                            side: null
+                        });
                     } else {
                         // Called
                         if (!old_state["call"]) {
@@ -798,8 +805,10 @@ $(function() {
                             }
                         
                             if (state["call"] === "r") {
+                                var side = "red";
                                 state_els.find(".red").addClass("winner");
                             } else {
+                                var side = "blue";
                                 state_els.find(".blue").addClass("winner");
                             }
                         
@@ -813,18 +822,30 @@ $(function() {
                             called_el.toggle(called_count > 0);
                             incoming_el.toggle(incoming_count > 0);
                             
-                            console.log(state["name"] + " called as " + state["call"]);
+                            var candidate = (state["call"] == "d" ? "Barack Obama" : "Mitt Romney");
+                        
+                            alerts.push({
+                                body: 'NPR projects that <strong class="alert-name">' + candidate + '</strong> will win <strong class="alert-state"><b>' + state.stateface + '</b> ' + state.name + ' (' + state.electoral_votes + ')</strong>',
+                                side: side
+                            });
                         // Changed
                         } else {
                             if (state["call"] === "r") {
+                                var side = "red";
                                 state_els.find(".blue").removeClass("winner");
                                 state_els.find(".red").addClass("winner");
                             } else {
+                                var side = "blue";
                                 state_els.find(".red").removeClass("winner");
                                 state_els.find(".blue").addClass("winner");
                             }
-                            
-                            console.log(state["name"] + " call changed to " + state["call"] + " instead of " + old_state["call"]);
+             
+                            var candidate = (state["call"] == "d" ? "Barack Obama" : "Mitt Romney");
+                        
+                            alerts.push({
+                                body: 'NPR now projects that <strong class="alert-name">' + candidate + '</strong> will win <strong class="alert-state"><b>' + state.stateface + '</b> ' + state.name + ' (' + state.electoral_votes + ')</strong>',
+                                side: side
+                            });
                         }
                     }
                 }
@@ -840,6 +861,7 @@ $(function() {
             called_el.toggle(called_count > 0);
 
             compute_stats(true);
+            update_alerts();
         };
     }
 
@@ -856,6 +878,35 @@ $(function() {
                 update_states(data);
             }
         });
+    }
+
+    var alert_timer = null;
+
+    function update_alerts() {
+        /*
+         * Clear old alerts and add any new ones.
+         */
+        // Don't crush existing alerts
+        if (alert_timer) {
+            return;
+        }
+
+        if (alerts.length > 0) {
+            var new_alert = alerts.shift();
+
+            alert_el.find(".alert-wrapper").html(new_alert.body);
+            alert_el.removeClass("red blue");
+            alert_el.addClass(new_alert.side);
+            alert_el.show();
+
+            // Kill this alert and possibly start the next one
+            var alert_timer = setTimeout(function() {
+                alert_timer = null;
+                update_alerts();
+            }, 5000);
+        } else {
+            alert_el.hide();
+        }
     }
 
     /* MEME TRACKER */
