@@ -43,6 +43,7 @@ $(function() {
     var called_el = $(".pres-called");
     var incoming_el = $(".pres-watching");
     var closing_el = $(".pres-closing");
+    var live_blog_el = $("#live-blog-items");
 
     /* State data */
     var states = [];
@@ -843,7 +844,6 @@ $(function() {
     var MEME_REGULAR_TEMPLATE = _.template($("#meme-regular-template").html());
 
     var posts_el = $("#memetracker .posts");
-
     var posts_html = {};
 
     function ISODateString(d) {
@@ -855,9 +855,12 @@ $(function() {
     }
 
     function update_memetracker(first_run) {
+        /*
+         * Update the memetracker from our tumblr feed.
+         */
         $.getJSON('tumblr.json?t=' + (new Date()).getTime(), {}, function(posts) {
-            //var then = new Date();
-            _.each(posts, function(post) {
+            for (var i = 0; i < posts.length; i++) {
+                var post = posts[i];
                 var template = null;
 
                 if (post.type === "photo") {
@@ -902,11 +905,9 @@ $(function() {
                 }
 
                 posts_html[post.id] = html;
-
-            });
+            }
 
             posts_el.find(".post:nth-child(5)").nextAll().remove();
-            //console.log((new Date()) - then);
         });
     }
 
@@ -915,6 +916,9 @@ $(function() {
     var RIVER_POLLING_INTERVAL = 30000;
 
 	function fetch_news() {
+        /*
+         * Fetch the latest river of news.
+         */
 		$.ajax({
 		    url: 'http://www.npr.org/buckets/agg/series/2012/elections/riverofnews/riverofnews.jsonp',
 		    dataType: 'jsonp',
@@ -923,33 +927,41 @@ $(function() {
 				if (RIVER_TIMER === null) {
 					RIVER_TIMER = window.setInterval(fetch_news, RIVER_POLLING_INTERVAL);
 				}
+
 				update_news(data);
 		    }
 		})
 	}
 
 	function update_news(data) {
-		var template = BLOG_POST_TEMPLATE;
-		var new_news = '';
+        /*
+         * Update the river of news feed.
+         */
+		var new_news = [];
 
-		$.each(data.news.sticky, function(j,k) {
+		$.each(data.news.sticky, function(j, k) {
 			if (k.News.status) {
-				new_news += template( { post: k.News, sticky: "sticky" } );
+				new_news.push(BLOG_POST_TEMPLATE({
+                    post: k.News,
+                    sticky: "sticky"
+                }));
 			}
 		});
 
-		$.each(data.news.regular, function(j,k) {
+		$.each(data.news.regular, function(j, k) {
 			if (k.News.status) {
-				new_news += template( { post: k.News, sticky: '' } );
+				new_news.push(BLOG_POST_TEMPLATE({
+                    post: k.News,
+                    sticky: ''
+                }));
 			}
 		});
-        
-        var live_blog_el = $("#live-blog-items");
 
 		live_blog_el.empty().append(new_news);
         live_blog_el.find("p.timeago").timeago();
+
+        new_news = null;
 	}
-	
 
 	// Kickoff!
     fetch_states();
