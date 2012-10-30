@@ -63,6 +63,20 @@ def write_president_json():
                         state_dict['dem_vote_percent'] = state.dem_vote_percent()
                         state_dict['human_gop_vote_count'] = state.human_rep_vote_count()
                         state_dict['human_dem_vote_count'] = state.human_dem_vote_count()
+
+                        if state_dict['npr_call'] != 'n' and state_dict['npr_call'] != 'u':
+                            state_dict['call'] = state_dict['npr_call']
+                            state_dict['called_at'] = state_dict['npr_called_at']
+                            state_dict['called_by'] = 'npr'
+                        elif state_dict['accept_ap_call'] and state_dict['ap_call'] != 'u':
+                            state_dict['call'] = state_dict['ap_call']
+                            state_dict['called_at'] = state_dict['ap_called_at']
+                            state_dict['called_by'] = 'ap'
+                        else:
+                            state_dict['call'] = None
+                            state_dict['called_at'] = None
+                            state_dict['called_by'] = None
+
                         timezone_dict['states'].append(state_dict)
             objects.append(timezone_dict)
         f.write(json.dumps(objects))
@@ -185,7 +199,7 @@ def write_senate_json():
 
 def write_electris_json():
     """
-    Rewrites CSV files from the DB for president.
+    Rewrites JSON files from the DB for president.
     """
     with open(settings.PRESIDENT_FILENAME, 'w') as f:
         output = []

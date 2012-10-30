@@ -50,18 +50,22 @@
             </div>
             <% _.each(timezone.states, function(state){ %>
                 <%
+                    var winner = '';
                     var called = '';
-                    if (state.called == true) { called = 'called'; }
+                    if (state.call == 'd') { winner = 'dem'; }
+                    if (state.call == 'r') { winner = 'gop'; }
+                    if (winner != '') { called = 'called'; }
                 %>
-                <ul class="allstates <%= called %>">
-                	<li class="percentTime"><%
+                <ul class="allstates">
+                	<li class="percentTime <%= called %>"><%
                         var percent = state.precincts_reporting / state.total_precincts;
-                        percent = roundNumber(percent * 100, 1);
+                        percent = roundNumber(percent * 100, 0);
                     %>
-                    <%= percent %>%
+                    <%= percent %>
                     </li>
                     <li class="district"></li>
-                    <li class="state"><span><%= state.name %></span> (<%= state.electoral_votes %>)</li>
+                    <li class="state <%= winner %>"><span class="name"><%= state.abbr %></span>
+                        <span class="votes"> &mdash; <%= state.electoral_votes %></span></li>
                     <li class="demPercent"><%= state.dem_vote_percent %></li>
                     <li class="gopPercent"><%= state.rep_vote_percent %></li>
                 </ul>
@@ -69,15 +73,22 @@
         </script>
 
         <script id="featured-template" type="text/template">
+            <%
+                var winner = '';
+                var called = '';
+                if (state.call == 'd') { winner = 'dem'; }
+                if (state.call == 'r') { winner = 'gop'; }
+                if (winner != '') { called = 'called'; }
+            %>
             <ul class="swing">
-                <li class="percentTime"><%
+                <li class="percentTime <%= called %>"><%
                     var percent = state.precincts_reporting / state.total_precincts;
                     percent = roundNumber(percent * 100, 1);
                 %>
-                <%= percent %>%
+                <%= percent %>
                 </li>
                 <li class="district"></li>
-                <li class="state"><span><%= state.name %></span> (<%= state.electoral_votes %>)</li>
+                <li class="state <%= winner %>"><span><%= state.name %></span> (<%= state.electoral_votes %>)</li>
                 <li class="demPercent"><%= state.dem_vote_percent %></li>
                 <li class="gopPercent"><%= state.rep_vote_percent %></li>
             </ul>
