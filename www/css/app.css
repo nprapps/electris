@@ -29,6 +29,8 @@ h5 { font: bold 14px Arial, Helvetica, sans-serif; color: #333; margin-bottom: 3
 }
 a.btn { color: #fff; cursor: pointer; }
 
+.modal { z-index: 2132; }
+.modal-backdrop { z-index: 2122; }
 .modal-header { background-color: #f1f1f1; border-radius: 4px 4px 0 0; }
 .modal-header h3 { font: normal 20px Georgia, serif; }
 .modal-header .close { margin-top: -3px; }
@@ -152,19 +154,26 @@ a.btn { color: #fff; cursor: pointer; }
 	color: #555; text-transform: uppercase;
 }
 .results-group h2 { 
-	margin-bottom: 6px;
+	margin-bottom: 0;
 	color: #333;
+	padding-bottom: 3px;
+	border-bottom: 1px solid #CCC;
 }
 .results-group h3 {
 	text-transform: none;
 	font-size: 14px;
-	border-top: 1px solid #ccc;
 	padding-top: 6px;
 	margin-bottom: 6px;
 }
 .results-group .blue { width: 45%; float: left; }
 .results-group .red { width: 45%; float: right; }
-.results-group h2 { }
+
+#pres-header .blue { background: url('../img/silo-obama-45.png') no-repeat left 6px; }
+#pres-header .red  { background: url('../img/silo-romney-45.png') no-repeat left 6px; }
+#pres-header .wrapper { margin-left: 50px; }
+#pres-header h3 { border-top: none; }
+#pres-header i { font-style: normal; display: none; }
+
 .results-group .total { text-align: center; width: 30%; float: left; }
 #pres-header .total { width: 45%; }
 .results-group .total span { display: block; font-size: 30px; line-height: 30px; font-weight: bold; }
@@ -560,7 +569,7 @@ a.btn { color: #fff; cursor: pointer; }
 .combos button { display: block; margin: 9px auto 0 auto; }
 
 /* Combinations */
-#combinations-modal { width: 80%; left: 10%; top: 120px; margin: 0; }
+#combinations-modal { width: 80%; left: 10%; top: 10%; margin: 0; }
 #combinations-modal b {
 	font-weight: normal;
 	font-family: StateFaceRegular;
@@ -791,6 +800,8 @@ a.btn { color: #fff; cursor: pointer; }
 
 @media (min-width: 1200px) {
     #results-bar.affix #small-header { width: 1150px; }
+	#pres-header i { display: inline; }
+
 	.states { font-size: 23px; }
 	.combos { width: 7.5em; }
     .state i {
@@ -899,6 +910,9 @@ a.btn { color: #fff; cursor: pointer; }
 	#header-promos .promo h3 { font-size: 16px; }
 	#header-promos .promo p { display: none; }
 
+	.results-group { margin-bottom: 18px; }
+	#pres-header i { display: inline; }
+
     #the-stuff { margin-top:0; }
     #ad { display:none; }
     #results-bar.affix { position:static; }
@@ -931,8 +945,6 @@ a.btn { color: #fff; cursor: pointer; }
 	#big-header { margin: 0 -10px 0 -10px; }
 	#header-promos .promo { margin-left: 2%; padding: 3%; width: 43%; }
 	
-	.results-group { margin-bottom: 18px; }
-	
 	.electris-alert { top: 13%; left: 25%; width: 50%; 	}
 
 	.state i { text-indent: -9999px; width: 9%; margin-right: 1%; min-width: 13px; }
@@ -952,6 +964,6 @@ a.btn { color: #fff; cursor: pointer; }
 	#closing-modal li:first-child { border: none; padding-top: 0; }
 	#closing-modal li strong { margin-left: 0; width: auto; display: block; font-size: 11px; }
 	
-	.modal .modal-col { width: 45%; float: left; margin-left: 10%; }
+	.modal .modal-col { width: auto; float: none; margin-bottom: 30px; margin-left: 0; }
 	.modal-header .close { margin-top: -10px; }
 }
