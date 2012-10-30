@@ -13,12 +13,14 @@ $(function() {
     var MAX_STATES_FOR_WIDE_MODE = 12;
     var MAX_COMBO_GROUP = 7;
     var POLLING_INTERVAL = 5000;
+    var UPDATE_CLOSING_INTERVAL = 5000;
     var RIVER_TIMER = null;
 
     if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); } else { $("body").addClass("no-touch"); }
 
     /* Global state */
     var wide_mode = false;
+    var next_closing = null;
 
     /* Elements */
     var electris_el = $("#electris");
@@ -624,6 +626,8 @@ $(function() {
 
         var alpha_states = _.sortBy(states, "name");
         var closing_times = {};
+        var called_state_els = [];
+        var incoming_state_els = [];
 
         _.each(alpha_states, function(state) {
             var called_state_el = $(CALLED_TEMPLATE({
@@ -636,7 +640,7 @@ $(function() {
                 called_count += 1;
             }
 
-            called_ul.append(called_state_el);
+            called_state_els.push(called_state_el);
             called_state_el = null;
 
             var incoming_state_el = $(INCOMING_TEMPLATE({
@@ -649,7 +653,7 @@ $(function() {
                 incoming_count += 1; 
             }
 
-            incoming_ul.append(incoming_state_el)
+            incoming_state_els.push(incoming_state_el)
             incoming_state_el = null;
             
             var timestamp = state.polls_close.valueOf();
@@ -660,6 +664,12 @@ $(function() {
 
             closing_times[timestamp].push(state);
         });
+            
+        called_ul.append(called_state_els);
+        called_state_els = null;
+
+        incoming_ul.append(incoming_state_els);
+        incoming_state_els = null;
 
         called_el.toggle(called_count > 0);
         incoming_el.toggle(incoming_count > 0);
@@ -690,10 +700,12 @@ $(function() {
         }
 
         update_next_closing();
-        setInterval(update_next_closing, 1000);
+        setInterval(update_next_closing, UPDATE_CLOSING_INTERVAL);
 
+        //var then = new Date();
         add_states();
         compute_stats(true);
+        //console.log((new Date()) - then);
     }
 
     function update_next_closing() {
@@ -707,26 +719,28 @@ $(function() {
             return closing_time > now;
         });
 
-        if (next) {
+        if (next != next_closing) {
             closing_el.find("ul").html(polls_closing_html[next]);
             closing_el.show();
-        } else {
+
+            // Toggle visibility of states which closed
+            incoming_count = 0;
+
+            _.each(states, function(state) {
+                if (state.call || state.polls_close > now) {
+                    $(".incoming." + state.id).hide();
+                } else {
+                    $(".incoming." + state.id).show();
+                    incoming_count += 1;
+                }
+            });
+
+            incoming_el.toggle(incoming_count > 0);
+
+            next_closing = next;
+        } else if (!next) {
             closing_el.hide();
         }
-
-        // Toggle visibility of states which closed
-        incoming_count = 0;
-
-        _.each(states, function(state) {
-            if (state.call || state.polls_close > now) {
-                $(".incoming." + state.id).hide();
-            } else {
-                $(".incoming." + state.id).show();
-                incoming_count += 1;
-            }
-        });
-
-        incoming_el.toggle(incoming_count > 0);
     }
 
     function update_states(data) {
