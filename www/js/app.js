@@ -36,6 +36,10 @@ $(function() {
     var blue_tossups_el = blue_candidate_el.find(".tossups");
     var red_histogram_el = red_candidate_el.find(".histogram");
     var blue_histogram_el = blue_candidate_el.find(".histogram");
+    var red_votes_el = $(".red-votes");
+    var blue_votes_el = $(".blue-votes");
+    var red_needs_el = $(".red-needs");
+    var blue_needs_el = $(".blue-needs");
     var called_el = $(".pres-called");
     var incoming_el = $(".pres-watching");
     var closing_el = $(".pres-closing");
@@ -123,7 +127,6 @@ $(function() {
         // Clear old state graphics
         $(".state").remove();
 
-        //var then = new Date();
         // Add states by groups
         var groups = [red_called, blue_called, red_predicted, blue_predicted];
 
@@ -137,7 +140,6 @@ $(function() {
                 add_state(states_group[j]);
             }
         }
-        //console.log((new Date()) - then);
     }
 
     function compute_stats(generate_combos) {
@@ -150,7 +152,9 @@ $(function() {
         var states_user_blue = [];
         var states_not_called = [];
 
-        _.each(states, function(state) {
+        for (var i = 0; i < states.length; i++) {
+            var state = states[i];
+
             if (state.call === "r") {
                 states_called_red.push(state);
             } else if (state.call === "d") {
@@ -164,7 +168,7 @@ $(function() {
             } else {
                 states_not_called.push(state);
             }
-        });
+        };
 
         function sum_votes(states_group) {
             return _.reduce(states_group, function(count, state) { return count + state.electoral_votes; }, 0);
@@ -173,15 +177,15 @@ $(function() {
         var red_votes_called = sum_votes(states_called_red);
         var red_votes_user = sum_votes(states_user_red);
         red_votes = red_votes_called + red_votes_user;
-        $(".red-votes").text(red_votes);
-        $(".red-needs").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - red_votes));
+        red_votes_el.text(red_votes);
+        red_needs_el.text(Math.max(0, ELECTORAL_VOTES_TO_WIN - red_votes));
         red_candidate_el.toggleClass("winner", red_votes >= ELECTORAL_VOTES_TO_WIN);
 
         var blue_votes_called = sum_votes(states_called_blue);
         var blue_votes_user = sum_votes(states_user_blue);
         blue_votes = blue_votes_called + blue_votes_user;
-        $(".blue-votes").text(blue_votes);
-        $(".blue-needs").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
+        blue_votes_el.text(blue_votes);
+        blue_needs_el.text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
         blue_candidate_el.toggleClass("winner", blue_votes >= ELECTORAL_VOTES_TO_WIN);
 
         // Potentially flip modes
@@ -189,13 +193,15 @@ $(function() {
 
         wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE);
 
-        if (wide_mode) {
+        if (wide_mode && !old_wide_mode) {
             electris_skinny_el.hide();
             results_el.hide();
             electris_el.show();
         }
 
+        var then = new Date();
         resize_buckets();
+        console.log((new Date()) - then);
 
         if (wide_mode && generate_combos) {
             generate_winning_combinations(states_not_called);
