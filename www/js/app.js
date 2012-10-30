@@ -47,6 +47,7 @@ $(function() {
     var incoming_el = $(".pres-watching");
     var closing_el = $(".pres-closing");
     var live_blog_el = $("#live-blog-items");
+    var combinations_modal_el = $("#combinations-modal");
 
     /* State data */
     var states = [];
@@ -379,7 +380,7 @@ $(function() {
         var max_combo_group = _.max([max_red_combo_group, max_blue_combo_group]);
 
         function show_combos(keys, groups, side, base_votes) {
-            var combo_groups_el = $("#combinations-modal ul." + side);
+            var combo_groups_el = combinations_modal_el.find("ul." + side);
             var max_group_count = 0; 
             combo_groups_el.empty();
 
@@ -594,14 +595,15 @@ $(function() {
         /*
          * Scroll to combos list.
          */
-        $("#combinations-modal").modal("show");
+        var modal_body = combinations_modal_el.find(".modal-body");
+        combinations_modal_el.modal("show");
 
-        /*
-         * Doesn't seem to work within modal
-        $("#combinations-modal .modal-body").animate({
-            scrollTop: $($(this).data("target")).position().top
+        // NB: http://api.jquery.com/scrollTop/#comment-101347923
+        modal_body.scrollTop(0);
+        
+        modal_body.animate({
+            scrollTop: $($(this).data("target")).position().top - 35
         }, 1000);
-        */
     });
 
     /* DATASET LOADING/POLLING */
