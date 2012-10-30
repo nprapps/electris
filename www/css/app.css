@@ -45,7 +45,6 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* Placeholders */
-#header { height: 275px; background-color:#151515; color:white; }
 #ad { width:300px; height:250px; background-color:red; }
 #tabs { display:none; }
 .results-group { background-color:gray; height: 100px; margin-top: 20px; }
@@ -78,16 +77,29 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* MAIN HEADER */
+.navbar { margin-bottom: 1px; }
+#big-header {
+	background: #151515 url('../img/bg-election-night.jpg') no-repeat top left;
+	margin-left: 0;
+	padding-top: 12px;
+}
+#header { 
+	margin-left: 0;
+	height: 275px;
+	color:white;
+	position: relative;
+}
 #header h1 {
 	text-indent: -9999px;
 	background: url('../img/hd-election-night.png') no-repeat;
 	height: 56px;
-	margin: 12px 7px 7px 7px;
+	margin: 0 7px 7px 7px;
 }
 #header-promos {
-	padding: 15px 15px 15px 15px;
+	padding: 10px;
 	color: #ccc;
 	clear: both;
+	position: absolute; bottom: 0; left: 0;
 }
 #header-promos .promo {
 	background: #333;
@@ -770,6 +782,8 @@ a.btn { color: #fff; cursor: pointer; }
 
 	#main-header, #header-title { width: 724px; }
     #results-bar.affix #small-header { width: 704px; }
+    
+	#header-promos { width: 710px; }
 
 	.states { font-size: 20px; }
     .state i {
@@ -802,8 +816,10 @@ a.btn { color: #fff; cursor: pointer; }
 	.navbar { margin-bottom: 1px; }
 
 	#big-header { margin: 0 -20px 0 -20px; padding: 0; }
-	#header { margin: 0; padding: 10px 0 0 0; height: auto; }
+	#header { margin: 0; padding: 10px 0 0 0; }
 	#header h1 { margin-top: 0; }
+	#bigbox { display: none; }
+	#header-promos { padding: 10px 0; }
 
     #the-stuff { margin-top:0; }
     #ad { display:none; }
