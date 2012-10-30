@@ -198,6 +198,19 @@ $(function() {
         wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE);
 
         if (wide_mode && !old_wide_mode) {
+            // Once we flip into wide mode we no longer need to
+            // render to electris skinny, so we retarget at just
+            // the one graphic
+            red_candidate_el = $("#electris .candidate.red");
+            blue_candidate_el = $("#electris .candidate.blue");
+            bucket_els = $("#electris .bucket");
+            red_bucket_el = red_candidate_el.find(".bucket");
+            blue_bucket_el = blue_candidate_el.find(".bucket");
+            red_tossups_el = red_candidate_el.find(".tossups");
+            blue_tossups_el = blue_candidate_el.find(".tossups");
+            red_histogram_el = red_candidate_el.find(".histogram");
+            blue_histogram_el = blue_candidate_el.find(".histogram");
+
             electris_skinny_el.hide();
             results_el.hide();
             electris_el.show();
