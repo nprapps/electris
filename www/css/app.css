@@ -156,8 +156,7 @@ a.btn { color: #fff; cursor: pointer; }
 .results-group h2 { 
 	margin-bottom: 0;
 	color: #333;
-	padding-bottom: 3px;
-	border-bottom: 1px solid #CCC;
+	margin-bottom: 3px;
 }
 .results-group h3 {
 	text-transform: none;
@@ -165,8 +164,8 @@ a.btn { color: #fff; cursor: pointer; }
 	padding-top: 6px;
 	margin-bottom: 6px;
 }
-.results-group .blue { width: 45%; float: left; }
-.results-group .red { width: 45%; float: right; }
+.results-group .blue { width: 45%; float: left; border-top: 1px solid #CCC; }
+.results-group .red { width: 45%; float: right; border-top: 1px solid #CCC; }
 
 #pres-header .blue { background: url('../img/silo-obama-45.png') no-repeat left 6px; }
 #pres-header .red  { background: url('../img/silo-romney-45.png') no-repeat left 6px; }
@@ -770,9 +769,7 @@ a.btn { color: #fff; cursor: pointer; }
 @media (min-width: 768px) {
 	#bigbox { min-width: 300px; }
 
-    #results-bar.affix { 
-    	top:0; z-index:2112;
-    }
+    #results-bar.affix { top:0; z-index:2112; }
     #results-bar.affix #small-header { 
     	position: relative;
     	height: 50px;
@@ -792,10 +789,19 @@ a.btn { color: #fff; cursor: pointer; }
     	padding-bottom: 10px;
     	border-bottom: 2px solid #CCC;
     }
+/*    #results-bar.affix .results-row h2 { border-top: none; font-size: 16px; } */
     #results-bar.affix .results-row h2 { 
-    	border-top: none;
+    	border-top: none; background-color: #f1f1f1; 
+    	font: bold 12px Arial, Helvetica, sans-serif;
+    	padding: 6px; margin-bottom: 0;
+    	color: #121212;
     }
-    #results-bar.affix + .row { margin-top:120px; }
+	#results-bar.affix .results-group h3 { font-size: 12px; margin-bottom: 3px; }
+	#results-bar.affix .results-group .blue,
+	#results-bar.affix .results-group .red { border: none; }
+    #results-bar.affix .results-group .total span { font-size: 20px; line-height: 22px; }
+    #results-bar.affix #pres-header .towin span { line-height: 20px; font-size: 14px; }
+    #results-bar.affix + .row { margin-top:120px; font-size: 14px; }
 }
 
 @media (min-width: 1200px) {
