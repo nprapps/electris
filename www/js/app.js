@@ -1097,14 +1097,10 @@ $(function() {
         	$('#sen-r-total').text(bop.senate.republicans.total);
         	$('#sen-d-majority').text(bop.senate.democrats.needed_for_majority);
         	$('#sen-r-majority').text(bop.senate.republicans.needed_for_majority);
-        	$('#sen-d-seats').text(bop.senate.democrats.delta);
-        	$('#sen-r-seats').text(bop.senate.republicans.delta);
         	$('#house-d-total').text(bop.house.democrats.total);
         	$('#house-r-total').text(bop.house.republicans.total);
         	$('#house-d-majority').text(bop.house.democrats.needed_for_majority);
         	$('#house-r-majority').text(bop.house.republicans.needed_for_majority);
-        	$('#house-d-seats').text(bop.house.democrats.delta);
-        	$('#house-r-seats').text(bop.house.republicans.delta);
         });
     }
 
