@@ -21,7 +21,8 @@ body.comingSoon #playercon { position: absolute; top: -2000px; }
 
 
 #totnAudio {
-    clear:left;
+//    clear:left;
+	float: left;
 	display: none;
     visibility: hidden;
 }

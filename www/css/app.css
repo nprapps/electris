@@ -10,11 +10,10 @@
 }
 
 /* General */
-h2 {
-	font-size: 1.3em;
-	margin-bottom: 3px;
-	text-transform: lowercase;
-}
+h2 { font-size: 1.3em; margin-bottom: 3px; }
+h3 { font: bold 1.1em Arial, Helvetica, sans-serif; color: #333; }
+h5 { font: bold 14px Arial, Helvetica, sans-serif; color: #333; margin-bottom: 3px; }
+
 #electris-skinny h2,
 #incoming h2,
 #backchannel h2,
@@ -27,25 +26,16 @@ h2 {
 	margin-bottom: 12px;
 	text-transform: none;
 }
-
-h3 {
-	font: bold 1.1em Arial, Helvetica, sans-serif;
-	color: #333;
-}
-
-h5 {
-	font: bold 14px Arial, Helvetica, sans-serif;
-	color: #333;
-	margin-bottom: 3px;
-}
 a.btn { color: #fff; cursor: pointer; }
+
 .modal-header { background-color: #f1f1f1; border-radius: 4px 4px 0 0; }
 .modal-header h3 { font: normal 20px Georgia, serif; }
 .modal-header .close { margin-top: -3px; }
+.modal .modal-col { width: 48%; float: left; margin-left: 4%; }
+.modal .modal-col:first-child { margin-left: 0; }
 
 
 /* Placeholders */
-#header { height: 275px; background-color:#151515; color:white; }
 #ad { width:300px; height:250px; background-color:red; }
 #tabs { display:none; }
 .results-group { background-color:gray; height: 100px; margin-top: 20px; }
@@ -78,24 +68,37 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* MAIN HEADER */
+.navbar { margin-bottom: 1px; }
+#big-header {
+	background: #151515 url('../img/bg-election-night.jpg') no-repeat top left;
+	margin-left: 0;
+	padding-top: 12px;
+}
+#header { 
+	margin-left: 0;
+	height: 275px;
+	color:white;
+	position: relative;
+}
 #header h1 {
 	text-indent: -9999px;
 	background: url('../img/hd-election-night.png') no-repeat;
 	height: 56px;
-	margin: 12px 7px 7px 7px;
+	margin: 0 7px 7px 7px;
 }
 #header-promos {
-	padding: 15px 15px 15px 15px;
+	padding: 10px;
 	color: #ccc;
 	clear: both;
+	position: absolute; bottom: 0; left: 0;
 }
 #header-promos .promo {
 	background: #333;
 	background: rgba(0,0,0,.6);
-	width: 45%;
-	margin-left: 10px;
+	width: 43%;
+	margin-left: 2%;
 	float: left;
-	padding: 2%
+	padding: 3%
 }
 #header-promos .promo:first-child {
 	margin-left: 0;
@@ -285,7 +288,7 @@ a.btn { color: #fff; cursor: pointer; }
     visibility: hidden;
 }
 
-.states { font-size: 20px; }
+.states { font-size: 20px; position: relative; }
 #electris-skinny .states { font-size: 18px; }
 .candidate { width: 48%; }
 .candidate.blue { float: left; }
@@ -505,6 +508,7 @@ a.btn { color: #fff; cursor: pointer; }
 .combos button { display: block; margin: 9px auto 0 auto; }
 
 /* Combinations */
+#combinations-modal { width: 80%; left: 10%; top: 120px; margin: 0; }
 #combinations-modal b {
 	font-weight: normal;
 	font-family: StateFaceRegular;
@@ -641,6 +645,32 @@ a.btn { color: #fff; cursor: pointer; }
 .touch-device .tossups .spinner b { text-indent: -9999px; background-position: center center; }
 
 
+/* ALERTS */
+.electris-alert {
+	position: absolute; top: 16%; left: 35%; width: 30%;
+	z-index: 2100;
+	background-color: #B39429;
+	text-align: center;
+	font-size: 12px;
+	color: #fff;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+	   -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+	        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+.electris-alert .alert-wrapper { padding: 15px; }
+.electris-alert.blue { background-color: #28556F; }
+.electris-alert.red { background-color: #6C2315; }
+.electris-alert strong { display: block; font-size: 18px; margin: 6px 0; }
+.electris-alert b {
+	font: normal 50px/50px StateFaceRegular;
+    text-align: center;
+    display: block;
+}
+
+
 /* Memetracker */
 #backchannel { margin-top:20px; float:left; }
 #memehead { margin-bottom: 9px; }
@@ -770,6 +800,8 @@ a.btn { color: #fff; cursor: pointer; }
 
 	#main-header, #header-title { width: 724px; }
     #results-bar.affix #small-header { width: 704px; }
+    
+	#header-promos { width: 710px; }
 
 	.states { font-size: 20px; }
     .state i {
@@ -802,8 +834,12 @@ a.btn { color: #fff; cursor: pointer; }
 	.navbar { margin-bottom: 1px; }
 
 	#big-header { margin: 0 -20px 0 -20px; padding: 0; }
-	#header { margin: 0; padding: 10px 0 0 0; height: auto; }
+	#header { margin: 0; padding: 10px 0 0 0; }
 	#header h1 { margin-top: 0; }
+	#bigbox { display: none; }
+	#header-promos { padding: 10px 0; width: 100%; }
+	#header-promos .promo h3 { font-size: 16px; }
+	#header-promos .promo p { display: none; }
 
     #the-stuff { margin-top:0; }
     #ad { display:none; }
@@ -835,9 +871,10 @@ a.btn { color: #fff; cursor: pointer; }
 }
 @media (max-width: 480px) {
 	#big-header { margin: 0 -10px 0 -10px; }
-	#header-promos .promo h3 { font-size: 16px; }
-	#header-promos .promo p { display: none; }
+	#header-promos .promo { margin-left: 2%; padding: 3%; width: 43%; }
 	
+	.electris-alert { top: 13%; left: 25%; width: 50%; 	}
+
 	.state i { text-indent: -9999px; width: 9%; margin-right: 1%; min-width: 13px; }
     .bucket-header h3 i { display: none; }
 	.vote-tallies .bignum, .red .vote-tallies .bignum, .blue .vote-tallies .bignum, 
@@ -855,5 +892,6 @@ a.btn { color: #fff; cursor: pointer; }
 	#closing-modal li:first-child { border: none; padding-top: 0; }
 	#closing-modal li strong { margin-left: 0; width: auto; display: block; font-size: 11px; }
 	
+	.modal .modal-col { width: 45%; float: left; margin-left: 10%; }
 	.modal-header .close { margin-top: -10px; }
 }

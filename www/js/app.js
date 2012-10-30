@@ -7,18 +7,19 @@ $(function() {
     var CLOSING_TEMPLATE = _.template($("#closing-template").html());
     var TOSSUP_TEMPLATE = _.template($("#tossup-template").html());
     var COMBO_GROUP_TEMPLATE = _.template($("#combo-group-template").html());
-    var HISTOGRAM_TEMPLATE = _.template($("#histogram-template").html());
     var BLOG_POST_TEMPLATE = _.template($("#blog-post-template").html());
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
     var MAX_STATES_FOR_WIDE_MODE = 12;
     var MAX_COMBO_GROUP = 7;
     var POLLING_INTERVAL = 5000;
+    var UPDATE_CLOSING_INTERVAL = 5000;
     var RIVER_TIMER = null;
 
     if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); } else { $("body").addClass("no-touch"); }
 
     /* Global state */
     var wide_mode = false;
+    var next_closing = null;
 
     /* Elements */
     var electris_el = $("#electris");
@@ -28,15 +29,21 @@ $(function() {
     var maincontent_el = $("#the-stuff");
     var red_candidate_el = $(".candidate.red");
     var blue_candidate_el = $(".candidate.blue");
+    var bucket_els = $(".bucket");
     var red_bucket_el = red_candidate_el.find(".bucket");
     var blue_bucket_el = blue_candidate_el.find(".bucket");
     var red_tossups_el = red_candidate_el.find(".tossups");
     var blue_tossups_el = blue_candidate_el.find(".tossups");
     var red_histogram_el = red_candidate_el.find(".histogram");
     var blue_histogram_el = blue_candidate_el.find(".histogram");
+    var red_votes_el = $(".red-votes");
+    var blue_votes_el = $(".blue-votes");
+    var red_needs_el = $(".red-needs");
+    var blue_needs_el = $(".blue-needs");
     var called_el = $(".pres-called");
     var incoming_el = $(".pres-watching");
     var closing_el = $(".pres-closing");
+    var live_blog_el = $("#live-blog-items");
 
     /* State data */
     var states = [];
@@ -97,16 +104,14 @@ $(function() {
          * Add states to the tetris graph in an organized fashion.
          */
         var red_called = [];
-        var red_solid = [];
-        var red_leans = [];
         var red_predicted = [];
         var blue_called = [];
-        var blue_solid = [];
-        var blue_leans = [];
         var blue_predicted = [];
 
         // Group states together
-        _.each(states, function(state) {
+        for (var i = 0; i < states.length; i++) {
+            var state = states[i];
+            
             if (state.call === "r") {
                 red_called.push(state)
             } else if (state.call === "d") {
@@ -118,20 +123,24 @@ $(function() {
                     blue_predicted.push(state);
                 }
             }
-        });
+        }
         
         // Clear old state graphics
         $(".state").remove();
 
         // Add states by groups
-        _.each([red_called, blue_called, red_solid, blue_solid, red_leans, blue_leans, red_predicted, blue_predicted], function(states_group) {
+        var groups = [red_called, blue_called, red_predicted, blue_predicted];
+
+        for (var i = 0; i < groups.length; i++) {
+            var states_group = groups[i];
+
             // Sort by votes *top to bottom*
             states_group.reverse();
 
-            _.each(states_group, function(state) {
-                add_state(state);
-            });
-        });
+            for (var j = 0; j < states_group.length; j++) {
+                add_state(states_group[j]);
+            }
+        }
     }
 
     function compute_stats(generate_combos) {
@@ -144,7 +153,9 @@ $(function() {
         var states_user_blue = [];
         var states_not_called = [];
 
-        _.each(states, function(state) {
+        for (var i = 0; i < states.length; i++) {
+            var state = states[i];
+
             if (state.call === "r") {
                 states_called_red.push(state);
             } else if (state.call === "d") {
@@ -158,7 +169,7 @@ $(function() {
             } else {
                 states_not_called.push(state);
             }
-        });
+        };
 
         function sum_votes(states_group) {
             return _.reduce(states_group, function(count, state) { return count + state.electoral_votes; }, 0);
@@ -167,23 +178,23 @@ $(function() {
         var red_votes_called = sum_votes(states_called_red);
         var red_votes_user = sum_votes(states_user_red);
         red_votes = red_votes_called + red_votes_user;
-        $(".red-votes").text(red_votes);
-        $(".red-needs").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - red_votes));
+        red_votes_el.text(red_votes);
+        red_needs_el.text(Math.max(0, ELECTORAL_VOTES_TO_WIN - red_votes));
         red_candidate_el.toggleClass("winner", red_votes >= ELECTORAL_VOTES_TO_WIN);
 
         var blue_votes_called = sum_votes(states_called_blue);
         var blue_votes_user = sum_votes(states_user_blue);
         blue_votes = blue_votes_called + blue_votes_user;
-        $(".blue-votes").text(blue_votes);
-        $(".blue-needs").text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
+        blue_votes_el.text(blue_votes);
+        blue_needs_el.text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
         blue_candidate_el.toggleClass("winner", blue_votes >= ELECTORAL_VOTES_TO_WIN);
 
         // Potentially flip modes
-        old_wide_mode = wide_mode;
+        var old_wide_mode = wide_mode;
 
         wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE);
 
-        if (wide_mode) {
+        if (wide_mode && !old_wide_mode) {
             electris_skinny_el.hide();
             results_el.hide();
             electris_el.show();
@@ -206,7 +217,7 @@ $(function() {
         var default_height = ELECTORAL_VOTES_TO_WIN / bucket_columns;
         var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns)
         var height = Math.max(default_height, vote_height);
-        $(".bucket").css("height", height + "em");
+        bucket_els.css("height", height + "em");
 
         if (!wide_mode) {
             // In skinny mode, the 270 line will never move
@@ -390,22 +401,29 @@ $(function() {
                     }
 
                     var combo_list_el = combo_group_el.find("ul");
+                    var combo_els = [];
 
-                    _.each(group, function(combo) {
-                        var state_text = [];
+                    for (var i = 0; i < group.length; i++) {
+                        var combo = group[i];
+                        var state_text = "";
                         
-                        _.each(combo.combo, function(state_id, i, l) {
-                            var state = states_by_id[state_id];
+                        for (var j = 0; j < combo.combo.length; j++) {
+                            var state = states_by_id[combo.combo[j]];
 
-                            state_text.push("<strong><b>" + state.stateface + "</b> " + state.name + " (" + state.electoral_votes + ")</strong>");
-                        });
+                            state_text += "<strong><b>" + state.stateface + "</b> " + state.name + " (" + state.electoral_votes + ")</strong>";
+
+                            if (j != combo.combo.length - 1) {
+                                state_text += " + ";
+                            }
+                        };
 						
-                        var el = $("<li>" + state_text.join(" + ") + " = " + (base_votes + combo.votes) + "</li>"); 
+                        var el = $("<li>" + state_text + " = " + (base_votes + combo.votes) + "</li>"); 
+                        combo_els.push(el);
 
-                        combo_list_el.append(el);
-
-                        el = null;
-                    });
+                        var el = null;
+                    };
+                        
+                    combo_list_el.append(combo_els);
 
                     if (new_combo_group) {
                         combo_groups_el.append(combo_group_el);
@@ -413,6 +431,7 @@ $(function() {
 
                     combo_group_el = null;
                     combo_list_el = null;
+                    combo_els = null;
                 } else {
                     histogram_el.find(".bar").css({ width: '0%' });
                 }
@@ -460,8 +479,8 @@ $(function() {
             return candidate + " <strong>cannot win</strong> the Electoral College.";
         }
 
-        // One state left!
-        if (combos.length == 1) {
+        // One one-state combo left
+        if (combos.length == 1 && combos[0].combo.length == 1) {
             var state = states_by_id[combos[0].combo[0]];
 
             if (states_won.length == 0) {
@@ -471,10 +490,44 @@ $(function() {
             }
         }
 
+        // One two-state combo left
+        if (combos.length == 1 && combos[0].combo.length == 2) {
+            var stateA = states_by_id[combos[0].combo[0]];
+            var stateB = states_by_id[combos[0].combo[1]];
+
+            if (states_won.length == 0) {
+                return candidate + " must win <strong><b>" + stateA.stateface + "</b> " + stateA.name + " and <b>" + stateB.stateface + "</b> " + stateB.name + "</strong> to win the Electoral College.";
+            } else {
+                return "If " + candidate + " wins the states you have selected then he must win <strong><b>" + stateA.stateface + "</b> " + stateA.name + " and <b>" + stateB.stateface + "</b> " + stateB.name + "</strong> to win the Electoral College.";
+            }
+        }
+
         if (combos.length > 0) {
             var simplest_combo_length = combos[0].combo.length;
+            var longest_combo_length = combos[combos.length - 1].combo.length;
         } else {
             var simplest_combo_length = 0;
+            var longest_combo_length = 0;
+        }
+
+        // Several one-state combos left
+        if (longest_combo_length == 1) {
+            var states_text = "";
+
+            _.each(combos, function(combo, i, l) {
+                var state = states_by_id[combo.combo[0]];
+                states_text += "<b>" + state.stateface + "</b> " + state.name;
+
+                if (i != l.length - 1) {
+                    states_text += " or ";
+                }
+            });
+
+            if (states_won.length == 0) {
+                return candidate + " must win <strong>" + states_text + "</strong> to win the Electoral College.";
+            } else {
+                return "If " + candidate + " wins the states you have selected then he must win <strong>" + states_text + "</strong> to win the Electoral College.";
+            }
         }
 
         // Path w/o picks
@@ -542,21 +595,6 @@ $(function() {
         */
     });
 
-    // Render combo groups
-    _.each(_.range(1, MAX_COMBO_GROUP + 1), function(key) {
-        blue_histogram_el.append(HISTOGRAM_TEMPLATE({
-            side: "blue",
-            key: key,
-            last_group: (key == MAX_COMBO_GROUP)
-        }));
-        
-        red_histogram_el.append(HISTOGRAM_TEMPLATE({
-            side: "red",
-            key: key,
-            last_group: (key == MAX_COMBO_GROUP)
-        }));
-    });
-
     /* DATASET LOADING/POLLING */
 
     function init_states(data) {
@@ -590,6 +628,8 @@ $(function() {
 
         var alpha_states = _.sortBy(states, "name");
         var closing_times = {};
+        var called_state_els = [];
+        var incoming_state_els = [];
 
         _.each(alpha_states, function(state) {
             var called_state_el = $(CALLED_TEMPLATE({
@@ -602,7 +642,7 @@ $(function() {
                 called_count += 1;
             }
 
-            called_ul.append(called_state_el);
+            called_state_els.push(called_state_el);
             called_state_el = null;
 
             var incoming_state_el = $(INCOMING_TEMPLATE({
@@ -615,7 +655,7 @@ $(function() {
                 incoming_count += 1; 
             }
 
-            incoming_ul.append(incoming_state_el)
+            incoming_state_els.push(incoming_state_el)
             incoming_state_el = null;
             
             var timestamp = state.polls_close.valueOf();
@@ -626,6 +666,12 @@ $(function() {
 
             closing_times[timestamp].push(state);
         });
+            
+        called_ul.append(called_state_els);
+        called_state_els = null;
+
+        incoming_ul.append(incoming_state_els);
+        incoming_state_els = null;
 
         called_el.toggle(called_count > 0);
         incoming_el.toggle(incoming_count > 0);
@@ -656,7 +702,7 @@ $(function() {
         }
 
         update_next_closing();
-        setInterval(update_next_closing, 1000);
+        setInterval(update_next_closing, UPDATE_CLOSING_INTERVAL);
 
         add_states();
         compute_stats(true);
@@ -673,26 +719,28 @@ $(function() {
             return closing_time > now;
         });
 
-        if (next) {
+        if (next != next_closing) {
             closing_el.find("ul").html(polls_closing_html[next]);
             closing_el.show();
-        } else {
+
+            // Toggle visibility of states which closed
+            incoming_count = 0;
+
+            _.each(states, function(state) {
+                if (state.call || state.polls_close > now) {
+                    $(".incoming." + state.id).hide();
+                } else {
+                    $(".incoming." + state.id).show();
+                    incoming_count += 1;
+                }
+            });
+
+            incoming_el.toggle(incoming_count > 0);
+
+            next_closing = next;
+        } else if (!next) {
             closing_el.hide();
         }
-
-        // Toggle visibility of states which closed
-        incoming_count = 0;
-
-        _.each(states, function(state) {
-            if (state.call || state.polls_close > now) {
-                $(".incoming." + state.id).hide();
-            } else {
-                $(".incoming." + state.id).show();
-                incoming_count += 1;
-            }
-        });
-
-        incoming_el.toggle(incoming_count > 0);
     }
 
     function update_states(data) {
@@ -713,17 +761,9 @@ $(function() {
                 $(".state." + state.id).remove();
                 add_state(state);
                 
-                var called_html = CALLED_TEMPLATE({
-                    state: state
-                });
-
-                $(".called." + state.id).replaceWith(called_html);
-
-                var incoming_html = INCOMING_TEMPLATE({
-                    state: state
-                });
-
-                $(".incoming." + state.id).replaceWith(incoming_html);
+                var state_els = $("." + state.id);
+                state_els.find(".red").text(Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100)); 
+                state_els.find(".blue").text(Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100)); 
 
                 if (old_state["call"] != state["call"]) {
                     // Uncalled
@@ -731,8 +771,20 @@ $(function() {
                         // Show chiclet
                         $(".tossup." + state.id).show(); 
 
+                        state_els.find(".red,.blue").removeClass("winner");
+
+                        state_els.filter(".called").hide();
+
+                        if (state.polls_close > moment()) {
+                            state_els.filter(".incoming").show();
+                        }
+
                         called_count -= 1;
+                        incoming_count += 1;
                         total_tossup_states += 1;
+
+                        called_el.toggle(called_count > 0);
+                        incoming_el.toggle(incoming_count > 0);
 
                         console.log(state["name"] + " uncalled");
                     } else {
@@ -744,13 +796,34 @@ $(function() {
                             if (state.id in tossup_picks) {
                                 delete tossup_picks[state.id];
                             }
-
+                        
+                            if (state["call"] === "r") {
+                                state_els.find(".red").addClass("winner");
+                            } else {
+                                state_els.find(".blue").addClass("winner");
+                            }
+                        
+                            state_els.filter(".called").show();
+                            state_els.filter(".incoming").hide();
+        
                             called_count += 1;
+                            incoming_count -= 1;
                             total_tossup_states -= 1;
 
+                            called_el.toggle(called_count > 0);
+                            incoming_el.toggle(incoming_count > 0);
+                            
                             console.log(state["name"] + " called as " + state["call"]);
                         // Changed
                         } else {
+                            if (state["call"] === "r") {
+                                state_els.find(".blue").removeClass("winner");
+                                state_els.find(".red").addClass("winner");
+                            } else {
+                                state_els.find(".red").removeClass("winner");
+                                state_els.find(".blue").addClass("winner");
+                            }
+                            
                             console.log(state["name"] + " call changed to " + state["call"] + " instead of " + old_state["call"]);
                         }
                     }
@@ -796,7 +869,6 @@ $(function() {
     var MEME_REGULAR_TEMPLATE = _.template($("#meme-regular-template").html());
 
     var posts_el = $("#memetracker .posts");
-
     var posts_html = {};
 
     function ISODateString(d) {
@@ -808,8 +880,12 @@ $(function() {
     }
 
     function update_memetracker(first_run) {
+        /*
+         * Update the memetracker from our tumblr feed.
+         */
         $.getJSON('tumblr.json?t=' + (new Date()).getTime(), {}, function(posts) {
-            _.each(posts, function(post) {
+            for (var i = 0; i < posts.length; i++) {
+                var post = posts[i];
                 var template = null;
 
                 if (post.type === "photo") {
@@ -854,8 +930,7 @@ $(function() {
                 }
 
                 posts_html[post.id] = html;
-
-            });
+            }
 
             posts_el.find(".post:nth-child(5)").nextAll().remove();
         });
@@ -866,6 +941,9 @@ $(function() {
     var RIVER_POLLING_INTERVAL = 30000;
 
 	function fetch_news() {
+        /*
+         * Fetch the latest river of news.
+         */
 		$.ajax({
 		    url: 'http://www.npr.org/buckets/agg/series/2012/elections/riverofnews/riverofnews.jsonp',
 		    dataType: 'jsonp',
@@ -874,33 +952,41 @@ $(function() {
 				if (RIVER_TIMER === null) {
 					RIVER_TIMER = window.setInterval(fetch_news, RIVER_POLLING_INTERVAL);
 				}
+
 				update_news(data);
 		    }
 		})
 	}
 
 	function update_news(data) {
-		var template = BLOG_POST_TEMPLATE;
-		var new_news = '';
+        /*
+         * Update the river of news feed.
+         */
+		var new_news = [];
 
-		$.each(data.news.sticky, function(j,k) {
+		$.each(data.news.sticky, function(j, k) {
 			if (k.News.status) {
-				new_news += template( { post: k.News, sticky: "sticky" } );
+				new_news.push(BLOG_POST_TEMPLATE({
+                    post: k.News,
+                    sticky: "sticky"
+                }));
 			}
 		});
 
-		$.each(data.news.regular, function(j,k) {
+		$.each(data.news.regular, function(j, k) {
 			if (k.News.status) {
-				new_news += template( { post: k.News, sticky: '' } );
+				new_news.push(BLOG_POST_TEMPLATE({
+                    post: k.News,
+                    sticky: ''
+                }));
 			}
 		});
-        
-        var live_blog_el = $("#live-blog-items");
 
 		live_blog_el.empty().append(new_news);
         live_blog_el.find("p.timeago").timeago();
+
+        new_news = null;
 	}
-	
 
 	// Kickoff!
     fetch_states();
