@@ -962,6 +962,6 @@ a.btn { color: #fff; cursor: pointer; }
 	#closing-modal li:first-child { border: none; padding-top: 0; }
 	#closing-modal li strong { margin-left: 0; width: auto; display: block; font-size: 11px; }
 	
-	.modal .modal-col { width: 45%; float: left; margin-left: 10%; }
+	.modal .modal-col { width: auto; float: none; margin-bottom: 30px; margin-left: 0; }
 	.modal-header .close { margin-top: -10px; }
 }
