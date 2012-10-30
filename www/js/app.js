@@ -21,6 +21,7 @@ $(function() {
     var wide_mode = false;
     var alerts = [];
     var next_closing = null;
+    var window_width = 0;
 
     /* Elements */
     var electris_el = $("#electris");
@@ -213,7 +214,7 @@ $(function() {
         /*
          * Resize state buckets.
          */
-        var window_width = maincontent_el.width();
+        window_width = maincontent_el.width();
         var bucket_columns = 10;
 
         var default_height = ELECTORAL_VOTES_TO_WIN / bucket_columns;
@@ -355,8 +356,6 @@ $(function() {
         max_blue_combo_group = max_blue_combo_group.length || 0;
 
         var max_combo_group = _.max([max_red_combo_group, max_blue_combo_group]);
-
-        var window_width = maincontent_el.width();
 
         function show_combos(keys, groups, side, base_votes) {
             var combo_groups_el = $("#combinations-modal ul." + side);
