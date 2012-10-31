@@ -203,7 +203,7 @@ $(function() {
         // Potentially flip modes
         var old_wide_mode = wide_mode;
 
-        wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE) && window_width > 480;
+        wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE);
 
         if (wide_mode && !old_wide_mode) {
             // Once we flip into wide mode we no longer need to
