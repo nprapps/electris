@@ -557,7 +557,7 @@ $(function() {
         // Loser
         if (combos.length == 0) {
             if (opponent_won.length == 0) {
-                return candidate + " is <strong>cannot win</strong> the Electoral College.";
+                return candidate + " <strong>cannot win</strong> the Electoral College.";
             } else {
                 return "If " + opponent + " wins the states you have selected then " + candidate + " <strong>cannot win</strong> the Electoral College.";
             }
