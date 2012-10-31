@@ -21,6 +21,7 @@ $(function() {
     var wide_mode = false;
     var alerts = [];
     var next_closing = null;
+    var window_width = 0;
 
     /* Elements */
     var electris_el = $("#electris");
@@ -46,6 +47,7 @@ $(function() {
     var incoming_el = $(".pres-watching");
     var closing_el = $(".pres-closing");
     var live_blog_el = $("#live-blog-items");
+    var combinations_modal_el = $("#combinations-modal");
 
     /* State data */
     var states = [];
@@ -63,6 +65,9 @@ $(function() {
     /* DATA PROCESSING & RENDERING */
     
     function add_state(state) {
+        /*
+         * Render a single state and add it to the correct bucket(s).
+         */
         var el = $(STATE_TEMPLATE({
             state: state
         }));
@@ -109,9 +114,10 @@ $(function() {
         var red_predicted = [];
         var blue_called = [];
         var blue_predicted = [];
+        var states_length = states.length;
 
         // Group states together
-        for (var i = 0; i < states.length; i++) {
+        for (var i = 0; i < states_length; i++) {
             var state = states[i];
             
             if (state.call === "r") {
@@ -132,14 +138,16 @@ $(function() {
 
         // Add states by groups
         var groups = [red_called, blue_called, red_predicted, blue_predicted];
+        var groups_length = groups.length;
 
-        for (var i = 0; i < groups.length; i++) {
+        for (var i = 0; i < groups_length; i++) {
             var states_group = groups[i];
+            var states_group_length = states_group.length;
 
             // Sort by votes *top to bottom*
             states_group.reverse();
 
-            for (var j = 0; j < states_group.length; j++) {
+            for (var j = 0; j < states_group_length; j++) {
                 add_state(states_group[j]);
             }
         }
@@ -154,8 +162,9 @@ $(function() {
         var states_user_red = [];
         var states_user_blue = [];
         var states_not_called = [];
+        var states_length = states.length;
 
-        for (var i = 0; i < states.length; i++) {
+        for (var i = 0; i < states_length; i++) {
             var state = states[i];
 
             if (state.call === "r") {
@@ -197,6 +206,15 @@ $(function() {
         wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE);
 
         if (wide_mode && !old_wide_mode) {
+            // Once we flip into wide mode we no longer need to
+            // render to electris skinny, so we retarget at just
+            // the one graphic
+            red_candidate_el = $("#electris .candidate.red");
+            blue_candidate_el = $("#electris .candidate.blue");
+            bucket_els = $("#electris .bucket");
+            red_bucket_el = red_candidate_el.find(".bucket");
+            blue_bucket_el = blue_candidate_el.find(".bucket");
+
             electris_skinny_el.hide();
             results_el.hide();
             electris_el.show();
@@ -213,7 +231,7 @@ $(function() {
         /*
          * Resize state buckets.
          */
-        var window_width = maincontent_el.width();
+        window_width = maincontent_el.width();
         var bucket_columns = 10;
 
         var default_height = ELECTORAL_VOTES_TO_WIN / bucket_columns;
@@ -292,11 +310,16 @@ $(function() {
         // NB: A sorted input list generates a sorted output list
         // from our combinations algorithm.
         combos = combinations(state_ids, 1);
+        combos_length = combos.length;
 
-        _.each(combos, function(combo) {
-            var combo_votes = _.reduce(combo, function(memo, id) {
-                return memo + states_by_id[id].electoral_votes;
-            }, 0);
+        for (var i = 0; i < combos_length; i++) {
+            var combo = combos[i];
+            var combo_length = combo.length;
+            var combo_votes = 0;
+
+            for (var j = 0; j < combo_length; j++) {
+                combo_votes += states_by_id[combo[j]].electoral_votes;
+            }
 
             if (combo_votes >= red_needs && red_needs > 0) {
                 if (!is_subset(red_combos, combo)) {
@@ -304,7 +327,12 @@ $(function() {
 
                     red_combos.push(combo_obj);
 
-                    var key = combo.length;
+                    var key = combo_length;
+
+                    // Combine large combos into one group
+                    if (key > MAX_COMBO_GROUP) {
+                        key = MAX_COMBO_GROUP;
+                    }
 
                     if (!(key in red_groups)) {
                         red_keys.push(key);
@@ -321,7 +349,12 @@ $(function() {
 
                     blue_combos.push(combo_obj);
 
-                    var key = combo.length;
+                    var key = combo_length;
+
+                    // Combine large combos into one group
+                    if (key > MAX_COMBO_GROUP) {
+                        key = MAX_COMBO_GROUP;
+                    }
 
                     if (!(key in blue_groups)) {
                         blue_keys.push(key);
@@ -331,7 +364,7 @@ $(function() {
                     blue_groups[key].push(combo_obj);
                 }
             }
-        });
+        }
 
         var max_red_combo_group = _.max(_.values(red_groups), function(combo_group) {
             return combo_group.length;
@@ -346,75 +379,48 @@ $(function() {
 
         var max_combo_group = _.max([max_red_combo_group, max_blue_combo_group]);
 
-        var window_width = maincontent_el.width();
-
         function show_combos(keys, groups, side, base_votes) {
-            var combo_groups_el = $("#combinations-modal ul." + side);
+            var combo_groups_el = combinations_modal_el.find("ul." + side);
             var max_group_count = 0; 
             combo_groups_el.empty();
 
-            for (var key = 1; key < total_tossup_states + 1; key++) {
+            for (var key = 1; key < MAX_COMBO_GROUP + 1; key++) {
                 var group = groups[key] || [];
-                var count = group.length;
+                var group_length = group.length;
 
-                if (key > MAX_COMBO_GROUP) {
-                    max_group_count += count;
-                    count = max_group_count;
+                var histogram_el = $(".histogram ." + side + key);
+                histogram_el.toggleClass("active", group_length > 0);
 
-                    var histogram_el = $(".histogram ." + side + MAX_COMBO_GROUP);
-                    histogram_el.toggleClass("active", max_group_count > 0);
-                } else {
-                    var histogram_el = $(".histogram ." + side + key);
-                    histogram_el.toggleClass("active", count > 0);
-                }
-
-                if (count > 0) {
+                if (group_length > 0) {
                     if (window_width > 480) {
-                        histogram_el.find(".bar").animate({ width: (count / max_combo_group * 100) + '%' }, 300);
+                        histogram_el.find(".bar").animate({ width: (group_length / max_combo_group * 100) + '%' }, 300);
                     } else {
-                        histogram_el.find(".bar").css({ width: (count / max_combo_group * 100) + '%' });
+                        histogram_el.find(".bar").css({ width: (group_length / max_combo_group * 100) + '%' });
                     }
 
-                    var new_combo_group = false;
+                    var combo_group_el = $(COMBO_GROUP_TEMPLATE({
+                        side: side,
+                        key: key,
+                        count: group_length,
+                        last_group: (key == MAX_COMBO_GROUP)
+                    }));
 
-                    if (key > MAX_COMBO_GROUP) {
-                        var combo_group_el = combo_groups_el.find("#" + side + MAX_COMBO_GROUP);
-
-                        // Handle edge-case where MAX group may have had no combos and thus not exist
-                        if (combo_group_el.length == 0) {
-                            combo_group_el = $(COMBO_GROUP_TEMPLATE({
-                                side: side,
-                                key: MAX_COMBO_GROUP,
-                                count: count,
-                                last_group: true
-                            }));
-
-                            new_combo_group = true;
-                        }
-                    } else {
-                        var combo_group_el = $(COMBO_GROUP_TEMPLATE({
-                            side: side,
-                            key: key,
-                            count: count,
-                            last_group: (key == MAX_COMBO_GROUP)
-                        }));
-
-                        new_combo_group = true;
-                    }
+                    new_combo_group = true;
 
                     var combo_list_el = combo_group_el.find("ul");
                     var combo_els = [];
 
-                    for (var i = 0; i < group.length; i++) {
+                    for (var i = 0; i < group_length; i++) {
                         var combo = group[i];
+                        var combo_length = combo.combo.length;
                         var state_text = "";
                         
-                        for (var j = 0; j < combo.combo.length; j++) {
+                        for (var j = 0; j < combo_length; j++) {
                             var state = states_by_id[combo.combo[j]];
 
                             state_text += "<strong><b>" + state.stateface + "</b> " + state.name + " (" + state.electoral_votes + ")</strong>";
 
-                            if (j != combo.combo.length - 1) {
+                            if (j != combo_length - 1) {
                                 state_text += " + ";
                             }
                         };
@@ -426,10 +432,7 @@ $(function() {
                     };
                         
                     combo_list_el.append(combo_els);
-
-                    if (new_combo_group) {
-                        combo_groups_el.append(combo_group_el);
-                    }
+                    combo_groups_el.append(combo_group_el);
 
                     combo_group_el = null;
                     combo_list_el = null;
@@ -438,6 +441,8 @@ $(function() {
                     histogram_el.find(".bar").css({ width: '0%' });
                 }
             }
+
+            combo_groups_el = null;
         }
 
         var red_states_won = [];
@@ -471,6 +476,9 @@ $(function() {
     }
 
     function must_win_robotext(candidate, combos, votes, states_won) {
+        /*
+         * Generate robotext describing election scenario.
+         */
         // Winner
         if (votes >= 270) {
             return "If " + candidate + " wins the states you have selected then he will <strong>win the Electoral College</strong>.";
@@ -587,14 +595,15 @@ $(function() {
         /*
          * Scroll to combos list.
          */
-        $("#combinations-modal").modal("show");
+        var modal_body = combinations_modal_el.find(".modal-body");
+        combinations_modal_el.modal("show");
 
-        /*
-         * Doesn't seem to work within modal
-        $("#combinations-modal .modal-body").animate({
-            scrollTop: $($(this).data("target")).position().top
+        // NB: http://api.jquery.com/scrollTop/#comment-101347923
+        modal_body.scrollTop(0);
+        
+        modal_body.animate({
+            scrollTop: $($(this).data("target")).position().top - 35
         }, 1000);
-        */
     });
 
     /* DATASET LOADING/POLLING */
@@ -634,8 +643,25 @@ $(function() {
         var incoming_state_els = [];
 
         _.each(alpha_states, function(state) {
+            var red_pct = Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
+            var blue_pct = Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
+            
+            if (red_pct) {
+                red_pct = red_pct.toString() + "%";
+            } else {
+                red_pct = "&mdash;";
+            }
+
+            if (blue_pct) {
+                blue_pct = blue_pct.toString() + "%";
+            } else {
+                blue_pct = "&mdash;";
+            }
+
             var called_state_el = $(CALLED_TEMPLATE({
-                state: state
+                state: state,
+                red_pct: red_pct,
+                blue_pct: blue_pct
             }));
             
             if (!state.call) {
@@ -648,7 +674,9 @@ $(function() {
             called_state_el = null;
 
             var incoming_state_el = $(INCOMING_TEMPLATE({
-                state: state
+                state: state,
+                red_pct: red_pct,
+                blue_pct: blue_pct
             }));
 
             if (state.call || state.polls_close > moment()) {
@@ -750,8 +778,9 @@ $(function() {
          * Update state data from JSON.
          */
         var changes = false;
+        var states_length = states.length;
 
-        for (var i = 0; i < states.length; i++) {
+        for (var i = 0; i < states_length; i++) {
             var old_state = states[i];
             var state = data[i];
 
@@ -762,10 +791,25 @@ $(function() {
 
                 $(".state." + state.id).remove();
                 add_state(state);
+
+                var red_pct = Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
+                var blue_pct = Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
                 
+                if (red_pct) {
+                    red_pct = red_pct.toString() + "%";
+                } else {
+                    red_pct = "&mdash;";
+                }
+
+                if (blue_pct) {
+                    blue_pct = blue_pct.toString() + "%";
+                } else {
+                    blue_pct = "&mdash;";
+                }
+
                 var state_els = $("." + state.id);
-                state_els.find(".red").text(Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100)); 
-                state_els.find(".blue").text(Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100)); 
+                state_els.find(".red").html(red_pct); 
+                state_els.find(".blue").html(blue_pct); 
 
                 if (old_state["call"] != state["call"]) {
                     // Uncalled
@@ -777,7 +821,7 @@ $(function() {
 
                         state_els.filter(".called").hide();
 
-                        if (state.polls_close > moment()) {
+                        if (old_state.polls_close < moment()) {
                             state_els.filter(".incoming").show();
                         }
 
@@ -935,7 +979,9 @@ $(function() {
          * Update the memetracker from our tumblr feed.
          */
         $.getJSON('tumblr.json?t=' + (new Date()).getTime(), {}, function(posts) {
-            for (var i = 0; i < posts.length; i++) {
+            var posts_length = posts.length;
+
+            for (var i = 0; i < posts_length; i++) {
                 var post = posts[i];
                 var template = null;
 
@@ -1051,14 +1097,10 @@ $(function() {
         	$('#sen-r-total').text(bop.senate.republicans.total);
         	$('#sen-d-majority').text(bop.senate.democrats.needed_for_majority);
         	$('#sen-r-majority').text(bop.senate.republicans.needed_for_majority);
-        	$('#sen-d-seats').text(bop.senate.democrats.delta);
-        	$('#sen-r-seats').text(bop.senate.republicans.delta);
         	$('#house-d-total').text(bop.house.democrats.total);
         	$('#house-r-total').text(bop.house.republicans.total);
         	$('#house-d-majority').text(bop.house.democrats.needed_for_majority);
         	$('#house-r-majority').text(bop.house.republicans.needed_for_majority);
-        	$('#house-d-seats').text(bop.house.democrats.delta);
-        	$('#house-r-seats').text(bop.house.republicans.delta);
         });
     }
 

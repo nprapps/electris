@@ -93,7 +93,7 @@
 
         <div class="row" id="big-header">
             <div class="span8" id="header">
-                <h1>THE ELECTION AND STUFF</h1>
+                <h1>NPR Election Night 2012</h1>
                 
         		<div id="comingsoon">
         			<b></b>
@@ -164,21 +164,25 @@
 				<div class="span4 results-group" id="pres-header">
 					<h2>President</h2>
 					<div class="blue">
-						<h3>Barack Obama</h3>
-						<div class="total">
-							<span id="pres-d-total">0</span> total
-						</div>
-						<div class="towin">
-							<span id="pres-d-towin">270</span> to win
+						<div class="wrapper">
+							<h3><i>Barack </i>Obama</h3>
+							<div class="total">
+								<span id="pres-d-total">0</span> total
+							</div>
+							<div class="towin">
+								<span id="pres-d-towin">270</span> to win
+							</div>
 						</div>
 					</div>
 					<div class="red">
-						<h3>Mitt Romney</h3>
-						<div class="total">
-							<span id="pres-r-total">0</span> total
-						</div>
-						<div class="towin">
-							<span id="pres-r-towin">270</span> to win
+						<div class="wrapper">
+							<h3><i>Mitt </i>Romney</h3>
+							<div class="total">
+								<span id="pres-r-total">0</span> total
+							</div>
+							<div class="towin">
+								<span id="pres-r-towin">270</span> to win
+							</div>
 						</div>
 					</div>
 				</div>
@@ -190,8 +194,7 @@
 							<span id="sen-d-total">0</span> total
 						</div>
 						<div class="towin">
-							<span id="sen-d-majority" class="majority">51</span> for majority<br />
-							<span id="sen-d-seats" class="seats">0</span> seats
+							<span id="sen-d-majority" class="majority">51</span> to majority<br />
 						</div>
 					</div>
 					<div class="red">
@@ -200,8 +203,7 @@
 							<span id="sen-r-total">0</span> total
 						</div>
 						<div class="towin">
-							<span id="sen-r-majority" class="majority">51</span> for majority<br />
-							<span id="sen-r-seats" class="seats">0</span> seats
+							<span id="sen-r-majority" class="majority">51</span> to majority<br />
 						</div>
 					</div>
 				</div>
@@ -213,8 +215,7 @@
 							<span id="house-d-total">0</span> total
 						</div>
 						<div class="towin">
-							<span id="house-d-majority" class="majority">218</span> for majority<br />
-							<span id="house-d-seats" class="seats">0</span> seats
+							<span id="house-d-majority" class="majority">218</span> to majority<br />
 						</div>
 					</div>
 					<div class="red">
@@ -223,8 +224,7 @@
 							<span id="house-r-total">0</span> total
 						</div>
 						<div class="towin">
-							<span id="house-r-majority" class="majority">218</span> for majority<br />
-							<span id="house-r-seats" class="seats">0</span> seats
+							<span id="house-r-majority" class="majority">218</span> to majority<br />
 						</div>
 					</div>
 				</div>
@@ -277,10 +277,6 @@
             <div class="states span9">
             	<div class="electris-alert red">
             		<div class="alert-wrapper">
-						NPR projects that
-						<strong class="alert-name">Barack Obama</strong>
-						will win
-						<strong class="alert-state"><b>E</b> California (55)</strong>
 					</div>
             	</div>
             
@@ -444,10 +440,6 @@
 
 						<div class="electris-alert red">
 							<div class="alert-wrapper">
-								NPR projects that
-								<strong class="alert-name">Barack Obama</strong>
-								will win
-								<strong class="alert-state"><b>E</b> California (55)</strong>
 							</div>
 						</div>
 
@@ -614,8 +606,8 @@
     <script id="called-template" type="text/template">
         <li class="called <%= state.id %>">
             <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
-            <span class="blue <% if (state.call === "d") { %>winner<% } %>"><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
-            <span class="red <% if (state.call === "r") { %>winner<% } %>"><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
+            <span class="blue <% if (state.call === "d") { %>winner<% } %>"><%= blue_pct %></span>
+            <span class="red <% if (state.call === "r") { %>winner<% } %>"><%= red_pct %></span>
             <span class="precincts"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% rept.</span>
         </li>
     </script>
@@ -623,8 +615,8 @@
     <script id="incoming-template" type="text/template">
         <li class="incoming <%= state.id %>">
             <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
-            <span class="blue"><% if (state.dem_vote_count) { %><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) || 0 %>%<% } else { %>&mdash;<% } %></span>
-            <span class="red"><% if (state.rep_vote_count) { %><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) || 0 %>%<% } else { %>&mdash;<% } %></span>
+            <span class="blue"><%= blue_pct %></span>
+            <span class="red"><%= red_pct %></span>
             <span class="precincts"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% rept.</span>
         </li>
     </script>
