@@ -1038,7 +1038,7 @@ $(function() {
 
     /* MEME TRACKER */
 
-    var MEME_UPDATE_SECS = 60;
+    var MEME_UPDATE_SECS = 5;
     var MEME_POSTS_TO_SHOW = 5;
 
     var MEME_PHOTO_TEMPLATE = _.template($("#meme-photo-template").html());
@@ -1063,6 +1063,7 @@ $(function() {
          */
         $.getJSON('tumblr.json?t=' + (new Date()).getTime(), {}, function(posts) {
             var posts_length = posts.length;
+            var has_tweets = false;
 
             for (var i = 0; i < posts_length; i++) {
                 var post = posts[i];
@@ -1076,6 +1077,8 @@ $(function() {
                     template = MEME_VIDEO_TEMPLATE;
                 } else if (post.type === "regular") {
                     template = MEME_REGULAR_TEMPLATE;
+
+                    post["regular-body"] = post["regular-body"].replace('<script charset="utf-8" src="//platform.twitter.com/widgets.js" type="text/javascript"></script>', "");
                 }
 
                 if (!template) {
@@ -1086,18 +1089,26 @@ $(function() {
                     post: post,
                     isodate: ISODateString(new Date(post["unix-timestamp"] * 1000))
                 });
+                var el = $(html);
 
                 // Old
                 if (post.id in posts_html) {
                     // Changed
                     if (html != posts_html[post.id]) {
-                        posts_el.find("#post-" + post.id).replaceWith(html);
-                    }
-                    // New
-                } else {
-                    posts_el.prepend(html);
+                        el.show();
+                        posts_el.find("#post-" + post.id).replaceWith(el);
 
-                    var el = posts_el.find("#post-" + post.id)
+                    }
+            
+                    if (post.type === "regular") {
+                        has_tweets = true;
+                    }
+                // New
+                } else {
+                    posts_el.prepend(el);
+
+                    el = null;
+                    el = posts_el.find("#post-" + post.id)
 
                     if (first_run) {
                         el.show();
@@ -1107,12 +1118,21 @@ $(function() {
 
                     el.find(".tstamp").timeago();
                     el = null;
+
+                    if (post.type === "regular") {
+                        has_tweets = true;
+                    }
                 }
 
                 posts_html[post.id] = html;
             }
 
             posts_el.find(".post:nth-child(5)").nextAll().remove();
+
+            // Render incoming tweets
+            if (has_tweets) {
+                twttr.widgets.load();
+            }
         });
     }
 
