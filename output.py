@@ -7,6 +7,7 @@ import shutil
 import boto
 import time
 import datetime
+import pytz
 from datetime import timedelta
 
 from itertools import combinations
@@ -54,35 +55,45 @@ def calculate_president_bop(data, votes):
     return data
 
 
-def calculate_house_senate_bop(data, delta, featured):
+def calculate_house_senate_bop(data, delta):
     """
     A function for calculating house/senate balance-of-power.
     """
     data['total'] += 1
     data['needed_for_majority'] -= 1
-    if featured == True:
-        data['featured_total'] += 1
-        data['delta'] += 1
+    return data
+
+
+def calculate_house_senate_deltas(data, short):
+    """
+    Calculate the deltas for each house.
+    Our calculation is just adding up the flips for each side.
+    A flip is where the winner was not the incumbent or the predicted winner.
+    """
+    for race in Race.select().where(Race.office_code == short):
+        if race.called == True:
+            if race.flipped != None:
+                data[race.flipped[0]]['delta'] += 1
+                data[race.flipped[1]]['delta'] -= 1
+
     return data
 
 
 def bootstrap_bop_data():
     """
-    President: All 271 electoral votes matter for the majority. That's our delta.
-    Senate: 51 is sufficient for a majority. That's our delta.
-    House: We'll use 50 as the delta to match the number of featured races. Confirm with Evie.
+    Sets up the data structure for the balance of power calculations.
     """
     return {
         'house': {
-            'democrats': {'total': 0, 'needed_for_majority': 218, 'delta': -50, 'featured_total': 0},
-            'republicans': {'total': 0, 'needed_for_majority': 218, 'delta': -50, 'featured_total': 0},
-            'other': {'total': 0, 'needed_for_majority': 218, 'delta': 0, 'featured_total': 0},
+            'democrats': {'total': 0, 'needed_for_majority': 218, 'delta': 0},
+            'republicans': {'total': 0, 'needed_for_majority': 218, 'delta': 0},
+            'other': {'total': 0, 'needed_for_majority': 218, 'delta': 0},
             'not_called': 0
         },
         'senate': {
-            'democrats': {'total': 0, 'needed_for_majority': 51, 'delta': -51, 'featured_total': 0},
-            'republicans': {'total': 0, 'needed_for_majority': 51, 'delta': -47, 'featured_total': 0},
-            'other': {'total': 0, 'needed_for_majority': 51, 'delta': 2, 'featured_total': 0},
+            'democrats': {'total': 0, 'needed_for_majority': 51, 'delta': 0},
+            'republicans': {'total': 0, 'needed_for_majority': 51, 'delta': 0},
+            'other': {'total': 0, 'needed_for_majority': 51, 'delta': 2},
             'not_called': 0
         },
         'president': {
@@ -93,6 +104,9 @@ def bootstrap_bop_data():
 
 
 def write_bop_json():
+    """
+    Loops through houses/parties to count seats and calculate deltas.
+    """
     # Party mapping.
     parties = [('republicans', 'r'), ('democrats', 'd'), ('other', 'o')]
 
@@ -114,7 +128,8 @@ def write_bop_json():
             (Race.ap_called == True) | (Race.npr_called == True), Race.office_code == short):
             for party, abbr in parties:
                 if race.winner == abbr:
-                    data[office][party] = calculate_house_senate_bop(data[office][party], data[office][party]['delta'], race.featured_race)
+                    data[office][party] = calculate_house_senate_bop(data[office][party], data[office][party]['delta'])
+        data[office] = calculate_house_senate_deltas(data[office], short)
 
         # Write the number of uncalled races.
         # First, the races where we accept AP calls but no calls have come in.
@@ -180,7 +195,8 @@ def _generate_json(house):
     * House is a two-tuple ('house', 'H'), e.g., URL slug and DB representation.
     """
     objects = []
-    now = datetime.datetime(2012, 11, 7, 1, 30)
+    now = datetime.datetime(2012, 11, 7, 1, 35)
+    # now = datetime.datetime.now(tz=pytz.utc)
 
     for timezone in settings.CLOSING_TIMES:
         timezone_dict = {}

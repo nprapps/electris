@@ -73,6 +73,34 @@ class Race(Model):
             self.district_id)
 
     @property
+    def flipped(self):
+        """
+        Returns a two-tuple; winning party, losing party.
+        """
+        def _format_output(candidate):
+            if candidate == 'r':
+                return 'republicans'
+            elif candidate == 'd':
+                return 'democrats'
+            elif candidate == 'o':
+                return 'other'
+
+        if self.winner and self.prediction:
+            return (_format_output(self.winner), _format_output(self.prediction))
+
+        return None
+
+    @property
+    def has_flipped(self):
+        """
+        """
+        if self.called == True:
+            if unicode(self.winner) == unicode(self.prediction):
+                return False
+            else:
+                return True
+
+    @property
     def winner(self):
         for candidate in Candidate.select().where(Candidate.race == self):
             if self.accept_ap_call == True:

@@ -28,7 +28,6 @@ $(function(){
 
     function refresh_countdown() {
         countdown -= 1;
-        $("#refreshing").html(countdown + "s");
         if (countdown === 0) {
             nukeTarget('#candidates');
             fetchBOP();

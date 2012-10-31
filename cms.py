@@ -8,7 +8,7 @@ from flask import render_template, request
 
 import cms_settings as settings
 from models import Race, Candidate, State
-from output import write_electris_json
+import output as o
 
 app = Flask(__name__)
 
@@ -79,7 +79,9 @@ def president():
             uq.execute()
 
         if settings.DEBUG:
-            write_electris_json()
+            o.write_electris_json()
+            o.write_president_json()
+            o.write_bop_json()
 
         # TODO
         # Return a 200. This is probably bad.
@@ -155,6 +157,9 @@ def house(house):
                 rq = Candidate.update(npr_winner=False).where(Candidate.race == race)
                 rq.execute()
 
+                rq2 = Race.update(npr_called=False).where(Race.slug == race_slug)
+                rq2.execute()
+
         if race_slug != None and first_name != None and last_name != None:
             rq = Candidate.update(npr_winner=False).where(Candidate.race == race)
             rq.execute()
@@ -165,9 +170,11 @@ def house(house):
                 Candidate.last_name == last_name)
             cq.execute()
 
+            rq2 = Race.update(npr_called=True).where(Race.slug == race_slug)
+            rq2.execute()
+
         # 3.) Perhaps we're trying to set this as a featured race?
         featured_race = request.form.get('featured_race', None)
-        print request.form
         if featured_race:
             if featured_race.lower() == 'true':
                 featured_race = True
@@ -177,6 +184,11 @@ def house(house):
         if race_slug != None and featured_race != None:
             fq = Race.update(featured_race=featured_race).where(Race.slug == race_slug)
             print fq.execute()
+
+        if settings.DEBUG:
+            o.write_house_json()
+            o.write_senate_json()
+            o.write_bop_json()
 
         # TODO
         # Return a 200. This is probably bad.

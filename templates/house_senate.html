@@ -117,16 +117,16 @@
 
         $('.npr-call').click(function(){
             // Set up the race slug.
-            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('data-race-slug');
+            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('data-state-slug');
 
             // Hide all "npr uncall" buttons for this race.
-            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-uncall').addClass('hidden');
+            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('data-state-slug')+' .npr-uncall').addClass('hidden');
 
             // Show all "npr call" buttons for this race.
-            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-call').removeClass('hidden');
+            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('data-state-slug')+' .npr-call').removeClass('hidden');
 
             // Hide all "npr winner" buttons for this race.
-            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-winner').addClass('hidden');
+            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('data-state-slug')+' .npr-winner').addClass('hidden');
 
             // Hide this "npr call" button.
             $(this).addClass('hidden');
@@ -150,16 +150,16 @@
 
         $('.npr-uncall').click(function(){
             // Set up the race slug.
-            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('data-race-slug');
+            var race_slug = $(this).parent('span').parent('td').parent('tr').attr('data-state-slug');
 
             // Hide this "npr uncall" button.
             $(this).addClass('hidden');
 
             // Show all "npr call" buttons for this race.
-            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-call').removeClass('hidden');
+            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('data-state-slug')+' .npr-call').removeClass('hidden');
 
             // Show all "npr winner" buttons for this race.
-            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('class')+' .npr-winner').addClass('hidden');
+            $('tr.'+$(this).parent('span').parent('td').parent('tr').attr('data-state-slug')+' .npr-winner').addClass('hidden');
 
             // POST!
             buttonPOST({
