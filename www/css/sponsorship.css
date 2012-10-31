@@ -11,34 +11,35 @@
     width: 100%;
     -webkit-transition: all .3s ease-in-out;
     z-index: 1000;
+}
 
-    .adhesionWrapper {
-        width: 100%;
-        position: fixed;
-        bottom: 0;
-    }
+#adhesion .adhesionWrapper {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
 
+#adhesion img {
+    width: 100%;
+    -webkit-transition: all .3s ease-in-out;
+}
+
+#adhesion #adhesionClose {
+    float: right;
     img {
-        width: 100%;
-        -webkit-transition: all .3s ease-in-out;
+        width: 33px;
+        float: right;
     }
+}
 
-    #adhesionClose {
-        img {
-            width: 33px;
-            float: right;
-        }
-    }
+#adhesion .expand {
+    background: black;
+    -webkit-transition: all .3s ease-in-out;
+}
 
-    .expand {
-        background: black;
-        -webkit-transition: all .3s ease-in-out;
-    }
-
-    .expand img {
-        bottom: 50%;
-        -webkit-transition: all .3s ease-in-out;
-    }
+#adhesion .expand img {
+    bottom: 50%;
+    -webkit-transition: all .3s ease-in-out;
 }
 
 /*}*/

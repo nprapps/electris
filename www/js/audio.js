@@ -1,151 +1,100 @@
-function play5Audio() {
-	document.getElementById('livestreamer').play();
-	$("#playcon5").empty();
-	$("#playcon5").append("<img src='img/pauseButtonOver.png' onclick='pause5Audio();' />");
-	if ($("#playerdisp .loading").length > 0) {
-		$('#playerdisp .loading').remove();
-	}
-	if ($("#playerdisp .playing").length == 0) {
-		$('#playerdisp').append('<div class="playing"><p>Live</p></div>');
-		$('#eq_gfx').html('<img src="img/eq2.gif" />');
-	}
-}
-
-function pause5Audio() {
-	document.getElementById('livestreamer').pause();
-	$("#playcon5").empty();
-	$("#playcon5").append("<img src='img/playButtonOver.png' onclick='play5Audio();' />");
-	
-	$('#eq_gfx').html('<img src="img/eq-none.gif" />');
-	$('#playerdisp .playing').remove();
-	$('#playerdisp').append('<div class="loading loading-live"><p></p></div>');
-}
-
-
 $(function(){
+    
+    function playStream(flashStreamer,flashFile,htmlUrl,title,prompt,feedback){
+        play(true,flashStreamer,flashFile,htmlUrl,title,prompt,feedback);
+    }
 
-	var jwPlayerAdUrl = 'http://ad.doubleclick.net/pfadx/n6735.NPR.MUSIC/music;theme=1039;storyid=157840374;testserver=true;embed=npr;mediatype=video;sz=400x300;dcmt=text/xml;ord=66802162';
-	var jwPlayerAutoStart = 'false';
-	if (true) {
-		if (NPR.PageInfo.getUrlParameter('autoplay') == 'true') {
-			jwPlayerAutoStart = 'true';
-		}
-	}
-									
-	if (navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad)/)) {
-		$('#playercon').append("<div id='audioSrc' style='display: none'><audio id='livestreamer' src='http://pd.npr.org/anon.npr-mp3/npr/totn/2012/10/20121010_totn_01.mp3' controls='false'></audio></div>");
-		$('#theplayer').append("<div id='playcon5'><img src='img/playButtonOver.png' onclick='play5Audio();' /></div>");
-				
-	} else {
-		jwplayer('jwplayer').setup({
-			modes: [{
-				type: 'flash',
-				src: 'http://www.npr.org/templates/javascript/jwplayer/player.swf',
-				config: {
-					skin: 'http://www.npr.org/design/stage/audioTest/live-convention-controls.zip',
-					playlist: [{
-                        // file: 'live3audio@52188',
-                        // provider: 'rtmp',
-                        // streamer: 'rtmp://cp150999.live.edgefcs.net/live/'
-                        file: 'http://pd.npr.org/anon.npr-mp3/npr/totn/2012/10/20121010_totn_01.mp3',
-                        provider: '',
-                        streamer: ''
-					}
-				
-					]
-				}
-			}, {
-				type: 'html5',
-				config: {
-					playlist: [{
-													
-					}
-				
-					]
-				}
-			}],
-			bufferlength: '5',
-			controlbar: 'bottom',
-			autostart: jwPlayerAutoStart,
-			width: '41',
-			height: '41',
+    function playFile(url,title,prompt,feedback){
+        play(false,'',url,url,title,prompt,feedback);
+    }
+    
+    function play(streaming,flashStreamer,flashFile,htmlUrl,title,prompt,feedback) {
+        //jwplayer uses the video tag, even for html5 audio, so we kick it to the curb for iOS
+        //but we want to use the flash player when possible to get the analytics and stuff
+        if (navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad)/)) {
+            setupHtmlPlayer(htmlUrl);
+        } else {
+            setupFlashPlayer(streaming,flashStreamer,flashFile);
+        }
+        setupAudioInterface(title,prompt,feedback);
+    }
+
+    function setupFlashPlayer(streaming,streamer,file){
+        var options = {
+            file: file,
+            modes: [
+                {
+                    type: 'flash',
+                    src: 'http://www.npr.org/templates/javascript/jwplayer/player.swf'
+                }
+            ],
+            skin: 'http://www.npr.org/design/stage/audioTest/live-convention-controls.zip',
+            controlbar: 'bottom',
+            width: '41',
+            height: '41',
+            bufferlength: '5',
 			plugins: {
 				'gapro-2': {
-					'trackingobject': '_gaq',
-					'trackstarts': 'true',
-					'trackpercentage': 'true',
-					'tracktime': 'true'
+                    'trackingobject': '_gaq',
+                    'trackstarts': 'true',
+                    'trackpercentage': 'true',
+                    'tracktime': 'true'
 				}
 			},
 			events: {
 				onBuffer: function () {
-					if ($("#playerdisp .loading").length == 0) {
-						$('#playerdisp .playing').remove();
-						$('#playerdisp').append('<div class="loading loading-live"><p>Loading...</p></div>');
-					}
+                    $('#audio').addClass('buffering');
+                    $('#audio').removeClass('playing');
 				},
 				onPlay: function () {
-					if ($("#playerdisp .loading").length > 0) {
-						$('#playerdisp .loading').remove();
-					}
-					if ($("#playerdisp .playing").length == 0) {
-						$('#playerdisp').append('<div class="playing"><p>Live</p></div>');
-						$('#eq_gfx').html('<img src="img/eq2.gif" />');
-					}
+                    $('#audio').removeClass('buffering');
+                    $('#audio').addClass('playing');
 				},
 				onPause: function() {
-					$('#eq_gfx').html('<img src="img/eq-none.gif" />');
-					$('#playerdisp .playing').remove();
-					$('#playerdisp').append('<div class="loading loading-live"><p></p></div>');
+                    $('#audio').removeClass('buffering');
+                    $('#audio').removeClass('playing');
 				}
 			}
-										   
-									  
-				
-		});
-	}
+        }
     
-    // live audio
-    // TODO: refactor so that it works based on a bit we flip or something, probably a nice function
+        if(streaming){
+            options['provider'] = 'rtmp';
+            options['streamer'] = streamer;
+        }
+        
+        jwplayer('jwplayer').setup(options);
+    }
+
+    function setupHtmlPlayer(url){
+        $('#audio-htmlcontrol').show();
+        $('#audio-htmlstream')[0].src = url;
+    }
+
+    function setupAudioInterface(title,prompt,feedback){
+        //just in case we're switching to a new stream
+        $('#audio').removeClass('buffering');
+        $('#audio').removeClass('playing');
     
-	var _status = '';
-    var isLive = 'TRUE';
+        $("#audio-title").text(title);
+        $("#audio-prompt").text(prompt);
+        $("#audio-feedback #audio-feedback-message").text(feedback);
+    }
     
-	if (isLive == 'FALSE' && _status != 'FALSE') {
-		$('body').addClass('comingSoon');
-		if (!navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad)/)) {
-			jwplayer().stop();
-		}
-		$('#comingsoon').show();
-		$('#comingsoon').css("visibility", "visible");
-		$('#playercon').hide();
-		_status = 'FALSE';
-	// if we're LIVE
-	} else if (isLive == 'TRUE' && _status != 'TRUE') {
-		$('body').removeClass('comingSoon');
-		$('#comingsoon').hide();
-		$('#playercon').show();
-		$('#playercon').css("visibility", "visible");
-		_status = 'TRUE';
-	}
+    //interactivity for the html player
+    $('#audio-htmlcontrol').click(function(){
+        var player = $('#audio-htmlstream')[0];
+        if(player.paused) {
+            player.play();
+            $('#audio').addClass('playing');
+        } else {
+            player.pause();
+            $('#audio').removeClass('playing');
+        }
+    });
     
-	// totn audio
-    // TODO: refactor this into the main audio player
-    var _totnstatus = '';
-    var totnShowNow = 'TRUE';
-//    var totnShowNow = 'FALSE';
+    $("#switch").click(function(){
+        playFile('http://pd.npr.org/anon.npr-mp3/npr/totn/2012/10/20121010_totn_01.mp3', "NPR Pre-Election Special:", "Listen Now", "Previously recorded"); 
+    })
     
-	if (_totnstatus != 'TRUE' && totnShowNow == 'TRUE') {
-		var totnAudioLink = 'http://pd.npr.org/anon.npr-mp3/npr/totn/2012/10/20121010_totn_01.mp3'
-		$('body').addClass('totn');
-		$('#totnAudio').show();
-		$('#audiocon').empty().append('<audio src="' + totnAudioLink + '" preload="none"></audio>');
-		var as = audiojs.createAll();
-		_totnstatus = 'TRUE';
-	} else if (_totnstatus != 'FALSE' && totnShowNow == 'FALSE') {
-		$('body').removeClass('totn');
-		$('#totnAudio').hide();
-		$('#audiocon').empty();
-		_totnstatus = 'FALSE';
-	}
+    playStream('rtmp://cp42183.live.edgefcs.net/live/', 'Live1@1094', 'http://npr.ic.llnwd.net/stream/npr_live24', "NPR Special Coverage:", "Listen Now", "Live"); 
 });

@@ -15,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href="css/template.css" />
     <link rel="stylesheet" type="text/css" href="css/app.css" />
     <link rel="stylesheet" type="text/css" href="css/sponsorship.css" />
-    <link rel="stylesheet" type="text/css" href="css/audio.css" />
     
     <!--[if IE]>
     <style>
@@ -43,18 +42,27 @@
     <script type="text/javascript" src="js/responsive-ad.js"></script>
 	<script>
     AddNamespace('NPR.serverVars'); 
-    jQuery.extend(NPR.serverVars,{"storyId":"93559255","serverType":"dev","DFPtarget":"\/no_topic;agg=94427042;storyid=93559255;blog=93559255;testserver=true","DFPuserver":"u.npr.org","DFPserver":"ad.doubleclick.net","DFPnetwork":"n6735","DFPsite":"NPRTEST","DFPmobile":"NPR.MOBILE"})
-	// AddNamespace('NPR.serverVars'); 
-	// jQuery.extend(NPR.serverVars,{
-	// 	"storyId":"139482413",
-	// 	"serverType":"prod",
-	// 	"DFPtarget":"\/news_election_results",
-	// 	"DFPuserver":"u.npr.org",
-	// 	"DFPserver":"ad.doubleclick.net",
-	// 	"DFPnetwork":"n6735",
-	// 	"DFPsite":"NPR",
-	// 	"DFPmobile":"NPR.MOBILE"
-	// });
+    jQuery.extend(NPR.serverVars, {
+        "storyId": "93559255",
+        "serverType": "dev",
+        "DFPtarget": "\/no_topic;agg=94427042;storyid=93559255;blog=93559255;testserver=true",
+        "DFPuserver": "u.npr.org",
+        "DFPserver": "ad.doubleclick.net",
+        "DFPnetwork": "n6735",
+        "DFPsite": "NPRTEST",
+        "DFPmobile": "NPR.MOBILE"
+    });
+
+    // jQuery.extend(NPR.serverVars, {
+    //     "storyId": "139482413",
+    //     "serverType": "prod",
+    //     "DFPtarget": "\/news_election_results;storyid=139482413",
+    //     "DFPuserver": "u.npr.org",
+    //     "DFPserver": "ad.doubleclick.net",
+    //     "DFPnetwork": "n6735",
+    //     "DFPsite": "NPR",
+    //     "DFPmobile": "NPR.MOBILE"
+    // });
 	</script>
     
 	<meta property="og:title" content="Election 2012: Live Coverage From NPR News" />
@@ -98,30 +106,17 @@
         		<div id="comingsoon">
         			<b></b>
         			<div id="attrComingSoon" class="message">Tune in at 66:33 for NPR's<br/>special coverage of the 2012 elex.</div>
-       			 </div>
-                
-       			<div id="playercon">
-                    
-                    <div id="theplayer">
-            			<div id="jwPlayer_wrapper"></div>
-            			<div id="jwplayer"></div>
-                    </div>
-                
-                    <div class="speaking"><span class="slug" id="attrOnStageIntro">NPR Special Coverage:</span><br/><strong id="attrOnStageName">Listen Now</strong></div>
-                
-                    <div id="playerstatus">
-                    	<div id="eq_gfx"><img src="img/eq-none.gif" /></div> 
-                    	<div id="playerdisp"></div>
-                    </div>
-                    
                 </div>
-                
-        		<div id="totnAudio">
-        			<h2>Pre-game audio</h2>
-            		<div id="audiocon">
-            		</div>
-            	</div>
-            	
+
+                <div id="audio">
+                    <div id="jwplayer"></div>
+                    <audio id='audio-htmlstream'></audio>
+                    <div id="audio-htmlcontrol"></div>
+                    <div id="audio-title"></div>
+                    <div id="audio-prompt"></div>
+                    <div id="audio-feedback"><span id="audio-feedback-message"></span><span id="audio-feedback-buffering">Loading...</span></div>
+                </div>
+
             	<div id="header-promos">
             		<div class="promo">
             			<a href="bigboard/president/" target="_blank"><img src="img/bigboard_1col.gif" alt="The Big Board" /></a>
@@ -228,6 +223,14 @@
 						</div>
 					</div>
 				</div>
+            	<div class="electris-alert blue">
+            		<div class="alert-wrapper">
+						NPR projects that
+						<strong class="alert-name">Barack Obama</strong>
+						will win
+						<strong class="alert-state"><b>E</b> California (55)</strong>
+					</div>
+            	</div>
             </div>
             
             <div id="tabs">
@@ -489,7 +492,7 @@
                 </div>
             </div>
             <div class="span7 tab-pane" id="live-blog">
-                <h2>This Just In</h2>
+                <h2>This Just In <span>hosted by Mark Memmott</span></h2>
                 <div id="live-blog-items"></div>
             </div>
             <div class="span5 tab-pane" id="backchannel">
@@ -679,7 +682,6 @@
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
     <script charset="utf-8" src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://www.npr.org/templates/javascript/jwplayer/jwplayer.js"></script>
-    <script type="text/javascript" src="js/lib/audio.min.js"></script>
     <script type="text/javascript" src="js/audio.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 

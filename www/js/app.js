@@ -203,7 +203,7 @@ $(function() {
         // Potentially flip modes
         var old_wide_mode = wide_mode;
 
-        wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE) && window_width > 480;
+        wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE);
 
         if (wide_mode && !old_wide_mode) {
             // Once we flip into wide mode we no longer need to
@@ -557,7 +557,7 @@ $(function() {
         // Loser
         if (combos.length == 0) {
             if (opponent_won.length == 0) {
-                return candidate + " is <strong>cannot win</strong> the Electoral College.";
+                return candidate + " <strong>cannot win</strong> the Electoral College.";
             } else {
                 return "If " + opponent + " wins the states you have selected then " + candidate + " <strong>cannot win</strong> the Electoral College.";
             }
