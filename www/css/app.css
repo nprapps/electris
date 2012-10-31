@@ -720,6 +720,7 @@ a.btn { color: #fff; cursor: pointer; }
     text-align: center;
     display: block;
 }
+#results-bar .electris-alert { display: none; }
 
 
 /* Memetracker */
@@ -788,7 +789,6 @@ a.btn { color: #fff; cursor: pointer; }
     }
     #results-bar.affix div.results-row {
     	border-bottom: 2px solid #CCC;
-    	padding: 0 0 10px 0;
     	margin: 0 20px;
     }
     #results-bar.affix .results-row h2 { 
@@ -799,6 +799,7 @@ a.btn { color: #fff; cursor: pointer; }
     	padding: 6px 0 3px 0;
     	margin-bottom: 0;
     }
+    #results-bar.affix .results-group { padding-bottom: 10px; }
 	#results-bar.affix .results-group h3 { font-size: 12px; margin-bottom: 3px; }
 	#results-bar.affix .results-group .blue,
 	#results-bar.affix .results-group .red { border: none; }
@@ -806,6 +807,33 @@ a.btn { color: #fff; cursor: pointer; }
     #results-bar.affix #pres-header { margin-left: 0; }
     #results-bar.affix .towin span { line-height: 20px; font-size: 14px; margin-bottom: 2px; }
     #results-bar.affix + .row { margin-top:120px; font-size: 14px; }
+
+	#results-bar.affix .electris-alert { 
+		display: block;
+		position: static; top: auto; left: auto; width: auto;
+		z-index: auto;
+		text-align: left;
+		font-size: 13px;
+		line-height: 13px;
+		margin: 0;
+		clear: both;
+		border: none;
+		border-radius: 0;
+		-webkit-box-shadow: none;
+		   -moz-box-shadow: none;
+				box-shadow: none;
+		height: auto;
+	}
+	#results-bar.affix .electris-alert .alert-wrapper {
+		padding: 15px 12px;
+	}
+	#results-bar.affix .electris-alert strong,
+	#results-bar.affix .electris-alert b {
+		display: inline;
+		font-size: 13px;
+		line-height: 13px;
+		margin: 0;
+	}
 }
 
 @media (min-width: 1200px) {
@@ -816,11 +844,10 @@ a.btn { color: #fff; cursor: pointer; }
     #results-bar.affix #small-header { width: 1150px; }
     #results-bar.affix div.results-row {
     	border-bottom: 2px solid #CCC;
-    	padding: 0 0 10px 0;
     	margin: 0 20px 0 30px;
     }
 	#pres-header i { display: inline; }
-
+	
 	.states { font-size: 23px; }
 	.combos { width: 7.5em; }
     .state i {
