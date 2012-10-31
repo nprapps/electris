@@ -1091,7 +1091,7 @@ $(function() {
 			}
 		});
 
-		$.each(data.news.regular, function(j, k) {
+		$.each(data.news.regular.slice(0, 20), function(j, k) {
 			if (k.News.status) {
 				new_news.push(BLOG_POST_TEMPLATE({
                     post: k.News,
