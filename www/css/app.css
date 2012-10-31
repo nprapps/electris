@@ -937,7 +937,8 @@ a.btn { color: #fff; cursor: pointer; }
     .tab-pane.active { display:block; }
 
 	#electris { margin-left: 0; padding-top: 18px; }
-	.NPRtablet #electris, .NPRphone #electris { padding-top: 0; }
+	#electris-skinny .candidate.blue .bucket,
+	#electris-skinny .candidate.red .bucket { float: none; width: 100%; }
 	#electris-skinny .states, .states { font-size: 10px; }
     #electris-skinny .state i,
     .state i {
