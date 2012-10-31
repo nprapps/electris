@@ -7,8 +7,10 @@ import shutil
 import boto
 import time
 import datetime
+import pytz
 from datetime import timedelta
 
+from itertools import combinations
 from boto.s3.key import Key
 import cms_settings as settings
 
@@ -156,16 +158,12 @@ def write_president_json():
     """
     with open('www/president.json', 'w') as f:
         objects = []
-
-        states = list(State.select())
-        State._meta.database.close()
-
         for timezone in time_zones.PRESIDENT_TIMES:
             timezone_dict = {}
             timezone_dict['gmt_epoch_time'] = timezone['time']
             timezone_dict['states'] = []
             for s in timezone['states']:
-                for state in states:
+                for state in State.select():
                     if state.id == s.lower():
                         state_dict = state._data
                         state_dict['rep_vote_percent'] = state.rep_vote_percent()
@@ -205,11 +203,10 @@ def _generate_json(house):
         timezone_dict['gmt_epoch_time'] = time.mktime(timezone.timetuple())
         timezone_dict['districts'] = []
 
-        races = list(Race.select().where(
+        races = Race.select().where(
             Race.office_code == house[1],
             Race.poll_closing_time == timezone,
-            Race.featured_race == True))
-        Race._meta.database.close()
+            Race.featured_race == True)
 
         for district in races:
 
@@ -286,7 +283,7 @@ def _generate_json(house):
 
             timezone_dict['districts'].append(district_dict)
 
-        if len(races) > 1:
+        if races.count() > 1:
             objects.append(timezone_dict)
 
     return json.dumps(objects)
@@ -315,10 +312,7 @@ def write_electris_json():
     with open(settings.PRESIDENT_FILENAME, 'w') as f:
         output = []
 
-        states = list(State.select().order_by(State.electoral_votes.desc()))
-        State._meta.database.close()
-
-        for state in states:
+        for state in State.select().order_by(State.electoral_votes.desc()):
             state = state._data
 
             if state['npr_call'] != 'n' and state['npr_call'] != 'u':

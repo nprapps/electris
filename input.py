@@ -330,6 +330,7 @@ def bootstrap_president():
 
             state.save()
 
+
 def update_polls():
     pollster = Pollster()
 
