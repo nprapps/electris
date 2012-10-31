@@ -1,5 +1,7 @@
 $(function(){
     
+    var POLLING_INTERVAL = 60000;
+    
     function playStream(flashStreamer,flashFile,htmlUrl,title,prompt,feedback){
         play(true,flashStreamer,flashFile,htmlUrl,title,prompt,feedback);
     }
@@ -92,9 +94,23 @@ $(function(){
         }
     });
     
-    $("#switch").click(function(){
-        playFile('http://pd.npr.org/anon.npr-mp3/npr/totn/2012/10/20121010_totn_01.mp3', "NPR Pre-Election Special:", "Listen Now", "Previously recorded"); 
-    })
+    function fireItUp(){
+        $.getJSON('status.json?t=' + (new Date()).getTime(), function(status) {
+            if(status['audio'] == 'true') {
+                if(status['streaming'] == 'true') {
+                    playStream(status['flashStreamer'],status['flashFile'],status['htmlUrl'],status['title'],status['prompt'],status['feedback']); 
+                } else {
+                    playFile(status['url'],status['title'],status['prompt'],status['feedback']); 
+                }
+                $("body").removeClass("no-audio");
+                $("body").addClass("audio");
+            } else {
+                $("body").removeClass("audio");
+                $("body").addClass("no-audio");
+            }
+        });
+    }
     
-    playStream('rtmp://cp42183.live.edgefcs.net/live/', 'Live1@1094', 'http://npr.ic.llnwd.net/stream/npr_live24', "NPR Special Coverage:", "Listen Now", "Live"); 
+    fireItUp();
+    setInterval(fireItUp, POLLING_INTERVAL);
 });

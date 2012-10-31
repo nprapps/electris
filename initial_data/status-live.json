@@ -1,0 +1,10 @@
+{
+    "audio": "true",
+    "streaming": "true",
+    "flashStreamer": "rtmp://cp42183.live.edgefcs.net/live/",
+    "flashFile":"Live1@1094",
+    "htmlUrl":"http://npr.ic.llnwd.net/stream/npr_live24",
+    "title":"NPR Special Coverage:",
+    "prompt":"Listen Now",
+    "feedback":"Live"
+}
