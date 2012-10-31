@@ -612,9 +612,18 @@ $(function() {
 
         // NB: http://api.jquery.com/scrollTop/#comment-101347923
         modal_body.scrollTop(0);
+
+        var target = $($(this).data("target"))
+        var offset = -35;
+
+        // On small screens we jump to top of candidate list instead
+        if (window_width <= 480) {
+            target = target.parent().parent();
+            offset = -45;
+        }
         
         modal_body.animate({
-            scrollTop: $($(this).data("target")).position().top - 35
+            scrollTop: target.position().top + offset
         }, 1000);
     });
 
