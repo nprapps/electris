@@ -302,6 +302,30 @@ def save_ap_data():
         except:
             pass
 
+def deploy_audio(filename):
+    """
+    Deploys an audio status file to status.json
+    """
+    require('settings', provided_by=[production, staging])
+    local('s3cmd -P put initial_data/' + filename + ' s3://%(s3_bucket)s/%(deployed_name)s/status.json' % env)
+
+def audio_off():
+    """
+    Shortcut to deploy_audio:status-off.json
+    """
+    deploy_audio('status-off.json')
+
+def audio_pregame():
+    """
+    Shortcut to deploy_audio:status-pregame.json
+    """
+    deploy_audio('status-pregame.json')
+    
+def audio_live():
+    """
+    Shortcut to deploy_audio:status-live.json
+    """
+    deploy_audio('status-live.json')
 
 def shiva_the_destroyer():
     """

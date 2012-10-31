@@ -95,7 +95,7 @@ $(function(){
     });
     
     function fireItUp(){
-        $.getJSON('status.json', function(status) {
+        $.getJSON('status.json?t=' + (new Date()).getTime(), function(status) {
             if(status['audio'] == 'true') {
                 if(status['streaming'] == 'true') {
                     playStream(status['flashStreamer'],status['flashFile'],status['htmlUrl'],status['title'],status['prompt'],status['feedback']); 
