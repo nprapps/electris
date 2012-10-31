@@ -171,8 +171,9 @@ a.btn { color: #fff; cursor: pointer; }
 .results-group .total { text-align: center; width: 45%; float: left; }
 .results-group .total span { 
 	display: block; 
-	font-size: 24px; line-height: 24px; 
-	font-weight: bold;
+	font: 28px/28px Georgia, serif;
+	margin-top: -7px;
+	margin-bottom: 3px;
 }
 .results-group .blue .total span { color: #3d7fa6; }
 .results-group .red .total span { color: #a23520; }
@@ -184,9 +185,9 @@ a.btn { color: #fff; cursor: pointer; }
 }
 .results-group .towin span { 
 	display: block;
-	font-weight: bold;
+	font: 15px/21px Georgia, serif;
 	background-color: #F7E39B; color: #77631B; 
-	font-size: 15px; line-height: 21px; 
+	border-radius: 4px;
 	margin-bottom: 3px;
 }
 
@@ -339,7 +340,7 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 .states { font-size: 20px; position: relative; }
-#electris-skinny .states { font-size: 18px; }
+#electris-skinny .states { font-size: 17px; }
 .candidate { width: 48%; }
 .candidate.blue { float: left; }
 .candidate.red { float: right; }
@@ -372,7 +373,10 @@ a.btn { color: #fff; cursor: pointer; }
     color: #77631b;
 	border-radius: 3px;
 }
-#electris-skinny .state i { width: 16px; height: 16px; font-size: .9em; line-height: .9em; }
+#electris-skinny .state i { 
+	width: 15px; height: 15px;
+	font-size: .9em; line-height: .9em;
+}
 
 .no-touch .state:hover, 
 .no-touch .state:hover i, 
@@ -808,7 +812,7 @@ body.audio #comingsoon { display:none; }
 	#results-bar.affix .results-group h3 { font-size: 12px; margin-bottom: 3px; }
 	#results-bar.affix .results-group .blue,
 	#results-bar.affix .results-group .red { border: none; }
-    #results-bar.affix .results-group .total span { font-size: 20px; line-height: 22px; }
+    #results-bar.affix .results-group .total span { font-size: 20px; line-height: 22px; margin-top: -3px; margin-bottom: 3px; }
     #results-bar.affix #pres-header { margin-left: 0; }
     #results-bar.affix .towin span { line-height: 20px; font-size: 14px; margin-bottom: 2px; }
     /* Add some padding to the next visible div when the
@@ -863,8 +867,8 @@ body.audio #comingsoon { display:none; }
         margin-right:2px;
         margin-bottom:2px;
     }
-	#electris-skinny .states { font-size: 22px; }
-	#electris-skinny .state i { width: 20px; height: 20px; font-size: .9em; line-height: .9em; }
+	#electris-skinny .states { font-size: 20px; }
+	#electris-skinny .state i { width: 18px; height: 18px; font-size: .9em; line-height: .9em; }
 
 	.histogram h4 { height: 22px; }
 	.histogram .title { padding: 5px 12px 0 12px; font-size: 12px; }
