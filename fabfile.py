@@ -84,7 +84,7 @@ def _deploy_to_s3():
         --add-header=Content-encoding:gzip\
         --guess-mime-type\
         --recursive\
-        --exclude states.json\
+        --exclude *.json\
         sync gzip/ s3://%(s3_bucket)s/%(deployed_name)s/') % env)
 
 
@@ -143,7 +143,7 @@ def deploy_local_data():
     Deploy the local data file to S3 (for electris pre-election.)
     """
     _gzip_www()
-    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/states.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def recreate_tables():
