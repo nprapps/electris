@@ -333,6 +333,11 @@ def write_electris_json():
             del state['ap_call']
             del state['ap_called_at']
 
+            del state['called_by']
+            del state['accept_ap_call']
+            del state['rowid']
+            del state['prediction']
+
             output.append(state)
 
         f.write(json.dumps(output))
@@ -378,75 +383,4 @@ def push_results_to_s3():
             settings.SENATE_FILENAME,
             policy=policy,
             headers=headers)
-
-
-def is_subset(combos_so_far, new_combo):
-    """
-    A general-purposed function for checking if this combo is a subset of another.
-    """
-    for old_combo in combos_so_far:
-        test = new_combo[:len(old_combo['combo'])]
-
-        if old_combo['combo'] == test:
-            return True
-
-    return False
-
-
-def compute_combos(undecided_states, red_needs, blue_needs):
-    """
-    A general-purpose function for computing presidential path combos.
-    """
-    combos = []
-    n = 1
-
-    while n < len(undecided_states) + 1:
-        combos.extend(combinations(undecided_states, n))
-        n += 1
-
-    red_combos = []
-    blue_combos = []
-    red_groups = {}
-    blue_groups = {}
-
-    for combo in combos:
-        combo_votes = sum([state.electoral_votes for state in combo])
-        combo = [state.id for state in combo]
-
-        if combo_votes >= red_needs and not is_subset(red_combos, combo):
-            combo_obj = {
-                'combo': combo,
-                'votes': combo_votes
-            }
-
-            key = len(combo)
-
-            if key not in red_groups:
-                red_groups[key] = []
-
-            red_combos.append(combo_obj)
-            red_groups[key].append(combo_obj)
-
-        if combo_votes >= blue_needs and not is_subset(blue_combos, combo):
-            combo_obj = {
-                'combo': combo,
-                'votes': combo_votes
-            }
-
-            key = len(combo)
-
-            if key not in blue_groups:
-                blue_groups[key] = []
-
-            blue_combos.append(combo_obj)
-            blue_groups[key].append(combo_obj)
-
-    return {
-        'undecided_states': [state.id for state in undecided_states],
-        'red_combos': red_combos,
-        'blue_combos': blue_combos,
-        'red_groups': red_groups,
-        'blue_groups': blue_groups
-    }
-
 

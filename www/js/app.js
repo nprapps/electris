@@ -1038,7 +1038,7 @@ $(function() {
 
     /* MEME TRACKER */
 
-    var MEME_UPDATE_SECS = 5;
+    var MEME_UPDATE_SECS = 60;
     var MEME_POSTS_TO_SHOW = 5;
 
     var MEME_PHOTO_TEMPLATE = _.template($("#meme-photo-template").html());
