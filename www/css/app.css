@@ -750,7 +750,7 @@ a.btn { color: #fff; cursor: pointer; }
 #live-blog .more { white-space: nowrap; }
 
 /* audio player */
-#audio { color: #FFF; border: 1px solid rgba(51,51,51,.8); padding:4px 0 0 0; font-family:Arial,sans-serif; margin:55px 0 15px 15px; }
+#audio { color: #FFF; border-width: 1px; border-style: solid; border-color: #333; border-color: rgba(51,51,51,.8); padding:4px 0 0 0; font-family:Arial,sans-serif; margin:55px 0 15px 15px; }
 #audio #jwplayer_wrapper { float:left; margin: 0 10px 4px 4px; }
 #audio #audio-htmlstream { display:none; height: 0; }
 #audio #audio-htmlcontrol { display:none; background-image: url(../img/playButtonOver.png); height:41px; width:41px; float:left; margin: 0 10px 4px 4px; }
