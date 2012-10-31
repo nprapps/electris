@@ -1063,7 +1063,7 @@ $(function() {
          * Fetch the latest river of news.
          */
 		$.ajax({
-		    url: 'http://www.npr.org/buckets/agg/series/2012/elections/riverofnews/riverofnews.jsonp',
+		    url: 'http://www-cf.nprdev.org/buckets/agg/series/2012/elections/riverofnews/riverofnews.jsonp',
 		    dataType: 'jsonp',
 		    jsonpCallback: 'nprriverofnews',
 		    success: function(data){
