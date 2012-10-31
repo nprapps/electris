@@ -47,15 +47,15 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
     text-indent:4px;
 }
 .allstates .state .name { font-size:13px; line-height:13px;}
-.allstates .state .votes { font-size:11px; letter-spacing:-1px; line-height:13px; }
+.allstates .state .votes { font-size:12px; letter-spacing:-1px; line-height:13px; }
 
 .demPercent{ text-indent:4px; color:#a7d7eb; width:14%; overflow:hidden;}
 .gopPercent{ text-indent:4px; color:#f8a199; width:14%; overflow:hidden;}
 .swing .demPercent { text-indent:8px; }
 .swing .gopPercent { text-indent:8px; }
 
-.percentTime{ border-right:solid #666 1px; width:12%; overflow:hidden; font-size:12px; text-align:center;}
-.percentTime.called { background-color:goldenrod; color:#000; }
+.percentTime{ border-right:solid #666 1px; width:12%; overflow:hidden; font-size:13px; text-align:left; color:#f9e8af;}
+.percentTime.called { background-color:#f2d15f; color:#000; }
 .full .percentTime.called { height:24px; }
 .weighted li.demPercent{width:15%;overflow:hidden;}
 .weighted li.gopPercent{width:15%;overflow:hidden;}
@@ -80,6 +80,6 @@ ul.allstates li.percentTime {width:15%;}
 
 ul {margin:0;}
 p {margin:0;}
-.full .column {border-left:solid #efefef 1px;}
+.full .column {border-left:solid #ccc 2px;}
 .full .first.column {border:none;}
-.weighted .last.column {border-left:solid #efefef 1px;width:49% !important;}
+.weighted .last.column {border-left:solid #ccc 2px;width:49% !important;}

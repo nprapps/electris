@@ -9,21 +9,21 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 #banner li#nc_sec { width:155px; }
 #banner h1 {padding-top:6px;}
 .district {
-    font-size:11px;
+    font-size:12px;
     float:left;
-    width:35px;
+    width:37px;
     display:block;
     text-indent:2px;
     letter-spacing:-1px;
 }
 #candidates {
-    height:555px;
+    height:560px;
     overflow:hidden;
 }
 .candidate {
-    width: 168px;
+    width: 166px;
     text-indent:4px;
-    line-height:20px;
+    line-height:22px;
     font-size:14px;
     letter-spacing:-1px;
 }
@@ -40,16 +40,23 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 
 .first.column {
     width:399px !important;
-    border-right:1px solid #efefef;
+    border-right:2px solid #ccc;
 }
+
+.last.column {
+	width:399px !important;
+}
+
 .status{
-    font-size:11px;
-    width:28px;
+    font-size:12px;
+    width:27px;
     letter-spacing:-1px;
-    text-align:center;
+    text-align:left;
+    border-right:#666 solid 1px;
+    color:#f9e8af;
 }
 .called.status {
-    background-color:goldenrod;
+    background-color:#f2d15f;
     color:#333;
 }
 .vote-percent {
@@ -80,11 +87,15 @@ ul.swap .district {
 .candidate-535,
 .candidate-51631,
 .candidate-135,
-.candidate-53539 {
+.candidate-53539,
+.candidate-51631 {
     font-size:12px;
 }
-.candidate-60930,
-.candidate-55336 {
-    font-size:12px;
-    letter-spacing:-2px;
+.candidate-52161 {
+    font-size:13px;
+    letter-spacing:-1px;
+}
+
+.candidate-55336, .candidate-60930 {
+	font-size: 11px;
 }

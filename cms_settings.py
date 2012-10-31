@@ -4,7 +4,7 @@ import datetime
 import os
 
 # Project settings.
-PROJECT_NAME = 'electris'
+PROJECT_NAME = 'live-results-election-2012'
 DATABASE_FILENAME = 'electris.db'
 POLLING_INTERVAL = 15
 

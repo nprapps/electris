@@ -42,25 +42,34 @@
     <script type="text/javascript" src="js/responsive-ad.js"></script>
 	<script>
     AddNamespace('NPR.serverVars'); 
-    jQuery.extend(NPR.serverVars,{"storyId":"93559255","serverType":"dev","DFPtarget":"\/no_topic;agg=94427042;storyid=93559255;blog=93559255;testserver=true","DFPuserver":"u.npr.org","DFPserver":"ad.doubleclick.net","DFPnetwork":"n6735","DFPsite":"NPRTEST","DFPmobile":"NPR.MOBILE"})
-	// AddNamespace('NPR.serverVars'); 
-	// jQuery.extend(NPR.serverVars,{
-	// 	"storyId":"139482413",
-	// 	"serverType":"prod",
-	// 	"DFPtarget":"\/news_election_results",
-	// 	"DFPuserver":"u.npr.org",
-	// 	"DFPserver":"ad.doubleclick.net",
-	// 	"DFPnetwork":"n6735",
-	// 	"DFPsite":"NPR",
-	// 	"DFPmobile":"NPR.MOBILE"
-	// });
+    jQuery.extend(NPR.serverVars, {
+        "storyId": "93559255",
+        "serverType": "dev",
+        "DFPtarget": "\/no_topic;agg=94427042;storyid=93559255;blog=93559255;testserver=true",
+        "DFPuserver": "u.npr.org",
+        "DFPserver": "ad.doubleclick.net",
+        "DFPnetwork": "n6735",
+        "DFPsite": "NPRTEST",
+        "DFPmobile": "NPR.MOBILE"
+    });
+
+    // jQuery.extend(NPR.serverVars, {
+    //     "storyId": "139482413",
+    //     "serverType": "prod",
+    //     "DFPtarget": "\/news_election_results;storyid=139482413",
+    //     "DFPuserver": "u.npr.org",
+    //     "DFPserver": "ad.doubleclick.net",
+    //     "DFPnetwork": "n6735",
+    //     "DFPsite": "NPR",
+    //     "DFPmobile": "NPR.MOBILE"
+    // });
 	</script>
     
 	<meta property="og:title" content="Election 2012: Live Coverage From NPR News" />
 	<meta property="og:url" content="http://apps.npr.org/live-results-election-2012/" />
 	<meta property="og:type" content="article" />
 	<meta property="og:description" content="Follow the latest results, get breaking news and analysis, and listen to our live special broadcast." />
-	<meta property="og:image" content="TKTKTK" />
+	<meta property="og:image" content="http://media.npr.org/news/specials/2012/elections/election-promo_sq.gif" />
 	<meta property="og:site_name" content="NPR.org" />
 	<meta property="fb:app_id" content="138837436154588" />
 
@@ -214,6 +223,14 @@
 						</div>
 					</div>
 				</div>
+            	<div class="electris-alert blue">
+            		<div class="alert-wrapper">
+						NPR projects that
+						<strong class="alert-name">Barack Obama</strong>
+						will win
+						<strong class="alert-state"><b>E</b> California (55)</strong>
+					</div>
+            	</div>
             </div>
             
             <div id="tabs">
@@ -475,7 +492,7 @@
                 </div>
             </div>
             <div class="span7 tab-pane" id="live-blog">
-                <h2>This Just In</h2>
+                <h2>This Just In <span>hosted by Mark Memmott</span></h2>
                 <div id="live-blog-items"></div>
             </div>
             <div class="span5 tab-pane" id="backchannel">

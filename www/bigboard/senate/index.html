@@ -59,7 +59,9 @@
                         if (district.called == true) { called = 'called'; }
                         var district_name = district.district.replace(' 0', '');
                     %>
-                    <ul class="<%= called %>"><li class="district"><%= district_name %></li>
+                    <ul class="<%= called %>">
+                    <li class="status <%= district.district_slug %> <%= called %>"><%= district.status %></li>
+                    <li class="district"><%= district_name %></li>
                     <%
                     if(district.district_slug == "vt0"){
                     %>
@@ -84,7 +86,7 @@
                         </li>
                     <% }); %>
                         <% var called = ''; if (district.called == true){ called = 'called'; } %>
-                    	<li class="status <%= district.district_slug %> <%= called %>"><%= district.status %></li>
+                    	
                     </ul>
                 <% }); %>
             </div>

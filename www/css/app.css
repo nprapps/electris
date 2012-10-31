@@ -720,6 +720,7 @@ a.btn { color: #fff; cursor: pointer; }
     text-align: center;
     display: block;
 }
+#results-bar .electris-alert { display: none; }
 
 
 /* Memetracker */
@@ -740,6 +741,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 /* LIVE BLOG / "RIVER OF NEWS" */
 #live-blog { margin-top:20px; float:right; }
+#live-blog h2 span { font: normal 13px/1 Helvetica,Arial, sans-serif; color: #999; }
 #live-blog .post { background-color: #f1f1f1; margin-bottom: 6px; padding: 15px; }
 #live-blog .sticky { background-color: #FFF; border: 1px dotted #999; }
 #live-blog p { font: 15px/1.35em Arial, Helvetica, sans-serif; color: #555; margin: 0; }
@@ -754,13 +756,13 @@ body.no-audio #audio { display:none; }
 body.no-audio #comingsoon { display:block; }
 body.audio #audio { display:block; }
 body.audio #comingsoon { display:none; }
-#audio { color: #FFF; border: 1px solid rgba(51,51,51,.8); padding:4px 0 0 0; font-family:Arial,sans-serif; margin:55px 0 15px 15px; display:none; }
+#audio { color: #FFF; border-width: 1px; border-style: solid; border-color: #333; border-color: rgba(51,51,51,.8); padding:4px 0 0 0; font-family:Arial,sans-serif; margin:55px 0 15px 15px; display:none; }
 #audio #jwplayer_wrapper { float:left; margin: 0 10px 4px 4px; }
-#audio #audio-htmlstream { display:none; }
+#audio #audio-htmlstream { display:none; height: 0; }
 #audio #audio-htmlcontrol { display:none; background-image: url(../img/playButtonOver.png); height:41px; width:41px; float:left; margin: 0 10px 4px 4px; }
 #audio.playing #audio-htmlcontrol { background-image: url(../img/pauseButtonOver.png)}
 #audio #audio-feedback { background: no-repeat url(../img/eq-none.gif) rgba(51,51,51,.8) 5px; padding:4px 0 0 55px; height:14px; clear:left; font-size:12px; color:#666; line-height:11px; }
-#audio.playing #audio-feedback { background-image: url(../img/eq2.gif); }
+#audio.playing #audio-feedback { background: url(../img/eq2.gif); background-repeat: no-repeat; background-position: 5px; }
 #audio #audio-feedback #audio-feedback-message { display:none; }
 #audio.playing #audio-feedback #audio-feedback-message { display:inline; }
 #audio #audio-feedback #audio-feedback-buffering { display:none; }
@@ -792,7 +794,6 @@ body.audio #comingsoon { display:none; }
     }
     #results-bar.affix div.results-row {
     	border-bottom: 2px solid #CCC;
-    	padding: 0 0 10px 0;
     	margin: 0 20px;
     }
     #results-bar.affix .results-row h2 { 
@@ -803,6 +804,7 @@ body.audio #comingsoon { display:none; }
     	padding: 6px 0 3px 0;
     	margin-bottom: 0;
     }
+    #results-bar.affix .results-group { padding-bottom: 10px; }
 	#results-bar.affix .results-group h3 { font-size: 12px; margin-bottom: 3px; }
 	#results-bar.affix .results-group .blue,
 	#results-bar.affix .results-group .red { border: none; }
@@ -810,6 +812,33 @@ body.audio #comingsoon { display:none; }
     #results-bar.affix #pres-header { margin-left: 0; }
     #results-bar.affix .towin span { line-height: 20px; font-size: 14px; margin-bottom: 2px; }
     #results-bar.affix + .row { margin-top:120px; font-size: 14px; }
+
+	#results-bar.affix .electris-alert { 
+		display: block;
+		position: static; top: auto; left: auto; width: auto;
+		z-index: auto;
+		text-align: left;
+		font-size: 13px;
+		line-height: 13px;
+		margin: 0;
+		clear: both;
+		border: none;
+		border-radius: 0;
+		-webkit-box-shadow: none;
+		   -moz-box-shadow: none;
+				box-shadow: none;
+		height: auto;
+	}
+	#results-bar.affix .electris-alert .alert-wrapper {
+		padding: 15px 12px;
+	}
+	#results-bar.affix .electris-alert strong,
+	#results-bar.affix .electris-alert b {
+		display: inline;
+		font-size: 13px;
+		line-height: 13px;
+		margin: 0;
+	}
 }
 
 @media (min-width: 1200px) {
@@ -820,11 +849,10 @@ body.audio #comingsoon { display:none; }
     #results-bar.affix #small-header { width: 1150px; }
     #results-bar.affix div.results-row {
     	border-bottom: 2px solid #CCC;
-    	padding: 0 0 10px 0;
     	margin: 0 20px 0 30px;
     }
 	#pres-header i { display: inline; }
-
+	
 	.states { font-size: 23px; }
 	.combos { width: 7.5em; }
     .state i {
