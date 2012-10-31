@@ -740,6 +740,7 @@ a.btn { color: #fff; cursor: pointer; }
 
 /* LIVE BLOG / "RIVER OF NEWS" */
 #live-blog { margin-top:20px; float:right; }
+#live-blog h2 span { font: normal 13px/1 Helvetica,Arial, sans-serif; color: #999; }
 #live-blog .post { background-color: #f1f1f1; margin-bottom: 6px; padding: 15px; }
 #live-blog .sticky { background-color: #FFF; border: 1px dotted #999; }
 #live-blog p { font: 15px/1.35em Arial, Helvetica, sans-serif; color: #555; margin: 0; }
