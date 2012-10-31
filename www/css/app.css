@@ -749,6 +749,23 @@ a.btn { color: #fff; cursor: pointer; }
 #live-blog p a:hover { color: #36C; text-decoration: none; cursor: pointer; }
 #live-blog .more { white-space: nowrap; }
 
+/* audio player */
+#audio { color: #FFF; border: 1px solid rgba(51,51,51,.8); padding:4px 0 0 0; font-family:Arial,sans-serif; margin:55px 0 15px 15px; }
+#audio #jwplayer_wrapper { float:left; margin: 0 10px 4px 4px; }
+#audio #audio-htmlstream { display:none; }
+#audio #audio-htmlcontrol { display:none; background-image: url(../img/playButtonOver.png); height:41px; width:41px; float:left; margin: 0 10px 4px 4px; }
+#audio.playing #audio-htmlcontrol { background-image: url(../img/pauseButtonOver.png)}
+#audio #audio-feedback { background: no-repeat url(../img/eq-none.gif) rgba(51,51,51,.8) 5px; padding:4px 0 0 55px; height:14px; clear:left; font-size:12px; color:#666; line-height:11px; }
+#audio.playing #audio-feedback { background-image: url(../img/eq2.gif); }
+#audio #audio-feedback #audio-feedback-message { display:none; }
+#audio.playing #audio-feedback #audio-feedback-message { display:inline; }
+#audio #audio-feedback #audio-feedback-buffering { display:none; }
+#audio.buffering #audio-feedback #audio-feedback-buffering { display:inline; }
+#audio #audio-title { font-size:12px; line-height:18px; color:#666; }
+#audio #audio-prompt { font-size:16px; line-height:22px; font-weight:bold; }
+#comingsoon { position:relative; background: url('../img/coming-soon-bg-wide.png') no-repeat right bottom; height:62px; margin:56px 0 0 -12px; float:left; display:none; }
+#comingsoon b { position:absolute; top:0; left:0; display:block; width:12px; height:6px; overflow:hidden; background: url('../img/coming-soon-upper-tab.png') no-repeat right bottom; }
+#comingsoon .message { font:bold 12px Arial; text-transform:uppercase; color:#FFF; padding:20px 35px 0 30px; white-space:nowrap; }
 
 /* Media queries */
 @media (min-width: 768px) {
@@ -792,6 +809,7 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 @media (min-width: 1200px) {
+    #audio { margin-top:41px; }
 	#header-promos .promo { width: 370px; margin-left: 30px; }
 	#header-promos .promo:first-child { width: 355px; }
 
@@ -827,6 +845,7 @@ a.btn { color: #fff; cursor: pointer; }
     #results-bar.affix #small-header { width: 920px; }
 }
 @media (max-width: 979px) {
+    #audio { margin-right:15px; }
 	.tossups i { display: block; }
 	#electris .bucket { 
 		width: 100%; 
@@ -866,7 +885,7 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 @media (max-width: 979px) and (min-width: 768px) {
-	#header { width: 404px; height: auto; }
+	#header { width: 100%; height: auto; }
 	#header-promos { 
 		width: 694px; padding: 15px;
 		position: static; bottom: auto; left: auto; 
@@ -928,6 +947,7 @@ a.btn { color: #fff; cursor: pointer; }
 
     #the-stuff { margin-top:0; }
     #ad { display:none; }
+    #audio { margin-top:45px; }
     #results-bar.affix { position:static; }
     #tabs { display:block; margin-top:20px; }
     .tab-pane { display:none; }
