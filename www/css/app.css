@@ -1002,10 +1002,11 @@ body.audio #comingsoon { display:none; }
     #ad { display:none; }
     #audio { margin-top:45px; }
     #results-bar.affix { position:static; }
+    
     #tabs { display:block; margin-top:20px; }
     .tab-pane { display:none; }
     .tab-pane.active { display:block; }
-
+    
 	#electris { margin-left: 0; padding-top: 18px; }
 	#electris-skinny .candidate.blue .bucket,
 	#electris-skinny .candidate.red .bucket { float: none; width: 100%; }
