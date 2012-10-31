@@ -756,7 +756,7 @@ a.btn { color: #fff; cursor: pointer; }
 #audio #audio-htmlcontrol { display:none; background-image: url(../img/playButtonOver.png); height:41px; width:41px; float:left; margin: 0 10px 4px 4px; }
 #audio.playing #audio-htmlcontrol { background-image: url(../img/pauseButtonOver.png)}
 #audio #audio-feedback { background: no-repeat url(../img/eq-none.gif) rgba(51,51,51,.8) 5px; padding:4px 0 0 55px; height:14px; clear:left; font-size:12px; color:#666; line-height:11px; }
-#audio.playing #audio-feedback { background-image: url(../img/eq2.gif); }
+#audio.playing #audio-feedback { background: url(../img/eq2.gif); background-repeat: no-repeat; background-position: 5px; }
 #audio #audio-feedback #audio-feedback-message { display:none; }
 #audio.playing #audio-feedback #audio-feedback-message { display:inline; }
 #audio #audio-feedback #audio-feedback-buffering { display:none; }
