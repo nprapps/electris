@@ -752,7 +752,7 @@ a.btn { color: #fff; cursor: pointer; }
 /* audio player */
 #audio { color: #FFF; border: 1px solid rgba(51,51,51,.8); padding:4px 0 0 0; font-family:Arial,sans-serif; margin:55px 0 15px 15px; }
 #audio #jwplayer_wrapper { float:left; margin: 0 10px 4px 4px; }
-#audio #audio-htmlstream { display:none; }
+#audio #audio-htmlstream { display:none; height: 0; }
 #audio #audio-htmlcontrol { display:none; background-image: url(../img/playButtonOver.png); height:41px; width:41px; float:left; margin: 0 10px 4px 4px; }
 #audio.playing #audio-htmlcontrol { background-image: url(../img/pauseButtonOver.png)}
 #audio #audio-feedback { background: no-repeat url(../img/eq-none.gif) rgba(51,51,51,.8) 5px; padding:4px 0 0 55px; height:14px; clear:left; font-size:12px; color:#666; line-height:11px; }
