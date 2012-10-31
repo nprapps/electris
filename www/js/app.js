@@ -458,35 +458,47 @@ $(function() {
 
         red_candidate_el.find(".combos .robotext").html(must_win_robotext(
             "Romney",
+            "Obama",
             red_combos,
             red_votes,
-            red_states_won 
+            red_states_won,
+            blue_states_won
         ));
 
         show_combos(red_keys, red_groups, "red", red_votes);
 
         blue_candidate_el.find(".combos .robotext").html(must_win_robotext(
             "Obama",
+            "Romney",
             blue_combos,
             blue_votes,
-            blue_states_won
+            blue_states_won,
+            red_states_won
         ));
 
         show_combos(blue_keys, blue_groups, "blue", blue_votes);
     }
 
-    function must_win_robotext(candidate, combos, votes, states_won) {
+    function must_win_robotext(candidate, opponent, combos, votes, states_won, opponent_won) {
         /*
          * Generate robotext describing election scenario.
          */
         // Winner
         if (votes >= 270) {
-            return "If " + candidate + " wins the states you have selected then he will <strong>win the Electoral College</strong>.";
+            if (states_won.length == 0) {
+                return candidate + " <strong>wins</strong> the Electoral College.";
+            } else {
+                return "If " + candidate + " wins the states you have selected then he will <strong>win the Electoral College</strong>.";
+            }
         }
 
         // Loser
-        if (simplest_combo_length == 0) {
-            return candidate + " <strong>cannot win</strong> the Electoral College.";
+        if (combos.length == 0) {
+            if (opponent_won.length == 0) {
+                return candidate + " is <strong>cannot win</strong> the Electoral College.";
+            } else {
+                return "If " + opponent + " wins the states you have selected then " + candidate + " <strong>cannot win</strong> the Electoral College.";
+            }
         }
 
         // One one-state combo left
