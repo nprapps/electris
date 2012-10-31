@@ -235,208 +235,212 @@
             
             <div id="tabs">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#results" data-toggle="tab">Results</a></li>
+                    <li class="active"><a id="results-tab" href="#results" data-toggle="tab">Results</a></li>
                     <li><a href="#live-blog" data-toggle="tab">Live Blog</a></li>
                     <li><a href="#backchannel" data-toggle="tab">The Back Channel</a></li>
                 </ul>
             </div>
             
         </div>
-
-        <div class="row" id="electris">
-        	<div class="pres-results span3">
-
-				<div class="pres-watching results">
-					<h5>Incoming Results</h5>
-					<ul>
-						<li class="hdr">
-							<span class="st">&nbsp;</span>
-							<span class="blue">Obama</span>
-							<span class="red">Romney</span>
-						</li>
-					</ul>
-				</div>
-				
-				<div class="pres-closing results">
-					<h5>Next Poll Closing</h5>
-					<ul>
-					</ul>
-					<a class="btn btn-mini btn-inverse show-poll-closings" type="button" role="button" data-toggle="modal" href="#closing-modal">Show All Closing Times</a>
-				</div>
-
-				<div class="pres-called results">
-					<h5>Called Races</h5>
-					<ul>
-						<li class="hdr">
-							<span class="st">&nbsp;</span>
-							<span class="blue">Obama</span>
-							<span class="red">Romney</span>
-						</li>
-					</ul>
-				</div>
-				
-        	</div> <!-- end .pres-results -->
-
-            <div class="states span9">
-            	<div class="electris-alert red">
-            		<div class="alert-wrapper">
-					</div>
-            	</div>
-            
-                <div class="buckets">
-
-                    <div class="candidate blue">
-                        <div class="bucket-header">
-                            <h3><i>Barack </i><b>Obama</b></h3>
-
-                            <div class="vote-tallies">
-                                <div class="electoral">
-                                    <b class="blue-votes bignum">00</b>
-                                    <span>total</span>
-                                </div>
-                                <div class="needed">
-                                    <b class="blue-needs bignum">?</b>
-                                    <span>to win</span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="bucket blue"></div>
-                        <div class="combos">
-                            <!-- chicklets -->
-                            <h5>Predict Races</h5>
-                            <ul class="tossups blue"></ul>
-
-                            <!-- HISTOGRAM -->
-                            <h5>Ways He Can Win</h5>
-                            <p class="robotext"></p>
-                            <ul class="histogram blue">
-                                <li class="blue1">
-                                    <h4 data-target="#blue1">
-                                        <span class="title"><strong>1 state</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                                <li class="blue2">
-                                    <h4 data-target="#blue2">
-                                        <span class="title"><strong>2 states</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                                <li class="blue3">
-                                    <h4 data-target="#blue3">
-                                        <span class="title"><strong>3 states</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                                <li class="blue4">
-                                    <h4 data-target="#blue4">
-                                        <span class="title"><strong>4 states</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                                <li class="blue5">
-                                    <h4 data-target="#blue5">
-                                        <span class="title"><strong>5 states</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                                <li class="blue6">
-                                    <h4 data-target="#blue6">
-                                        <span class="title"><strong>6 states</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                                <li class="blue7">
-                                    <h4 data-target="#blue7">
-                                        <span class="title"><strong>7+ states</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                            </ul>
-                            <a class="btn btn-mini btn-inverse" type="button" role="button" data-toggle="modal" href="#combinations-modal">Show All Paths</a>
-                        </div>
-                    </div> <!-- end .candidate.blue -->
-
-                    <div class="candidate red">
-                        <div class="bucket-header">
-                            <h3><i>Mitt </i><b>Romney</b></h3>
-
-                            <div class="vote-tallies">
-                                <div class="electoral">
-                                    <b class="red-votes bignum">00</b>
-                                    <span>total</span>
-                                </div>
-                                <div class="needed">
-                                    <b class="red-needs bignum">?</b>
-                                    <span>to win</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bucket red"></div>
-                        <div class="combos">
-                            <!-- chicklets -->
-                            <h5>Predict Races</h5>
-                            <ul class="tossups red"></ul>
-                            
-                            <!-- HISTOGRAM -->
-                            <h5>Ways He Can Win</h5>
-                            <p class="robotext"></p>
-                            <ul class="histogram red">
-                                <li class="red1">
-                                    <h4 data-target="#red1">
-                                        <span class="title"><strong>1 state</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                                <li class="red2">
-                                    <h4 data-target="#red2">
-                                        <span class="title"><strong>2 states</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                                <li class="red3">
-                                    <h4 data-target="#red3">
-                                        <span class="title"><strong>3 states</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                                <li class="red4">
-                                    <h4 data-target="#red4">
-                                        <span class="title"><strong>4 states</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                                <li class="red5">
-                                    <h4 data-target="#red5">
-                                        <span class="title"><strong>5 states</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                                <li class="red6">
-                                    <h4 data-target="#red6">
-                                        <span class="title"><strong>6 states</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                                <li class="red7">
-                                    <h4 data-target="#red7">
-                                        <span class="title"><strong>7+ states</strong></span>
-                                        <span class="bar" style="width: 0px;"></span>
-                                    </h4>
-                                </li>
-                            </ul>
-                            <a class="btn btn-mini btn-inverse" type="button" role="button" data-toggle="modal" href="#combinations-modal">Show All Paths</a>
-                        </div>
-                    </div> <!-- end .candidate.red -->
-                    <div class="line"><b>270</b></div>
-
-                </div> <!-- end .buckets -->
-            </div> <!-- end .states -->
-        </div> <!-- end #electris -->
                 
         <div class="row" id="creamy-filling">
-            <div class="span5 tab-pane active" id="results">
+            
+            <div id="results-wide" class="tab-pane">
+            <div id="electris">
+            	<div class="pres-results span3">
+
+    				<div class="pres-watching results">
+    					<h5>Incoming Results</h5>
+    					<ul>
+    						<li class="hdr">
+    							<span class="st">&nbsp;</span>
+    							<span class="blue">Obama</span>
+    							<span class="red">Romney</span>
+    						</li>
+    					</ul>
+    				</div>
+				
+    				<div class="pres-closing results">
+    					<h5>Next Poll Closing</h5>
+    					<ul>
+    					</ul>
+    					<a class="btn btn-mini btn-inverse show-poll-closings" type="button" role="button" data-toggle="modal" href="#closing-modal">Show All Closing Times</a>
+    				</div>
+
+    				<div class="pres-called results">
+    					<h5>Called Races</h5>
+    					<ul>
+    						<li class="hdr">
+    							<span class="st">&nbsp;</span>
+    							<span class="blue">Obama</span>
+    							<span class="red">Romney</span>
+    						</li>
+    					</ul>
+    				</div>
+				
+            	</div> <!-- end .pres-results -->
+
+                <div class="states span9">
+                	<div class="electris-alert red">
+                		<div class="alert-wrapper">
+    					</div>
+                	</div>
+            
+                    <div class="buckets">
+
+                        <div class="candidate blue">
+                            <div class="bucket-header">
+                                <h3><i>Barack </i><b>Obama</b></h3>
+
+                                <div class="vote-tallies">
+                                    <div class="electoral">
+                                        <b class="blue-votes bignum">00</b>
+                                        <span>total</span>
+                                    </div>
+                                    <div class="needed">
+                                        <b class="blue-needs bignum">?</b>
+                                        <span>to win</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="bucket blue"></div>
+                            <div class="combos">
+                                <!-- chicklets -->
+                                <h5>Predict Races</h5>
+                                <ul class="tossups blue"></ul>
+
+                                <!-- HISTOGRAM -->
+                                <h5>Ways He Can Win</h5>
+                                <p class="robotext"></p>
+                                <ul class="histogram blue">
+                                    <li class="blue1">
+                                        <h4 data-target="#blue1">
+                                            <span class="title"><strong>1 state</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                    <li class="blue2">
+                                        <h4 data-target="#blue2">
+                                            <span class="title"><strong>2 states</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                    <li class="blue3">
+                                        <h4 data-target="#blue3">
+                                            <span class="title"><strong>3 states</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                    <li class="blue4">
+                                        <h4 data-target="#blue4">
+                                            <span class="title"><strong>4 states</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                    <li class="blue5">
+                                        <h4 data-target="#blue5">
+                                            <span class="title"><strong>5 states</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                    <li class="blue6">
+                                        <h4 data-target="#blue6">
+                                            <span class="title"><strong>6 states</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                    <li class="blue7">
+                                        <h4 data-target="#blue7">
+                                            <span class="title"><strong>7+ states</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                </ul>
+                                <a class="btn btn-mini btn-inverse" type="button" role="button" data-toggle="modal" href="#combinations-modal">Show All Paths</a>
+                            </div>
+                        </div> <!-- end .candidate.blue -->
+
+                        <div class="candidate red">
+                            <div class="bucket-header">
+                                <h3><i>Mitt </i><b>Romney</b></h3>
+
+                                <div class="vote-tallies">
+                                    <div class="electoral">
+                                        <b class="red-votes bignum">00</b>
+                                        <span>total</span>
+                                    </div>
+                                    <div class="needed">
+                                        <b class="red-needs bignum">?</b>
+                                        <span>to win</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bucket red"></div>
+                            <div class="combos">
+                                <!-- chicklets -->
+                                <h5>Predict Races</h5>
+                                <ul class="tossups red"></ul>
+                            
+                                <!-- HISTOGRAM -->
+                                <h5>Ways He Can Win</h5>
+                                <p class="robotext"></p>
+                                <ul class="histogram red">
+                                    <li class="red1">
+                                        <h4 data-target="#red1">
+                                            <span class="title"><strong>1 state</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                    <li class="red2">
+                                        <h4 data-target="#red2">
+                                            <span class="title"><strong>2 states</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                    <li class="red3">
+                                        <h4 data-target="#red3">
+                                            <span class="title"><strong>3 states</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                    <li class="red4">
+                                        <h4 data-target="#red4">
+                                            <span class="title"><strong>4 states</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                    <li class="red5">
+                                        <h4 data-target="#red5">
+                                            <span class="title"><strong>5 states</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                    <li class="red6">
+                                        <h4 data-target="#red6">
+                                            <span class="title"><strong>6 states</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                    <li class="red7">
+                                        <h4 data-target="#red7">
+                                            <span class="title"><strong>7+ states</strong></span>
+                                            <span class="bar" style="width: 0px;"></span>
+                                        </h4>
+                                    </li>
+                                </ul>
+                                <a class="btn btn-mini btn-inverse" type="button" role="button" data-toggle="modal" href="#combinations-modal">Show All Paths</a>
+                            </div>
+                        </div> <!-- end .candidate.red -->
+                        <div class="line"><b>270</b></div>
+
+                    </div> <!-- end .buckets -->
+                </div> <!-- end .states -->
+            </div> <!-- end #electris -->
+            </div>
+            
+            <div class="span5 tab-pane" id="results">
+                
                 <div id="electris-skinny">
                 	<h2>Race For The White House</h2>
                     <div class="states">

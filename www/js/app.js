@@ -219,6 +219,17 @@ $(function() {
             results_el.hide();
             electris_el.show();
         }
+        
+        //this sets up the results tab for mobile. if we're wide, the tab should point to wide and vice versa
+        if (wide_mode) {
+            $("#results-wide").addClass('active');
+            $("#results-tab").attr('href','#results-wide');
+        } else {
+            $("#results").addClass('active');
+            $("#results-tab").attr('href','#results');
+        }
+        
+        console.log('compute_stats');
 
         resize_buckets();
 
