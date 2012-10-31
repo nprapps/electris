@@ -76,7 +76,7 @@ a.btn { color: #fff; cursor: pointer; }
 }
 #header { 
 	margin-left: 0;
-	height: 275px;
+	height: 285px;
 	color:white;
 	position: relative;
 }
@@ -87,35 +87,36 @@ a.btn { color: #fff; cursor: pointer; }
 	margin: 0 7px 7px 7px;
 }
 #header-promos {
-	padding: 10px;
+	padding: 15px 0 15px 15px;
 	color: #ccc;
 	clear: both;
 	position: absolute; bottom: 0; left: 0;
+	border-top: 1px solid rgba(51, 51, 51, .8);
 }
 #header-promos .promo {
-	background: #333;
-	background: rgba(0,0,0,.6);
-	width: 43%;
-	margin-left: 2%;
+	width: 300px;
+	margin-left: 20px;
 	float: left;
-	padding: 3%
+	text-shadow: 0 0 10px #000;
 }
 #header-promos .promo:first-child {
 	margin-left: 0;
+	width: 285px;
 }
 #header-promos .promo img { 
 	float: left;
 	width: 25%;
 }
 #header-promos .promo h3 {
-	font: 14px Georgia, serif;
-	margin: 0 0 6px 30%;
+	font: 16px Georgia, serif;
+	margin: 0 0 3px 30%;
 }
 #header-promos .promo h3 a {
 	color: #fff;
 }
 #header-promos .promo p {
 	font-size: 12px;
+	line-height: 17px;
 	margin: 0 0 0 30%;
 }
 
@@ -143,18 +144,16 @@ a.btn { color: #fff; cursor: pointer; }
 .results-row { 
 	margin-top: 10px;
 	background-color: #fff;
-	margin-bottom: 12px;
+	margin-bottom: 6px;
 }
 .results-group { 
 	position: relative; 
 	font: 10px/1.25em Arial, Helvetica, sans-serif; 
 	color: #555; text-transform: uppercase;
 }
-.results-group h2 { 
-	margin-bottom: 0;
-	color: #333;
-	margin-bottom: 3px;
-}
+.results-group h2 { color: #333; margin-bottom: 3px; }
+.results-group h2 span { font: 11px Arial, Helvetica, sans-serif; color: #666; padding-left: 5px; }
+.results-group h2 span a { color: #666; }
 .results-group h3 {
 	text-transform: none;
 	font-size: 14px;
@@ -170,7 +169,11 @@ a.btn { color: #fff; cursor: pointer; }
 #pres-header i { font-style: normal; display: none; }
 
 .results-group .total { text-align: center; width: 45%; float: left; }
-.results-group .total span { display: block; font-size: 30px; line-height: 30px; font-weight: bold; }
+.results-group .total span { 
+	display: block; 
+	font-size: 24px; line-height: 24px; 
+	font-weight: bold;
+}
 .results-group .blue .total span { color: #3d7fa6; }
 .results-group .red .total span { color: #a23520; }
 
@@ -183,7 +186,7 @@ a.btn { color: #fff; cursor: pointer; }
 	display: block;
 	font-weight: bold;
 	background-color: #F7E39B; color: #77631B; 
-	font-size: 16px; line-height: 27px; 
+	font-size: 15px; line-height: 21px; 
 	margin-bottom: 3px;
 }
 
@@ -747,12 +750,6 @@ a.btn { color: #fff; cursor: pointer; }
 #live-blog .more { white-space: nowrap; }
 
 
-/* FOOTER EXTRAS */
-#footer .credits { font: italic 11px Arial; color: #999; margin-top: 10px; }
-#footer ul.bottomlist.elexLinks { margin-top: 15px; border-bottom: 1px dotted #CCC; border-top: 1px dotted #CCC; }
-#footer ul.bottomlist li.elex a { color: black; font-weight: bold; }
-
-
 /* Media queries */
 @media (min-width: 768px) {
 	#bigbox { min-width: 300px; }
@@ -795,6 +792,9 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 @media (min-width: 1200px) {
+	#header-promos .promo { width: 370px; margin-left: 30px; }
+	#header-promos .promo:first-child { width: 355px; }
+
     #results-bar.affix #small-header { width: 1150px; }
     #results-bar.affix div.results-row {
     	border-bottom: 2px solid #CCC;
@@ -866,8 +866,16 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 @media (max-width: 979px) and (min-width: 768px) {
-	#header { width: 404px; }
-	#header-promos { width: 710px; }
+	#header { width: 404px; height: auto; }
+	#header-promos { 
+		width: 694px; padding: 15px;
+		position: static; bottom: auto; left: auto; 
+		background: #333; background: rgba(0,0,0,0.5);
+	}
+	#header-promos .promo { width: 45%; margin-left: 10%; }
+	#header-promos .promo:first-child { width: 45%; margin-left: 0; }
+	
+	#bigbox { display: none; }
 
 	#main-header, #header-title { width: 724px; }
     #results-bar.affix #small-header { width: 704px; }
@@ -902,15 +910,18 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 @media (max-width: 767px) {
-	.navbar { margin-bottom: 1px; }
-
 	#big-header { margin: 0 -20px 0 -20px; padding: 0; }
-	#header { margin: 0; padding: 10px 0 0 0; }
+	#header { margin: 0; padding: 10px 0 0 0; height: auto; }
 	#header h1 { margin-top: 0; }
 	#bigbox { display: none; }
-	#header-promos { padding: 10px 0; width: 100%; }
+	#header-promos { 
+		background: #333; background: rgba(0,0,0,0.5);
+		position: static; bottom: auto; left: auto; 
+		padding: 10px 15px; 
+	}
+	#header-promos .promo { width: 45%; margin-left: 10%; }
+	#header-promos .promo:first-child { width: 45%; margin-left: 0; }
 	#header-promos .promo h3 { font-size: 16px; }
-	#header-promos .promo p { display: none; }
 
 	.results-group { margin-bottom: 18px; }
 	#pres-header i { display: inline; }
@@ -923,7 +934,8 @@ a.btn { color: #fff; cursor: pointer; }
     .tab-pane.active { display:block; }
 
 	#electris { margin-left: 0; padding-top: 18px; }
-	.NPRtablet #electris, .NPRphone #electris { padding-top: 0; }
+	#electris-skinny .candidate.blue .bucket,
+	#electris-skinny .candidate.red .bucket { float: none; width: 100%; }
 	#electris-skinny .states, .states { font-size: 10px; }
     #electris-skinny .state i,
     .state i {
@@ -945,7 +957,10 @@ a.btn { color: #fff; cursor: pointer; }
 }
 @media (max-width: 480px) {
 	#big-header { margin: 0 -10px 0 -10px; }
-	#header-promos .promo { margin-left: 2%; padding: 3%; width: 43%; }
+	#header-promos { padding: 15px; }
+	#header-promos .promo { width: 45%; margin-left: 10%; }
+	#header-promos .promo:first-child { width: 45%; margin-left: 0; }
+	#header-promos .promo p { display: none; }
 	
 	.electris-alert { top: 13%; left: 25%; width: 50%; 	}
 

@@ -5,23 +5,20 @@
 $(function(){
     
     function playStream(flashStreamer,flashFile,htmlUrl,title,prompt,feedback){
+        play(true,flashStreamer,flashFile,htmlUrl,title,prompt,feedback);
+    }
+
+    function playFile(url,title,prompt,feedback){
+        play(false,'',url,url,title,prompt,feedback);
+    }
+    
+    function play(streaming,flashStreamer,flashFile,htmlUrl,title,prompt,feedback) {
         //jwplayer uses the video tag, even for html5 audio, so we kick it to the curb for iOS
         //but we want to use the flash player when possible to get the analytics and stuff
         if (navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad)/)) {
             setupHtmlPlayer(htmlUrl);
         } else {
-            setupFlashPlayer(true,flashStreamer,flashFile);
-        }
-        setupAudioInterface(title,prompt,feedback);
-    }
-
-    function playFile(url,title,prompt,feedback){
-        //jwplayer uses the video tag, even for html5 audio, so we kick it to the curb for iOS
-        //but we want to use the flash player when possible to get the analytics and stuff
-        if (navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad)/)) {
-            setupHtmlPlayer(url);
-        } else {        
-            setupFlashPlayer(false,'',url);
+            setupFlashPlayer(streaming,flashStreamer,flashFile);
         }
         setupAudioInterface(title,prompt,feedback);
     }
@@ -87,6 +84,7 @@ $(function(){
         $("#audio-feedback #audio-feedback-message").text(feedback);
     }
     
+    //interactivity for the html player
     $('#audio-htmlcontrol').click(function(){
         var player = $('#audio-htmlstream')[0];
         if(player.paused) {
