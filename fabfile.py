@@ -140,7 +140,7 @@ def deploy():
 
 def deploy_local_data():
     """
-    Deploy the local data file to S3 (for electris pre-election.)
+    Deploy the local data files to S3.
     """
     _gzip_www()
     local(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
@@ -167,14 +167,6 @@ def bootstrap_races():
     with settings(warn_only=True):
         local('rm electris.db')
         local('cp initial_data/electris_initial.db electris.db')
-
-
-def update_polls():
-    """
-    Updates state predictions for presidential races against HuffPo's polling API.
-    """
-    i.update_polls()
-    write_www_files()
 
 
 def update_backchannel():
