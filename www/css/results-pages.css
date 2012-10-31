@@ -42,19 +42,32 @@
 }
 
 
-/* Media queries */
-@media (min-width: 768px) {
+/* AP MAP */
+.ap-map iframe {
+	margin: 0; padding: 0;
+	border: none;
+	height: 896px;
 }
+
+
+/* Media queries */
 @media (min-width: 1200px) {
 }
-@media (min-width: 980px) and (max-width: 1199px) {
-}
 @media (max-width: 979px) {
+	.ap-map iframe {
+		height: 896px;
+	}
 }
 @media (max-width: 979px) and (min-width: 768px) {
 }
 @media (max-width: 767px) {
+	.ap-map iframe {
+		height: 500px;
+	}
 }
 @media (max-width: 480px) {
+	.ap-map iframe {
+		height: 2000px;
+	}
 	.navbar { margin-bottom: 10px; }
 }
