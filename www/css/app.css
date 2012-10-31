@@ -750,7 +750,11 @@ a.btn { color: #fff; cursor: pointer; }
 #live-blog .more { white-space: nowrap; }
 
 /* audio player */
-#audio { color: #FFF; border: 1px solid rgba(51,51,51,.8); padding:4px 0 0 0; font-family:Arial,sans-serif; margin:55px 0 15px 15px; }
+body.no-audio #audio { display:none; }
+body.no-audio #comingsoon { display:block; }
+body.audio #audio { display:block; }
+body.audio #comingsoon { display:none; }
+#audio { color: #FFF; border: 1px solid rgba(51,51,51,.8); padding:4px 0 0 0; font-family:Arial,sans-serif; margin:55px 0 15px 15px; display:none; }
 #audio #jwplayer_wrapper { float:left; margin: 0 10px 4px 4px; }
 #audio #audio-htmlstream { display:none; }
 #audio #audio-htmlcontrol { display:none; background-image: url(../img/playButtonOver.png); height:41px; width:41px; float:left; margin: 0 10px 4px 4px; }
