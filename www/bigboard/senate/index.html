@@ -71,13 +71,15 @@
                         var incumbent = '';
                         var winner = '';
                         var float_position = 'right';
+                        var angus = '';
                         if (candidate.winner == true) { winner = 'winner'; }
                         if (candidate.incumbent == true) { incumbent = 'incumbent'; }
                         if (index == 1){ float_position = 'left'; }
                         if (district.district_slug == 'vt0') { float_position = 'left'; }
+                        if (candidate.first_name == 'Angus') { angus = '<span class="tiny">&nbsp;(Other)</span>' }
                     %>
                         <li class="<%= party_class %> <%= incumbent %> <%= winner %> candidate <%= district.district_slug %> candidate-<%= candidate.npid %>">
-                            <%= candidate.first_name %>&nbsp;<%= candidate.last_name %>&nbsp;
+                            <%= candidate.first_name %>&nbsp;<%= candidate.last_name %><%= angus %>&nbsp;
                             <span class="vote-percent <%= float_position %>"><%= candidate.vote_percent %></span>
                         </li>
                     <% }); %>

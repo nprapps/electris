@@ -29,12 +29,10 @@
         <script id="banner-template" type="text/template">
             <ul>
                 <li id="dem_sec">
-                    <h2>Dem <span class="total"><%= data.house.democrats.total %></span> <span class="flux"><%= data.house.democrats.delta %></span></h2>
-                    <p><span class="need_num"><%= data.house.democrats.needed_for_majority %></span> needed for majority</p>
+                    <h2>Dem <span class="total"><%= data.house.democrats.total %></span> Needs <span class="neednum"><%= data.house.democrats.needed_for_majority %></span></h2>
                 </li>
                 <li id="gop_sec">
-                    <h2>GOP <span class="total"><%= data.house.republicans.total %></span> <span class="flux"><%= data.house.republicans.delta %></span></h2>
-                    <p><span class="need_num"><%= data.house.republicans.needed_for_majority %></span> needed for majority</p>
+                    <h2>GOP <span class="total"><%= data.house.republicans.total %></span> Needs <span class="neednum"><%= data.house.republicans.needed_for_majority %></span></h2>
                 </li>
                 <li id="ind_sec">
                     <h2>Other <span class="total"><%= data.house.other.total %></span> <span class="flux"><%= data.house.other.delta %></span></h2>

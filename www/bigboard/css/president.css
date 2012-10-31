@@ -56,6 +56,7 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 
 .percentTime{ border-right:solid #666 1px; width:12%; overflow:hidden; font-size:12px; text-align:center;}
 .percentTime.called { background-color:goldenrod; color:#000; }
+.full .percentTime.called { height:24px; }
 .weighted li.demPercent{width:15%;overflow:hidden;}
 .weighted li.gopPercent{width:15%;overflow:hidden;}
 

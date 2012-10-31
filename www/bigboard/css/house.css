@@ -1,3 +1,13 @@
+span.neednum{color:#fff; line-height:20px;padding:0 4px;}
+#banner li span.total { font-size:20px; letter-spacing:-1px; margin-top:3px; }
+#banner li span.neednum { font-size:20px; letter-spacing:-1px; margin-top:3px; }
+#banner li#dem_sec span.neednum{background-color:#145c7b;}
+#banner li#gop_sec span.neednum{background-color:#8f0b00;}
+#banner li h2{padding-top:4px;}
+#banner li#dem_sec { width:197px; }
+#banner li#gop_sec { width:187px; }
+#banner li#nc_sec { width:155px; }
+#banner h1 {padding-top:6px;}
 .district {
     font-size:11px;
     float:left;
@@ -56,15 +66,15 @@
 }
 li.swap {
     border:1px solid #fff;
-    height:16px;
-    line-height:16px;
+    height:17px;
+    line-height:17px;
     width:166px;
 }
 ul.swap .district {
     background-color:#fff;
     color:#000;
-    height:18px;
-    line-height:18px;
+    height:19px;
+    line-height:19px;
 }
 .candidate-1581,
 .candidate-535,

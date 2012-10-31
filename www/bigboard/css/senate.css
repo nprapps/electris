@@ -30,6 +30,7 @@
 .right {
     float:right;
 }
+span.tiny { font-size:13px; text-transform:uppercase; }
 /* Some people have long names. */
 .candidate-51916 {
     font-size:14px;
