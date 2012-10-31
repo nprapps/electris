@@ -46,7 +46,7 @@ a:hover, a:active { color: #36c; }
 .sponsor300 { overflow: hidden; width: 300px; margin: 0 auto; }
 .adwrapper { zoom: 1; padding: 0 0 12px 0; }
 .sponsor300 p { margin: 0; font-size: 10px; color: #666; }
-.sponsor300 p.right { margin-top: 4px; font-style: italic; float: right; }
+.sponsor300 p.right { margin-top: 4px; font-style: italic; float: right; padding-right: 3px; }
 .sponsor300 p.left { float: left; margin-top: 4px; }
 .sponsor300 a { color: #666; }
 .NPRtablet #bigbox, .NPRphone #bigbox { display: none; }
