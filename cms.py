@@ -89,8 +89,8 @@ def president():
         return "Success."
 
 
-@app.route('/races/<house>/', methods=['GET', 'POST'])
-def house(house):
+@app.route('/races/<house>/<featured>/', methods=['GET', 'POST'])
+def house(house, featured):
     """
     Read/update list of house candidates.
     """
@@ -98,6 +98,10 @@ def house(house):
     house_slug = u'H'
     if house == 'senate':
         house_slug = u'S'
+
+    is_featured = False
+    if featured == u'featured':
+        is_featured = True
 
     if request.method == 'GET':
 
@@ -109,14 +113,24 @@ def house(house):
             .where(
                 Race.office_code == house_slug,
                 (Candidate.party == 'Dem') | (Candidate.party == 'GOP') | (Candidate.first_name == 'Angus'),
-                Candidate.last_name != 'Dill')\
-            .order_by(
+                Candidate.last_name != 'Dill')
+
+        if is_featured:
+            candidates = candidates.where(Race.featured_race == True)
+
+        candidates = candidates.order_by(
                 Race.state_postal.desc(),
                 Race.district_id.asc(),
                 Candidate.party.asc())
 
+        race_count = Race.select().where(Race.office_code == house_slug)
+
+        if is_featured:
+            race_count = race_count.where(Race.featured_race == True)
+
         context = {
             'candidates': candidates,
+            'count': race_count.count(),
             'house': house,
             'settings': settings
         }
