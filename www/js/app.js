@@ -458,35 +458,47 @@ $(function() {
 
         red_candidate_el.find(".combos .robotext").html(must_win_robotext(
             "Romney",
+            "Obama",
             red_combos,
             red_votes,
-            red_states_won 
+            red_states_won,
+            blue_states_won
         ));
 
         show_combos(red_keys, red_groups, "red", red_votes);
 
         blue_candidate_el.find(".combos .robotext").html(must_win_robotext(
             "Obama",
+            "Romney",
             blue_combos,
             blue_votes,
-            blue_states_won
+            blue_states_won,
+            red_states_won
         ));
 
         show_combos(blue_keys, blue_groups, "blue", blue_votes);
     }
 
-    function must_win_robotext(candidate, combos, votes, states_won) {
+    function must_win_robotext(candidate, opponent, combos, votes, states_won, opponent_won) {
         /*
          * Generate robotext describing election scenario.
          */
         // Winner
         if (votes >= 270) {
-            return "If " + candidate + " wins the states you have selected then he will <strong>win the Electoral College</strong>.";
+            if (states_won.length == 0) {
+                return candidate + " <strong>wins</strong> the Electoral College.";
+            } else {
+                return "If " + candidate + " wins the states you have selected then he will <strong>win the Electoral College</strong>.";
+            }
         }
 
         // Loser
-        if (simplest_combo_length == 0) {
-            return candidate + " <strong>cannot win</strong> the Electoral College.";
+        if (combos.length == 0) {
+            if (opponent_won.length == 0) {
+                return candidate + " is <strong>cannot win</strong> the Electoral College.";
+            } else {
+                return "If " + opponent + " wins the states you have selected then " + candidate + " <strong>cannot win</strong> the Electoral College.";
+            }
         }
 
         // One one-state combo left
@@ -600,9 +612,18 @@ $(function() {
 
         // NB: http://api.jquery.com/scrollTop/#comment-101347923
         modal_body.scrollTop(0);
+
+        var target = $($(this).data("target"))
+        var offset = -35;
+
+        // On small screens we jump to top of candidate list instead
+        if (window_width <= 480) {
+            target = target.parent().parent();
+            offset = -45;
+        }
         
         modal_body.animate({
-            scrollTop: $($(this).data("target")).position().top - 35
+            scrollTop: target.position().top + offset
         }, 1000);
     });
 
@@ -1042,7 +1063,7 @@ $(function() {
          * Fetch the latest river of news.
          */
 		$.ajax({
-		    url: 'http://www.npr.org/buckets/agg/series/2012/elections/riverofnews/riverofnews.jsonp',
+		    url: 'http://www-cf.nprdev.org/buckets/agg/series/2012/elections/riverofnews/riverofnews.jsonp',
 		    dataType: 'jsonp',
 		    jsonpCallback: 'nprriverofnews',
 		    success: function(data){
@@ -1070,7 +1091,7 @@ $(function() {
 			}
 		});
 
-		$.each(data.news.regular, function(j, k) {
+		$.each(data.news.regular.slice(0, 20), function(j, k) {
 			if (k.News.status) {
 				new_news.push(BLOG_POST_TEMPLATE({
                     post: k.News,
