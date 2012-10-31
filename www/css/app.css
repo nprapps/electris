@@ -811,7 +811,9 @@ body.audio #comingsoon { display:none; }
     #results-bar.affix .results-group .total span { font-size: 20px; line-height: 22px; }
     #results-bar.affix #pres-header { margin-left: 0; }
     #results-bar.affix .towin span { line-height: 20px; font-size: 14px; margin-bottom: 2px; }
-    #results-bar.affix + .row { margin-top:120px; font-size: 14px; }
+    /* Add some padding to the next visible div when the
+       results bar is pulled out of the document flow */
+    #results-bar.affix ~ #creamy-filling { padding-top:120px; font-size: 14px; }
 
 	#results-bar.affix .electris-alert { 
 		display: block;
