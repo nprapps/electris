@@ -27,6 +27,7 @@ $(function() {
     var electris_el = $("#electris");
     var electris_skinny_el = $("#electris-skinny");
     var electris_line_el = electris_el.find(".line");
+    var electris_skinny_line_el = electris_skinny_el.find(".line");
     var alert_el = $(".electris-alert");
     var results_el = $("#incoming");
     var maincontent_el = $("#the-stuff");
@@ -47,6 +48,7 @@ $(function() {
     var incoming_el = $(".pres-watching");
     var closing_el = $(".pres-closing");
     var live_blog_el = $("#live-blog-items");
+    var live_blog_more_el = $('#live-blog-more');
     var combinations_modal_el = $("#combinations-modal");
 
     /* State data */
@@ -248,40 +250,39 @@ $(function() {
         var height = Math.max(default_height, vote_height);
         bucket_els.css("height", height + "em");
 
-        if (!wide_mode) {
-            // In skinny mode, the 270 line will never move
-            return;
+		var line_height = .1;
+        var header_height = 0;
+
+        if (wide_mode) {
+			// Compute current position of 270 line
+			header_height = 3;
+			if (window_width == 724) {
+				header_height = 4;
+			} else if (window_width < 724) {
+				header_height = 8;
+			}
+			var bucket_pos = blue_bucket_el.position();
+			var bucket2_pos = red_bucket_el.position();
+			var line_left = 0;
+			var line_width = '100%';
+	
+			if (window_width >= 724) {
+				line_left = bucket_pos.left;
+				line_width = (bucket2_pos.left + red_bucket_el.width()) - bucket_pos.left + 'px';
+			}
         }
 
-        // Compute current position of 270 line
+		if ($.browser.msie) {
+			var line_top = header_height + default_height; 
+		} else {
+			var line_top = header_height + height - default_height + line_height;
+		}
 
-        var header_height = 3;
-        
-        if (window_width == 724) {
-            header_height = 4;
-        } else if (window_width < 724) {
-            header_height = 8;
-        }
-
-    	var line_height = .1;
-
-        if ($.browser.msie) {
-            var line_top = header_height + default_height; 
-        } else {
-    	    var line_top = header_height + height - default_height + line_height;
-        }
-
-    	var bucket_pos = blue_bucket_el.position();
-    	var bucket2_pos = red_bucket_el.position();
-    	var line_left = 0;
-    	var line_width = '100%';
-
-        if (window_width >= 724) {
-            line_left = bucket_pos.left;
-            line_width = (bucket2_pos.left + red_bucket_el.width()) - bucket_pos.left + 'px';
-        }
-
-    	electris_line_el.css('top', line_top + 'em').css('left', line_left + 'px').width(line_width);
+        if (wide_mode) {
+			electris_line_el.css('top', line_top + 'em').css('left', line_left + 'px').width(line_width);
+		} else {
+			electris_skinny_line_el.css('top', line_top + 'em');
+		}
     }
 
     $(window).resize(resize_buckets);
@@ -1148,6 +1149,8 @@ $(function() {
     /* RIVER OF NEWS */
 
     var RIVER_POLLING_INTERVAL = 30000;
+	var RIVER_INCREMENT = 25;
+	var RIVER_DATA = []
 
 	function fetch_news() {
         /*
@@ -1161,16 +1164,17 @@ $(function() {
 				if (RIVER_TIMER === null) {
 					RIVER_TIMER = window.setInterval(fetch_news, RIVER_POLLING_INTERVAL);
 				}
-
-				update_news(data);
+				RIVER_DATA = data;
+				update_news();
 		    }
 		})
 	}
 
-	function update_news(data) {
+	function update_news() {
         /*
          * Update the river of news feed.
          */
+        var data = RIVER_DATA;
 		var new_news = [];
 
 		$.each(data.news.sticky, function(j, k) {
@@ -1182,7 +1186,7 @@ $(function() {
 			}
 		});
 
-		$.each(data.news.regular.slice(0, 20), function(j, k) {
+		$.each(data.news.regular.slice(0, RIVER_INCREMENT), function(j, k) {
 			if (k.News.status) {
 				new_news.push(BLOG_POST_TEMPLATE({
                     post: k.News,
@@ -1196,6 +1200,15 @@ $(function() {
 
         new_news = null;
 	}
+	
+	live_blog_more_el.click(function() {
+		RIVER_INCREMENT += 25;
+		if (RIVER_INCREMENT > RIVER_DATA.news.regular.length) {
+			RIVER_INCREMENT = RIVER_DATA.news.regular.length;
+			$(this).hide();
+		}
+		update_news();
+	});
 
 
     /* BALANCE OF POWER */
