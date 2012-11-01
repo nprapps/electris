@@ -19,7 +19,7 @@ HOUSE_TIMES = [
 PRESIDENT_TIMES = [
     {'time': 1352246400, u'states': [u'GA', u'IN', u'KY', u'SC', u'VA', u'VT']},
     {'time': 1352248200, u'states': [u'NC', u'OH', u'WV']},
-    {'time': 1352250000, u'states': [u'AL', u'CT', u'DE', u'FL', u'IL', u'MA', u'MD', u'MO', u'MS', u'NH', u'NJ', u'OK', u'OR', u'PA', u'RI', u'TN']},
+    {'time': 1352250000, u'states': [u'AL', u'CT', u'DE', u'FL', u'IL', u'MA', u'ME', u'MD', u'MO', u'MS', u'NH', u'NJ', u'OK', u'OR', u'PA', u'RI', u'TN']},
     {'time': 1352251800, u'states': [u'AR']},
     {'time': 1352253600, u'states': [u'AZ', u'CO', u'KS', u'LA', u'MI', u'MN', u'ND', u'NE', u'NM', u'NY', u'TX', u'WI']},
     {'time': 1352257200, u'states': [u'IA', u'MT 1', u'NV', u'UT']},

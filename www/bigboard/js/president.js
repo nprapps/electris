@@ -39,7 +39,6 @@ $(function(){
     var countdown = polling_interval;
     function refresh_countdown() {
         countdown -= 1;
-        $("#refreshing").html(countdown + "s");
         if (countdown === 0) {
             nukeTarget('#candidates .full');
             nukeTarget('#candidates .weighted');

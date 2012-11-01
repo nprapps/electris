@@ -97,8 +97,8 @@ def bootstrap_bop_data():
             'not_called': 0
         },
         'president': {
-            'democrats': {'total': 0, 'needed_for_majority': 271},
-            'republicans': {'total': 0, 'needed_for_majority': 271}
+            'democrats': {'total': 0, 'needed_for_majority': 270},
+            'republicans': {'total': 0, 'needed_for_majority': 270}
         }
     }
 

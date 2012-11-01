@@ -52,16 +52,24 @@
                 <%
                     var winner = '';
                     var called = '';
+                    var state_name = state.name
                     if (state.call == 'd') { winner = 'dem'; }
                     if (state.call == 'r') { winner = 'gop'; }
                     if (winner != '') { called = 'called'; }
+                    state_name = state_name.replace('North', 'N.');
+                    state_name = state_name.replace('New', 'N.');
+                    state_name = state_name.replace('West', 'W.');
+                    state_name = state_name.replace('South', 'S.');
+                    state_name = state_name.replace('Statewide', '');
+                    state_name = state_name.replace('Massachusetts', 'Mass.');
+                    state_name = state_name.replace('Pennsylvania', 'Penn.');
                 %>
                 <ul class="allstates">
                 	<li class="percentTime <%= called %>">
                     <%= state.status %>
                     </li>
                     <li class="district"></li>
-                    <li class="state <%= winner %>"><span class="name"><%= state.abbr %></span>
+                    <li class="state <%= winner %>"><span class="name"><%= state_name %></span>
                         <span class="votes"> (<%= state.electoral_votes %>)</span></li>
                     <li class="demPercent"><%= state.dem_vote_percent %></li>
                     <li class="gopPercent"><%= state.rep_vote_percent %></li>
@@ -73,16 +81,24 @@
             <%
                 var winner = '';
                 var called = '';
+                var state_name = state.name;
                 if (state.call == 'd') { winner = 'dem'; }
                 if (state.call == 'r') { winner = 'gop'; }
                 if (winner != '') { called = 'called'; }
+                state_name = state_name.replace('North', 'N.');
+                state_name = state_name.replace('New', 'N.');
+                state_name = state_name.replace('West', 'W.');
+                state_name = state_name.replace('South', 'S.');
+                state_name = state_name.replace('Statewide', '');
+                state_name = state_name.replace('Massachusetts', 'Mass.');
+                state_name = state_name.replace('Pennsylvania', 'Penn.');
             %>
             <ul class="swing">
                 <li class="percentTime <%= called %>">
                 <%= state.status %>
                 </li>
                 <li class="district"></li>
-                <li class="state <%= winner %>"><span><%= state.name %></span> (<%= state.electoral_votes %>)</li>
+                <li class="state <%= winner %>"><span><%= state_name %></span> (<%= state.electoral_votes %>)</li>
                 <li class="demPercent"><%= state.dem_vote_percent %></li>
                 <li class="gopPercent"><%= state.rep_vote_percent %></li>
             </ul>

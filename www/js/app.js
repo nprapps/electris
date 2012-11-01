@@ -283,6 +283,11 @@ $(function() {
 		} else {
 			electris_skinny_line_el.css('top', line_top + 'em');
 		}
+
+        // Kill affix plugin for small displays
+        if (window_width < 768){
+            $("#results-bar").removeAttr('data-spy');
+        }
     }
 
     $(window).resize(resize_buckets);
