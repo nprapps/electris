@@ -285,7 +285,7 @@ $(function() {
 		}
 
         // Kill affix plugin for small displays
-        if (window_width < 480){
+        if (window_width < 768){
             $("#results-bar").removeAttr('data-spy');
         }
     }
