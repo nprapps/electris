@@ -129,7 +129,6 @@ def get_ap_district_data(state_code):
 
 def parse_ap_data(data, ne_data, me_data):
     for i, row in enumerate(data):
-        print i
         row_data = row.split(';')
         race = row_data[10]
         if race == 'President':
@@ -147,6 +146,8 @@ def parse_ap_data(data, ne_data, me_data):
 
         if race == 'President':
             parse_president_district('NE', row_data)
+
+    sleep(1)
 
     for row in me_data:
         row_data = row.split(';')
