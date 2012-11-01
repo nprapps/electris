@@ -376,9 +376,9 @@ def deploy_audio(filename):
     Deploys an audio status file to status.json
     """
     require('settings', provided_by=[production, staging])
-    local('s3cmd -P put initial_data/' + filename + ' s3://%(s3_bucket)s/%(deployed_name)s/status.json' % env)
+    local('s3cmd -P --add-header=Cache-control:max-age=0 put initial_data/' + filename + ' s3://%(s3_bucket)s/%(deployed_name)s/status.json' % env)
     if env.alt_s3_bucket:
-        local('s3cmd -P put initial_data/' + filename + ' s3://%(alt_s3_bucket)s/%(deployed_name)s/status.json' % env)
+        local('s3cmd -P --add-header=Cache-control:max-age=0 put initial_data/' + filename + ' s3://%(alt_s3_bucket)s/%(deployed_name)s/status.json' % env)
 
 
 def audio_off():

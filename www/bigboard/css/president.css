@@ -1,5 +1,5 @@
 body {font-weight:bold;}
-#banner {height:40px;}
+#banner {height:38px;}
 #banner h1 {width:16%}
 #banner li {text-transform:uppercase; width:40%;}
 span.neednum{color:#fff; line-height:20px;padding:0 4px;}
@@ -7,12 +7,12 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 #banner li#dem_sec span.neednum{background-color:#145c7b;}
 #banner li#gop_sec span.need {color:#8f0b00;}
 #banner li#gop_sec span.neednum{background-color:#8f0b00;}
-#banner li h2{padding-top:4px;}
+#banner li h2{line-height: 38px;}
 
 .swing {
     width:400px;
     text-transform:uppercase;
-    height:29px;
+    height:28px;
     border-top:1px solid #999;
     display:block;
 }
@@ -20,7 +20,7 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
     display:block;
     float:left;
     font-size:16px;
-    line-height:29px;
+    line-height:28px;
     text-indent:4px;
     padding:0 6px 0 0;
 }
@@ -28,7 +28,7 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 .weighted li:first-child{text-indent:4px;}
 .weighted ul.swing li.state{width:45%;white-space:nowrap;overflow:hidden;}
 .weighted ul {clear:left;}
-.weighted {border-bottom: 1px #999 solid; margin-bottom: 5px;}
+.weighted {border-bottom: 1px #999 solid; margin-bottom: 2px;}
 
 
 .allstates:nth-child(odd){background-color:#444;}
