@@ -129,6 +129,7 @@ def get_ap_district_data(state_code):
 
 def parse_ap_data(data, ne_data, me_data):
     for i, row in enumerate(data):
+        print i
         row_data = row.split(';')
         race = row_data[10]
         if race == 'President':
@@ -136,9 +137,9 @@ def parse_ap_data(data, ne_data, me_data):
         if race == 'U.S. House' or race == 'U.S. Senate':
             parse_house(row_data)
 
-        # Every 100 rows sleep briefly so incoming CMS writes can happen
-        if i % 100 == 0:
-            sleep(0.5)
+        # Every n rows sleep briefly so incoming CMS writes can happen
+        if i % 50 == 0:
+            sleep(1)
 
     for row in ne_data:
         row_data = row.split(';')
