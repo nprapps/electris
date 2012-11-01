@@ -57,7 +57,10 @@ def calculate_president_bop(data, votes):
 
 def calculate_house_bop(data):
     data['total'] += 1
-    data['needed_for_majority'] -= 1
+    majority = data['needed_for_majority'] - 1
+    if majority < 0:
+        majority = 0
+    data['needed_for_majority'] = majority
     return data
 
 
