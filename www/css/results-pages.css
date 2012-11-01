@@ -5,6 +5,32 @@
 }
 
 
+/* SUBNAV */
+.subnav {
+	margin-bottom: 18px;
+}
+.subnav ul { margin: 0; padding: 0; list-style: none; }
+.subnav ul li { 
+	margin: 0 0 0 15px; padding: 0 0 0 15px; 
+	display: inline-block;
+	border-left: 1px solid #CCC;
+	font-size: 12px; line-height: 12px;
+	color: #ccc;
+}
+.subnav ul li a { color: #999; }
+.subnav ul li.title {
+	text-indent: -999px;
+	margin-left: 0; padding-left: 0;
+	border-left: 0;
+}
+.subnav ul li.title a {
+	display: block;
+	width: 110px;
+	height: 12px;
+	background: url('../img/hed-election-night-tiny.gif') no-repeat;
+}
+
+
 /* INTRO */
 .intro { color: #333; margin-bottom: 24px; }
 .intro h1 { font-size: 32px; line-height: 1.125em; margin-bottom: .3em; font-weight: normal; color: #222; }
