@@ -159,7 +159,7 @@ def deploy_local_data():
         local(('s3cmd -P --add-header=Cache-control:max-age=0 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
 
-def deploymnet_cron():
+def deployment_cron():
     """
     Deploy new data to S3 faster than we can with cron.
     """
