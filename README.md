@@ -27,7 +27,7 @@ Cron jobs:
 
 ```
 */2 * * * * cd /home/ubuntu/apps/electris/repository && ../virtualenv/bin/fab production update_ap_data
-* * * * * cd /home/ubuntu/apps/electris/repository && ../virtualenv/bin/fab production update_backchannel deploy_local_data
+* * * * * cd /home/ubuntu/apps/electris/repository && ../virtualenv/bin/fab production update_backchannel deploy_local_data backup_electris_db
 ```
 
 Deploying prediction data
