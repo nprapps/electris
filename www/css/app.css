@@ -174,9 +174,7 @@ a.btn { color: #fff; cursor: pointer; }
 .results-group .total { text-align: center; width: 45%; float: left; }
 .results-group .total span { 
 	display: block; 
-	font: 28px/28px Georgia, serif;
-	margin-top: -7px;
-	margin-bottom: 3px;
+	font-size: 22px; line-height: 24px;
 }
 .results-group .blue .total span { color: #3d7fa6; }
 .results-group .red .total span { color: #a23520; }
@@ -188,7 +186,7 @@ a.btn { color: #fff; cursor: pointer; }
 }
 .results-group .towin span { 
 	display: block;
-	font: 15px/21px Georgia, serif;
+	font-size: 15px; line-height: 21px;
 	background-color: #F7E39B; color: #77631B; 
 	border-radius: 4px;
 	margin-bottom: 3px;
