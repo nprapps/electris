@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="../css/president.css" />
     </head>
     <body>
-        <div id="banner"><h1>President</h1></div>
+        <div id="banner"></div>
         <div id="candidates">
             <div class="weighted"></div>
             <div class="full"></div>
@@ -33,6 +33,7 @@
         <![endif]-->
 
         <script id="banner-template" type="text/template">
+            <h1>President</h1>
             <ul>
                 <li id="dem_sec">
                     <h2>Obama <span class="total"><%= data.president.democrats.total %></span> <span class="need">Needs </span><span class="neednum"><%= data.president.democrats.needed_for_majority %></span></h2>
