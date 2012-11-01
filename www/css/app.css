@@ -241,6 +241,7 @@ a.btn { color: #fff; cursor: pointer; }
 /* Presidential results */
 #incoming { margin-top:20px; }
 .pres-results { margin-bottom: 24px; }
+#electris .pres-results { margin-bottom: 0; height: 620px; overflow: auto; }
 .pres-results h5 { margin-bottom: 3px; }
 .pres-results .results { position: relative; }
 .pres-results .results ul, #closing-modal ul { margin: 0 0 18px 0; padding: 0; list-style: none; }
@@ -866,6 +867,8 @@ body.audio #comingsoon { display:none; }
     }
 	#pres-header i { display: inline; }
 	
+	#electris .pres-results { height: 693px; }
+
 	.states { font-size: 23px; }
 	.combos { width: 7.5em; }
     .state i {
@@ -945,6 +948,8 @@ body.audio #comingsoon { display:none; }
 	#pres-header .blue, #pres-header .red  { background: none; }
 	#pres-header .wrapper { margin-left: 0; }
     
+	#electris .pres-results { height: 1330px; }
+
 	.states { font-size: 20px; }
     .state i {
         width:19px;
@@ -992,6 +997,8 @@ body.audio #comingsoon { display:none; }
     #comingsoon { margin-top:45px; }
     #results-bar.affix { position:static; }
     
+	#electris .pres-results { height: auto; }
+
     #tabs { display:block; margin-top:20px; }
     .tab-pane { display:none; }
     .tab-pane.active { display:block; }
@@ -1008,6 +1015,8 @@ body.audio #comingsoon { display:none; }
         margin-bottom:1px;
         height:9px;
     }
+    
+    .candidate.blue .combos, .candidate.red .combos { float: none; }
 
 	.line b {background: url('../img/270-line-767.png') no-repeat center center; height: 42px;margin-top: -10px;}
 
