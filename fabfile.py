@@ -153,6 +153,7 @@ def deploy_local_data():
     """
     Deploy the local data files to S3.
     """
+    write_www_files()
     _gzip_www()
     local(('s3cmd -P --add-header=Cache-control:max-age=0 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
     if env.alt_s3_bucket:
@@ -266,7 +267,6 @@ def update_ap_data():
     me_data = i.get_ap_district_data('ME')
 
     i.parse_ap_data(data, ne_data, me_data)
-    write_www_files()
 
 
 def update_fake_ap_data():
