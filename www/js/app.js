@@ -710,6 +710,13 @@ $(function() {
         var called_ul = called_el.find("ul");
         var incoming_ul = incoming_el.find("ul");
         var closing_ul = $("#closing-modal ul");
+        var closing_modal_el = $("#closing-modal");
+        var closing_toggle_els = $(".show-poll-closings");
+
+        closing_toggle_els.click(function(){
+            closing_modal_el.modal();
+            return false;
+        });
 
         _.each(states, function(state) { 
             // Convert poll closing time to a moment() 
@@ -1234,7 +1241,7 @@ $(function() {
     fetch_states();
     fetch_news();
     update_memetracker(true);
-    setInterval(update_memetracker, MEME_UPDATE_SECS * 1000);
+    //setInterval(update_memetracker, MEME_UPDATE_SECS * 1000);
     update_bop();
     setInterval(update_bop, POLLING_INTERVAL);
 
