@@ -326,7 +326,7 @@ a.btn { color: #fff; cursor: pointer; }
     margin-top: 20px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-#electris { margin-top: 20px; display: none; }
+#electris { margin-top: 30px; display: none; }
 
 #electris:after,
 #electris-skinny:after,
@@ -469,9 +469,10 @@ a.btn { color: #fff; cursor: pointer; }
 	background-color: #eee;
 	float: left;
 	margin-right: 3%;
-	padding: .25em 0 .75em 0;
-	font: normal 20px Georgia, serif;
+	padding: .5em 0;
+	font-size: 20px;
 	border-radius: 3px;
+	font-weight: normal;
 }
 
 .vote-tallies .needed .bignum { background-color: #f7e39b; color: #77631b; }
@@ -1046,7 +1047,8 @@ body.audio #comingsoon { display:none; }
 		float: none; text-align: center;
 	}
 	.vote-tallies .bignum {
-		width: auto; font-size: 14px; font-weight: bold; float: none;
+		width: auto; font-size: 14px; float: none;
+		padding-top: 0;
 	}
 	.vote-tallies span { 
 		width: auto; float: none; margin-top: 0; text-align: center; padding-top: 3px;
