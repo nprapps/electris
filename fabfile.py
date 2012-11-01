@@ -146,6 +146,13 @@ def deploy_local_data():
     local(('s3cmd -P --add-header=Cache-control:max-age=0 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
 
 
+def backup_electris_db():
+    """
+    Backup the running electris database to S3.
+    """
+    local(('s3cmd -P --guess-mime-type put electris.db s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+
+
 def recreate_tables():
     """
     Private function to delete and recreate a blank database.
