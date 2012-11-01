@@ -1,6 +1,6 @@
-span.neednum{color:#fff; line-height:20px;padding:0 4px;}
-#banner li span.total { font-size:20px; letter-spacing:-1px; margin-top:3px; }
-#banner li span.neednum { font-size:20px; letter-spacing:-1px; margin-top:3px; }
+span.neednum{color:#fff; line-height:18px;padding:0 4px;}
+#banner li span.total { font-size:18px; letter-spacing:-1px; margin-top:3px; }
+#banner li span.neednum { font-size:18px; letter-spacing:-1px; margin-top:3px; }
 #banner li#dem_sec span.neednum{background-color:#145c7b;}
 #banner li#gop_sec span.neednum{background-color:#8f0b00;}
 #banner li h2{padding-top:4px;}

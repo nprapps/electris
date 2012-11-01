@@ -1241,7 +1241,7 @@ $(function() {
     fetch_states();
     fetch_news();
     update_memetracker(true);
-    //setInterval(update_memetracker, MEME_UPDATE_SECS * 1000);
+    setInterval(update_memetracker, MEME_UPDATE_SECS * 1000);
     update_bop();
     setInterval(update_bop, POLLING_INTERVAL);
 
