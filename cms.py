@@ -91,8 +91,9 @@ def president():
         return "Success."
 
 
+@app.route('/races/<house>/', methods=['GET', 'POST'])
 @app.route('/races/<house>/<featured>/', methods=['GET', 'POST'])
-def house(house, featured):
+def house(house, featured=None):
     """
     Read/update list of house candidates.
     """
