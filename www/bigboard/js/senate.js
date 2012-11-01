@@ -26,7 +26,7 @@ $(function(){
     var polling_interval = 15;
     var countdown = polling_interval;
 
-   /* function refresh_countdown() {
+    function refresh_countdown() {
         countdown -= 1;
         if (countdown === 0) {
             nukeTarget('#candidates');
@@ -35,5 +35,5 @@ $(function(){
             countdown = polling_interval + 1;
         }
     }
-    setInterval(refresh_countdown, 1000);*/
+    setInterval(refresh_countdown, 1000);
 });
