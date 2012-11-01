@@ -2,6 +2,7 @@
 
 import datetime
 import json
+from time import sleep
 
 import boto
 from boto.s3.key import Key
@@ -157,6 +158,14 @@ def deploy_local_data():
     if env.alt_s3_bucket:
         local(('s3cmd -P --add-header=Cache-control:max-age=0 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
+
+def deploymnet_cron():
+    """
+    Deploy new data to S3 faster than we can with cron.
+    """
+    while True:
+        deploy_local_data()
+        sleep(5)
 
 def backup_electris_db():
     """
