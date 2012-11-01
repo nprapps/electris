@@ -156,6 +156,9 @@ def write_president_json():
     """
     Outputs the president json file for bigboard's frontend.
     """
+    now = datetime.datetime(2012, 11, 7, 3, 35)
+    # now = datetime.datetime.now(tz=pytz.utc)
+
     with open('www/president.json', 'w') as f:
         objects = []
         for timezone in time_zones.PRESIDENT_TIMES:
@@ -170,6 +173,8 @@ def write_president_json():
                         state_dict['dem_vote_percent'] = state.dem_vote_percent()
                         state_dict['human_gop_vote_count'] = state.human_rep_vote_count()
                         state_dict['human_dem_vote_count'] = state.human_dem_vote_count()
+                        state_dict['called'] = state.called
+                        state_dict['winner'] = state.winner
 
                         if state_dict['npr_call'] != 'n' and state_dict['npr_call'] != 'u':
                             state_dict['call'] = state_dict['npr_call']
@@ -184,6 +189,30 @@ def write_president_json():
                             state_dict['called_at'] = None
                             state_dict['called_by'] = None
 
+                        etnow = now - timedelta(hours=5)
+                        call_time = None
+                        if state_dict['called_at'] != None:
+                            call_time = datetime.datetime.strptime(state_dict['called_at'].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+
+                        if datetime.datetime.fromtimestamp(timezone['time']) > etnow:
+                            # close_time = state.polls_close - timedelta(hours=5)
+                            # state_dict['status_tag'] = 'Poll closing time.'
+                            # state_dict['status'] = close_time.strftime('%I:%M').lstrip('0')
+                            if state_dict['called_at'] != None:
+                                state_dict['status_tag'] = 'Called time.'
+                                state_dict['status'] = call_time.strftime('%I:%M').lstrip('0')
+                            else:
+                                state_dict['status_tag'] = 'Poll closing time.'
+                                state_dict['status'] = '&nbsp;'
+
+                        if datetime.datetime.fromtimestamp(timezone['time']) < etnow:
+                            if state_dict['called_at'] != None:
+                                state_dict['status_tag'] = 'Called time.'
+                                state_dict['status'] = call_time.strftime('%I:%M').lstrip('0')
+                            else:
+                                state_dict['status_tag'] = 'Percent reporting.'
+                                state_dict['status'] = u'%s' % state.percent_reporting()
+
                         timezone_dict['states'].append(state_dict)
             objects.append(timezone_dict)
         f.write(json.dumps(objects))
@@ -195,7 +224,7 @@ def _generate_json(house):
     * House is a two-tuple ('house', 'H'), e.g., URL slug and DB representation.
     """
     objects = []
-    now = datetime.datetime(2012, 11, 7, 1, 35)
+    now = datetime.datetime(2012, 11, 7, 3, 35)
     # now = datetime.datetime.now(tz=pytz.utc)
 
     for timezone in settings.CLOSING_TIMES:
@@ -230,8 +259,13 @@ def _generate_json(house):
                 # close_time = district.poll_closing_time - timedelta(hours=5)
                 # district_dict['status_tag'] = 'Poll closing time.'
                 # district_dict['status'] = close_time.strftime('%I:%M').lstrip('0')
-                district_dict['status_tag'] = 'Poll closing time.'
-                district_dict['status'] = ''
+                if district_dict['called'] == True:
+                    etnow = now - timedelta(hours=5)
+                    district_dict['status_tag'] = 'Called time.'
+                    district_dict['status'] = etnow.strftime('%I:%M').lstrip('0')
+                else:
+                    district_dict['status_tag'] = 'Poll closing time.'
+                    district_dict['status'] = '&nbsp;'
 
             if district.poll_closing_time < now:
                 if district_dict['called'] == True:
@@ -240,7 +274,7 @@ def _generate_json(house):
                     district_dict['status'] = etnow.strftime('%I:%M').lstrip('0')
                 else:
                     district_dict['status_tag'] = 'Percent reporting.'
-                    district_dict['status'] = district.percent_reporting()
+                    district_dict['status'] = u'%s' % district.percent_reporting()
 
             district_dict['swap'] = False
 

@@ -32,12 +32,14 @@ Environments
 def production():
     env.settings = 'production'
     env.s3_bucket = 'apps.npr.org'
+    env.alt_s3_bucket = 'apps2.npr.org'
     env.hosts = ['cron.nprapps.org']
 
 
 def staging():
     env.settings = 'staging'
     env.s3_bucket = 'stage-apps.npr.org'
+    env.alt_s3_bucket = None
     env.hosts = ['cron-staging.nprapps.org']
 
 
@@ -86,6 +88,14 @@ def _deploy_to_s3():
         --recursive\
         --exclude *.json\
         sync gzip/ s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    if env.alt_s3_bucket:
+        local(('\
+            s3cmd -P\
+            --add-header=Content-encoding:gzip\
+            --guess-mime-type\
+            --recursive\
+            --exclude *.json\
+            sync gzip/ s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def _gzip_www():
@@ -144,6 +154,8 @@ def deploy_local_data():
     """
     _gzip_www()
     local(('s3cmd -P --add-header=Cache-control:max-age=0 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    if env.alt_s3_bucket:
+        local(('s3cmd -P --add-header=Cache-control:max-age=0 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def backup_electris_db():
@@ -151,6 +163,8 @@ def backup_electris_db():
     Backup the running electris database to S3.
     """
     local(('s3cmd -P --guess-mime-type put electris.db s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    if env.alt_s3_bucket:
+        local(('s3cmd -P --guess-mime-type put electris.db s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def recreate_tables():
@@ -203,6 +217,16 @@ def update_backchannel():
             policy='public-read',
             headers={'Cache-Control': 'max-age=0 no-cache no-store must-revalidate'}
         )
+        if env.alt_s3.bucket:
+            conn = boto.connect_s3()
+            bucket = conn.get_bucket(env.alt_s3_bucket)
+            key = Key(bucket)
+            key.key = '/'.join([env.deployed_name, TUMBLR_FILENAME])
+            key.set_contents_from_filename(
+                TUMBLR_FILENAME,
+                policy='public-read',
+                headers={'Cache-Control': 'max-age=0 no-cache no-store must-revalidate'}
+            )
 
 
 def write_www_files():
@@ -316,6 +340,8 @@ def deploy_audio(filename):
     """
     require('settings', provided_by=[production, staging])
     local('s3cmd -P put initial_data/' + filename + ' s3://%(s3_bucket)s/%(deployed_name)s/status.json' % env)
+    if env.alt_s3_bucket:
+        local('s3cmd -P put initial_data/' + filename + ' s3://%(alt_s3_bucket)s/%(deployed_name)s/status.json' % env)
 
 
 def audio_off():
@@ -345,4 +371,6 @@ def shiva_the_destroyer():
     """
     with settings(warn_only=True):
         local('s3cmd del --recursive s3://%(s3_bucket)s/%(deployed_name)s' % env)
+        if env.alt_s3_bucket:
+            local('s3cmd del --recursive s3://%(alt_s3_bucket)s/%(deployed_name)s' % env)
         run('rm -rf %(path)s')

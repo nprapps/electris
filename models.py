@@ -146,9 +146,9 @@ class Race(Model):
 
     def percent_reporting(self):
         try:
-            getcontext().prec = 3
+            getcontext().prec = 2
             percent = Decimal(self.precincts_reporting) / Decimal(self.total_precincts)
-            return round(float(percent) * 100, 2)
+            return round(float(percent) * 100, 0)
         except InvalidOperation:
             return 0.0
 
@@ -187,9 +187,9 @@ class Candidate(Model):
 
     def vote_percent(self):
         try:
-            getcontext().prec = 3
+            getcontext().prec = 2
             percent = Decimal(self.vote_count) / Decimal(self.race.total_votes())
-            return round(float(percent) * 100, 2)
+            return round(float(percent) * 100, 0)
         except InvalidOperation:
             return 0.0
 
@@ -250,6 +250,14 @@ class State(Model):
 
         return False
 
+    def percent_reporting(self):
+        try:
+            getcontext().prec = 3
+            percent = Decimal(self.precincts_reporting) / Decimal(self.total_precincts)
+            return unicode(round(float(percent) * 100, 0)).split('.')[0]
+        except InvalidOperation:
+            return 0.0
+
     def human_rep_vote_count(self):
         if self.rep_vote_count > 0:
             return intcomma(self.rep_vote_count)
@@ -266,14 +274,14 @@ class State(Model):
         if self.rep_vote_count > 0:
             getcontext().prec = 3
             percent = Decimal(self.rep_vote_count) / Decimal(self.dem_vote_count + self.rep_vote_count)
-            return round(float(percent) * 100, 2)
+            return round(float(percent) * 100, 1)
         else:
             return 0
 
     def dem_vote_percent(self):
         if self.dem_vote_count > 0:
-            getcontext().prec = 3
+            getcontext().prec = 2
             percent = Decimal(self.dem_vote_count) / Decimal(self.dem_vote_count + self.rep_vote_count)
-            return round(float(percent) * 100, 2)
+            return round(float(percent) * 100, 1)
         else:
             return 0
