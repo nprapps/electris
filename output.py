@@ -55,27 +55,19 @@ def calculate_president_bop(data, votes):
     return data
 
 
-def calculate_house_senate_bop(data, delta):
-    """
-    A function for calculating house/senate balance-of-power.
-    """
+def calculate_house_bop(data):
     data['total'] += 1
     data['needed_for_majority'] -= 1
     return data
 
 
-def calculate_house_senate_deltas(data, short):
-    """
-    Calculate the deltas for each house.
-    Our calculation is just adding up the flips for each side.
-    A flip is where the winner was not the incumbent or the predicted winner.
-    """
-    for race in Race.select().where(Race.office_code == short):
-        if race.called == True:
-            if race.flipped != None:
-                data[race.flipped[0]]['delta'] += 1
-                data[race.flipped[1]]['delta'] -= 1
-
+def calculate_senate_bop(data):
+    data['total'] += 1
+    data['delta'] += 1
+    majority = 51 - data['delta']
+    if majority < 0:
+        majority = 0
+    data['needed_for_majority'] = majority
     return data
 
 
@@ -91,9 +83,9 @@ def bootstrap_bop_data():
             'not_called': 0
         },
         'senate': {
-            'democrats': {'total': 0, 'needed_for_majority': 51, 'delta': 0},
-            'republicans': {'total': 0, 'needed_for_majority': 51, 'delta': 0},
-            'other': {'total': 0, 'needed_for_majority': 51, 'delta': 2},
+            'democrats': {'total': 0, 'needed_for_majority': 0, 'delta': 30},
+            'republicans': {'total': 0, 'needed_for_majority': 0, 'delta': 37},
+            'other': {'total': 0, 'needed_for_majority': 0, 'delta': 2},
             'not_called': 0
         },
         'president': {
@@ -128,8 +120,10 @@ def write_bop_json():
             (Race.ap_called == True) | (Race.npr_called == True), Race.office_code == short):
             for party, abbr in parties:
                 if race.winner == abbr:
-                    data[office][party] = calculate_house_senate_bop(data[office][party], data[office][party]['delta'])
-        data[office] = calculate_house_senate_deltas(data[office], short)
+                    if short == 'H':
+                        data[office][party] = calculate_house_bop(data[office][party])
+                    if short == 'S':
+                        data[office][party] = calculate_senate_bop(data[office][party])
 
         # Write the number of uncalled races.
         # First, the races where we accept AP calls but no calls have come in.
