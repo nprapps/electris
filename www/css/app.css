@@ -972,6 +972,9 @@ body.audio #comingsoon { display:none; }
         margin-bottom:1px;
         height:9px;
 	}
+	#electris-skinny .electris-alert { 
+		left: 20%; width: 60%;
+	}
 }
 
 @media (max-width: 767px) {
