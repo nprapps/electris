@@ -23,7 +23,7 @@ $(function(){
     fetchBOP();
     fetchData();
 
-    var polling_interval = 15;
+   /* var polling_interval = 15;
     var countdown = polling_interval;
 
     function refresh_countdown() {
@@ -35,5 +35,5 @@ $(function(){
             countdown = polling_interval + 1;
         }
     }
-    setInterval(refresh_countdown, 1000);
+    setInterval(refresh_countdown, 1000);*/
 });

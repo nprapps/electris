@@ -118,24 +118,34 @@ def setup():
 
 
 def setup_directories():
+    require('settings', provided_by=[production, staging])
+
     run('mkdir -p %(path)s' % env)
 
 
 def setup_virtualenv():
+    require('settings', provided_by=[production, staging])
+
     run('virtualenv -p %(python)s --no-site-packages %(virtualenv_path)s' % env)
     run('source %(virtualenv_path)s/bin/activate' % env)
 
 
 def clone_repo():
+    require('settings', provided_by=[production, staging])
+
     run('git clone git@github.com:nprapps/%(project_name)s.git %(repo_path)s' % env)
 
 
 def checkout_latest():
+    require('settings', provided_by=[production, staging])
+
     run('cd %(repo_path)s; git fetch' % env)
     run('cd %(repo_path)s; git checkout %(branch)s; git pull origin %(branch)s' % env)
 
 
 def install_requirements():
+    require('settings', provided_by=[production, staging])
+
     run('%(virtualenv_path)s/bin/pip install -r %(repo_path)s/requirements.txt' % env)
 
 
@@ -313,6 +323,24 @@ def wipe_status():
     )
     sq.execute()
     write_www_files()
+
+
+def reset():
+    """
+    Reset the environment on the server with a fresh copy of the database.
+    """
+    require('settings', provided_by=[production, staging])
+
+    with settings(warn_only=True):
+        sudo('service electris_cms stop')
+        sudo('service electris_cron stop')
+    
+    with cd(env.repo_path):
+        run('rm electris.db')
+        run('cp initial_data/electris_initial.db electris.db')
+        write_www_files()
+        sudo('service electris_cms start')
+        sudo('service electris_cron start')
 
 
 def local_reset():

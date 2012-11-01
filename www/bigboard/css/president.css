@@ -34,13 +34,13 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 .allstates:nth-child(odd){background-color:#444;}
 .allstates {
     text-transform:uppercase;
-    height:24px;
+    height:22px;
     text-transform:uppercase;
     display:block;
 }
 .allstates .state {
     font-size:14px;
-    line-height:24px;
+    line-height:22px;
     width:145px;
     overflow:hidden;
     white-space: nowrap;
@@ -56,14 +56,14 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 
 .percentTime{ border-right:solid #666 1px; width:12%; overflow:hidden; font-size:13px; text-align:left; color:#f9e8af;}
 .percentTime.called { background-color:#f2d15f; color:#000; }
-.full .percentTime.called { height:24px; }
+.full .percentTime.called { height:22px; }
 .weighted li.demPercent{width:15%;overflow:hidden;}
 .weighted li.gopPercent{width:15%;overflow:hidden;}
 
-.closeTimeBar{text-align:center; background-color:#ccc; color:#333;font-weight:bolder;font-size:11px;height:23px;line-height:23px;}
+.closeTimeBar{text-align:center; background-color:#ccc; color:#333;font-weight:bolder;font-size:11px;height:22px;line-height:22px;}
 ul.allstates li.percentTime {width:15%;}
 
-.full li {display:block; float:left;line-height:23px;}
+.full li {display:block; float:left;line-height:22px;}
 .full li:first-child{text-indent:4px;}
 .full ul {clear:left;}
 .full{border-top: 1px solid #999;}
