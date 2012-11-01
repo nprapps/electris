@@ -20,8 +20,11 @@ $(function() {
     /* Global state */
     var wide_mode = false;
     var alerts = [];
+    var alert_timer = null;
     var next_closing = null;
     var window_width = 0;
+    var winner = null;
+    var freeze_alerts = false;
 
     /* Elements */
     var electris_el = $("#electris");
@@ -202,33 +205,108 @@ $(function() {
         blue_needs_el.text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
         blue_candidate_el.toggleClass("winner", blue_votes >= ELECTORAL_VOTES_TO_WIN);
 
+        var old_winner = winner;
+
+        if (red_votes_called > ELECTORAL_VOTES_TO_WIN) {
+            winner = "r";
+        } else if (blue_votes_called >= ELECTORAL_VOTES_TO_WIN) {
+            winner = "d";
+        } else {
+            winner = null;
+        }
+
+        // WINNER!
+        if (winner && !old_winner) {
+            var alert_text = null;
+            var side = null;
+            
+            if (winner === "d") {
+                alert_text = 'NPR projects that <strong class="alert-name">President Obama</strong> will win re-election.';
+                side = "blue";
+            } else {
+                alert_text = 'NPR projects that <strong class="alert-name">Mitt Romney</strong> will win the presidency.';
+                side = "red";
+            }
+
+            alerts.push({
+                body: alert_text,
+                side: side,
+                winner: true
+            });
+
+            update_alerts();
+        // We changed our mind...
+        } else if (!winner && old_winner) {
+            var alert_text = null;
+            var side = null;
+
+            if (old_winner === "d") {
+                alert_text = 'NPR has retracted its earlier projection that <strong class="alert-name">President Obama</strong> will win re-election.';
+            } else {
+                alert_text = 'NPR has retracted its earlier projection that <strong class="alert-name">Mitt Romney</strong> will win the presidency.';
+            }
+           
+            // Replace any lingering alerts with just the one we care about
+            alerts = [];
+            alerts.push({
+                body: alert_text,
+                side: null,
+                winner: false 
+            });
+
+            freeze_alerts = false;
+
+            update_alerts();
+        // The whole thing flips
+        } else if (winner && old_winner && winner != old_winner) {
+            var alert_text = null;
+            var side = null;
+
+            if (old_winner === "d") {
+                alert_text = 'NPR has retracted its earlier projection that <strong class="alert-name">President Obama</strong> will win re-election.';
+            } else {
+                alert_text = 'NPR has retracted its earlier projection that <strong class="alert-name">Mitt Romney</strong> will win the presidency.';
+            }
+           
+            // Replace any lingering alerts with just the one we care about
+            alerts = [];
+            alerts.push({
+                body: alert_text,
+                side: null,
+                winner: false 
+            });
+            
+            if (winner === "d") {
+                alert_text = 'NPR projects that <strong class="alert-name">President Obama</strong> will win re-election.';
+                side = "blue";
+            } else {
+                alert_text = 'NPR projects that <strong class="alert-name">Mitt Romney</strong> will win the presidency.';
+                side = "red";
+            }
+
+            alerts.push({
+                body: alert_text,
+                side: side,
+                winner: true
+            });
+
+            freeze_alerts = false;
+
+            update_alerts();
+        }
+
         // Potentially flip modes
         var old_wide_mode = wide_mode;
 
-        wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE);
+        wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE) && !winner;
 
         // FLIP!
         if (wide_mode && !old_wide_mode) {
-            // Once we flip into wide mode we no longer need to
-            // render to electris skinny, so we retarget at just
-            // the one graphic
-            red_candidate_el = $("#electris .candidate.red");
-            blue_candidate_el = $("#electris .candidate.blue");
-            bucket_els = $("#electris .bucket");
-            red_bucket_el = red_candidate_el.find(".bucket");
-            blue_bucket_el = blue_candidate_el.find(".bucket");
-
             electris_skinny_el.hide();
             results_el.hide();
             electris_el.show();
         // FLIP BACK!
         } else if (!wide_mode && old_wide_mode) {
-            red_candidate_el = $(".candidate.red");
-            blue_candidate_el = $(".candidate.blue");
-            bucket_els = $(".bucket");
-            red_bucket_el = red_candidate_el.find(".bucket");
-            blue_bucket_el = blue_candidate_el.find(".bucket");
-
             electris_skinny_el.show();
             results_el.show();
             electris_el.hide();
@@ -1041,14 +1119,12 @@ $(function() {
         });
     }
 
-    var alert_timer = null;
-
     function update_alerts() {
         /*
          * Clear old alerts and add any new ones.
          */
         // Don't crush existing alerts
-        if (alert_timer) {
+        if (alert_timer || freeze_alerts) {
             return;
         }
 
@@ -1060,8 +1136,12 @@ $(function() {
             alert_el.addClass(new_alert.side);
             alert_el.show();
 
+            if ('winner' in new_alert && new_alert.winner) {
+                freeze_alerts = true;
+            }
+
             // Kill this alert and possibly start the next one
-            var alert_timer = setTimeout(function() {
+            alert_timer = setTimeout(function() {
                 alert_timer = null;
                 update_alerts();
             }, 5000);
