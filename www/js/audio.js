@@ -94,20 +94,26 @@ $(function(){
         }
     });
     
+    var oldStatus = {};
+    
     function fireItUp(){
         $.getJSON('status.json?t=' + (new Date()).getTime(), function(status) {
-            if(status['audio'] == 'true') {
-                if(status['streaming'] == 'true') {
-                    playStream(status['flashStreamer'],status['flashFile'],status['htmlUrl'],status['title'],status['prompt'],status['feedback']); 
+            //check if the status has changed
+            if(!_.isEqual(oldStatus, status)) {
+                oldStatus = status;
+                if(status['audio'] == 'true') {
+                    if(status['streaming'] == 'true') {
+                        playStream(status['flashStreamer'],status['flashFile'],status['htmlUrl'],status['title'],status['prompt'],status['feedback']); 
+                    } else {
+                        playFile(status['url'],status['title'],status['prompt'],status['feedback']); 
+                    }
+                    $("body").removeClass("no-audio");
+                    $("body").addClass("audio");
                 } else {
-                    playFile(status['url'],status['title'],status['prompt'],status['feedback']); 
+                    $("#comingsoon-message").html(status['message']);
+                    $("body").removeClass("audio");
+                    $("body").addClass("no-audio");
                 }
-                $("body").removeClass("no-audio");
-                $("body").addClass("audio");
-            } else {
-                $("#comingsoon-message").html(status['message']);
-                $("body").removeClass("audio");
-                $("body").addClass("no-audio");
             }
         });
     }
