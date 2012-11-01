@@ -32,13 +32,13 @@ Environments
 def production():
     env.settings = 'production'
     env.s3_bucket = 'apps.npr.org'
-    env.hosts = ['54.245.114.14']
+    env.hosts = ['cron.nprapps.org']
 
 
 def staging():
     env.settings = 'staging'
     env.s3_bucket = 'stage-apps.npr.org'
-    env.hosts = ['50.112.92.131']
+    env.hosts = ['cron-staging.nprapps.org']
 
 
 """
