@@ -790,74 +790,77 @@ body.audio #comingsoon { display:none; }
 #comingsoon b { position:absolute; top:0; left:0; display:block; width:12px; height:6px; overflow:hidden; background: url('../img/coming-soon-upper-tab.png') no-repeat right bottom; }
 #comingsoon .message { font:bold 12px Arial; text-transform:uppercase; color:#FFF; padding:20px 35px 0 30px; white-space:nowrap; }
 
+
+#results-bar.affix { top:0; z-index:2112; }
+#results-bar.affix #small-header { 
+	position: relative;
+	height: 50px;
+	display:block; 
+	padding: 0 10px;
+	color:white;
+	background: #2C2C2C;
+	background-image: -moz-linear-gradient(top,#333,#222);
+	background-image: -ms-linear-gradient(top,#333,#222);
+	background-image: -webkit-gradient(linear,0 0,0 100%,from(#333),to(#222));
+	background-image: -webkit-linear-gradient(top,#333,#222);
+	background-image: -o-linear-gradient(top,#333,#222);
+	background-image: linear-gradient(top,#333,#222);
+}
+#results-bar.affix div.results-row {
+	border-bottom: 2px solid #CCC;
+	margin: 0 20px;
+}
+#results-bar.affix .results-row h2 { 
+	border-top: none; border-bottom: 1px solid #CCC;
+	font: bold 12px Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	color: #333;
+	padding: 6px 0 3px 0;
+	margin-bottom: 0;
+}
+#results-bar.affix .results-group { padding-bottom: 10px; }
+#results-bar.affix .results-group h3 { font-size: 12px; margin-bottom: 3px; }
+#results-bar.affix .results-group .blue,
+#results-bar.affix .results-group .red { border: none; }
+#results-bar.affix .results-group .total span { font-size: 20px; line-height: 22px; margin-top: -3px; margin-bottom: 3px; }
+#results-bar.affix #pres-header { margin-left: 0; }
+#results-bar.affix .towin span { line-height: 20px; font-size: 14px; margin-bottom: 2px; }
+/* Add some padding to the next visible div when the
+   results bar is pulled out of the document flow */
+#results-bar.affix ~ #creamy-filling { padding-top:120px; font-size: 14px; }
+
+#results-bar.affix .electris-alert { 
+	display: block;
+	position: static; top: auto; left: auto; width: auto;
+	z-index: auto;
+	text-align: left;
+	font-size: 13px;
+	line-height: 13px;
+	margin: 0;
+	clear: both;
+	border: none;
+	border-radius: 0;
+	-webkit-box-shadow: none;
+	   -moz-box-shadow: none;
+			box-shadow: none;
+	height: auto;
+}
+#results-bar.affix .electris-alert .alert-wrapper {
+	padding: 15px 12px;
+}
+#results-bar.affix .electris-alert strong,
+#results-bar.affix .electris-alert b {
+	display: inline;
+	font-size: 13px;
+	line-height: 13px;
+	margin: 0;
+}
+
+
 /* Media queries */
 @media (min-width: 768px) {
 	#bigbox { min-width: 300px; }
 
-    #results-bar.affix { top:0; z-index:2112; }
-    #results-bar.affix #small-header { 
-    	position: relative;
-    	height: 50px;
-    	display:block; 
-    	padding: 0 10px;
-    	color:white;
-		background: #2C2C2C;
-		background-image: -moz-linear-gradient(top,#333,#222);
-		background-image: -ms-linear-gradient(top,#333,#222);
-		background-image: -webkit-gradient(linear,0 0,0 100%,from(#333),to(#222));
-		background-image: -webkit-linear-gradient(top,#333,#222);
-		background-image: -o-linear-gradient(top,#333,#222);
-		background-image: linear-gradient(top,#333,#222);
-    }
-    #results-bar.affix div.results-row {
-    	border-bottom: 2px solid #CCC;
-    	margin: 0 20px;
-    }
-    #results-bar.affix .results-row h2 { 
-    	border-top: none; border-bottom: 1px solid #CCC;
-    	font: bold 12px Arial, Helvetica, sans-serif;
-    	text-transform: uppercase;
-    	color: #333;
-    	padding: 6px 0 3px 0;
-    	margin-bottom: 0;
-    }
-    #results-bar.affix .results-group { padding-bottom: 10px; }
-	#results-bar.affix .results-group h3 { font-size: 12px; margin-bottom: 3px; }
-	#results-bar.affix .results-group .blue,
-	#results-bar.affix .results-group .red { border: none; }
-    #results-bar.affix .results-group .total span { font-size: 20px; line-height: 22px; margin-top: -3px; margin-bottom: 3px; }
-    #results-bar.affix #pres-header { margin-left: 0; }
-    #results-bar.affix .towin span { line-height: 20px; font-size: 14px; margin-bottom: 2px; }
-    /* Add some padding to the next visible div when the
-       results bar is pulled out of the document flow */
-    #results-bar.affix ~ #creamy-filling { padding-top:120px; font-size: 14px; }
-
-	#results-bar.affix .electris-alert { 
-		display: block;
-		position: static; top: auto; left: auto; width: auto;
-		z-index: auto;
-		text-align: left;
-		font-size: 13px;
-		line-height: 13px;
-		margin: 0;
-		clear: both;
-		border: none;
-		border-radius: 0;
-		-webkit-box-shadow: none;
-		   -moz-box-shadow: none;
-				box-shadow: none;
-		height: auto;
-	}
-	#results-bar.affix .electris-alert .alert-wrapper {
-		padding: 15px 12px;
-	}
-	#results-bar.affix .electris-alert strong,
-	#results-bar.affix .electris-alert b {
-		display: inline;
-		font-size: 13px;
-		line-height: 13px;
-		margin: 0;
-	}
 }
 
 @media (min-width: 1200px) {
