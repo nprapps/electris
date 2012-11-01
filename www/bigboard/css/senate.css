@@ -1,27 +1,29 @@
 .timezone ul { margin-left:0; }
 .poll-closing-time{ position:relative; }
 .poll-closing-time-label { margin:0; padding:0; width:399px; font-size:14px; height:27px;line-height:27px; }
-.candidate { width:169px; font-size:14px; text-indent: 4px; letter-spacing:-1px; margin-left: 2px;] }
+.candidate { width:169px; font-size:14px; text-indent: 4px; letter-spacing:-1px; margin-left: 0px;] }
 #candidates ul { width:399px;}
 #candidates ul li { height:27px;line-height:27px; }
 .district{ font-size:12px; width:25px; text-align:center; }
-.status{ width: 30px; font-size:13px; letter-spacing:-1px; text-align:left; color:#f9e8af; border-right:#666 solid 1px; }
+.status{ width: 32px; font-size:13px; letter-spacing:-1px; text-align:left; color:#f9e8af; border-right:#666 solid 1px; }
 .emptyleft {margin-left: 160px; }
 #candidates ul li.candidate.switch{
-	border:2px #fff solid;
-	width:157px;
-	height:22px;
-	line-height: 22px;
+	border:1px #fff solid;
+	width:167px;
+	height:25px;
+	line-height: 25px;
 }
 .called.status {
     background-color:#f2d15f;
     color:#333;
+    font-size:12px;
+    letter-spacing: -1px;
 }
 .vote-percent {
     font-size:13px;
     float:right;
     display:block;
-    width:33px;
+    width:25px;
     text-align:center;
 }
 .left {
