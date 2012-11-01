@@ -221,7 +221,7 @@ $(function() {
             var side = null;
             
             if (winner === "d") {
-                alert_text = 'NPR projects that <strong class="alert-name">President Obama</strong> will win re-election.';
+                alert_text = 'NPR projects that <strong class="alert-name">Barack Obama</strong> will win re-election.';
                 side = "blue";
             } else {
                 alert_text = 'NPR projects that <strong class="alert-name">Mitt Romney</strong> will win the presidency.';
@@ -241,7 +241,7 @@ $(function() {
             var side = null;
 
             if (old_winner === "d") {
-                alert_text = 'NPR has retracted its earlier projection that <strong class="alert-name">President Obama</strong> will win re-election.';
+                alert_text = 'NPR has retracted its earlier projection that <strong class="alert-name">Barack Obama</strong> will win re-election.';
             } else {
                 alert_text = 'NPR has retracted its earlier projection that <strong class="alert-name">Mitt Romney</strong> will win the presidency.';
             }
@@ -263,7 +263,7 @@ $(function() {
             var side = null;
 
             if (old_winner === "d") {
-                alert_text = 'NPR has retracted its earlier projection that <strong class="alert-name">President Obama</strong> will win re-election.';
+                alert_text = 'NPR has retracted its earlier projection that <strong class="alert-name">Barack Obama</strong> will win re-election.';
             } else {
                 alert_text = 'NPR has retracted its earlier projection that <strong class="alert-name">Mitt Romney</strong> will win the presidency.';
             }
