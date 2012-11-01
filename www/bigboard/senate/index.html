@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="../css/senate.css" />
     </head>
     <body>
-        <div id="banner"><h1>Senate</h1></div>
+        <div id="banner"></div>
         <div id="candidates"></div>
 
 
@@ -27,6 +27,7 @@
         <![endif]-->
 
         <script id="banner-template" type="text/template">
+            <h1>Senate</h1>
             <ul>
                 <li id="dem_sec">
                     <h2>Dem <span class="total"><%= data.senate.democrats.total %></span> <span class="flux"><%= data.senate.democrats.delta %></span></h2>
@@ -86,7 +87,7 @@
                         </li>
                     <% }); %>
                         <% var called = ''; if (district.called == true){ called = 'called'; } %>
-                    	
+
                     </ul>
                 <% }); %>
             </div>

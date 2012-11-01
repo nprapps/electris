@@ -16,7 +16,7 @@ $(function(){
         $.getJSON('../../bop.json', function(data){
             var BOP_TEMPLATE = _.template($("#banner-template").html());
             var html = BOP_TEMPLATE({ data: data });
-            $('#banner').append(html);
+            $('#banner').html(html);
         });
     }
 

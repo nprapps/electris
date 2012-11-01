@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="../css/house.css" />
     </head>
     <body>
-        <div id="banner"><h1>House</h1></div>
+        <div id="banner"></div>
         <div id="candidates"></div>
 
 
@@ -27,6 +27,7 @@
         <![endif]-->
 
         <script id="banner-template" type="text/template">
+            <h1>House</h1>
             <ul>
                 <li id="dem_sec">
                     <h2>Dem <span class="total"><%= data.house.democrats.total %></span> Needs <span class="neednum"><%= data.house.democrats.needed_for_majority %></span></h2>
@@ -80,7 +81,7 @@
                         </li>
                     <% }); %>
                         <% var called = ''; if (district.called == true){ called = 'called'; } %>
-                     
+
                     </ul>
                 <% }); %>
             </div>
