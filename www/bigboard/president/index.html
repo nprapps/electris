@@ -57,11 +57,8 @@
                     if (winner != '') { called = 'called'; }
                 %>
                 <ul class="allstates">
-                	<li class="percentTime <%= called %>"><%
-                        var percent = state.precincts_reporting / state.total_precincts;
-                        percent = roundNumber(percent * 100, 0);
-                    %>
-                    <%= percent %>
+                	<li class="percentTime <%= called %>">
+                    <%= state.status %>
                     </li>
                     <li class="district"></li>
                     <li class="state <%= winner %>"><span class="name"><%= state.abbr %></span>
@@ -81,11 +78,8 @@
                 if (winner != '') { called = 'called'; }
             %>
             <ul class="swing">
-                <li class="percentTime <%= called %>"><%
-                    var percent = state.precincts_reporting / state.total_precincts;
-                    percent = roundNumber(percent * 100, 1);
-                %>
-                <%= percent %>
+                <li class="percentTime <%= called %>">
+                <%= state.status %>
                 </li>
                 <li class="district"></li>
                 <li class="state <%= winner %>"><span><%= state.name %></span> (<%= state.electoral_votes %>)</li>
