@@ -756,6 +756,7 @@ a.btn { color: #fff; cursor: pointer; }
 #live-blog p a { color: #000; }
 #live-blog p a:hover { color: #36C; text-decoration: none; cursor: pointer; }
 #live-blog .more { white-space: nowrap; }
+#live-blog-more { display: block; }
 
 /* audio player */
 body.no-audio #audio { display:none; }

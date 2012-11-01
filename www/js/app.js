@@ -48,6 +48,7 @@ $(function() {
     var incoming_el = $(".pres-watching");
     var closing_el = $(".pres-closing");
     var live_blog_el = $("#live-blog-items");
+    var live_blog_more_el = $('#live-blog-more');
     var combinations_modal_el = $("#combinations-modal");
 
     /* State data */
@@ -1148,6 +1149,8 @@ $(function() {
     /* RIVER OF NEWS */
 
     var RIVER_POLLING_INTERVAL = 30000;
+	var RIVER_INCREMENT = 25;
+	var RIVER_DATA = []
 
 	function fetch_news() {
         /*
@@ -1161,16 +1164,17 @@ $(function() {
 				if (RIVER_TIMER === null) {
 					RIVER_TIMER = window.setInterval(fetch_news, RIVER_POLLING_INTERVAL);
 				}
-
-				update_news(data);
+				RIVER_DATA = data;
+				update_news();
 		    }
 		})
 	}
 
-	function update_news(data) {
+	function update_news() {
         /*
          * Update the river of news feed.
          */
+        var data = RIVER_DATA;
 		var new_news = [];
 
 		$.each(data.news.sticky, function(j, k) {
@@ -1182,7 +1186,7 @@ $(function() {
 			}
 		});
 
-		$.each(data.news.regular.slice(0, 20), function(j, k) {
+		$.each(data.news.regular.slice(0, RIVER_INCREMENT), function(j, k) {
 			if (k.News.status) {
 				new_news.push(BLOG_POST_TEMPLATE({
                     post: k.News,
@@ -1196,6 +1200,15 @@ $(function() {
 
         new_news = null;
 	}
+	
+	live_blog_more_el.click(function() {
+		RIVER_INCREMENT += 25;
+		if (RIVER_INCREMENT > RIVER_DATA.news.regular.length) {
+			RIVER_INCREMENT = RIVER_DATA.news.regular.length;
+			$(this).hide();
+		}
+		update_news();
+	});
 
 
     /* BALANCE OF POWER */
