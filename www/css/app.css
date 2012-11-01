@@ -20,7 +20,6 @@ h5 { font: bold 14px Arial, Helvetica, sans-serif; color: #333; margin-bottom: 3
 #live-blog h2,
 .pres-results h5,
 .results-row h2 {
-/*	font: bold 14px/1.35em Arial, Helvetica, sans-serif; */
 	font: normal 20px/1.35em Georgia, serif;
 	border-top: 3px solid #000;
 	padding-top: 6px;
@@ -36,10 +35,6 @@ a.btn { color: #fff; cursor: pointer; }
 .modal-header .close { margin-top: -3px; }
 .modal .modal-col { width: 48%; float: left; margin-left: 4%; }
 .modal .modal-col:first-child { margin-left: 0; }
-
-
-/* Placeholders */
-#ad { width:300px; height:250px; background-color:red; }
 
 
 /* CLEARFIXES */
@@ -322,11 +317,11 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* Electris */
-#electris-skinny {
-    margin-top: 20px;
+#electris-skinny { margin-top: 20px; }
+#electris { 
+	margin-top: 30px; display: none;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-#electris { margin-top: 30px; display: none; }
 
 #electris:after,
 #electris-skinny:after,
@@ -429,23 +424,16 @@ a.btn { color: #fff; cursor: pointer; }
 	position: relative;
 }
 
-.blue .bucket-header { background: url('../img/silo-obama-45.png') no-repeat left 2px; }
-.red .bucket-header  { background: url('../img/silo-romney-45.png') no-repeat right 2px; }
-
 .bucket-header h3 {
-	padding-top: 16px;
-	font: normal normal 22px Georgia, serif;
+	padding-top: 17px;
+	font: normal normal 18px Arial, sans-serif;
 	color: #333;
-	margin-left: 50px;
 	white-space: nowrap;
 }
-
-.red .bucket-header h3 { text-align: right; margin-right: 50px; }
+.red .bucket-header h3 { text-align: right; }
 .bucket-header h3 i, .bucket-header h3 b {
-	font-weight: normal; font-style: normal;
+	font-weight: bold; font-style: normal;
 }
-
-.bucket-header h3 i { display: none; }
 
 .bucket-header p {
 	font-size: 12px;
@@ -454,7 +442,7 @@ a.btn { color: #fff; cursor: pointer; }
 	margin-left: 50px;
 }
 
-.vote-tallies { width: 10em; position: absolute; top: 13px; }
+.vote-tallies { width: 10em; position: absolute; top: 10px; }
 .blue .vote-tallies { right: 0; }
 .red .vote-tallies { left; 0; }
 .vote-tallies .electoral { width: 50%; float: left; }
@@ -892,7 +880,7 @@ body.audio #comingsoon { display:none; }
 	.histogram h4 { height: 22px; }
 	.histogram .title { padding: 5px 12px 0 12px; font-size: 12px; }
 	.histogram .bar { height: 24px; margin-top: -20px; }
-	.bucket-header h3 { font-size: 28px; padding-top: 13px; }
+	.bucket-header h3 { font-size: 23px; padding-top: 16px; }
 	.vote-tallies { top: 10px; }
 	.vote-tallies .bignum { font-size: 24px; }
 	.vote-tallies span { padding-top: 16px; }
@@ -915,22 +903,21 @@ body.audio #comingsoon { display:none; }
         margin-bottom:1px;
 	}
 	
-	.bucket-header h3 { font-size: 19px; }
-    .bucket-header h3 i { display: inline; }
 	.bucket-header, .blue .bucket-header, .red .bucket-header { 
 		height: 8em;
 		background-position: left 9px;
 	}
 	.bucket-header h3, .blue .bucket-header h3, .red .bucket-header h3 { 
-		padding-top: 6px;
+		font-size: 16px;
+		padding-top: 9px;
 		text-align: left;
-		margin-bottom: 0;
+		margin-bottom: 6px;
 	}
 	.blue.winner .bucket-header h3 { background-position: right 8px; }
 	.red.winner .bucket-header h3 { padding-right: 25px; padding-left: 0; float: none; background: url('../img/ico-checkmark.png') no-repeat right 8px; }
 	.vote-tallies, .blue .vote-tallies, .red .vote-tallies { 
 		position: static; top: auto; right: auto; left: auto; width: auto;
-		margin-left: 50px; margin-top: 3px;
+		margin-top: 3px;
 	}
 	.winner.blue .vote-tallies, .winner.red .vote-tallies { margin-top: 2px; }
 	.vote-tallies .bignum { font-size: 18px; }
@@ -967,9 +954,6 @@ body.audio #comingsoon { display:none; }
     }
 
 	.bucket-header { height: 4em; }
-	.bucket-header h3 { font-size: 24px; }
-    .bucket-header h3 i { display: none; }
-    .vote-tallies { width: 9em; }
 	.tossups li div { height: 43px; overflow: hidden; }
 	.combos .explainer p { height: 52px; font-size: 13px; }
 
