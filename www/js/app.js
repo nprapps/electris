@@ -1153,7 +1153,7 @@ $(function() {
 
             // Render incoming tweets
             if (has_tweets) {
-                twttr.widgets.load();
+                twttr.widgets.load(posts_el[0]);
             }
         });
     }
