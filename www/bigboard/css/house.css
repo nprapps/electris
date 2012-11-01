@@ -1,12 +1,13 @@
-span.neednum{color:#fff; line-height:18px;padding:0 4px;}
-#banner li span.total { font-size:18px; letter-spacing:-1px; margin-top:3px; }
-#banner li span.neednum { font-size:18px; letter-spacing:-1px; margin-top:3px; }
+span.neednum{color:#fff; line-height:20px;padding:0 4px;}
+#banner li span.total { font-size:16px; letter-spacing:-1px; margin-top:3px; }
+#banner li span.neednum { font-size:16px; letter-spacing:-1px; margin-top:3px; }
 #banner li#dem_sec span.neednum{background-color:#145c7b;}
 #banner li#gop_sec span.neednum{background-color:#8f0b00;}
 #banner li h2{padding-top:4px;}
-#banner li#dem_sec { width:197px; }
-#banner li#gop_sec { width:187px; }
-#banner li#nc_sec { width:155px; }
+#banner li#dem_sec { width:197px;text-transform: uppercase; }
+#banner li#gop_sec { width:187px; text-transform: uppercase;}
+#banner li#ind_sec{text-transform: uppercase;}
+#banner li#nc_sec { width:155px; text-transform: uppercase; }
 #banner h1 {padding-top:6px;}
 .district {
     font-size:12px;
@@ -88,10 +89,12 @@ ul.swap .district {
 .candidate-51631,
 .candidate-135,
 .candidate-53539,
-.candidate-51631 {
+.candidate-51631,
+.candidate-52161 {
     font-size:12px;
 }
-.candidate-52161 {
+
+.candidate-61214 {
     font-size:13px;
     letter-spacing:-1px;
 }
