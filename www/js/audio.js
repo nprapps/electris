@@ -105,7 +105,6 @@ $(function(){
                 $("body").removeClass("no-audio");
                 $("body").addClass("audio");
             } else {
-                console.log(status['message']);
                 $("#comingsoon-message").html(status['message']);
                 $("body").removeClass("audio");
                 $("body").addClass("no-audio");
