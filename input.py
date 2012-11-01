@@ -137,8 +137,8 @@ def parse_ap_data(data, ne_data, me_data):
             parse_house(row_data)
 
         # Every n rows sleep briefly so incoming CMS writes can happen
-        if i % 50 == 0:
-            sleep(1)
+        if i % 10 == 0:
+            sleep(0.2)
 
     for row in ne_data:
         row_data = row.split(';')
