@@ -127,6 +127,7 @@ def get_ap_district_data(state_code):
 
 
 def parse_ap_data(data, ne_data, me_data):
+    start = datetime.datetime.now()
     for row in data:
         row_data = row.split(';')
         race = row_data[10]
@@ -148,6 +149,9 @@ def parse_ap_data(data, ne_data, me_data):
 
         if race == 'President':
             parse_president_district('ME', row_data)
+    end = datetime.datetime.now()
+
+    print end - start
 
 
 def parse_house(row):
@@ -156,7 +160,9 @@ def parse_house(row):
         race_data['state_postal'].lower(), race_data['district_id'])
     candidate_count = (len(row) - len(RACE_FIELDS)) / len(CANDIDATE_FIELDS)
 
-    rq = Race.update(**race_data).where(Race.slug == race_data['slug'])
+    rq = Race.update(
+        precincts_reporting=race_data['precincts_reporting'],
+    ).where(Race.slug == race_data['slug'])
     rq.execute()
 
     i = 0
@@ -178,14 +184,16 @@ def parse_house(row):
             candidate_data['incumbent'] = False
 
         if candidate_data['ap_winner'] == True:
-            race = Race.select().where(Race.slug == race_data['slug']).get()
+            rq = Race.update(
+                ap_called=True,
+                ap_called_time=datetime.datetime.now(tz=pytz.utc))\
+            .where(Race.slug == race_data['slug'], Race.ap_called == False)
+            rq.execute()
 
-            if race.ap_called == False:
-                race.ap_called = True
-                race.ap_called_time = datetime.datetime.now(tz=pytz.utc)
-                race.save()
-
-        cq = Candidate.update(**candidate_data).where(
+        cq = Candidate.update(
+                ap_winner=candidate_data['ap_winner'],
+                vote_count=candidate_data['vote_count']
+            ).where(
             Candidate.npid == candidate_data['npid'])
         cq.execute()
 
