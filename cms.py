@@ -30,7 +30,6 @@ def president():
         return render_template('president.html', **context)
 
     if request.method == 'POST':
-
         # First, try and get the state.
         race_slug = request.form.get('race_slug', None)
         race_slug = race_slug.strip()
@@ -45,6 +44,9 @@ def president():
             else:
                 accept_ap_call = False
 
+        # Accumulate changes so we only execute a single update
+        update_dict = {}
+
         # If all the pieces are here, do something.
         if race_slug != None and accept_ap_call != None:
 
@@ -54,9 +56,8 @@ def president():
 
             # Clear the NPR winner status of candidates who we accept AP calls for.
             if accept_ap_call == False:
-
-                uq = State.update(npr_call='n', npr_called_at=None).where(State.id == race_slug)
-                uq.execute()
+                update_dict['npr_call'] = 'n',
+                update_dict['npr_called_at'] = None
 
         # Try and get the winner.
         party = request.form.get('party', None)
@@ -65,17 +66,18 @@ def president():
         clear_all = request.form.get('clear_all', None)
 
         if race_slug != None and clear_all != None:
-
             # If we're passing clear_all as true ...
             if clear_all == 'true':
-
-                # Clear the NPR winner status of all of the candidates.
-                uq = State.update(npr_call='n', npr_called_at=None).where(State.id == race_slug)
-                uq.execute()
+                update_dict['npr_call'] = 'n',
+                update_dict['npr_called_at'] = None
 
         # If all of the pieces are here, do something.
         if race_slug != None and party != None:
-            uq = State.update(npr_call=party, npr_called_at=datetime.datetime.now(tz=pytz.utc)).where(State.id == race_slug)
+            update_dict['npr_call'] = party,
+            update_dict['npr_called_at'] = datetime.datetime.now(tz=pytz.utc)
+
+        if update_dict:
+            uq = State.update(**update_dict).where(State.id == race_slug)
             uq.execute()
 
         if settings.DEBUG:
