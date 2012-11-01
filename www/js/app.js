@@ -229,8 +229,6 @@ $(function() {
             $("#results-tab").attr('href','#results');
         }
         
-        console.log('compute_stats');
-
         resize_buckets();
 
         if (wide_mode && generate_combos) {
