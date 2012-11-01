@@ -1,14 +1,14 @@
 span.neednum{color:#fff; line-height:20px;padding:0 4px;}
-#banner li span.total { font-size:16px; letter-spacing:-1px; margin-top:3px; }
-#banner li span.neednum { font-size:16px; letter-spacing:-1px; margin-top:3px; }
+#banner li span.total { font-size:16px; letter-spacing:-1px;}
+#banner li span.neednum { font-size:16px; letter-spacing:-1px;}
 #banner li#dem_sec span.neednum{background-color:#145c7b;}
 #banner li#gop_sec span.neednum{background-color:#8f0b00;}
-#banner li h2{padding-top:4px;}
+#banner li h2{line-height: 38px;}
 #banner li#dem_sec { width:197px;text-transform: uppercase; }
 #banner li#gop_sec { width:187px; text-transform: uppercase;}
 #banner li#ind_sec{text-transform: uppercase;}
 #banner li#nc_sec { width:155px; text-transform: uppercase; }
-#banner h1 {padding-top:6px;}
+#banner h1 {}
 .district {
     font-size:12px;
     float:left;
@@ -24,17 +24,17 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 .candidate {
     width: 166px;
     text-indent:4px;
-    line-height:22px;
+    line-height:23px;
     font-size:14px;
     letter-spacing:-1px;
 }
 .timezone ul {
-    height:19px;
+    height:20px;
     overflow:hidden;
     width:399px;
 }
 .poll-closing-time-label {
-    height:19px;
+    height:20px;
     line-height:20px;
     font-size:12px;
 }
