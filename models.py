@@ -274,7 +274,7 @@ class State(Model):
         if self.rep_vote_count > 0:
             getcontext().prec = 3
             percent = Decimal(self.rep_vote_count) / Decimal(self.dem_vote_count + self.rep_vote_count)
-            return round(float(percent) * 100, 0)
+            return round(float(percent) * 100, 1)
         else:
             return 0
 
@@ -282,6 +282,6 @@ class State(Model):
         if self.dem_vote_count > 0:
             getcontext().prec = 3
             percent = Decimal(self.dem_vote_count) / Decimal(self.dem_vote_count + self.rep_vote_count)
-            return round(float(percent) * 100, 0)
+            return round(float(percent) * 100, 1)
         else:
             return 0
