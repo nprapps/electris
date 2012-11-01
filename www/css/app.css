@@ -1002,6 +1002,8 @@ body.audio #comingsoon { display:none; }
     
 	#electris .pres-results { height: auto; }
 
+	#results-bar.affix ~ #creamy-filling { padding-top:0; }
+
     #tabs { display:block; margin-top:20px; }
     .tab-pane { display:none; }
     .tab-pane.active { display:block; }
