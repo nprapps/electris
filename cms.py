@@ -14,13 +14,22 @@ app = Flask(__name__)
 
 
 @app.route('/races/president/', methods=['GET', 'POST'])
-def president():
+@app.route('/races/president/<featured>/', methods=['GET', 'POST'])
+def president(featured=None):
     """
     Read/update list of presidential state winners.
     """
+
+    is_featured = False
+    if featured == 'featured':
+        is_featured = True
+
     if request.method == 'GET':
 
         states = State.select()
+
+        if is_featured == True:
+            states = states.where(State.prediction == 't')
 
         context = {
             'states': states,
