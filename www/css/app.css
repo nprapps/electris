@@ -999,6 +999,8 @@ body.audio #comingsoon { display:none; }
     
 	#electris .pres-results { height: auto; }
 
+	#results-bar.affix ~ #creamy-filling { padding-top:0; }
+
     #tabs { display:block; margin-top:20px; }
     .tab-pane { display:none; }
     .tab-pane.active { display:block; }
@@ -1029,6 +1031,14 @@ body.audio #comingsoon { display:none; }
 }
 @media (max-width: 480px) {
 	#big-header { margin: 0 -10px 0 -10px; }
+	
+	#header h1 {
+		text-indent: -9999px;
+		background: url('../img/hd-election-night-mobile.png') no-repeat;
+		height: 45px;
+		margin: 0 7px 7px 7px;
+	}
+	
 	#header-promos { padding: 15px; }
 	#header-promos .promo { width: 45%; margin-left: 10%; }
 	#header-promos .promo:first-child { width: 45%; margin-left: 0; }
