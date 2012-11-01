@@ -27,6 +27,7 @@ $(function() {
     var electris_el = $("#electris");
     var electris_skinny_el = $("#electris-skinny");
     var electris_line_el = electris_el.find(".line");
+    var electris_skinny_line_el = electris_skinny_el.find(".line");
     var alert_el = $(".electris-alert");
     var results_el = $("#incoming");
     var maincontent_el = $("#the-stuff");
@@ -248,40 +249,39 @@ $(function() {
         var height = Math.max(default_height, vote_height);
         bucket_els.css("height", height + "em");
 
-        if (!wide_mode) {
-            // In skinny mode, the 270 line will never move
-            return;
+		var line_height = .1;
+        var header_height = 0;
+
+        if (wide_mode) {
+			// Compute current position of 270 line
+			header_height = 3;
+			if (window_width == 724) {
+				header_height = 4;
+			} else if (window_width < 724) {
+				header_height = 8;
+			}
+			var bucket_pos = blue_bucket_el.position();
+			var bucket2_pos = red_bucket_el.position();
+			var line_left = 0;
+			var line_width = '100%';
+	
+			if (window_width >= 724) {
+				line_left = bucket_pos.left;
+				line_width = (bucket2_pos.left + red_bucket_el.width()) - bucket_pos.left + 'px';
+			}
         }
 
-        // Compute current position of 270 line
+		if ($.browser.msie) {
+			var line_top = header_height + default_height; 
+		} else {
+			var line_top = header_height + height - default_height + line_height;
+		}
 
-        var header_height = 3;
-        
-        if (window_width == 724) {
-            header_height = 4;
-        } else if (window_width < 724) {
-            header_height = 8;
-        }
-
-    	var line_height = .1;
-
-        if ($.browser.msie) {
-            var line_top = header_height + default_height; 
-        } else {
-    	    var line_top = header_height + height - default_height + line_height;
-        }
-
-    	var bucket_pos = blue_bucket_el.position();
-    	var bucket2_pos = red_bucket_el.position();
-    	var line_left = 0;
-    	var line_width = '100%';
-
-        if (window_width >= 724) {
-            line_left = bucket_pos.left;
-            line_width = (bucket2_pos.left + red_bucket_el.width()) - bucket_pos.left + 'px';
-        }
-
-    	electris_line_el.css('top', line_top + 'em').css('left', line_left + 'px').width(line_width);
+        if (wide_mode) {
+			electris_line_el.css('top', line_top + 'em').css('left', line_left + 'px').width(line_width);
+		} else {
+			electris_skinny_line_el.css('top', line_top + 'em');
+		}
     }
 
     $(window).resize(resize_buckets);
