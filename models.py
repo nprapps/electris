@@ -252,9 +252,9 @@ class State(Model):
 
     def percent_reporting(self):
         try:
-            getcontext().prec = 3
+            getcontext().prec = 2
             percent = Decimal(self.precincts_reporting) / Decimal(self.total_precincts)
-            return unicode(round(float(percent) * 100, 0)).split('.')[0]
+            return round(float(percent) * 100, 0)
         except InvalidOperation:
             return 0.0
 
@@ -280,7 +280,7 @@ class State(Model):
 
     def dem_vote_percent(self):
         if self.dem_vote_count > 0:
-            getcontext().prec = 2
+            getcontext().prec = 3
             percent = Decimal(self.dem_vote_count) / Decimal(self.dem_vote_count + self.rep_vote_count)
             return round(float(percent) * 100, 1)
         else:

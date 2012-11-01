@@ -207,6 +207,7 @@ $(function() {
 
         wide_mode = (states_not_called.length <= MAX_STATES_FOR_WIDE_MODE);
 
+        // FLIP!
         if (wide_mode && !old_wide_mode) {
             // Once we flip into wide mode we no longer need to
             // render to electris skinny, so we retarget at just
@@ -220,6 +221,17 @@ $(function() {
             electris_skinny_el.hide();
             results_el.hide();
             electris_el.show();
+        // FLIP BACK!
+        } else if (!wide_mode && old_wide_mode) {
+            red_candidate_el = $(".candidate.red");
+            blue_candidate_el = $(".candidate.blue");
+            bucket_els = $(".bucket");
+            red_bucket_el = red_candidate_el.find(".bucket");
+            blue_bucket_el = blue_candidate_el.find(".bucket");
+
+            electris_skinny_el.show();
+            results_el.show();
+            electris_el.hide();
         }
         
         //this sets up the results tab for mobile. if we're wide, the tab should point to wide and vice versa
@@ -1153,7 +1165,7 @@ $(function() {
 
             // Render incoming tweets
             if (has_tweets) {
-                twttr.widgets.load();
+                twttr.widgets.load(posts_el[0]);
             }
         });
     }

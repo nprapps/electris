@@ -50,7 +50,7 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 
 .status{
     font-size:12px;
-    width:27px;
+    width:29px;
     letter-spacing:-1px;
     text-align:left;
     border-right:#666 solid 1px;
@@ -59,11 +59,12 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 .called.status {
     background-color:#f2d15f;
     color:#333;
+    font-size: 11px;
 }
 .vote-percent {
     font-size:12px;
     display:block;
-    width:33px;
+    width:25px;
     text-align:center;
 }
 .left {
@@ -76,7 +77,7 @@ li.swap {
     border:1px solid #fff;
     height:17px;
     line-height:17px;
-    width:166px;
+    width:164px;
 }
 ul.swap .district {
     background-color:#fff;
