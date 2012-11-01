@@ -788,7 +788,7 @@ body.audio #comingsoon { display:none; }
 #audio.buffering #audio-feedback #audio-feedback-buffering { display:inline; }
 #audio #audio-title { font-size:12px; line-height:18px; color:#666; }
 #audio #audio-prompt { font-size:16px; line-height:22px; font-weight:bold; }
-#comingsoon { position:relative; background: url('../img/coming-soon-bg-wide.png') no-repeat right bottom; height:62px; margin:56px 0 0 -12px; float:left; display:none; }
+#comingsoon { position:relative; background: url('../img/coming-soon-bg-wide.png') no-repeat right bottom; height:62px; margin:55px 0 15px -12px; float:left; display:none; }
 #comingsoon b { position:absolute; top:0; left:0; display:block; width:12px; height:6px; overflow:hidden; background: url('../img/coming-soon-upper-tab.png') no-repeat right bottom; }
 #comingsoon .message { font:bold 12px Arial; text-transform:uppercase; color:#FFF; padding:20px 35px 0 30px; white-space:nowrap; }
 
@@ -867,6 +867,7 @@ body.audio #comingsoon { display:none; }
 
 @media (min-width: 1200px) {
     #audio { margin-top:41px; }
+    #comingsoon { margin-top:41px; }
 	#header-promos .promo { width: 370px; margin-left: 30px; }
 	#header-promos .promo:first-child { width: 355px; }
 
@@ -1004,6 +1005,7 @@ body.audio #comingsoon { display:none; }
     #the-stuff { margin-top:0; }
     #ad { display:none; }
     #audio { margin-top:45px; }
+    #comingsoon { margin-top:45px; }
     #results-bar.affix { position:static; }
     
     #tabs { display:block; margin-top:20px; }
