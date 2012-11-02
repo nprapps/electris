@@ -221,10 +221,10 @@ $(function() {
             var side = null;
             
             if (winner === "d") {
-                alert_text = 'NPR projects that <strong class="alert-name">Barack Obama</strong> will win re-election.';
+                alert_text = 'NPR projects that <strong class="alert-name">Barack Obama</strong> will win re-election. <strong><b>z</b></strong>';
                 side = "blue";
             } else {
-                alert_text = 'NPR projects that <strong class="alert-name">Mitt Romney</strong> will win the presidency.';
+                alert_text = 'NPR projects that <strong class="alert-name">Mitt Romney</strong> will win the presidency. <strong><b>z</b></strong>';
                 side = "red";
             }
 
