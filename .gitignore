@@ -33,11 +33,4 @@ gzip
 
 electris.db
 www/states.csv
-www/states.json
-www/house.json
-www/senate.json
-www/president.json
-www/tumblr.json
-www/bop.json
-www/bop_jsonp.json
-www/status.json
+www/*.json
