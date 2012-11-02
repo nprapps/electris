@@ -7,11 +7,10 @@ import shutil
 import boto
 import time
 import datetime
-import pytz
-from datetime import timedelta
 
-from itertools import combinations
+from datetime import timedelta
 from boto.s3.key import Key
+
 import cms_settings as settings
 
 from initial_data import time_zones
@@ -51,7 +50,10 @@ def calculate_president_bop(data, votes):
     A function for calculating the presidential balance-of-power.
     """
     data['total'] += votes
-    data['needed_for_majority'] -= votes
+    majority = data['needed_for_majority'] - 1
+    if majority < 0:
+        majority = 0
+    data['needed_for_majority'] = majority
     return data
 
 
@@ -148,6 +150,9 @@ def write_bop_json():
     with open('www/bop.json', 'w') as f:
         f.write(json.dumps(data))
 
+    with open('www/bop_jsonp.json', 'w') as f:
+        f.write('balanceOfPower(%s)' % data)
+
 
 def write_president_json():
     """
@@ -191,9 +196,6 @@ def write_president_json():
                             call_time = datetime.datetime.strptime(state_dict['called_at'].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
 
                         if datetime.datetime.fromtimestamp(timezone['time']) > etnow:
-                            # close_time = state.polls_close - timedelta(hours=5)
-                            # state_dict['status_tag'] = 'Poll closing time.'
-                            # state_dict['status'] = close_time.strftime('%I:%M').lstrip('0')
                             if state_dict['called_at'] != None:
                                 state_dict['status_tag'] = 'Called time.'
                                 state_dict['status'] = call_time.strftime('%I:%M').lstrip('0')
