@@ -28,7 +28,7 @@
             <div class="span6">
                 <h2 class="time">{{ group.grouper }}:00</h2>
                 <ul class="files">{% for file in group.list %}
-            <li><button class="btn" data-file-name="{{ file.name }}">{{ file.hour }}:{{ file.minute }}</button></li>
+            <li><button id="time-{{ file.name }}" class="btn" data-file-name="{{ file.name }}">{{ file.hour }}:{{ file.minute }}</button></li>
             {% endfor %}</ul>
             </div>
         {% endfor %}
@@ -39,6 +39,12 @@
 
 {% block extra_foot %}
     <script type="text/javascript">
+        $(document).ready(function(){
+            $('#time-{{ current_time.replace('_', '-') }}').addClass('btn-success');
+            var time = $('#time-{{ current_time.replace('_', '-') }}').html();
+            time = time += ' p.m.';
+            $('h1.current_time span').html( time );
+        });
         $('button').click(function(){
             $('button').removeClass('btn-success');
             $(this).addClass('btn-success');

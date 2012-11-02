@@ -2,6 +2,7 @@
 
 import datetime
 import pytz
+import json
 
 from flask import Flask
 from flask import render_template, request
@@ -29,8 +30,13 @@ def timemachine_file(filename=None):
                             'minute': str(minute).zfill(2)
                         })
 
+            with open('timemachine/config.json', 'r') as j:
+                data = json.loads(j.read())
+                current_time = data['time']
+
             context = {
                 'file_times': file_times,
+                'current_time': current_time,
                 'settings': settings
             }
             return render_template('time_machine.html', **context)
@@ -53,6 +59,11 @@ def timemachine_file(filename=None):
 
                 with open('timemachine/%s.txt' % file_name, 'w') as w:
                     w.write(file_data)
+
+            with open('timemachine/config.json', 'w') as c:
+                data = {}
+                data['time'] = file_time
+                c.write(json.dumps(data))
 
             return 'WIN'
 
