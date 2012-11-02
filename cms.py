@@ -2,6 +2,7 @@
 
 import datetime
 import pytz
+import json
 
 from flask import Flask
 from flask import render_template, request
@@ -11,6 +12,60 @@ from models import Race, Candidate, State
 import output as o
 
 app = Flask(__name__)
+
+
+@app.route('/timemachine/', methods=['GET', 'POST'])
+@app.route('/timemachine/<filename>', methods=['GET'])
+def timemachine_file(filename=None):
+
+    if request.method == 'GET':
+        file_times = []
+        if filename == None:
+            hours = [(14, range(30, 60)), (15, range(0, 30))]
+            for hour, minutes in hours:
+                for minute in minutes:
+                    file_times.append({
+                            'name': '%s-%s' % (hour, minute),
+                            'hour': int(hour) - 12,
+                            'minute': str(minute).zfill(2)
+                        })
+
+            with open('timemachine/config.json', 'r') as j:
+                data = json.loads(j.read())
+                current_time = data['time']
+
+            context = {
+                'file_times': file_times,
+                'current_time': current_time,
+                'settings': settings
+            }
+            return render_template('time_machine.html', **context)
+
+        else:
+            with open('timemachine/%s' % filename, 'r') as f:
+                return f.read()
+
+    if request.method == 'POST':
+        file_time = request.form.get('file_time', None)
+
+        if file_time == None:
+            return 'BORK'
+
+        else:
+            for file_name in ['US', 'ME_D', 'NE_D']:
+                file_path = u'%s_%s' % (file_name, file_time)
+                with open('test_data/timemachine/%s.txt' % file_path, 'r') as f:
+                    file_data = f.read()
+
+                with open('timemachine/%s.txt' % file_name, 'w') as w:
+                    w.write(file_data)
+
+            with open('timemachine/config.json', 'w') as c:
+                data = {}
+                data['time'] = file_time
+                c.write(json.dumps(data))
+
+            return 'WIN'
 
 
 @app.route('/races/president/', methods=['GET', 'POST'])

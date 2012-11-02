@@ -253,9 +253,6 @@ def _generate_json(house):
                 district_dict['called_time'] = district.npr_called_time
 
             if district.poll_closing_time > now:
-                # close_time = district.poll_closing_time - timedelta(hours=5)
-                # district_dict['status_tag'] = 'Poll closing time.'
-                # district_dict['status'] = close_time.strftime('%I:%M').lstrip('0')
                 if district_dict['called'] == True:
                     etnow = now - timedelta(hours=5)
                     district_dict['status_tag'] = 'Called time.'
@@ -278,35 +275,37 @@ def _generate_json(house):
             for candidate in Candidate.select().where(
                 Candidate.race == district):
                     if (
-                        candidate.party == u'Dem'
-                        or candidate.party == u'GOP'
-                        or candidate.first_name == 'Angus'):
-                            candidate_dict = candidate._data
+                    candidate.party == u'Dem'
+                    or candidate.party == u'GOP'
+                    or candidate.first_name == 'Angus'
+                    or candidate.first_name == 'Bernie'):
+                        candidate_dict = candidate._data
 
-                            if candidate_dict['party'] == 'NPA':
-                                candidate_dict['party'] = 'Alt'
+                        if (candidate_dict['party'] == 'NPA'
+                        or candidate_dict['party'] == 'Ind'):
+                            candidate_dict['party'] = 'Alt'
 
-                            candidate_dict['vote_percent'] = candidate.vote_percent()
-                            candidate_dict['winner'] = False
+                        candidate_dict['vote_percent'] = candidate.vote_percent()
+                        candidate_dict['winner'] = False
 
-                            if district.accept_ap_call == True:
-                                if candidate_dict['ap_winner'] == True:
-                                    candidate_dict['winner'] = True
-                            else:
-                                if candidate_dict['npr_winner'] == True:
-                                    candidate_dict['winner'] = True
+                        if district.accept_ap_call == True:
+                            if candidate_dict['ap_winner'] == True:
+                                candidate_dict['winner'] = True
+                        else:
+                            if candidate_dict['npr_winner'] == True:
+                                candidate_dict['winner'] = True
 
-                            candidate_dict['swap'] = False
-                            if candidate_dict['winner'] == True:
-                                if candidate_dict['incumbent'] == False:
-                                    candidate_dict['swap'] = True
-                                    district_dict['swap'] = True
+                        candidate_dict['swap'] = False
+                        if candidate_dict['winner'] == True:
+                            if candidate_dict['incumbent'] == False:
+                                candidate_dict['swap'] = True
+                                district_dict['swap'] = True
 
-                            district_dict['called_time'] = None
+                        district_dict['called_time'] = None
 
-                            if candidate.last_name != 'Dill':
-                                district_dict['candidates'].append(
-                                    candidate_dict)
+                        if candidate.last_name != 'Dill':
+                            district_dict['candidates'].append(
+                                candidate_dict)
 
             district_dict['candidates'] = sorted(
                 district_dict['candidates'],

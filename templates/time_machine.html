@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Time Machine{% endblock %}
+{% block extra_head %}
+    <style type='text/css'>
+        h1.current_time {
+            color:red;
+            text-align:center;
+        }
+        h2.time {
+            font-size:44px;
+        }
+        ul.files {
+            padding:0;
+            margin:0;
+        }
+        ul.files li { display:block; float:left; margin:2px;}
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div class="row-fluid">
+    <div class="span12">
+        <h1>Time Machine</h1>
+        <h1 class="current_time">Current time: <span></span></h1>
+        <div class="row-fluid">
+            {% for group in file_times|groupby('hour') %}
+            <div class="span6">
+                <h2 class="time">{{ group.grouper }}:00 p.m.</h2>
+                <ul class="files">{% for file in group.list %}
+            <li><button id="time-{{ file.name }}" class="btn" data-file-name="{{ file.name }}">{{ file.hour }}:{{ file.minute }}</button></li>
+            {% endfor %}</ul>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_foot %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#time-{{ current_time.replace('_', '-') }}').addClass('btn-success');
+            var time = $('#time-{{ current_time.replace('_', '-') }}').html();
+            time = time += ' p.m.';
+            $('h1.current_time span').html( time );
+        });
+        $('button').click(function(){
+            $('button').removeClass('btn-success');
+            $(this).addClass('btn-success');
+            var time = $(this).html();
+            time = time += ' p.m.';
+            $('h1.current_time span').html( time );
+            $.post('.', {file_time: $(this).attr('data-file-name')}, function(e){
+                console.log(e);
+            });
+        });
+    </script>
+{% endblock %}
