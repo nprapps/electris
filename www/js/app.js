@@ -197,7 +197,6 @@ $(function() {
         red_votes_el.text(red_votes);
         red_needs_el.text(Math.max(0, ELECTORAL_VOTES_TO_WIN - red_votes));
         red_candidate_el.toggleClass("winner", red_votes >= ELECTORAL_VOTES_TO_WIN);
-        $("#pres-header .red").toggleClass("winner", red_votes_called >= ELECTORAL_VOTES_TO_WIN)
 
         var blue_votes_called = sum_votes(states_called_blue);
         var blue_votes_user = sum_votes(states_user_blue);
@@ -205,7 +204,6 @@ $(function() {
         blue_votes_el.text(blue_votes);
         blue_needs_el.text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
         blue_candidate_el.toggleClass("winner", blue_votes >= ELECTORAL_VOTES_TO_WIN);
-        $("#pres-header .blue").toggleClass("winner", blue_votes_called >= ELECTORAL_VOTES_TO_WIN)
 
         var old_winner = winner;
 
@@ -1322,7 +1320,9 @@ $(function() {
     function update_bop() {
         $.getJSON('bop.json?t=' + (new Date()).getTime(), {}, function(bop) {
         	$('#pres-d-total').text(bop.president.democrats.total);
+            $("#pres-header .blue").toggleClass("winner", bop.president.democrats.total >= ELECTORAL_VOTES_TO_WIN)
         	$('#pres-r-total').text(bop.president.republicans.total);
+            $("#pres-header .red").toggleClass("winner", bop.president.republicans.total >= ELECTORAL_VOTES_TO_WIN)
         	$('#pres-d-towin').text(bop.president.democrats.needed_for_majority);
         	$('#pres-r-towin').text(bop.president.republicans.needed_for_majority);
         	$('#sen-d-total').text(bop.senate.democrats.total);
