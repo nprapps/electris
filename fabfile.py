@@ -84,21 +84,21 @@ def _deploy_to_s3():
     """
     local(('\
         s3cmd -P\
-        --add-header=Cache-control:max-age=0\
+        --add-header=Cache-control:max-age=5\
         --add-header=Content-encoding:gzip\
         --guess-mime-type\
         --recursive\
         --exclude *.json\
-        sync gzip/ s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+        put gzip/ s3://%(s3_bucket)s/%(deployed_name)s/') % env)
     if env.alt_s3_bucket:
         local(('\
             s3cmd -P\
-            --add-header=Cache-control:max-age=0\
+            --add-header=Cache-control:max-age=5\
             --add-header=Content-encoding:gzip\
             --guess-mime-type\
             --recursive\
             --exclude *.json\
-            sync gzip/ s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
+            put gzip/ s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def _gzip_www():
@@ -167,9 +167,9 @@ def deploy_local_data():
     """
     write_www_files()
     _gzip_www()
-    local(('s3cmd -P --add-header=Cache-control:max-age=0 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    local(('s3cmd -P --add-header=Cache-control:max-age=5 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
     if env.alt_s3_bucket:
-        local(('s3cmd -P --add-header=Cache-control:max-age=0 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
+        local(('s3cmd -P --add-header=Cache-control:max-age=5 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def deployment_cron():
@@ -185,9 +185,9 @@ def backup_electris_db():
     """
     Backup the running electris database to S3.
     """
-    local(('s3cmd -P  --add-header=Cache-control:max-age=0 --guess-mime-type put electris.db s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    local(('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris.db s3://%(s3_bucket)s/%(deployed_name)s/') % env)
     if env.alt_s3_bucket:
-        local(('s3cmd -P  --add-header=Cache-control:max-age=0 --guess-mime-type put electris.db s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
+        local(('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris.db s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def recreate_tables():
@@ -238,7 +238,7 @@ def update_backchannel():
         key.set_contents_from_filename(
             TUMBLR_FILENAME,
             policy='public-read',
-            headers={'Cache-Control': 'max-age=0 no-cache no-store must-revalidate'}
+            headers={'Cache-Control': 'max-age=5 no-cache no-store must-revalidate'}
         )
         if env.alt_s3.bucket:
             conn = boto.connect_s3()
@@ -248,7 +248,7 @@ def update_backchannel():
             key.set_contents_from_filename(
                 TUMBLR_FILENAME,
                 policy='public-read',
-                headers={'Cache-Control': 'max-age=0 no-cache no-store must-revalidate'}
+                headers={'Cache-Control': 'max-age=5 no-cache no-store must-revalidate'}
             )
 
 
@@ -380,9 +380,9 @@ def deploy_audio(filename):
     Deploys an audio status file to status.json
     """
     require('settings', provided_by=[production, staging])
-    local('s3cmd -P --add-header=Cache-control:max-age=0 put initial_data/' + filename + ' s3://%(s3_bucket)s/%(deployed_name)s/status.json' % env)
+    local('s3cmd -P --add-header=Cache-control:max-age=5 put initial_data/' + filename + ' s3://%(s3_bucket)s/%(deployed_name)s/status.json' % env)
     if env.alt_s3_bucket:
-        local('s3cmd -P --add-header=Cache-control:max-age=0 put initial_data/' + filename + ' s3://%(alt_s3_bucket)s/%(deployed_name)s/status.json' % env)
+        local('s3cmd -P --add-header=Cache-control:max-age=5 put initial_data/' + filename + ' s3://%(alt_s3_bucket)s/%(deployed_name)s/status.json' % env)
 
 
 def audio_off():
