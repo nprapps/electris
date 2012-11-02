@@ -57,10 +57,12 @@
                 <% _.each(timezone.districts, function(district){ %>
                     <%
                         var called = '';
+                        var swap = '';
                         if (district.called == true) { called = 'called'; }
+                        if (district.swap == true) { swap = 'swap'; }
                         var district_name = district.district.replace(' 0', '');
                     %>
-                    <ul class="<%= called %>">
+                    <ul class="<%= called %> <%= swap %>">
                     <li class="status <%= district.district_slug %> <%= called %>"><%= district.status %></li>
                     <li class="district"><%= district_name %></li>
                     <%
@@ -70,13 +72,15 @@
                         var winner = '';
                         var float_position = 'right';
                         var angus = '';
+                        var swap = '';
+                        if (candidate.swap == true) { swap = 'swap'; }
                         if (candidate.winner == true) { winner = 'winner'; }
                         if (candidate.incumbent == true) { incumbent = 'incumbent'; }
                         if (index == 1){ float_position = 'left'; }
                         if (candidate.first_name == 'Angus') { angus = '<span class="tiny">&nbsp;(Other)</span>' }
                         if (candidate.first_name == 'Bernie') { angus = '<span class="tiny">&nbsp;(Ind)</span>' }
                     %>
-                        <li class="<%= party_class %> <%= incumbent %> <%= winner %> candidate <%= district.district_slug %> candidate-<%= candidate.npid %>">
+                        <li class="<%= party_class %> <%= incumbent %> <%= winner %> candidate <%= district.district_slug %> candidate-<%= candidate.npid %> <%= swap %>">
                             <%= candidate.first_name %>&nbsp;<%= candidate.last_name %><%= angus %>&nbsp;
                             <span class="vote-percent <%= float_position %>"><%= candidate.vote_percent %></span>
                         </li>

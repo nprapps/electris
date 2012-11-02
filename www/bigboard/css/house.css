@@ -53,6 +53,7 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
     width:29px;
     letter-spacing:-1px;
     text-align:left;
+    text-indent: 1px;
     border-right:#666 solid 1px;
     color:#f9e8af;
 }
@@ -86,10 +87,16 @@ ul.swap .district {
     line-height:19px;
 }
 
-.candidate-60365
-	{
+.candidate-60365,
+.candidate-60423,
+.candidate-61673,
+.candidate-7352,
+.candidate-1507,
+.candidate-5418
+ 	{
 	letter-spacing: -1px;
 	}
+
 
 
 .candidate-535,
@@ -98,24 +105,28 @@ ul.swap .district {
 .candidate-53539,
 .candidate-61214,
 .candidate-62079,
+.candidate-52562,
+.candidate-62709,
+.candidate-53539,
+.candidate-62158,
 .candidate-51631,
-.candidate-52562
+.candidate-60791, 
+.candidate-1063,
+.candidate-52161,
+.candidate-1581
  {
     font-size:13px;
 	letter-spacing: -1px;
 }
 
 .candidate-1581,
-.candidate-62709,
 .candidate-62231,
 .candidate-1063,
-.candidate-52161,
-.candidate-60791
-	{
+ {
 		font-size: 12px;
 	}
 
-
-.candidate-55336, .candidate-60930 {
+.candidate-55336, 
+.candidate-60930 {
 	font-size: 11px;
 }

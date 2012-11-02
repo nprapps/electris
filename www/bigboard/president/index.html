@@ -57,14 +57,15 @@
                     if (state.call == 'd') { winner = 'dem'; }
                     if (state.call == 'r') { winner = 'gop'; }
                     if (winner != '') { called = 'called'; }
+                    state_name = state_name.replace('District of Columbia', 'Wash. D.C.');
                     state_name = state_name.replace('North', 'N.');
-                    state_name = state_name.replace('New', 'N.');
                     state_name = state_name.replace('West', 'W.');
                     state_name = state_name.replace('South', 'S.');
                     state_name = state_name.replace('Statewide', '');
                     state_name = state_name.replace('Massachusetts', 'Mass.');
                     state_name = state_name.replace('Pennsylvania', 'Penn.');
                     state_name = state_name.replace('District ', 'D');
+                    state_name = state_name.replace('New Hampshire', 'N. Hampshire');
                 %>
                 <ul class="allstates">
                 	<li class="percentTime <%= called %>">
