@@ -197,6 +197,7 @@ $(function() {
         red_votes_el.text(red_votes);
         red_needs_el.text(Math.max(0, ELECTORAL_VOTES_TO_WIN - red_votes));
         red_candidate_el.toggleClass("winner", red_votes >= ELECTORAL_VOTES_TO_WIN);
+        $("#pres-header .red").toggleClass("winner", red_votes_called >= ELECTORAL_VOTES_TO_WIN)
 
         var blue_votes_called = sum_votes(states_called_blue);
         var blue_votes_user = sum_votes(states_user_blue);
@@ -204,6 +205,7 @@ $(function() {
         blue_votes_el.text(blue_votes);
         blue_needs_el.text(Math.max(0, ELECTORAL_VOTES_TO_WIN - blue_votes));
         blue_candidate_el.toggleClass("winner", blue_votes >= ELECTORAL_VOTES_TO_WIN);
+        $("#pres-header .blue").toggleClass("winner", blue_votes_called >= ELECTORAL_VOTES_TO_WIN)
 
         var old_winner = winner;
 
