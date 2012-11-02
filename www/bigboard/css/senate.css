@@ -47,8 +47,9 @@
 
 span.tiny { font-size:12px; text-transform:uppercase; letter-spacing:-2px; }
 /* Some people have long names. */
-.candidate-51916, .candidate-49977, .candidate-61823 {
+.candidate-51916, .candidate-49977, .candidate-61823,.candidate-61823 {
     font-size:14px;
+    letter-spacing: -1px;
 }
 /* Super-long names. */
 .candidate-61671,
@@ -61,7 +62,8 @@ span.tiny { font-size:12px; text-transform:uppercase; letter-spacing:-2px; }
 .candidate-49977,
 .candidate-1805,
 .candidate-62244,
-.candidate-62329
+.candidate-62329,
+.candidate-1384
 {
     font-size:13px;
     letter-spacing: -1px;
