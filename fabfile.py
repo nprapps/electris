@@ -84,6 +84,7 @@ def _deploy_to_s3():
     """
     local(('\
         s3cmd -P\
+        --add-header=Cache-control:max-age=0 no-cache no-store must-revalidate\
         --add-header=Content-encoding:gzip\
         --guess-mime-type\
         --recursive\
@@ -92,6 +93,7 @@ def _deploy_to_s3():
     if env.alt_s3_bucket:
         local(('\
             s3cmd -P\
+            --add-header=Cache-control:max-age=0 no-cache no-store must-revalidate\
             --add-header=Content-encoding:gzip\
             --guess-mime-type\
             --recursive\
@@ -165,9 +167,9 @@ def deploy_local_data():
     """
     write_www_files()
     _gzip_www()
-    local(('s3cmd -P --add-header=Cache-control:max-age=0 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    local(('s3cmd -P --add-header=Cache-control:max-age=0 no-cache no-store must-revalidate --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
     if env.alt_s3_bucket:
-        local(('s3cmd -P --add-header=Cache-control:max-age=0 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
+        local(('s3cmd -P --add-header=Cache-control:max-age=0 no-cache no-store must-revalidate --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def deployment_cron():
@@ -178,13 +180,14 @@ def deployment_cron():
         deploy_local_data()
         sleep(5)
 
+
 def backup_electris_db():
     """
     Backup the running electris database to S3.
     """
-    local(('s3cmd -P --guess-mime-type put electris.db s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    local(('s3cmd -P  --add-header=Cache-control:max-age=0 no-cache no-store must-revalidate --guess-mime-type put electris.db s3://%(s3_bucket)s/%(deployed_name)s/') % env)
     if env.alt_s3_bucket:
-        local(('s3cmd -P --guess-mime-type put electris.db s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
+        local(('s3cmd -P  --add-header=Cache-control:max-age=0 no-cache no-store must-revalidate --guess-mime-type put electris.db s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def recreate_tables():
@@ -260,6 +263,7 @@ def write_www_files():
         local('rm www/senate.json')
         local('rm www/president.json')
         local('rm www/bop.json')
+        local('rm www/bop_jsonp.json')
 
     o.write_electris_json()
     o.write_president_json()
@@ -334,7 +338,7 @@ def reset():
     with settings(warn_only=True):
         sudo('service electris_cms stop')
         sudo('service electris_cron stop')
-    
+
     with cd(env.repo_path):
         run('rm electris.db')
         run('cp initial_data/electris_initial.db electris.db')
