@@ -700,7 +700,6 @@ a.btn { color: #fff; cursor: pointer; }
     text-align: center;
     display: block;
 }
-#results-bar .electris-alert { display: none; }
 
 
 /* Memetracker */
@@ -838,7 +837,7 @@ body.audio #comingsoon { display:none; }
    results bar is pulled out of the document flow */
 #results-bar.affix ~ #creamy-filling { padding-top:120px; font-size: 14px; }
 
-#results-bar.affix .electris-alert { 
+#results-bar .electris-alert { 
 	position: static; top: auto; left: auto; width: auto;
 	text-align: left;
 	font-size: 12px;
@@ -851,20 +850,22 @@ body.audio #comingsoon { display:none; }
 	   -moz-box-shadow: none;
 			box-shadow: none;
 	height: auto;
-}
-#results-bar .electris-alert,
-#results-bar.affix .electris-alert,
-#results-bar.affix-top .electris-alert {
-	display: none;
 	z-index: auto;
 }
-#results-bar.affix .electris-alert .alert-wrapper { padding: 10px; }
-#results-bar.affix .electris-alert strong,
-#results-bar.affix .electris-alert b {
+#results-bar .electris-alert .alert-wrapper { padding: 10px; }
+#results-bar .electris-alert strong,
+#results-bar .electris-alert b {
 	display: inline;
 	font-size: 12px;
 	line-height: 12px;
 	margin: 0;
+}
+#results-bar .alert-outer,
+#results-bar.affix-top .alert-outer {
+	display: none;
+}
+#results-bar.affix .alert-outer {
+	display: block;
 }
 
 
