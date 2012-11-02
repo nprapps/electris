@@ -40,7 +40,7 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 }
 .allstates .state {
     font-size:14px;
-    line-height:20px;
+    line-height:21px;
     width:145px;
     overflow:hidden;
     white-space: nowrap;
@@ -56,7 +56,7 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 
 .percentTime{ border-right:solid #666 1px; width:12%; overflow:hidden; font-size:13px; text-align:left; color:#f9e8af;}
 .percentTime.called { background-color:#f2d15f; color:#000; }
-.full .percentTime.called { height:20px; }
+.full .percentTime.called { height:21px;}
 .weighted li.demPercent{width:15%;overflow:hidden;}
 .weighted li.gopPercent{width:15%;overflow:hidden;}
 
