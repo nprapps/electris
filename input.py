@@ -93,16 +93,18 @@ DISTRICT_CANDIDATE_FIELDS = [
 
 def get_fake_ap_data():
     """
-    Grabs data from the very beginning of the AP test.
+    Grabs the selected fake AP top-of-ticket data file.
     """
-    path = 'test_data/timemachine/US_14-31.txt'
+    path = 'timemachine/US.txt'
     with open(path, 'rb') as f:
         return f.readlines()
 
 
 def get_fake_ap_district_data(state_code):
-    path = 'test_data/%s_D.txt' % state_code
-
+    """
+    Grabs the selected fake AP district data file.
+    """
+    path = 'timemachine/%s_D.txt' % state_code
     with open(path, 'rb') as f:
         return f.readlines()
 
