@@ -755,12 +755,14 @@ $(function() {
             // Toggling from opponent
             } else {
                 tossup_picks[state_id] = winner;
-                add_state(states_by_id[state_id]);
+                var state = _.find(states, function(state) { state.id == state_id });
+                add_state(state);
             }
         // Initial selection
         } else {
             tossup_picks[state_id] = winner;
-            add_state(states_by_id[state_id]);
+            var state = _.find(states, function(state) { state.id == state_id });
+            add_state(state);
         }
 
         compute_stats(true);
