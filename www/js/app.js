@@ -609,6 +609,14 @@ $(function() {
                 }
             }
 
+            if (combo_groups_el.is(":empty")) {
+                if (base_votes >= ELECTORAL_VOTES_TO_WIN) {
+                    combo_groups_el.html("<p>All states have been selected. There are no further paths to victory.</p>");
+                } else {
+                    combo_groups_el.html("<p>All states have been selected. There are no further paths to victory.</p>");
+                }
+            }
+
             combo_groups_el = null;
         }
 
