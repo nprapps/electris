@@ -48,7 +48,7 @@
             <div class="timezone">
                 <div class="poll-closing-time">
                     <div class="poll-closing-time-label">
-                    <% date = moment.unix(timezone.gmt_epoch_time).subtract('hours', 5).format('h:mm'); %>
+                    <% date = moment.unix(timezone.gmt_epoch_time).format('h:mm'); %>
                     <%= date %>
                     </div>
                 </div>
