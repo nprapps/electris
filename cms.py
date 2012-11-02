@@ -179,7 +179,7 @@ def house(house, featured=None):
             .join(Race)\
             .where(
                 Race.office_code == house_slug,
-                (Candidate.party == 'Dem') | (Candidate.party == 'GOP') | (Candidate.first_name == 'Angus'),
+                (Candidate.party == 'Dem') | (Candidate.party == 'GOP') | (Candidate.first_name == 'Angus') | (Candidate.first_name == 'Bernie'),
                 Candidate.last_name != 'Dill')
 
         if is_featured:
