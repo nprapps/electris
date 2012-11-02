@@ -1327,8 +1327,8 @@ $(function() {
         	$('#pres-r-towin').text(bop.president.republicans.needed_for_majority);
         	$('#sen-d-total').text(bop.senate.democrats.total);
         	$('#sen-r-total').text(bop.senate.republicans.total);
-        	$('#sen-d-delta').text(bop.senate.democrats.delta);
-        	$('#sen-r-delta').text(bop.senate.republicans.delta);
+        	$('#sen-d-majority').text(bop.senate.democrats.needed_for_majority);
+        	$('#sen-r-majority').text(bop.senate.republicans.needed_for_majority);
         	$('#house-d-total').text(bop.house.democrats.total);
         	$('#house-r-total').text(bop.house.republicans.total);
         	$('#house-d-majority').text(bop.house.democrats.needed_for_majority);
