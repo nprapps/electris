@@ -43,6 +43,10 @@ if ('ontouchstart' in document.documentElement) {
 	if (winWidth <= 767) {
 		$('html').addClass('NPRphone');
 	}
+    // No box ad when we have adhesion, so #header gets 12 columns
+    if (winWidth <= 1024){
+        $('#header').removeClass('span8').addClass('span12');
+    }
 }
 if (NPR.PageInfo.getUrlParameter('device') == 'tablet') {
 	$('html').addClass('NPRtablet');
@@ -73,11 +77,6 @@ $(document).ready(function () {
 			});
 		}, 500);
 	}
-
-    // No box ad when we have adhesion, so #header gets 12 columns
-    if (Modernizr.touch){
-        $('#header').removeClass('span8').addClass('span12');
-    }
 });
 
 var DFP = {};
