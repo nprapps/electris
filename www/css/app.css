@@ -873,7 +873,7 @@ body.audio #comingsoon { display:none; }
 	#header-promos .promo:first-child { width: 355px; }
 
     #results-bar.affix #small-header { width: 1150px; }
-    #results-bar.affix div.results-row { margin-left: 30px; }
+    #results-bar.affix div.results-row { margin-left: 30px; margin-right: 0; }
 	#pres-header i { display: inline; }
 	
 	#electris .pres-results { height: 693px; }

@@ -221,10 +221,10 @@ $(function() {
             var side = null;
             
             if (winner === "d") {
-                alert_text = 'NPR projects that <strong class="alert-name">Barack Obama</strong> will win re-election.';
+                alert_text = 'NPR projects that <strong class="alert-name">Barack Obama</strong> will win re-election. <strong><b>z</b></strong>';
                 side = "blue";
             } else {
-                alert_text = 'NPR projects that <strong class="alert-name">Mitt Romney</strong> will win the presidency.';
+                alert_text = 'NPR projects that <strong class="alert-name">Mitt Romney</strong> will win the presidency. <strong><b>z</b></strong>';
                 side = "red";
             }
 
@@ -609,6 +609,14 @@ $(function() {
                 }
             }
 
+            if (combo_groups_el.is(":empty")) {
+                if (base_votes >= ELECTORAL_VOTES_TO_WIN) {
+                    combo_groups_el.html("<p>All states have been selected. There are no further paths to victory.</p>");
+                } else {
+                    combo_groups_el.html("<p>All states have been selected. There are no further paths to victory.</p>");
+                }
+            }
+
             combo_groups_el = null;
         }
 
@@ -892,13 +900,13 @@ $(function() {
             incoming_state_els.push(incoming_state_el)
             incoming_state_el = null;
             
-            var timestamp = state.polls_close.valueOf();
+            var isodate = state.polls_close.format("YYYY-MM-DDTHH:mm:ss Z");
 
-            if (!(timestamp in closing_times)) {
-                closing_times[timestamp] = [];
+            if (!(isodate in closing_times)) {
+                closing_times[isodate] = [];
             }
 
-            closing_times[timestamp].push(state);
+            closing_times[isodate].push(state);
         });
             
         called_ul.append(called_state_els);
@@ -910,21 +918,21 @@ $(function() {
         called_el.toggle(called_count > 0);
         incoming_el.toggle(incoming_count > 0);
 
-        var times = _.keys(closing_times).sort();
+        var isodates = _.keys(closing_times).sort();
 
-        _.each(times, function(time) {
-            var closing_time = moment(parseInt(time));
+        _.each(isodates, function(isodate) {
+            var closing_time = moment(isodate);
 
             var closing_html = CLOSING_TEMPLATE({
                 closing_time: closing_time,
-                states: closing_times[time]
+                states: closing_times[isodate]
             });
 
-            if (!(time in polls_closing_html)) {
-                polls_closing_html[time] = [];
+            if (!(isodate in polls_closing_html)) {
+                polls_closing_html[isodate] = [];
             }
 
-            polls_closing_html[time].push(closing_html);
+            polls_closing_html[isodate].push(closing_html);
 
             closing_ul.append(closing_html);
         });
@@ -948,8 +956,8 @@ $(function() {
          */
         var now = moment();
 
-        var next = _.find(_.keys(polls_closing_html).sort(), function(time) {
-            var closing_time = moment(parseInt(time));
+        var next = _.find(_.keys(polls_closing_html).sort(), function(isodate) {
+            var closing_time = moment(isodate);
             return closing_time > now;
         });
 
@@ -1204,10 +1212,9 @@ $(function() {
                         el.show();
                         posts_el.find("#post-" + post.id).replaceWith(el);
 
-                    }
-            
-                    if (post.type === "regular") {
-                        has_tweets = true;
+                        if (post.type === "regular") {
+                           has_tweets = true;
+                        }
                     }
                 // New
                 } else {
@@ -1237,7 +1244,9 @@ $(function() {
 
             // Render incoming tweets
             if (has_tweets) {
-                twttr.widgets.load(posts_el[0]);
+                if ('widgets' in twttr) {
+                    twttr.widgets.load(posts_el[0]);
+                };
             }
         });
     }
