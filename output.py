@@ -153,8 +153,7 @@ def write_president_json():
     """
     Outputs the president json file for bigboard's frontend.
     """
-    now = datetime.datetime(2012, 11, 7, 3, 35)
-    # now = datetime.datetime.now(tz=pytz.utc)
+    now = datetime.datetime.now(tz=pytz.utc)
 
     with open('www/president.json', 'w') as f:
         objects = []
@@ -221,8 +220,7 @@ def _generate_json(house):
     * House is a two-tuple ('house', 'H'), e.g., URL slug and DB representation.
     """
     objects = []
-    now = datetime.datetime(2012, 11, 7, 3, 35)
-    # now = datetime.datetime.now(tz=pytz.utc)
+    now = datetime.datetime.now(tz=pytz.utc)
 
     for timezone in settings.CLOSING_TIMES:
         timezone_dict = {}
