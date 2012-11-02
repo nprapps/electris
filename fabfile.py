@@ -158,8 +158,14 @@ def deploy():
     _gzip_www()
     _deploy_to_s3()
 
+    with settings(warn_only=True):
+            sudo('service electris_cms stop')
+            sudo('service electris_cron stop')
+
     checkout_latest()
 
+    sudo('service electris_cms start')
+    sudo('service electris_cron start')
 
 def deploy_local_data():
     """
