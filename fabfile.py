@@ -84,7 +84,7 @@ def _deploy_to_s3():
     """
     local(('\
         s3cmd -P\
-        --add-header=Cache-control:max-age=0 no-cache no-store must-revalidate\
+        --add-header=Cache-control:max-age=0\
         --add-header=Content-encoding:gzip\
         --guess-mime-type\
         --recursive\
@@ -93,7 +93,7 @@ def _deploy_to_s3():
     if env.alt_s3_bucket:
         local(('\
             s3cmd -P\
-            --add-header=Cache-control:max-age=0 no-cache no-store must-revalidate\
+            --add-header=Cache-control:max-age=0\
             --add-header=Content-encoding:gzip\
             --guess-mime-type\
             --recursive\
@@ -167,9 +167,9 @@ def deploy_local_data():
     """
     write_www_files()
     _gzip_www()
-    local(('s3cmd -P --add-header=Cache-control:max-age=0 no-cache no-store must-revalidate --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    local(('s3cmd -P --add-header=Cache-control:max-age=0 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
     if env.alt_s3_bucket:
-        local(('s3cmd -P --add-header=Cache-control:max-age=0 no-cache no-store must-revalidate --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
+        local(('s3cmd -P --add-header=Cache-control:max-age=0 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def deployment_cron():
@@ -185,9 +185,9 @@ def backup_electris_db():
     """
     Backup the running electris database to S3.
     """
-    local(('s3cmd -P  --add-header=Cache-control:max-age=0 no-cache no-store must-revalidate --guess-mime-type put electris.db s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    local(('s3cmd -P  --add-header=Cache-control:max-age=0 --guess-mime-type put electris.db s3://%(s3_bucket)s/%(deployed_name)s/') % env)
     if env.alt_s3_bucket:
-        local(('s3cmd -P  --add-header=Cache-control:max-age=0 no-cache no-store must-revalidate --guess-mime-type put electris.db s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
+        local(('s3cmd -P  --add-header=Cache-control:max-age=0 --guess-mime-type put electris.db s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def recreate_tables():
