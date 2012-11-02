@@ -25,7 +25,7 @@ body {
     font-family:ArmataRegular;
     height:600px;
     width:800px;
-    background-color:#333;
+    background-color:#111;
     color:#fff;
     font-weight: bolder;
     overflow: hidden;
@@ -107,7 +107,7 @@ li#ind_sec{width:120px;}
     float:left;
 }
 .timezone ul:nth-child(odd){
-	background-color:#444;
+	background-color:#333;
 }
 .poll-closing-time{
     position:relative;
