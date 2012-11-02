@@ -1204,10 +1204,9 @@ $(function() {
                         el.show();
                         posts_el.find("#post-" + post.id).replaceWith(el);
 
-                    }
-            
-                    if (post.type === "regular") {
-                        has_tweets = true;
+                        if (post.type === "regular") {
+                           has_tweets = true;
+                        }
                     }
                 // New
                 } else {
@@ -1237,7 +1236,9 @@ $(function() {
 
             // Render incoming tweets
             if (has_tweets) {
-                twttr.widgets.load(posts_el[0]);
+                if ('widgets' in twttr) {
+                    twttr.widgets.load(posts_el[0]);
+                };
             }
         });
     }
