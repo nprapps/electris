@@ -629,6 +629,7 @@ $(function() {
             red_combos,
             red_votes,
             red_states_won,
+            blue_votes,
             blue_states_won
         ));
 
@@ -640,13 +641,14 @@ $(function() {
             blue_combos,
             blue_votes,
             blue_states_won,
+            red_votes,
             red_states_won
         ));
 
         show_combos(blue_keys, blue_groups, "blue", blue_votes);
     }
 
-    function must_win_robotext(candidate, opponent, combos, votes, states_won, opponent_won) {
+    function must_win_robotext(candidate, opponent, combos, votes, states_won, opponent_votes, opponent_won) {
         /*
          * Generate robotext describing election scenario.
          */
@@ -657,6 +659,11 @@ $(function() {
             } else {
                 return "If " + candidate + " wins the states you have selected then he will <strong>win the Electoral College</strong>.";
             }
+        }
+
+        // Deadlock!
+        if (votes == 269 && opponent_votes == 269) {
+            return 'In this scenario, neither candidate can win the Electoral College.<br /><a href="http://www.npr.org/blogs/itsallpolitics/2012/10/31/163950264/presidential-race-what-if-there-are-two-winners">What happens now? &raquo;</a>';
         }
 
         // Loser
