@@ -15,7 +15,7 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
     width:37px;
     display:block;
     text-indent:2px;
-    letter-spacing:-1px;
+    letter-spacing:-2px;
 }
 #candidates {
     height:560px;
@@ -26,7 +26,7 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
     text-indent:4px;
     line-height:23px;
     font-size:14px;
-    letter-spacing:-1px;
+    letter-spacing:0;
 }
 .timezone ul {
     height:20px;
@@ -85,20 +85,36 @@ ul.swap .district {
     height:19px;
     line-height:19px;
 }
-.candidate-1581,
+
+.candidate-60365
+	{
+	letter-spacing: -1px;
+	}
+
+
 .candidate-535,
 .candidate-51631,
 .candidate-135,
 .candidate-53539,
+.candidate-61214,
+.candidate-62079,
 .candidate-51631,
-.candidate-52161 {
-    font-size:12px;
+.candidate-52562
+ {
+    font-size:13px;
+	letter-spacing: -1px;
 }
 
-.candidate-61214 {
-    font-size:13px;
-    letter-spacing:-1px;
-}
+.candidate-1581,
+.candidate-62709,
+.candidate-62231,
+.candidate-1063,
+.candidate-52161,
+.candidate-60791
+	{
+		font-size: 12px;
+	}
+
 
 .candidate-55336, .candidate-60930 {
 	font-size: 11px;
