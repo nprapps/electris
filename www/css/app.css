@@ -183,7 +183,7 @@ a.btn { color: #fff; cursor: pointer; }
 	padding: 1%;
 	border-top: 1px solid #000000;
 	border-bottom: 1px solid #000000;
-	margin-bottom: 0;
+	margin: 0 -10px 0 -10px;
 }
 #tabs .nav-tabs li { 
 	width: 33%; text-align: center;
@@ -674,7 +674,7 @@ a.btn { color: #fff; cursor: pointer; }
 /* ALERTS */
 .electris-alert {
     display: none;
-	position: absolute; top: 16%; left: 35%; width: 30%;
+	position: absolute; top: 16%; left: 20%; width: 60%;
 	z-index: 2100;
 	background-color: #B39429;
 	text-align: center;
@@ -835,9 +835,7 @@ body.audio #comingsoon { display:none; }
 #results-bar.affix ~ #creamy-filling { padding-top:120px; font-size: 14px; }
 
 #results-bar.affix .electris-alert { 
-	display: none;
 	position: static; top: auto; left: auto; width: auto;
-	z-index: auto;
 	text-align: left;
 	font-size: 12px;
 	line-height: 12px;
@@ -849,6 +847,12 @@ body.audio #comingsoon { display:none; }
 	   -moz-box-shadow: none;
 			box-shadow: none;
 	height: auto;
+}
+#results-bar .electris-alert,
+#results-bar.affix .electris-alert,
+#results-bar.affix-top .electris-alert {
+	display: none;
+	z-index: auto;
 }
 #results-bar.affix .electris-alert .alert-wrapper { padding: 10px; }
 #results-bar.affix .electris-alert strong,
@@ -982,9 +986,6 @@ body.audio #comingsoon { display:none; }
         margin-bottom:1px;
         height:9px;
 	}
-	#electris-skinny .electris-alert { 
-		left: 20%; width: 60%;
-	}
 }
 
 @media (max-width: 767px) {
@@ -1018,7 +1019,7 @@ body.audio #comingsoon { display:none; }
     .tab-pane { display:none; }
     .tab-pane.active { display:block; }
     
-	#electris { margin-left: 0; padding-top: 18px; }
+	#electris { margin-left: 0; margin-top: 18px; }
 	#electris-skinny .candidate.blue .bucket,
 	#electris-skinny .candidate.red .bucket { float: none; width: 100%; }
 	#electris-skinny .states, .states { font-size: 10px; }
@@ -1059,7 +1060,7 @@ body.audio #comingsoon { display:none; }
 	#header-promos .promo:first-child { width: 45%; margin-left: 0; }
 	#header-promos .promo p { display: none; }
 	
-	#results-bar.row .electris-alert { position: fixed; top: 13%; left: 25%; width: 50%; }
+/*	#results-bar.row .electris-alert { position: fixed; } */
 	
 	#pres-header i { font-style: normal; display: none; }
 
