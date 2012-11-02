@@ -50,7 +50,7 @@ def calculate_president_bop(data, votes):
     A function for calculating the presidential balance-of-power.
     """
     data['total'] += votes
-    majority = data['needed_for_majority'] - 1
+    majority = data['needed_for_majority'] - votes
     if majority < 0:
         majority = 0
     data['needed_for_majority'] = majority
