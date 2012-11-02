@@ -1,3 +1,6 @@
+#banner {height:50px;}
+#banner li h2{padding-top:6px;}
+
 .timezone ul { margin-left:0; }
 .poll-closing-time{ position:relative; }
 .poll-closing-time-label { margin:0; padding:0; width:399px; font-size:14px; height:27px;line-height:27px; }
@@ -5,7 +8,7 @@
 #candidates ul { width:399px;}
 #candidates ul li { height:27px;line-height:27px; }
 .district{ font-size:12px; width:25px; text-align:center; }
-.status{ width: 32px; font-size:13px; letter-spacing:-1px; text-align:left; color:#f9e8af; border-right:#666 solid 1px; }
+.status{ width: 33px; font-size:13px; letter-spacing:-1px; text-align:left; color:#f9e8af; border-right:#666 solid 1px; }
 .emptyleft {margin-left: 160px; }
 #candidates ul li.candidate.switch{
 	border:1px #fff solid;
