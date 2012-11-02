@@ -89,7 +89,7 @@ def _deploy_to_s3():
         --guess-mime-type\
         --recursive\
         --exclude *.json\
-        put gzip/ s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+        sync gzip/ s3://%(s3_bucket)s/%(deployed_name)s/') % env)
     if env.alt_s3_bucket:
         local(('\
             s3cmd -P\
@@ -98,7 +98,7 @@ def _deploy_to_s3():
             --guess-mime-type\
             --recursive\
             --exclude *.json\
-            put gzip/ s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
+           sync  gzip/ s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
 
 
 def _gzip_www():
