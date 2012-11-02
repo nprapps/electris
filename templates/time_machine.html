@@ -26,7 +26,7 @@
         <div class="row-fluid">
             {% for group in file_times|groupby('hour') %}
             <div class="span6">
-                <h2 class="time">{{ group.grouper }}:00</h2>
+                <h2 class="time">{{ group.grouper }}:00 p.m.</h2>
                 <ul class="files">{% for file in group.list %}
             <li><button id="time-{{ file.name }}" class="btn" data-file-name="{{ file.name }}">{{ file.hour }}:{{ file.minute }}</button></li>
             {% endfor %}</ul>
