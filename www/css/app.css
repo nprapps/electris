@@ -726,9 +726,10 @@ a.btn { color: #fff; cursor: pointer; }
 #live-blog p { font: 15px/1.35em Arial, Helvetica, sans-serif; color: #555; margin: 0; }
 #live-blog .sticky p { font-color: #333; font-weight: bold; }
 #live-blog p.tstamp, #live-blog .sticky p.tstamp { font-size: 12px; color: #999; margin-bottom: 3px; font-weight: normal; }
-#live-blog p a { color: #000; }
-#live-blog p a:hover { color: #36C; text-decoration: none; cursor: pointer; }
-#live-blog .more { white-space: nowrap; }
+#live-blog p a { color: #000; font-weight: bold; }
+#live-blog p a:hover, #live-blog a:hover .more { color: #36C; text-decoration: none; cursor: pointer; }
+#live-blog .more { white-space: nowrap; font-weight: normal; font-size: .85em; padding-left: .5em; }
+#live-blog a .more { color: #666; }
 #live-blog-more { display: block; }
 
 
