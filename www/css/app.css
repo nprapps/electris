@@ -142,6 +142,11 @@ a.btn { color: #fff; cursor: pointer; }
 }
 .results-group .blue { width: 45%; float: left; border-top: 1px solid #CCC; }
 .results-group .red { width: 45%; float: right; border-top: 1px solid #CCC; }
+.results-group .winner h3 strong {
+	background: url('../img/ico-checkmark-sm.png') no-repeat right 2px;
+	padding-right: 18px;
+}
+
 
 #pres-header .blue { background: url('../img/silo-obama-45.png') no-repeat left 6px; }
 #pres-header .red  { background: url('../img/silo-romney-45.png') no-repeat left 6px; }
