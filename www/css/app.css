@@ -184,7 +184,6 @@ a.btn { color: #fff; cursor: pointer; }
 	padding: 2px 5px 4px 5px;
 	border-top: 1px solid #000000;
 	border-bottom: 1px solid #000000;
-	margin: 0 -10px 0 -10px;
 }
 #tabs .nav-tabs li { 
 	width: 33%; text-align: center;
@@ -1020,10 +1019,15 @@ body.audio #comingsoon { display:none; }
 	#electris .pres-results { height: auto; }
 
 	#results-bar.affix ~ #creamy-filling { padding-top:0; }
+	.results-group h2 span { font-size: 13px; font-weight: bold; }
 
     #tabs { display:block; margin-top:20px; }
     .tab-pane { display:none; }
     .tab-pane.active { display:block; }
+	#tabs .nav-tabs { 
+		margin: 0 -20px 0 -20px;
+		padding: 2px 10px 4px 10px;
+	}
     
 	#electris { margin-left: 0; margin-top: 18px; }
 	#electris-skinny .candidate.blue .bucket,
@@ -1066,7 +1070,12 @@ body.audio #comingsoon { display:none; }
 	#header-promos .promo:first-child { width: 45%; margin-left: 0; }
 	#header-promos .promo p { display: none; }
 	
+	.results-group h2 span { font-size: 13px; font-weight: bold; }
+	.results-group h2 span a { color: #000; }
+	.results-group h2 span a:hover { color: #36c; }
 	#pres-header i { font-style: normal; display: none; }
+
+	#tabs .nav-tabs { margin: 0 -10px 0 -10px; padding: 2px 5px 4px 5px; }
 
 	.state i { text-indent: -9999px; width: 9%; margin-right: 1%; min-width: 13px; }
     .bucket-header h3 i { display: none; }
@@ -1075,8 +1084,7 @@ body.audio #comingsoon { display:none; }
 		float: none; text-align: center;
 	}
 	.vote-tallies .bignum {
-		width: auto; font-size: 14px; float: none;
-		padding-top: 0;
+		width: auto; font-size: 14px; float: none; padding-top: 0;
 	}
 	.vote-tallies span { 
 		width: auto; float: none; margin-top: 0; text-align: center; padding-top: 3px;
