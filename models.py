@@ -88,17 +88,27 @@ class Race(Model):
         if self.winner and self.prediction:
             return (_format_output(self.winner), _format_output(self.prediction))
 
-        return None
+        return (None, None)
 
     @property
     def has_flipped(self):
         """
+        Check to see if the winner matches the predicted winner.
         """
         if self.called == True:
+
+            # If the race is called -- return!
             if unicode(self.winner) == unicode(self.prediction):
+
+                # If the winner is predicted, return false.
                 return False
             else:
+
+                # Otherwise, YES!
                 return True
+
+        # If'n this race hasn't been called, return false.
+        return False
 
     @property
     def winner(self):
