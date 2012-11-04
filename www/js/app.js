@@ -714,8 +714,8 @@ $(function() {
             var longest_combo_length = 0;
         }
 
-        // Several one-state combos left
-        if (longest_combo_length == 1) {
+        // Two one-state combos left
+        if (longest_combo_length == 1 && combos.length == 2) {
             var states_text = "";
 
             _.each(combos, function(combo, i, l) {

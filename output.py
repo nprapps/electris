@@ -159,7 +159,8 @@ def write_bop_json():
                     if short == 'S':
                         data[office][party] = calculate_senate_bop(race, data[office][party])
 
-            data[office] = calculate_net_pickups(race, data[office])
+            if short == 'S':
+                data[office] = calculate_net_pickups(race, data[office])
 
         # Write the number of uncalled races.
         # First, the races where we accept AP calls but no calls have come in.
@@ -267,6 +268,7 @@ def _generate_json(house):
 
         for district in races:
 
+            # Set up the race information.
             district_dict = {}
             district_dict['district'] = u'%s %s' % (
                 district.state_postal,
@@ -274,37 +276,42 @@ def _generate_json(house):
             district_dict['candidates'] = []
             district_dict['district_slug'] = district.slug
 
+            # Percent reporting.
             district_dict['percent_reporting'] = district.percent_reporting()
 
+            # Call times.
+            district_dict['called_time'] = None
             if district.accept_ap_call == True:
                 district_dict['called'] = district.ap_called
-                district_dict['called_time'] = district.ap_called_time
+                if district.ap_called_time != None:
+                    district_dict['called_time'] = district.ap_called_time.strftime('%I:%M')
             elif district.accept_ap_call == False:
                 district_dict['called'] = district.npr_called
-                district_dict['called_time'] = district.npr_called_time
+                if district.npr_called_time != None:
+                    district_dict['called_time'] = district.npr_called_time.strftime('%I:%M')
 
+            # Status field.
             if district.poll_closing_time > now:
                 if district_dict['called'] == True:
-                    etnow = now - timedelta(hours=5)
                     district_dict['status_tag'] = 'Called time.'
-                    district_dict['status'] = etnow.strftime('%I:%M').lstrip('0')
+                    district_dict['status'] = district_dict['called_time']
                 else:
                     district_dict['status_tag'] = 'Poll closing time.'
                     district_dict['status'] = '&nbsp;'
-
             if district.poll_closing_time < now:
                 if district_dict['called'] == True:
-                    etnow = now - timedelta(hours=5)
                     district_dict['status_tag'] = 'Called time.'
-                    district_dict['status'] = etnow.strftime('%I:%M').lstrip('0')
+                    district_dict['status'] = district_dict['called_time']
                 else:
                     district_dict['status_tag'] = 'Percent reporting.'
                     district_dict['status'] = u'%s' % district.percent_reporting()
 
+            # Flips.
             district_dict['swap'] = False
             if district.has_flipped:
                 district_dict['swap'] = True
 
+            # Candidates.
             for candidate in Candidate.select().where(Candidate.race == district):
                     if (
                     candidate.party == u'Dem'
