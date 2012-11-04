@@ -842,8 +842,8 @@ a.btn { color: #fff; cursor: pointer; }
 /* audio player */
 body.audio #audio { display:block; }
 body.no-audio #audio { display:none; }
-body.message #comingsoon { display:block; }
-body.no-message #comingsoon { display:none; }
+body.comingsoon #comingsoon { display:block; }
+body.not-coming #comingsoon { display:none; }
 #audio { color: #FFF; border-width: 1px; border-style: solid; border-color: #333; border-color: rgba(51,51,51,.8); padding:4px 0 0 0; font-family:Arial,sans-serif; margin:55px 0 15px 15px; display:none; }
 #audio #jwplayer_wrapper { float:left; margin: 0 10px 4px 4px; }
 #audio #audio-htmlstream { display:none; height: 0; }
@@ -872,6 +872,15 @@ body.no-message #comingsoon { display:none; }
 #comingsoon { position:relative; background: url('../img/coming-soon-bg-wide.png') no-repeat right bottom; height:62px; margin:55px 0 15px -12px; float:left; display:none; }
 #comingsoon b { position:absolute; top:0; left:0; display:block; width:12px; height:6px; overflow:hidden; background: url('../img/coming-soon-upper-tab.png') no-repeat right bottom; }
 #comingsoon .message { font:bold 12px Arial; text-transform:uppercase; color:#FFF; padding:20px 35px 0 30px; white-space:nowrap; }
+
+body.audio.comingsoon #comingsoon { margin-top: -12px; }
+body.audio.comingsoon #audio {
+	margin-top: 0;
+	clear: both;
+}
+
+body.no-audio.comingsoon #header h1 { margin-top: 35px; }
+body.no-audio.comingsoon #comingsoon { margin-top: 0; }
 
 
 /* STICKY HEADER */
@@ -981,8 +990,10 @@ body.no-message #comingsoon { display:none; }
 	#bigbox { min-width: 300px; }
 }
 @media (min-width: 1200px) {
+/*
     #audio { margin-top:41px; }
     #comingsoon { margin-top:41px; }
+*/
 
     #results-bar.affix #small-header { width: 1150px; }
     #results-bar.affix div.results-row { margin-left: 30px; margin-right: 0; }
