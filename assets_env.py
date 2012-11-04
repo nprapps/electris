@@ -9,7 +9,7 @@ header_js = Bundle(
     'js/lib/jquery-1.8.1.min.js',
     'js/lib/modernizr.js',
     'js/responsive-ad.js',
-    filters='uglifyjs',
+    #filters='uglifyjs',
     output='js/electris-header.min.js')
 
 footer_js = Bundle(
@@ -20,7 +20,7 @@ footer_js = Bundle(
     'bootstrap/js/bootstrap.min.js',
     'js/audio.js',
     'js/app.js',
-    filters='uglifyjs',
+    #filters='uglifyjs',
     output='js/electris-footer.min.js')
 
 css = Bundle(
@@ -29,7 +29,7 @@ css = Bundle(
     'css/template.css',
     'css/app.css',
     'css/sponsorship.css',
-    filters='yui_css',
+    #filters='yui_css',
     output='css/electris.min.css')
 
 environment.register('js_header', header_js)
