@@ -286,7 +286,7 @@ def _generate_json(house):
                 if district.ap_called_time != None:
                     hours = int(district.ap_called_time.split(' ')[1].split(':')[0])
                     minutes = district.ap_called_time.split(' ')[1].split(':')[1].split(':')[0].zfill(2)
-                    district_dict['called_time'] = u'%s:%s' % (hours-12, minutes)
+                    district_dict['called_time'] = u'%s:%s' % (hours - 12, minutes)
             elif district.accept_ap_call == False:
                 district_dict['called'] = district.npr_called
                 if district.npr_called_time != None:
@@ -311,7 +311,8 @@ def _generate_json(house):
             # Flips.
             district_dict['swap'] = False
             if district.has_flipped:
-                district_dict['swap'] = True
+                if district.flipped[0]:
+                    district_dict['swap'] = True
 
             # Candidates.
             for candidate in Candidate.select().where(Candidate.race == district):
