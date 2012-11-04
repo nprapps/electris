@@ -671,7 +671,7 @@ $(function() {
 
         // Deadlock!
         if (votes == 269 && opponent_votes == 269) {
-            return 'In this scenario, neither candidate can win the Electoral College.<br /><a href="http://www.npr.org/blogs/itsallpolitics/2012/10/31/163950264/presidential-race-what-if-there-are-two-winners">What happens now? &raquo;</a>';
+            return 'In this scenario, neither candidate can win the Electoral College.<br /><a href="http://www.npr.org/blogs/itsallpolitics/2012/10/31/163950264/presidential-race-what-if-there-are-two-winners" target="_blank">What happens now? &raquo;</a>';
         }
 
         // Loser

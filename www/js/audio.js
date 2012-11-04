@@ -12,8 +12,8 @@ $(function(){
     
     function play(streaming,flashStreamer,flashFile,htmlUrl,title,prompt,feedback) {
         //jwplayer uses the video tag, even for html5 audio, so we kick it to the curb for iOS
-        //but we want to use the flash player when possible to get the analytics and stuff
-        if (navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad)/)) {
+        //but we want to use the flash player when possible to get the analytics and stuff        
+        if (navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad|android)/)) {
             setupHtmlPlayer(htmlUrl);
         } else {
             setupFlashPlayer(streaming,flashStreamer,flashFile);

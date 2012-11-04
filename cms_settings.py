@@ -4,7 +4,6 @@ import datetime
 import os
 
 # Project settings.
-PROJECT_NAME = 'live-results-election-2012'
 DATABASE_FILENAME = 'electris.db'
 POLLING_INTERVAL = 15
 
@@ -27,21 +26,21 @@ CLOSING_TIMES = [
 
 # Constants for static media storage.
 if os.environ.get('DEPLOYMENT_TARGET', '') == 'production':
-    S3_BUCKET = 'apps.npr.org'
+    S3_BUCKET = 'election2012.npr.org'
     DEBUG = False
 else:
-    S3_BUCKET = 'stage-apps.npr.org'
+    S3_BUCKET = 'stage-election2012.npr.org.s3.amazonaws.com'
     DEBUG = True
-PRESIDENT_S3_KEY = '%s/states.csv' % PROJECT_NAME
+PRESIDENT_S3_KEY = 'states.csv'
 PRESIDENT_FILENAME = 'www/states.json'
 
-HOUSE_S3_KEY = '%s/house.json' % PROJECT_NAME
+HOUSE_S3_KEY = 'house.json'
 HOUSE_FILENAME = 'www/house.json'
 
-SENATE_S3_KEY = '%s/senate.json' % PROJECT_NAME
+SENATE_S3_KEY = 'senate.json'
 SENATE_FILENAME = 'www/senate.json'
 
-PRESIDENT_JSON_S3_KEY = '%s/president.json' % PROJECT_NAME
+PRESIDENT_JSON_S3_KEY = 'president.json'
 PRESIDENT_JSON_FILENAME = 'www/president.json'
 
 # This is a change for Jeremy.
@@ -50,4 +49,4 @@ PRESIDENT_JSON_FILENAME = 'www/president.json'
 if os.environ.get('LOCAL_DEV', '') == 'true':
     STATIC_URL = 'http://127.0.0.1:8000'
 else:
-    STATIC_URL = 'http://%s/%s' % (S3_BUCKET, PROJECT_NAME)
+    STATIC_URL = 'http://%s' % (S3_BUCKET)
