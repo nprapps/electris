@@ -341,7 +341,19 @@ a.btn { color: #fff; cursor: pointer; }
 .bucket { width: 10em; }
 #electris-skinny .bucket { background-color: #f1f1f1; }
 
-.state { z-index: 100; }
+.state {
+    z-index: 100;
+}
+
+@-webkit-keyframes fall {
+    100% { margin-top:0; clear:none; }
+}
+
+.state.fall25 {
+    margin-top:25em;
+    -webkit-animation: fall 12.5s steps(25, end);
+    -webkit-animation-fill-mode: forwards;
+}
 
 .state i {
     float:left;
