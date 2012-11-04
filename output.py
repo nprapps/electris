@@ -284,7 +284,7 @@ def _generate_json(house):
             if district.accept_ap_call == True:
                 district_dict['called'] = district.ap_called
                 if district.ap_called_time != None:
-                    district_dict['called_time'] = district.ap_called_time.strftime('%I:%M')
+                    district_dict['called_time'] = district.ap_called_time
             elif district.accept_ap_call == False:
                 district_dict['called'] = district.npr_called
                 if district.npr_called_time != None:
