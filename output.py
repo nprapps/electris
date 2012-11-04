@@ -159,7 +159,8 @@ def write_bop_json():
                     if short == 'S':
                         data[office][party] = calculate_senate_bop(race, data[office][party])
 
-            data[office] = calculate_net_pickups(race, data[office])
+            if short == 'S':
+                data[office] = calculate_net_pickups(race, data[office])
 
         # Write the number of uncalled races.
         # First, the races where we accept AP calls but no calls have come in.
