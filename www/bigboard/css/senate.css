@@ -10,12 +10,6 @@
 .district{ font-size:12px; width:25px; text-align:center; }
 .status{ width: 33px; font-size:13px; letter-spacing:-1px; text-align:left; color:#f9e8af; border-right:#666 solid 1px;text-indent: 1px; }
 .emptyleft {margin-left: 160px; }
-#candidates ul li.candidate.switch{
-	border:1px #fff solid;
-	width:167px;
-	height:25px;
-	line-height: 25px;
-}
 .called.status {
     background-color:#f2d15f;
     color:#333;
@@ -43,8 +37,16 @@
 .last.column {
 	width:399px !important;
 }
-
-
+li.swap {
+    border:1px solid #fff;
+    width:168px;
+    height:25px!important;
+    line-height: 25px!important;
+}
+ul.swap .district {
+    background-color:#fff;
+    color:#000;
+}
 span.tiny { font-size:12px; text-transform:uppercase; letter-spacing:-2px; }
 /* Some people have long names. */
 .candidate-51916, .candidate-49977, .candidate-61823,.candidate-61823 {

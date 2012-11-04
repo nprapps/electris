@@ -138,7 +138,7 @@ def president(featured=None):
         # If all of the pieces are here, do something.
         if race_slug != None and party != None:
             update_dict['npr_call'] = party,
-            update_dict['npr_called_at'] = datetime.datetime.now(tz=pytz.utc)
+            update_dict['npr_called_at'] = datetime.datetime.now()
 
         if update_dict:
             uq = State.update(**update_dict).where(State.id == race_slug)
@@ -173,7 +173,8 @@ def house(house, featured=None):
     if request.method == 'GET':
 
         # Get all of the candidates that match this race which are either
-        # Republicans or Democrats or have the first name Angus.
+        # Republicans or Democrats or have the first name Angus or Bernie and
+        # we ignore the Democrat in the Maine race.
         candidates = Candidate\
             .select()\
             .join(Race)\
