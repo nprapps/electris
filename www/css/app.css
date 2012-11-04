@@ -732,10 +732,10 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* audio player */
-body.no-audio #audio { display:none; }
-body.no-audio #comingsoon { display:block; }
 body.audio #audio { display:block; }
-body.audio #comingsoon { display:none; }
+body.no-audio #audio { display:none; }
+body.message #comingsoon { display:block; }
+body.no-message #comingsoon { display:none; }
 #audio { color: #FFF; border-width: 1px; border-style: solid; border-color: #333; border-color: rgba(51,51,51,.8); padding:4px 0 0 0; font-family:Arial,sans-serif; margin:55px 0 15px 15px; display:none; }
 #audio #jwplayer_wrapper { float:left; margin: 0 10px 4px 4px; }
 #audio #audio-htmlstream { display:none; height: 0; }
