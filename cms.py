@@ -138,7 +138,7 @@ def president(featured=None):
         # If all of the pieces are here, do something.
         if race_slug != None and party != None:
             update_dict['npr_call'] = party,
-            update_dict['npr_called_at'] = datetime.datetime.now()
+            update_dict['npr_called_at'] = datetime.datetime.now(tz=pytz.utc)
 
         if update_dict:
             uq = State.update(**update_dict).where(State.id == race_slug)
@@ -243,6 +243,7 @@ def house(house, featured=None):
                 rq2.execute()
 
         if race_slug != None and first_name != None and last_name != None:
+
             rq = Candidate.update(npr_winner=False).where(Candidate.race == race)
             rq.execute()
 
@@ -252,7 +253,13 @@ def house(house, featured=None):
                 Candidate.last_name == last_name)
             cq.execute()
 
-            rq2 = Race.update(npr_called=True).where(Race.slug == race_slug)
+            race_update = {}
+            race_update['npr_called'] = True
+            if race.accept_ap_call == False:
+                if race.npr_called_time == None:
+                    race_update['npr_called_time'] = datetime.datetime.now()
+
+            rq2 = Race.update(**race_update).where(Race.slug == race_slug)
             rq2.execute()
 
         # 3.) Perhaps we're trying to set this as a featured race?
