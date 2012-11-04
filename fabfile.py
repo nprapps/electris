@@ -310,6 +310,10 @@ def update_fake_ap_data():
     write_www_files()
 
 
+def watch():
+    local('webassets -m assets_env watch')
+
+
 def wipe_status():
     """
     Blanks the status fields for congress and presidential races.
