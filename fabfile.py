@@ -303,7 +303,7 @@ def update_fake_ap_data():
     """
     Gets randomly assigned data from snapshot files in our timemachine.
     """
-    local('echo "`date` starting update_fake_ap_data >> fake_ap_data.log')
+    local('echo "`date` starting update_fake_ap_data" >> fake_ap_data.log')
     data = i.get_fake_ap_data()
     ne_data = i.get_fake_ap_district_data('NE')
     me_data = i.get_fake_ap_district_data('ME')
