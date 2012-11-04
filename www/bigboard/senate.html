@@ -30,11 +30,19 @@
             <h1>Senate</h1>
             <ul>
                 <li id="dem_sec">
-                    <h2>Dem <span class="total"><%= data.senate.democrats.total %></span> <span class="flux"><%= data.senate.democrats.delta %></span></h2>
+                    <%
+                        var dem_pickups = data.senate.democrats.net_pickups;
+                        var rep_pickups = data.senate.republicans.net_pickups;
+                        if (dem_pickups > 0) { dem_pickups = '+' + dem_pickups; }
+                        if (rep_pickups > 0) { rep_pickups = '+' + rep_pickups; }
+                    %>
+                    <h2>Dem <span class="total"><%= data.senate.democrats.total %></span>
+                    <span class="flux"><%= dem_pickups %></span></h2>
                     <p><span class="need_num"><%= data.senate.democrats.needed_for_majority %></span> needed for majority</p>
                 </li>
                 <li id="gop_sec">
-                    <h2>GOP <span class="total"><%= data.senate.republicans.total %></span> <span class="flux"><%= data.senate.republicans.delta %></span></h2>
+                    <h2>GOP <span class="total"><%= data.senate.republicans.total %></span>
+                    <span class="flux"><%= rep_pickups %></span></h2>
                     <p><span class="need_num"><%= data.senate.republicans.needed_for_majority %></span> needed for majority</p>
                 </li>
                 <li id="ind_sec">

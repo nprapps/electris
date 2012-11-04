@@ -66,13 +66,42 @@ def calculate_house_bop(data):
     return data
 
 
-def calculate_senate_bop(data):
+def calculate_senate_bop(race, data):
+    """
+    "total": The total number of seats held by this party.
+        Math: Seats held over (below) + seats won tonight
+    "needed_for_majority": The number of seats needed to have a majority.
+        Math: 51 (majority share) - total.
+    "total_pickups": The zero-indexed total number of pickups by this party.
+        Math: Add one for each pickup by this party.
+    """
     data['total'] += 1
-    data['delta'] += 1
-    majority = 51 - data['delta']
+    majority = 51 - data['total']
     if majority < 0:
         majority = 0
     data['needed_for_majority'] = majority
+
+    if race.has_flipped:
+        data['total_pickups'] += 1
+
+    return data
+
+
+def calculate_net_pickups(race, data):
+    """
+    Calculate the net pickups for this race.
+    Needs to happen outside of the party loop since I have to assign pickups
+    to both the winner (+1) and the loser (-1).
+    """
+    # See if this race has, in fact, flipped.
+    if race.has_flipped == True:
+
+        # race.flipped returns a tuple (winner, loser).
+        # The winner/loser names match the dictionary keys.
+        # Yaaaay!
+        data[race.flipped[0]]['net_pickups'] += 1
+        data[race.flipped[1]]['net_pickups'] -= 1
+
     return data
 
 
@@ -82,15 +111,15 @@ def bootstrap_bop_data():
     """
     return {
         'house': {
-            'democrats': {'total': 0, 'needed_for_majority': 218, 'delta': 0},
-            'republicans': {'total': 0, 'needed_for_majority': 218, 'delta': 0},
-            'other': {'total': 0, 'needed_for_majority': 218, 'delta': 0},
+            'democrats': {'total': 0, 'needed_for_majority': 218},
+            'republicans': {'total': 0, 'needed_for_majority': 218},
+            'other': {'total': 0, 'needed_for_majority': 218},
             'not_called': 0
         },
         'senate': {
-            'democrats': {'total': 0, 'needed_for_majority': 0, 'delta': 30},
-            'republicans': {'total': 0, 'needed_for_majority': 0, 'delta': 37},
-            'other': {'total': 0, 'needed_for_majority': 0, 'delta': 2},
+            'democrats': {'total': 30, 'needed_for_majority': 21, 'net_pickups': 0, 'total_pickups': 0},
+            'republicans': {'total': 37, 'needed_for_majority': 14, 'net_pickups': 0, 'total_pickups': 0},
+            'other': {'total': 0, 'needed_for_majority': 0, 'net_pickups': 0, 'total_pickups': 0},
             'not_called': 0
         },
         'president': {
@@ -128,7 +157,10 @@ def write_bop_json():
                     if short == 'H':
                         data[office][party] = calculate_house_bop(data[office][party])
                     if short == 'S':
-                        data[office][party] = calculate_senate_bop(data[office][party])
+                        data[office][party] = calculate_senate_bop(race, data[office][party])
+
+            if short == 'S':
+                data[office] = calculate_net_pickups(race, data[office])
 
         # Write the number of uncalled races.
         # First, the races where we accept AP calls but no calls have come in.
@@ -236,6 +268,7 @@ def _generate_json(house):
 
         for district in races:
 
+            # Set up the race information.
             district_dict = {}
             district_dict['district'] = u'%s %s' % (
                 district.state_postal,
@@ -243,37 +276,45 @@ def _generate_json(house):
             district_dict['candidates'] = []
             district_dict['district_slug'] = district.slug
 
+            # Percent reporting.
             district_dict['percent_reporting'] = district.percent_reporting()
 
+            # Call times.
+            district_dict['called_time'] = None
             if district.accept_ap_call == True:
                 district_dict['called'] = district.ap_called
-                district_dict['called_time'] = district.ap_called_time
+                if district.ap_called_time != None:
+                    hours = int(district.ap_called_time.split(' ')[1].split(':')[0])
+                    minutes = district.ap_called_time.split(' ')[1].split(':')[1].split(':')[0].zfill(2)
+                    district_dict['called_time'] = u'%s:%s' % (hours-12, minutes)
             elif district.accept_ap_call == False:
                 district_dict['called'] = district.npr_called
-                district_dict['called_time'] = district.npr_called_time
+                if district.npr_called_time != None:
+                    district_dict['called_time'] = district.npr_called_time.strftime('%I:%M')
 
+            # Status field.
             if district.poll_closing_time > now:
                 if district_dict['called'] == True:
-                    etnow = now - timedelta(hours=5)
                     district_dict['status_tag'] = 'Called time.'
-                    district_dict['status'] = etnow.strftime('%I:%M').lstrip('0')
+                    district_dict['status'] = district_dict['called_time']
                 else:
                     district_dict['status_tag'] = 'Poll closing time.'
                     district_dict['status'] = '&nbsp;'
-
             if district.poll_closing_time < now:
                 if district_dict['called'] == True:
-                    etnow = now - timedelta(hours=5)
                     district_dict['status_tag'] = 'Called time.'
-                    district_dict['status'] = etnow.strftime('%I:%M').lstrip('0')
+                    district_dict['status'] = district_dict['called_time']
                 else:
                     district_dict['status_tag'] = 'Percent reporting.'
                     district_dict['status'] = u'%s' % district.percent_reporting()
 
+            # Flips.
             district_dict['swap'] = False
+            if district.has_flipped:
+                district_dict['swap'] = True
 
-            for candidate in Candidate.select().where(
-                Candidate.race == district):
+            # Candidates.
+            for candidate in Candidate.select().where(Candidate.race == district):
                     if (
                     candidate.party == u'Dem'
                     or candidate.party == u'GOP'
@@ -295,11 +336,40 @@ def _generate_json(house):
                             if candidate_dict['npr_winner'] == True:
                                 candidate_dict['winner'] = True
 
+                        # By default, all candidates are not swaps.
                         candidate_dict['swap'] = False
+
+                        # First, check if there's a winner. Can't have a swap
+                        # without a winner.
                         if candidate_dict['winner'] == True:
+
+                            # Second, check if this is the incumbent. Can't have
+                            # an incumbent win AND this be a swap.
                             if candidate_dict['incumbent'] == False:
-                                candidate_dict['swap'] = True
-                                district_dict['swap'] = True
+
+                                # The first swap type is the easiest.
+                                # If there IS an incumbent AND this candidate
+                                # isn't the incumbent, then there's a swap.
+
+                                if district.has_incumbents() == True:
+                                    candidate_dict['swap'] = True
+
+                                # The second swap type is slightly harder.
+                                # If there isn't an incumbent but there IS a
+                                # predicted winner (e.g., seat held by a party)
+                                # and this candidate's party doesn't match the
+                                # prediction, then there's a swap.
+                                else:
+                                    if candidate_dict['party'] == 'GOP':
+                                        party = u'republicans'
+                                    elif candidate_dict['party'] == 'Dem':
+                                        party = u'democrats'
+                                    else:
+                                        party = u'other'
+
+                                    if district.flipped[0]:
+                                        if party == district.flipped[0]:
+                                            candidate_dict['swap'] = True
 
                         district_dict['called_time'] = None
 

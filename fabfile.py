@@ -173,12 +173,14 @@ def deploy_to_s3():
     if answer not in ('y', 'Y', 'yes', 'Yes', 'buzz off', 'screw you'):
         exit()
     _gzip_www()
+    local('webassets -m assets_env watch')
     _deploy_to_s3()
 
 def deploy_local_data():
     """
     Deploy the local data files to S3.
     """
+    require('settings', provided_by=[production, staging])
     write_www_files()
     _gzip_www()
     local(('s3cmd -P --add-header=Cache-control:max-age=5 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/') % env)
@@ -307,6 +309,10 @@ def update_fake_ap_data():
 
     i.parse_ap_data(data, ne_data, me_data)
     write_www_files()
+
+
+def watch():
+    local('webassets -m assets_env watch')
 
 
 def wipe_status():

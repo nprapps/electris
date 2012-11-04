@@ -344,13 +344,17 @@ $(function() {
         var header_height = 0;
 
         if (wide_mode) {
-			// Compute current position of 270 line
-			header_height = 3;
-			if (window_width == 724) {
-				header_height = 4;
-			} else if (window_width < 724) {
-				header_height = 8;
-			}
+            
+            //using the actual window.height instead of the variable we set up top
+            //cuz this is based on our media queries
+            header_height = 3;
+            if ($(window).width() <= 979) {
+                header_height = 4;
+            }
+            if ($(window).width() <= 767) {
+                header_height = 8;
+            }
+            
 			var bucket_pos = blue_bucket_el.position();
 			var bucket2_pos = red_bucket_el.position();
 			var line_left = 0;
@@ -671,7 +675,7 @@ $(function() {
 
         // Deadlock!
         if (votes == 269 && opponent_votes == 269) {
-            return 'In this scenario, neither candidate can win the Electoral College.<br /><a href="http://www.npr.org/blogs/itsallpolitics/2012/10/31/163950264/presidential-race-what-if-there-are-two-winners">What happens now? &raquo;</a>';
+            return 'In this scenario, neither candidate can win the Electoral College.<br /><a href="http://www.npr.org/blogs/itsallpolitics/2012/10/31/163950264/presidential-race-what-if-there-are-two-winners" target="_blank">What happens now? &raquo;</a>';
         }
 
         // Loser
@@ -714,8 +718,8 @@ $(function() {
             var longest_combo_length = 0;
         }
 
-        // Several one-state combos left
-        if (longest_combo_length == 1) {
+        // Two one-state combos left
+        if (longest_combo_length == 1 && combos.length == 2) {
             var states_text = "";
 
             _.each(combos, function(combo, i, l) {

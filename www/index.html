@@ -10,11 +10,7 @@
 
     <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script> <!-- FOR CHARTBEAT -->
 
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/template.css" />
-    <link rel="stylesheet" type="text/css" href="css/app.css" />
-    <link rel="stylesheet" type="text/css" href="css/sponsorship.css" />
+    <link rel="stylesheet" type="text/css" href="css/electris.min.css" />
     
     <!--[if IE]>
     <style>
@@ -32,12 +28,8 @@
         #results-bar.affix #small-header { box-sizing: border-box; }
     </style>
     <![endif]-->
-    
-    <script type="text/javascript" src="js/lib/jquery-1.8.1.min.js"></script>
-    
-    <!-- AD CODE -->
-    <script type="text/javascript" src="js/lib/modernizr.js"></script>
 
+    <!-- AD CODE -->
     <script>
         NPR = {};
         NPR.PageInfo = {};
@@ -45,7 +37,9 @@
             return false;
         };
     </script>
-    <script type="text/javascript" src="js/responsive-ad.js"></script>
+
+    <script type="text/javascript" src="js/electris-header.min.js"></script>
+
 	<script>
     AddNamespace('NPR.serverVars');
     jQuery.extend(NPR.serverVars, {
@@ -59,6 +53,7 @@
         "DFPmobile": "NPR"
     });
 	</script>
+
 
 	<meta property="og:title" content="Election 2012: Live Coverage From NPR News" />
 	<meta property="og:url" content="http://apps.npr.org/live-results-election-2012/" />
@@ -114,15 +109,32 @@
 
             	<div id="header-promos">
             		<div class="promo">
-            			<a href="bigboard/president/" target="_blank"><img src="img/bigboard_1col.gif" alt="The Big Board" /></a>
-            			<h3><a href="bigboard/president/" target="_blank">The Big Board</a></h3>
+            			<h3><a href="bigboard/president.html" target="_blank">The Big Boards</a></h3>
+            			<p>Watch the results come in on the same displays that NPR is using in the studio.</p>
+            			<p class="links">
+            				<a href="bigboard/president.html" target="_blank">President</a> | 
+            				<a href="bigboard/senate.html" target="_blank">Senate</a> | 
+            				<a href="bigboard/house.html" target="_blank">House</a>
+            			</p>
+            				
+            		</div>
+            		<!--
+            		<div class="promo">
+            			<a href="bigboard/president.html" target="_blank"><img src="img/bigboard_1col.gif" alt="The Big Board" /></a>
+            			<h3><a href="bigboard/president.html" target="_blank">The Big Board</a></h3>
             			<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</p>
             		</div>
             		<div class="promo">
-            			<a href="bigboard/president/" target="_blank"><img src="img/bigboard_1col.gif" alt="The Big Board" /></a>
-            			<h3><a href="bigboard/president/" target="_blank">The Big Board</a></h3>
+            			<a href="bigboard/senate.html" target="_blank"><img src="img/bigboard_1col.gif" alt="The Big Board" /></a>
+            			<h3><a href="bigboard/senate.html" target="_blank">The Big Board</a></h3>
             			<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</p>
             		</div>
+            		<div class="promo">
+            			<a href="bigboard/house.html" target="_blank"><img src="img/bigboard_1col.gif" alt="The Big Board" /></a>
+            			<h3><a href="bigboard/house.html" target="_blank">The Big Board</a></h3>
+            			<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</p>
+            		</div>
+            		-->
             	</div>
                 
             </div>
@@ -250,10 +262,10 @@
     				</div>
 				
     				<div class="pres-closing results">
-    					<h5>Next Poll Closing</h5>
+    					<h5>Coming Up</h5>
     					<ul>
     					</ul>
-    					<a class="btn btn-mini btn-inverse show-poll-closings" type="button" role="button" href="#closing-modal">Show All Closing Times</a>
+    					<a class="btn btn-mini btn-inverse show-poll-closings" type="button" role="button" href="#closing-modal">Show All States</a>
     				</div>
 
     				<div class="pres-called results">
@@ -464,10 +476,10 @@
 					</div>
 					
 					<div class="pres-closing results">
-						<h5>Next Poll Closing</h5>
+						<h5>Coming Up</h5>
 						<ul>
 						</ul>
-						<a class="btn btn-mini btn-inverse show-poll-closings" type="button" role="button" href="#closing-modal">Show All Closing Times</a>
+						<a class="btn btn-mini btn-inverse show-poll-closings" type="button" role="button" href="#closing-modal">Show All States</a>
 					</div>
 	
 					<div class="pres-called results">
@@ -547,10 +559,11 @@
 
     <div id="closing-modal" class="modal hide">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Poll closing times</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3>Coming Up</h3>
         </div>
         <div class="modal-body">
+            <p>Time listed is the earliest time results can be made available from the state.</p>
+
             <ul>
             </ul>
         </div>
@@ -667,15 +680,9 @@
     <script src="js/lib/html5.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="js/lib/underscore-min.js"></script>
-    <script type="text/javascript" src="js/lib/moment.min.js"></script>
-    <script type="text/javascript" src="js/lib/jquery.timeago.js"></script>
-    <script type="text/javascript" src="js/lib/jquery.touchclick.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
     <script charset="utf-8" src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://www.npr.org/templates/javascript/jwplayer/jwplayer.js"></script>
-    <script type="text/javascript" src="js/audio.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/electris-footer.min.js"></script>
 
     <!-- GOOGLE ANALYTICS -->
 	<script type="text/javascript">
