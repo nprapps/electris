@@ -102,17 +102,19 @@ $(function(){
             if(!_.isEqual(oldStatus, status)) {
                 oldStatus = status;
                 if(status['audio'] == 'true') {
+                	console.log(status['streaming']);
                     if(status['streaming'] == 'true') {
                         playStream(status['flashStreamer'],status['flashFile'],status['htmlUrl'],status['title'],status['prompt'],status['feedback']); 
+	                    $("body").removeClass("message").addClass("no-message");
                     } else {
                         playFile(status['url'],status['title'],status['prompt'],status['feedback']); 
+						$("#comingsoon-message").html(status['message']);
+	                    $("body").removeClass("no-message").addClass("message");
                     }
-                    $("body").removeClass("no-audio");
-                    $("body").addClass("audio");
+                    $("body").removeClass("no-audio").addClass("audio");
                 } else {
                     $("#comingsoon-message").html(status['message']);
-                    $("body").removeClass("audio");
-                    $("body").addClass("no-audio");
+                    $("body").removeClass("audio").addClass("no-audio");
                 }
             }
         });
