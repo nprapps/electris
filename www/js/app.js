@@ -675,7 +675,7 @@ $(function() {
 
         // Deadlock!
         if (votes == 269 && opponent_votes == 269) {
-            return 'In this scenario, neither candidate can win the Electoral College.<br /><a href="http://www.npr.org/blogs/itsallpolitics/2012/10/31/163950264/presidential-race-what-if-there-are-two-winners">What happens now? &raquo;</a>';
+            return 'In this scenario, neither candidate can win the Electoral College.<br /><a href="http://www.npr.org/blogs/itsallpolitics/2012/10/31/163950264/presidential-race-what-if-there-are-two-winners" target="_blank">What happens now? &raquo;</a>';
         }
 
         // Loser
@@ -718,8 +718,8 @@ $(function() {
             var longest_combo_length = 0;
         }
 
-        // Several one-state combos left
-        if (longest_combo_length == 1) {
+        // Two one-state combos left
+        if (longest_combo_length == 1 && combos.length == 2) {
             var states_text = "";
 
             _.each(combos, function(combo, i, l) {

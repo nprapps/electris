@@ -179,6 +179,7 @@ def deploy_local_data():
     """
     Deploy the local data files to S3.
     """
+    require('settings', provided_by=[production, staging])
     write_www_files()
     _gzip_www()
     local(('s3cmd -P --add-header=Cache-control:max-age=5 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/') % env)
