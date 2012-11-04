@@ -95,7 +95,7 @@ def get_fake_ap_data():
     """
     Grabs the selected fake AP top-of-ticket data file.
     """
-    path = 'timemachine/US.txt'
+    path = 'www/timemachine/US.txt'
     with open(path, 'rb') as f:
         return f.readlines()
 
@@ -104,7 +104,7 @@ def get_fake_ap_district_data(state_code):
     """
     Grabs the selected fake AP district data file.
     """
-    path = 'timemachine/%s_D.txt' % state_code
+    path = 'www/timemachine/%s_D.txt' % state_code
     with open(path, 'rb') as f:
         return f.readlines()
 
