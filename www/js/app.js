@@ -344,13 +344,17 @@ $(function() {
         var header_height = 0;
 
         if (wide_mode) {
-			// Compute current position of 270 line
-			header_height = 3;
-			if (window_width == 724) {
-				header_height = 4;
-			} else if (window_width < 724) {
-				header_height = 8;
-			}
+            
+            //using the actual window.height instead of the variable we set up top
+            //cuz this is based on our media queries
+            header_height = 3;
+            if ($(window).width() <= 979) {
+                header_height = 4;
+            }
+            if ($(window).width() <= 767) {
+                header_height = 8;
+            }
+            
 			var bucket_pos = blue_bucket_el.position();
 			var bucket2_pos = red_bucket_el.position();
 			var line_left = 0;

@@ -936,13 +936,13 @@ body.audio #comingsoon { display:none; }
 		float: none;
 	}
 	#electris .state i {
-        width:9.5%;
-        margin-right:.5%;
+        width:9%;
+        margin-right:1%;
         margin-bottom:1px;
 	}
 	
 	.bucket-header, .blue .bucket-header, .red .bucket-header { 
-		height: 8em;
+		height: 4em;
 		background-position: left 9px;
 	}
 	.bucket-header h3, .blue .bucket-header h3, .red .bucket-header h3 { 
@@ -1003,8 +1003,8 @@ body.audio #comingsoon { display:none; }
 	#electris-skinny .states { font-size: 10px; }
 	#electris-skinny .state i {
         text-indent: -9999px;
-        width:9.5%;
-        margin-right:.5%;
+        width:9%;
+        margin-right:1%;
         margin-bottom:1px;
         height:9px;
 	}
@@ -1046,6 +1046,10 @@ body.audio #comingsoon { display:none; }
 		padding: 2px 10px 4px 10px;
 	}
     
+	.bucket-header, .blue .bucket-header, .red .bucket-header { 
+		height: 8em;
+	}
+    
 	#electris { margin-left: 0; margin-top: 18px; }
 	#electris-skinny .candidate.blue .bucket,
 	#electris-skinny .candidate.red .bucket { float: none; width: 100%; }
@@ -1053,8 +1057,8 @@ body.audio #comingsoon { display:none; }
     #electris-skinny .state i,
     .state i {
         text-indent: -9999px;
-        width:9.5%;
-        margin-right:.5%;
+        width:9%;
+        margin-right:1%;
         margin-bottom:1px;
         height:9px;
     }
@@ -1094,7 +1098,12 @@ body.audio #comingsoon { display:none; }
 
 	#tabs .nav-tabs { margin: 0 -10px 0 -10px; padding: 2px 5px 4px 5px; }
 
-	.state i { text-indent: -9999px; width: 9%; margin-right: 1%; min-width: 13px; }
+	.state i {
+        text-indent: -9999px;
+        width:9%;
+        margin-right:1%;
+        min-width:13px;
+    }
     .bucket-header h3 i { display: none; }
 	.vote-tallies .bignum, .red .vote-tallies .bignum, .blue .vote-tallies .bignum, 
 	.vote-tallies span, .red .vote-tallies span, .blue .vote-tallies span { 
