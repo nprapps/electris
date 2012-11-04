@@ -173,7 +173,7 @@ def deploy_to_s3():
     if answer not in ('y', 'Y', 'yes', 'Yes', 'buzz off', 'screw you'):
         exit()
     _gzip_www()
-    local('webassets -m assets_env watch')
+    build()
     _deploy_to_s3()
 
 def deploy_local_data():
@@ -303,12 +303,18 @@ def update_fake_ap_data():
     """
     Gets randomly assigned data from snapshot files in our timemachine.
     """
+    local('echo "`date` starting update_fake_ap_data" >> fake_ap_data.log')
     data = i.get_fake_ap_data()
     ne_data = i.get_fake_ap_district_data('NE')
     me_data = i.get_fake_ap_district_data('ME')
 
     i.parse_ap_data(data, ne_data, me_data)
     write_www_files()
+    local('echo "`date` finishing update_fake_ap_data" >> fake_ap_data.log')
+
+
+def build():
+    local('webassets -m assets_env build')
 
 
 def watch():

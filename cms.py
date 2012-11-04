@@ -81,10 +81,10 @@ def president(featured=None):
 
     if request.method == 'GET':
 
-        states = State.select()
+        states = State.select().order_by(State.name.asc())
 
         if is_featured == True:
-            states = states.where(State.prediction == 't')
+            states = states.where(State.prediction == 't').order_by(State.name.asc())
 
         context = {
             'states': states,
