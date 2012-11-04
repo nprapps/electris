@@ -173,6 +173,7 @@ def deploy_to_s3():
     if answer not in ('y', 'Y', 'yes', 'Yes', 'buzz off', 'screw you'):
         exit()
     _gzip_www()
+    local('webassets -m assets_env watch')
     _deploy_to_s3()
 
 def deploy_local_data():
