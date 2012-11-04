@@ -728,7 +728,7 @@ a.btn { color: #fff; cursor: pointer; }
 #live-blog p a:hover, #live-blog a:hover .more { color: #36C; text-decoration: none; cursor: pointer; }
 #live-blog .more { white-space: nowrap; font-weight: normal; font-size: .85em; padding-left: .5em; }
 #live-blog a .more { color: #666; }
-#live-blog-more { display: block; width:100%; }
+#live-blog-more { display: block; }
 
 
 /* audio player */
