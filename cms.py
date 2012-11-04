@@ -30,9 +30,12 @@ def timemachine_file(filename=None):
                             'minute': str(minute).zfill(2)
                         })
 
-            with open('timemachine/config.json', 'r') as j:
-                data = json.loads(j.read())
-                current_time = data['time']
+            try:
+                with open('timemachine/config.json', 'r') as j:
+                    data = json.loads(j.read())
+                    current_time = data['time']
+            except IOError:
+                current_time = '0-0'
 
             context = {
                 'file_times': file_times,
@@ -42,7 +45,7 @@ def timemachine_file(filename=None):
             return render_template('time_machine.html', **context)
 
         else:
-            with open('timemachine/%s' % filename, 'r') as f:
+            with open('www/timemachine/%s' % filename, 'r') as f:
                 return f.read()
 
     if request.method == 'POST':
@@ -57,10 +60,10 @@ def timemachine_file(filename=None):
                 with open('test_data/timemachine/%s.txt' % file_path, 'r') as f:
                     file_data = f.read()
 
-                with open('timemachine/%s.txt' % file_name, 'w') as w:
+                with open('www/timemachine/%s.txt' % file_name, 'w') as w:
                     w.write(file_data)
 
-            with open('timemachine/config.json', 'w') as c:
+            with open('www/timemachine/config.json', 'w') as c:
                 data = {}
                 data['time'] = file_time
                 c.write(json.dumps(data))
@@ -81,10 +84,10 @@ def president(featured=None):
 
     if request.method == 'GET':
 
-        states = State.select()
+        states = State.select().order_by(State.name.asc())
 
         if is_featured == True:
-            states = states.where(State.prediction == 't')
+            states = states.where(State.prediction == 't').order_by(State.name.asc())
 
         context = {
             'states': states,

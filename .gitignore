@@ -34,5 +34,6 @@ gzip
 electris.db
 www/states.csv
 www/*.json
+www/timemachine/*
 
 .webassets-cache

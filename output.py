@@ -244,6 +244,7 @@ def write_president_json():
                                 state_dict['status'] = u'%s' % state.percent_reporting()
 
                         timezone_dict['states'].append(state_dict)
+                timezone_dict['states'] = sorted(timezone_dict['states'], key=lambda state: state['name'])
             objects.append(timezone_dict)
         f.write(json.dumps(objects))
 
