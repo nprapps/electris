@@ -4,7 +4,9 @@ import datetime
 import os
 
 # Project settings.
-DATABASE_FILENAME = 'electris.db'
+DATABASE_NAME = 'electris'
+DATABASE_USER = 'electris'
+DATABASE_PASSWORD = 'electris'
 POLLING_INTERVAL = 15
 
 # Constants for Electris the Web app.
