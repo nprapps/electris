@@ -86,7 +86,8 @@ class Race(Model):
                 return 'other'
 
         if self.winner and self.prediction:
-            return (_format_output(self.winner), _format_output(self.prediction))
+            if self.winner != self.prediction:
+                return (_format_output(self.winner), _format_output(self.prediction))
 
         return (None, None)
 
