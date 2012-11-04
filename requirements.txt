@@ -16,3 +16,4 @@ peewee==2.0.2
 git+https://github.com/jyr/python-tumblr.git@b91d98257
 poster==0.8.1
 webassets==0.7.1
+yuicompressor==2.4.7
