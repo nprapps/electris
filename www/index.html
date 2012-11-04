@@ -152,7 +152,7 @@
 					<h2>President <span><a href="results-map.html" target="_blank">see results map &raquo;</a></span></h2>
 					<div class="blue">
 						<div class="wrapper">
-							<h3><i>Barack </i>Obama</h3>
+							<h3><i>Barack </i><strong>Obama</strong></h3>
 							<div class="total">
 								<span id="pres-d-total">0</span> total
 							</div>
@@ -163,7 +163,7 @@
 					</div>
 					<div class="red">
 						<div class="wrapper">
-							<h3><i>Mitt </i>Romney</h3>
+							<h3><i>Mitt </i><strong>Romney</strong></h3>
 							<div class="total">
 								<span id="pres-r-total">0</span> total
 							</div>
@@ -215,16 +215,18 @@
 						</div>
 					</div>
 				</div>
-            	<div class="electris-alert">
-            		<div class="alert-wrapper"></div>
-            	</div>
+				<div class="alert-outer">
+					<div class="electris-alert">
+						<div class="alert-wrapper"></div>
+					</div>
+				</div>
             </div>
             
             <div id="tabs">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a id="results-tab" href="#results" data-toggle="tab">Results</a></li>
-                    <li><a href="#live-blog" data-toggle="tab">Live Blog</a></li>
-                    <li><a href="#backchannel" data-toggle="tab">The Back Channel</a></li>
+                    <li id="tab0" class="active"><a id="results-tab" href="#results" data-toggle="tab">Results</a></li>
+                    <li id="tab1"><a href="#live-blog" data-toggle="tab">Live Blog</a></li>
+                    <li id="tab2"><a href="#backchannel" data-toggle="tab">The Back<br />Channel</a></li>
                 </ul>
             </div>
             
@@ -656,7 +658,7 @@
     		<p>
     			<% if (post.link) { %> <a href="<%= post.link %>" target="_blank"> <% } %>
     			<%= post.content %>
-    			<% if (post.link) { %> <span class="more">| <strong>more &raquo;</strong></span></a> <% } %>
+    			<% if (post.link) { %> <span class="more">more &raquo;</span></a> <% } %>
     		</p>
     	</div>
     </script>

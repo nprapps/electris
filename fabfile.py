@@ -18,7 +18,6 @@ import output as o
 Base configuration
 """
 env.project_name = 'electris'
-env.deployed_name = 'live-results-election-2012'
 env.user = 'ubuntu'
 env.python = 'python2.7'
 env.path = '/home/ubuntu/apps/%(project_name)s' % env
@@ -32,14 +31,14 @@ Environments
 """
 def production():
     env.settings = 'production'
-    env.s3_bucket = 'apps.npr.org'
-    env.alt_s3_bucket = 'apps2.npr.org'
+    env.s3_bucket = 'election2012.npr.org'
+    env.alt_s3_bucket = 'election2012-alt.npr.org'
     env.hosts = ['cron.nprapps.org']
 
 
 def staging():
     env.settings = 'staging'
-    env.s3_bucket = 'stage-apps.npr.org'
+    env.s3_bucket = 'stage-election2012.npr.org'
     env.alt_s3_bucket = None
     env.hosts = ['cron-staging.nprapps.org']
 
@@ -89,7 +88,7 @@ def _deploy_to_s3():
         --guess-mime-type\
         --recursive\
         --exclude *.json\
-        put gzip/ s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+        sync gzip/ s3://%(s3_bucket)s/') % env)
     if env.alt_s3_bucket:
         local(('\
             s3cmd -P\
@@ -98,7 +97,7 @@ def _deploy_to_s3():
             --guess-mime-type\
             --recursive\
             --exclude *.json\
-            put gzip/ s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
+           sync  gzip/ s3://%(alt_s3_bucket)s/') % env)
 
 
 def _gzip_www():
@@ -158,8 +157,23 @@ def deploy():
     _gzip_www()
     _deploy_to_s3()
 
+    with settings(warn_only=True):
+            sudo('service electris_cms stop')
+            sudo('service electris_cron stop')
+
     checkout_latest()
 
+    sudo('service electris_cms start')
+    sudo('service electris_cron start')
+    
+    
+def deploy_to_s3():
+    require('settings', provided_by=[production, staging])
+    answer = prompt("You should probably deploy everything, not just the s3 stuff.\nDo you know what you're doing?" % env, default="Not at all")
+    if answer not in ('y', 'Y', 'yes', 'Yes', 'buzz off', 'screw you'):
+        exit()
+    _gzip_www()
+    _deploy_to_s3()
 
 def deploy_local_data():
     """
@@ -167,9 +181,9 @@ def deploy_local_data():
     """
     write_www_files()
     _gzip_www()
-    local(('s3cmd -P --add-header=Cache-control:max-age=5 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    local(('s3cmd -P --add-header=Cache-control:max-age=5 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(s3_bucket)s/') % env)
     if env.alt_s3_bucket:
-        local(('s3cmd -P --add-header=Cache-control:max-age=5 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
+        local(('s3cmd -P --add-header=Cache-control:max-age=5 --add-header=Content-encoding:gzip --guess-mime-type put gzip/*.json s3://%(alt_s3_bucket)s/') % env)
 
 
 def deployment_cron():
@@ -185,9 +199,9 @@ def backup_electris_db():
     """
     Backup the running electris database to S3.
     """
-    local(('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris.db s3://%(s3_bucket)s/%(deployed_name)s/') % env)
+    local(('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris.db s3://%(s3_bucket)s/') % env)
     if env.alt_s3_bucket:
-        local(('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris.db s3://%(alt_s3_bucket)s/%(deployed_name)s/') % env)
+        local(('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris.db s3://%(alt_s3_bucket)s/') % env)
 
 
 def recreate_tables():
@@ -234,7 +248,7 @@ def update_backchannel():
         conn = boto.connect_s3()
         bucket = conn.get_bucket(env.s3_bucket)
         key = Key(bucket)
-        key.key = '/'.join([env.deployed_name, TUMBLR_FILENAME])
+        key.key = TUMBLR_FILENAME
         key.set_contents_from_filename(
             TUMBLR_FILENAME,
             policy='public-read',
@@ -244,7 +258,7 @@ def update_backchannel():
             conn = boto.connect_s3()
             bucket = conn.get_bucket(env.alt_s3_bucket)
             key = Key(bucket)
-            key.key = '/'.join([env.deployed_name, TUMBLR_FILENAME])
+            key.key = TUMBLR_FILENAME
             key.set_contents_from_filename(
                 TUMBLR_FILENAME,
                 policy='public-read',
@@ -380,9 +394,9 @@ def deploy_audio(filename):
     Deploys an audio status file to status.json
     """
     require('settings', provided_by=[production, staging])
-    local('s3cmd -P --add-header=Cache-control:max-age=5 put initial_data/' + filename + ' s3://%(s3_bucket)s/%(deployed_name)s/status.json' % env)
+    local('s3cmd -P --add-header=Cache-control:max-age=5 put initial_data/' + filename + ' s3://%(s3_bucket)s/status.json' % env)
     if env.alt_s3_bucket:
-        local('s3cmd -P --add-header=Cache-control:max-age=5 put initial_data/' + filename + ' s3://%(alt_s3_bucket)s/%(deployed_name)s/status.json' % env)
+        local('s3cmd -P --add-header=Cache-control:max-age=5 put initial_data/' + filename + ' s3://%(alt_s3_bucket)s/status.json' % env)
 
 
 def audio_off():
@@ -411,7 +425,7 @@ def shiva_the_destroyer():
     Deletes the app from s3
     """
     with settings(warn_only=True):
-        local('s3cmd del --recursive s3://%(s3_bucket)s/%(deployed_name)s' % env)
+        local('s3cmd del --recursive s3://%(s3_bucket)s' % env)
         if env.alt_s3_bucket:
-            local('s3cmd del --recursive s3://%(alt_s3_bucket)s/%(deployed_name)s' % env)
+            local('s3cmd del --recursive s3://%(alt_s3_bucket)s' % env)
         run('rm -rf %(path)s')

@@ -1135,7 +1135,7 @@ $(function() {
             alert_el.removeClass("red blue");
             alert_el.addClass(new_alert.side);
             alert_el.show();
-
+            
             if ('winner' in new_alert && new_alert.winner) {
                 freeze_alerts = true;
             }

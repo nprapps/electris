@@ -10,12 +10,11 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 #banner li#nc_sec { width:155px; text-transform: uppercase; }
 #banner h1 {}
 .district {
-    font-size:12px;
+    font-size:11px;
     float:left;
     width:37px;
     display:block;
     text-indent:2px;
-    letter-spacing:-2px;
 }
 #candidates {
     height:560px;
