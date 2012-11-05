@@ -190,7 +190,7 @@ def write_bop_json():
     with open('www/bop.json', 'w') as f:
         f.write(json.dumps(data))
     with open('www/bop_jsonp.json', 'w') as f:
-        f.write('balanceOfPower(%s)' % data)
+        f.write(json.dumps('balanceOfPower(%s)' % data))
 
 
 def write_president_json():
