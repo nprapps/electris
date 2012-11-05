@@ -319,7 +319,7 @@ a.btn { color: #fff; cursor: pointer; }
 .candidate.red .combos { float: right; }
 
 .buckets { position: relative; }
-.bucket { width: 10em; }
+.bucket { width: 10em; overflow:hidden; }
 #electris-skinny .bucket { background-color: #f1f1f1; }
 
 .state {
@@ -329,11 +329,16 @@ a.btn { color: #fff; cursor: pointer; }
 @-webkit-keyframes fall {
     100% { margin-top:0; clear:none; }
 }
+@-moz-keyframes fall {
+    100% { margin-top:0; clear:none; }
+}
 
-.state.fall25 {
-    margin-top:25em;
-    -webkit-animation: fall 12.5s steps(25, end);
+.state.fall {
+    margin-top:26em;
+    -webkit-animation: fall 13s steps(26, end);
+    -moz-animation: fall 13s steps(26, end);
     -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
 }
 
 .state i {
