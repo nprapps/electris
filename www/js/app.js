@@ -1022,9 +1022,6 @@ $(function() {
                 old_state["rep_vote_count"] != state["rep_vote_count"] ||
                 old_state["precincts_reporting"] != state["precincts_reporting"]) {
 
-                $(".state." + state.id).remove();
-                add_state(state, true);
-
                 var red_pct = Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
                 var blue_pct = Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
                 
@@ -1045,6 +1042,9 @@ $(function() {
                 state_els.find(".blue").html(blue_pct); 
 
                 if (old_state["call"] != state["call"]) {
+                    $(".state." + state.id).remove();
+                    add_state(state, true);
+
                     // Uncalled
                     if (!state["call"]) {
                         // Show chiclet
