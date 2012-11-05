@@ -99,8 +99,14 @@ $(function() {
             if(animate){
                 //IE can't swing this, so don't bother
                 if(!$.browser.msie) {
-                    el.addClass('fall');   
-                    el2.addClass('fall');   
+                    el.addClass('fall').delay(13000).queue(function(next){
+                        $(this).removeClass("fall");
+                        next();
+                    });
+                    el2.addClass('fall').delay(13000).queue(function(next){
+                        $(this).removeClass("fall");
+                        next();
+                    });
                 }
             }
             
