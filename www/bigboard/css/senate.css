@@ -1,5 +1,5 @@
 #banner {height:50px;}
-#banner li h2{padding-top:6px;}
+#banner li h2{padding-top:6px; text-transform: uppercase;}
 
 .timezone ul { margin-left:0; }
 .poll-closing-time{ position:relative; }
