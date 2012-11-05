@@ -83,8 +83,7 @@ $(function() {
                 red_bucket_el.append(el);
             } else if (state.call === "d") {
                 blue_bucket_el.append(el);
-            } 
-            
+            }
             if (SHOW_TOOLTIPS) {
                 el.find("i").tooltip({});
             }
@@ -364,6 +363,11 @@ $(function() {
 				line_left = bucket_pos.left;
 				line_width = (bucket2_pos.left + red_bucket_el.width()) - bucket_pos.left + 'px';
 			}
+
+            // Reinitialize bootstrap tooltips for wide bucket
+            if (SHOW_TOOLTIPS) {
+                $('[rel="tooltip"]').tooltip();
+            }
         }
 
 		if ($.browser.msie) {
