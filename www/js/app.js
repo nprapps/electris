@@ -11,8 +11,8 @@ $(function() {
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
     var MAX_STATES_FOR_WIDE_MODE = 12;
     var MAX_COMBO_GROUP = 7;
-    var POLLING_INTERVAL = 5000;
-    var UPDATE_CLOSING_INTERVAL = 5000;
+    var POLLING_INTERVAL = 30000;
+    var UPDATE_CLOSING_INTERVAL = 60000;
     var RIVER_TIMER = null;
 
     if (!SHOW_TOOLTIPS) { $("body").addClass("touch-device"); } else { $("body").addClass("no-touch"); }
@@ -1003,8 +1003,6 @@ $(function() {
         var changes = false;
         var states_length = states.length;
 
-        console.log(states_length);
-
         for (var i = 0; i < states_length; i++) {
             var old_state = states[i];
             var state = data[i];
@@ -1014,10 +1012,6 @@ $(function() {
                 old_state["rep_vote_count"] != state["rep_vote_count"] ||
                 old_state["precincts_reporting"] != state["precincts_reporting"]) {
 
-                console.log(state.name);
-                console.log('old: ' + old_state["call"]);
-                console.log('new: ' + state["call"]);
- 
                 $(".state." + state.id).remove();
                 add_state(state, true);
 
@@ -1274,8 +1268,8 @@ $(function() {
             posts_el.find(".post:nth-child(5)").nextAll().remove();
 
             // Render incoming tweets
-            if (has_tweets) {
-                if ('widgets' in twttr) {
+            if (has_tweets && !$.browser.msie) {
+                if ('widgets' in twttr ) {
                     twttr.widgets.load(posts_el[0]);
                 };
             }
@@ -1284,7 +1278,7 @@ $(function() {
 
     /* RIVER OF NEWS */
 
-    var RIVER_POLLING_INTERVAL = 30000;
+    var RIVER_POLLING_INTERVAL = 60000;
 	var RIVER_INCREMENT = 25;
 	var RIVER_DATA = []
 

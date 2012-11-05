@@ -274,6 +274,7 @@ def _generate_json(house):
             district_dict['district'] = u'%s %s' % (
                 district.state_postal,
                 district.district_id)
+            district_dict['sorter'] = (district.state_postal, district.district_id)
             district_dict['candidates'] = []
             district_dict['district_slug'] = district.slug
 
@@ -285,11 +286,11 @@ def _generate_json(house):
             if district.accept_ap_call == True:
                 district_dict['called'] = district.ap_called
                 if district.ap_called_time != None:
-                    district_dict['called_time'] = district.ap_called_time.strftime('%I:%M')
+                    district_dict['called_time'] = district.ap_called_time.strftime('%I:%M').lstrip('0')
             elif district.accept_ap_call == False:
                 district_dict['called'] = district.npr_called
                 if district.npr_called_time != None:
-                    district_dict['called_time'] = district.npr_called_time.strftime('%I:%M')
+                    district_dict['called_time'] = district.npr_called_time.strftime('%I:%M').lstrip('0')
 
             # Status field.
             if district.poll_closing_time > now:
@@ -382,6 +383,10 @@ def _generate_json(house):
                 key=lambda candidate: candidate['party'])
 
             timezone_dict['districts'].append(district_dict)
+
+        timezone_dict['districts'] = sorted(
+            timezone_dict['districts'],
+            key=lambda district: district['sorter'])
 
         if races.count() > 1:
             objects.append(timezone_dict)
@@ -483,4 +488,3 @@ def push_results_to_s3():
             settings.SENATE_FILENAME,
             policy=policy,
             headers=headers)
-
