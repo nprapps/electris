@@ -141,13 +141,16 @@ def clone_repo():
     require('settings', provided_by=[production, staging])
 
     run('git clone git@github.com:nprapps/%(project_name)s.git %(repo_path)s' % env)
+    run('git remote add bitbucket git@bitbucket.org:nprapps/%(project_name)s.git' % env)
 
 
-def checkout_latest():
+def checkout_latest(remote='origin'):
     require('settings', provided_by=[production, staging])
 
-    run('cd %(repo_path)s; git fetch' % env)
-    run('cd %(repo_path)s; git checkout %(branch)s; git pull origin %(branch)s' % env)
+    env.remote = remote
+
+    run('cd %(repo_path)s; git fetch %(remote)s' % env)
+    run('cd %(repo_path)s; git checkout %(branch)s; git pull %(remote)s %(branch)s' % env)
 
 
 def install_requirements():
