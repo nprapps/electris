@@ -153,5 +153,5 @@ li#ind_sec{width:120px;}
     color:white;
 }
 li.status{
-    overflow: hidden; white-space: nowrap;
+    overflow: hidden; white-space: nowrap; text-align:center;
 }
