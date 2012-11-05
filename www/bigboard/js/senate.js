@@ -1,26 +1,20 @@
 $(function(){
-    function nukeTarget(target){ $(target).html(''); }
     function fetchData(){
-        $.getJSON('../../senate.json', function(timezones) {
+        $.getJSON('../../senate.json', function(data) {
             var TIMEZONE_TEMPLATE = _.template($("#timezone-template").html());
 
-            _.each(timezones, function(timezone){
+            _.each(data.results, function(timezone){
                 var html = TIMEZONE_TEMPLATE({ timezone: timezone });
                 $('#candidates').append(html);
             });
             $('#candidates').columnize({ columns:2 });
-        });
-    }
-
-    function fetchBOP(){
-        $.getJSON('../../bop.json', function(data){
+            var bop = data.balance_of_power;
             var BOP_TEMPLATE = _.template($("#banner-template").html());
-            var html = BOP_TEMPLATE({ data: data });
+            var html = BOP_TEMPLATE({ data: bop });
             $('#banner').html(html);
         });
     }
 
-    fetchBOP();
     fetchData();
 
     var polling_interval = 15;
@@ -29,8 +23,7 @@ $(function(){
     function refresh_countdown() {
         countdown -= 1;
         if (countdown === 0) {
-            nukeTarget('#candidates');
-            fetchBOP();
+            $('#candidates').html('');
             fetchData();
             countdown = polling_interval + 1;
         }
