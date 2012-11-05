@@ -359,8 +359,11 @@ def local_reset():
     """
     Resets the local environment to a fresh copy of the db and data.
     """
-    local('dropdb electris')
-    local('createdb -O electris electris')
+    with settings(warn_only=False):
+        local('dropdb electris')
+        local('echo "CREATE USER electris WITH PASSWORD \'electris\';" | psql')
+    
+	local('createdb -O electris electris')
     local('cat initial_data/initial_psql.sql | psql -q electris')
 
     write_www_files()
