@@ -873,7 +873,7 @@ a.btn { color: #fff; cursor: pointer; }
 	color:#666; 
 	line-height:11px; 
 }
-#audio.playing #audio-feedback { background: url(../img/eq2.gif); background-repeat: no-repeat; background-position: 5px; }
+#audio.playing #audio-feedback { background-image: url(../img/eq2.gif); background-repeat: no-repeat; background-position: 5px; }
 #audio #audio-feedback #audio-feedback-message { display:none; }
 #audio.playing #audio-feedback #audio-feedback-message { display:inline; }
 #audio #audio-feedback #audio-feedback-buffering { display:none; }
