@@ -239,7 +239,7 @@ def write_president_json():
                     call_time = None
                     if state_dict['called_at'] != None:
                         call_time = datetime.datetime.strptime(state_dict['called_at'].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
-                        call_time = utc.localize(call_time)
+                        call_time = utc.normalize(utc.localize(call_time))
 
                     if datetime.datetime.fromtimestamp(timezone['time']) > etnow:
                         if state_dict['called_at'] != None:
