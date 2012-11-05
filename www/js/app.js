@@ -1251,8 +1251,8 @@ $(function() {
             posts_el.find(".post:nth-child(5)").nextAll().remove();
 
             // Render incoming tweets
-            if (has_tweets) {
-                if ('widgets' in twttr) {
+            if (has_tweets && !$.browser.msie) {
+                if ('widgets' in twttr ) {
                     twttr.widgets.load(posts_el[0]);
                 };
             }
