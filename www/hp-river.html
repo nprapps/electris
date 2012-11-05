@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Live Blog, Election 2012 : NPR</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://election2012.npr.org/js/lib/jquery.timeago.js"></script>
+    <base target="_top">
+    
+    <style type="text/css">
+	    body { font: 12px/1.35em Arial, Helvetica, sans-serif; color: #555; margin: 0; }
+		h1, h2, h3, h4, h5, h6 { font-family: Georgia, serif; margin: 0 0 9px 0; line-height: 1.35em; }
+		p { margin: 0; }
+		a, a:link, a:visited { color: #000; text-decoration: none; font-weight: bold; }
+		a:hover, a:active { color: #36c; text-decoration: underline; }
+		#hpContent { padding-left: 15px; }
+		#hpContent h3 {
+			font: bold 16px Georgia, serif; color: #EE1300; border-left: 5px solid #EE1300; text-transform: lowercase;
+			margin-left: -15px; margin-bottom: 9px; padding-left: 10px;
+		}
+		#hpContent h3 a { color: #EE1300; }
+		#update .post { margin-bottom: 12px; }
+		#update .timeago { color: #999; font-size: 0.9em; display: block; }
+		p.more { margin-top: 12px; }
+		p.more a { 
+			background: url(http://media.npr.org/chrome/news/ico-more-sm.gif) no-repeat right center; 
+			padding: 0 10px 0 0;
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body>
+
+
+<div id="hpContent">
+	<h3>This Just In</h3>
+	<div id="update"></div>
+	<p class="more"><a href="http://election2012.npr.org">more updates</a></p>
+</div>
+
+
+
+<script type="text/javascript">
+var RIVER_TIMER = null;
+var RIVER_POLLING_INTERVAL = 30000;
+var RIVER_INCREMENT = 5;
+var liveblog_el = $('#update');
+
+function fetch_news() {
+	$.ajax({
+	    url: 'http://www-cf.nprdev.org/buckets/agg/series/2012/elections/riverofnews/riverofnews.jsonp',
+	    dataType: 'jsonp',
+	    jsonpCallback: 'nprriverofnews',
+	    success: function(data){
+			if (RIVER_TIMER == null) {
+				RIVER_TIMER = window.setInterval(fetch_news, RIVER_POLLING_INTERVAL);
+			}
+
+			var new_news = '';
+			var increment = RIVER_INCREMENT;
+		
+			$.each(data.news.sticky, function(j, k) {
+				if (k.News.status) {
+					new_news += blog_template(k.News,'sticky');
+					increment--;
+				}
+			});
+		
+			$.each(data.news.regular.slice(0, increment), function(j, k) {
+				if (k.News.status) {
+					new_news += blog_template(k.News,'');
+				}
+			});
+			
+			liveblog_el.empty().append(new_news);
+			liveblog_el.find("span.timeago").timeago();
+		
+			new_news = null;
+	    }
+	})
+}
+function blog_template(post,sticky) {
+	var blogItem = '';
+	blogItem += '<div class="post ' + sticky + '">';
+	blogItem += '<p>';
+	if (post.link) {
+		blogItem += '<a href="' + post.link + '" target="_blank">';
+	}
+	blogItem += post.content;
+	if (post.link) {
+		blogItem += ' <span class="more">more &raquo;</span></a>';
+	}
+	blogItem += '<span class="timeago" title="' + post.created + '">' + post.created + '</span>';
+	blogItem += '</p>';
+	blogItem += '</div>';
+	return blogItem;
+}
+fetch_news();
+</script>
+
+</body>
+</html>

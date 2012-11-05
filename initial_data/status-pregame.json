@@ -1,8 +1,8 @@
 {
     "audio": "true",
     "streaming": "false",
-    "url": "http://pd.npr.org/anon.npr-mp3/npr/totn/2012/10/20121010_totn_01.mp3",
-    "title": "NPR Pre-Election Special:",
+    "url": "http://pd.npr.org/anon.npr-mp3/npr/blog/2012/11/20121101_blog_iap.mp3",
+    "title": "NPR Pre-Election Special",
     "prompt": "Listen Now",
     "feedback": "Previously recorded",
     "message": "Tune in for NPR&apos;s live election special at 8 p.m. ET."

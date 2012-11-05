@@ -1,12 +1,24 @@
 $(function(){
-    function nukeTarget(target){ $(target).html(''); }
     function fetchData(){
-        $.getJSON('../../president.json', function(timezones) {
+        $.getJSON('../../president.json', function(data) {
+            // Prep some template code.
             var TIMEZONE_TEMPLATE = _.template($("#timezone-template").html());
             var FEATURED_TEMPLATE = _.template($("#featured-template").html());
+            var BOP_TEMPLATE = _.template($("#banner-template").html());
+
+            // Set up an array for featured states.
             var featured_array = [];
 
-            _.each(timezones, function(timezone){
+            // Prepare the balance of power data and template.
+            var bop = data.balance_of_power;
+            var html = BOP_TEMPLATE({ data: bop });
+
+            // Write the balance of power.
+            $('#banner').html(html);
+
+            // Roll through each timezone and render the html template
+            // into the initial div and fill the featured_array array.
+            _.each(data.results, function(timezone){
                 var html = TIMEZONE_TEMPLATE({ timezone: timezone });
                 $('#candidates .initial').append(html);
                 _.each(timezone.states, function(state){
@@ -14,11 +26,7 @@ $(function(){
                 });
             });
 
-            _.each(featured_array, function(state){
-                var html = FEATURED_TEMPLATE({ state:state });
-                $('#candidates .weighted').append(html);
-            });
-
+            // Columnize the non-featured states.
             _.each($('.state_row'), function(row, index, list){
                 var page = 1;
                 if (index + 1 > 22 ) { page = 2; }
@@ -26,31 +34,30 @@ $(function(){
                 $('#page-'+ page).append(row);
             });
 
-            // $('#candidates .full').columnize({ columns:3 });
+            // Grab each state from the featured_array and render/display them.
+            _.each(featured_array, function(state){
+                var html = FEATURED_TEMPLATE({ state:state });
+                $('#candidates .weighted').append(html);
+            });
+
+            // Columnize the featured states.
             $('#candidates .weighted').columnize({ columns:2 });
 
         });
     }
 
-    function fetchBOP(){
-        $.getJSON('../../bop.json', function(data){
-            var BOP_TEMPLATE = _.template($("#banner-template").html());
-            var html = BOP_TEMPLATE({ data: data });
-            $('#banner').html(html);
-        });
-    }
-
-    fetchBOP();
+    // On page load, fetch data.
     fetchData();
 
-    var polling_interval = 10;
+    // Poll every 15 seconds.
+    var polling_interval = 15;
     var countdown = polling_interval;
+
+    // Blank our target divs and refresh data every 15 seconds.
     function refresh_countdown() {
         countdown -= 1;
         if (countdown === 0) {
-            nukeTarget('#candidates .weighted');
-            nukeTarget('#page-1, #page-2, #page-3');
-            fetchBOP();
+            $(target).html('#candidates .weighted, #page-1, #page-2, #page-3');
             fetchData();
             countdown = polling_interval + 1;
         }

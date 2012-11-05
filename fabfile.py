@@ -81,6 +81,7 @@ def _deploy_to_s3():
     """
     Deploy the gzipped stuff to S3
     """
+    build()
     local(('\
         s3cmd -P\
         --add-header=Cache-control:max-age=5\
@@ -140,13 +141,16 @@ def clone_repo():
     require('settings', provided_by=[production, staging])
 
     run('git clone git@github.com:nprapps/%(project_name)s.git %(repo_path)s' % env)
+    run('git remote add bitbucket git@bitbucket.org:nprapps/%(project_name)s.git' % env)
 
 
-def checkout_latest():
+def checkout_latest(remote='origin'):
     require('settings', provided_by=[production, staging])
 
-    run('cd %(repo_path)s; git fetch' % env)
-    run('cd %(repo_path)s; git checkout %(branch)s; git pull origin %(branch)s' % env)
+    env.remote = remote
+
+    run('cd %(repo_path)s; git fetch %(remote)s' % env)
+    run('cd %(repo_path)s; git checkout %(branch)s; git pull %(remote)s %(branch)s' % env)
 
 
 def install_requirements():
@@ -155,7 +159,7 @@ def install_requirements():
     run('%(virtualenv_path)s/bin/pip install -r %(repo_path)s/requirements.txt' % env)
 
 
-def deploy():
+def deploy(remote='origin'):
     require('settings', provided_by=[production, staging])
     require('branch', provided_by=[stable, master, branch])
     _confirm_branch()
@@ -166,21 +170,12 @@ def deploy():
             sudo('service electris_cms stop')
             sudo('service electris_cron stop')
 
-    checkout_latest()
+    checkout_latest(remote)
 
     sudo('service electris_cms start')
     sudo('service electris_cron start')
     
     
-def deploy_to_s3():
-    require('settings', provided_by=[production, staging])
-    answer = prompt("You should probably deploy everything, not just the s3 stuff.\nDo you know what you're doing?" % env, default="Not at all")
-    if answer not in ('y', 'Y', 'yes', 'Yes', 'buzz off', 'screw you'):
-        exit()
-    _gzip_www()
-    build()
-    _deploy_to_s3()
-
 def deploy_local_data():
     """
     Deploy the local data files to S3.

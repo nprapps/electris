@@ -136,6 +136,13 @@ li#ind_sec{width:120px;}
 .candidate.alt {
     color:#85c65e;
 }
+
+
+.candidate.alt.winner{
+	background-color:#579233;
+	color:#fff;
+}
+
 .candidate.incumbent {
     text-transform:uppercase;
 }
@@ -153,5 +160,5 @@ li#ind_sec{width:120px;}
     color:white;
 }
 li.status{
-    overflow: hidden; white-space: nowrap;
+    overflow: hidden; white-space: nowrap; text-align:center;
 }
