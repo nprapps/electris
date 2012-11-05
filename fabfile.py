@@ -131,6 +131,11 @@ def setup_virtualenv():
     run('source %(virtualenv_path)s/bin/activate' % env)
 
 
+def setup_database():
+    sudo('echo "CREATE USER electris WITH PASSWORD \'electris\';" | psql', user='postgres')
+    sudo('createdb -O electris electris', user='postgres')
+
+
 def clone_repo():
     require('settings', provided_by=[production, staging])
 
@@ -201,32 +206,10 @@ def backup_electris_db():
     """
     Backup the running electris database to S3.
     """
-    local(('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris.db s3://%(s3_bucket)s/') % env)
+    local('pg_dump -f electris_backup.sql -Fp -E UTF8 --inserts electris')
+    local('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris_backup.psql s3://%(s3_bucket)s/' % env)
     if env.alt_s3_bucket:
-        local(('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris.db s3://%(alt_s3_bucket)s/') % env)
-
-
-def recreate_tables():
-    """
-    Private function to delete and recreate a blank database.
-    """
-    with settings(warn_only=True):
-        local('rm electris.db')
-        local('&& touch electris.db')
-
-    # Use the Peewee ORM to recreate tables.
-    Candidate.create_table(fail_silently=True)
-    Race.create_table(fail_silently=True)
-    State.create_table(fail_silently=True)
-
-
-def bootstrap_races():
-    """
-    Private function to load initial data for races.
-    """
-    with settings(warn_only=True):
-        local('rm electris.db')
-        local('cp initial_data/electris_initial.db electris.db')
+        local('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris_backup.psql s3://%(alt_s3_bucket)s/' % env)
 
 
 def update_backchannel():
@@ -364,8 +347,7 @@ def reset():
         sudo('service electris_cron stop')
 
     with cd(env.repo_path):
-        run('rm electris.db')
-        run('cp initial_data/electris_initial.db electris.db')
+        sudo('cat initial_data/initial_psql.sql | psql -q electris', user='postgres')
         write_www_files()
         sudo('service electris_cms start')
         sudo('service electris_cron start')

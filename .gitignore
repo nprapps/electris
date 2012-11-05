@@ -37,3 +37,4 @@ www/*.json
 www/timemachine/*
 
 .webassets-cache
+electris_backup.sql
