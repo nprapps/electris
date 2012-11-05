@@ -1072,6 +1072,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 		height: 45px;
 		margin: 0 7px 7px 7px;
 	}
+	body.comingsoon.audio #header h1 { margin-top: 41px; }
 	
 	#header-promos { padding: 15px; }
 	
