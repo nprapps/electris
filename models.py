@@ -3,7 +3,7 @@ from decimal import *
 from peewee import *
 import cms_settings as settings
 
-database = SqliteDatabase(settings.DATABASE_FILENAME, check_same_thread=False)
+database = PostgresqlDatabase(settings.DATABASE_NAME, user=settings.DATABASE_USER, password=settings.DATABASE_PASSWORD)
 
 
 def intcomma(value):

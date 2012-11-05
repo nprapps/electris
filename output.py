@@ -285,9 +285,7 @@ def _generate_json(house):
             if district.accept_ap_call == True:
                 district_dict['called'] = district.ap_called
                 if district.ap_called_time != None:
-                    hours = int(district.ap_called_time.split(' ')[1].split(':')[0])
-                    minutes = district.ap_called_time.split(' ')[1].split(':')[1].split(':')[0].zfill(2)
-                    district_dict['called_time'] = u'%s:%s' % (hours - 12, minutes)
+                    district_dict['called_time'] = district.ap_called_time.strftime('%I:%M')
             elif district.accept_ap_call == False:
                 district_dict['called'] = district.npr_called
                 if district.npr_called_time != None:
@@ -414,7 +412,7 @@ def write_electris_json():
     with open(settings.PRESIDENT_FILENAME, 'w') as f:
         output = []
 
-        for state in State.select().order_by(State.electoral_votes.desc()):
+        for state in State.select().order_by(State.electoral_votes.desc(), State.name.asc()):
             state = state._data
 
             if state['npr_call'] != 'n' and state['npr_call'] != 'u':

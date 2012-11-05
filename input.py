@@ -4,7 +4,6 @@ import os
 import csv
 import datetime
 import pytz
-from time import sleep
 
 import initial_data.time_zones as time_zones
 
@@ -138,18 +137,12 @@ def parse_ap_data(data, ne_data, me_data):
         if race == 'U.S. House' or race == 'U.S. Senate':
             parse_house(row_data)
 
-        # Every n rows sleep briefly so incoming CMS writes can happen
-        if i % 10 == 0:
-            sleep(0.2)
-
     for row in ne_data:
         row_data = row.split(';')
         race = row_data[10]
 
         if race == 'President':
             parse_president_district('NE', row_data)
-
-    sleep(1)
 
     for row in me_data:
         row_data = row.split(';')

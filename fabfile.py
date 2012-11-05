@@ -131,6 +131,11 @@ def setup_virtualenv():
     run('source %(virtualenv_path)s/bin/activate' % env)
 
 
+def setup_database():
+    sudo('echo "CREATE USER electris WITH PASSWORD \'electris\';" | psql', user='postgres')
+    sudo('createdb -O electris electris', user='postgres')
+
+
 def clone_repo():
     require('settings', provided_by=[production, staging])
 
@@ -201,32 +206,10 @@ def backup_electris_db():
     """
     Backup the running electris database to S3.
     """
-    local(('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris.db s3://%(s3_bucket)s/') % env)
+    local('sudo -u postgres pg_dump -f /tmp/electris_backup.sql -Fp -E UTF8 --inserts electris')
+    local('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put /tmp/electris_backup.sql s3://%(s3_bucket)s/' % env)
     if env.alt_s3_bucket:
-        local(('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris.db s3://%(alt_s3_bucket)s/') % env)
-
-
-def recreate_tables():
-    """
-    Private function to delete and recreate a blank database.
-    """
-    with settings(warn_only=True):
-        local('rm electris.db')
-        local('&& touch electris.db')
-
-    # Use the Peewee ORM to recreate tables.
-    Candidate.create_table(fail_silently=True)
-    Race.create_table(fail_silently=True)
-    State.create_table(fail_silently=True)
-
-
-def bootstrap_races():
-    """
-    Private function to load initial data for races.
-    """
-    with settings(warn_only=True):
-        local('rm electris.db')
-        local('cp initial_data/electris_initial.db electris.db')
+        local('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put /tmp/electris_backup.sql s3://%(alt_s3_bucket)s/' % env)
 
 
 def update_backchannel():
@@ -303,14 +286,12 @@ def update_fake_ap_data():
     """
     Gets randomly assigned data from snapshot files in our timemachine.
     """
-    local('echo "`date` starting update_fake_ap_data" >> fake_ap_data.log')
     data = i.get_fake_ap_data()
     ne_data = i.get_fake_ap_district_data('NE')
     me_data = i.get_fake_ap_district_data('ME')
 
     i.parse_ap_data(data, ne_data, me_data)
     write_www_files()
-    local('echo "`date` finishing update_fake_ap_data" >> fake_ap_data.log')
 
 
 def build():
@@ -366,8 +347,9 @@ def reset():
         sudo('service electris_cron stop')
 
     with cd(env.repo_path):
-        run('rm electris.db')
-        run('cp initial_data/electris_initial.db electris.db')
+        sudo('dropdb electris', user='postgres')
+        sudo('createdb -O electris electris', user='postgres')
+        sudo('cat initial_data/initial_psql.sql | psql -q electris', user='postgres')
         write_www_files()
         sudo('service electris_cms start')
         sudo('service electris_cron start')
@@ -377,7 +359,13 @@ def local_reset():
     """
     Resets the local environment to a fresh copy of the db and data.
     """
-    bootstrap_races()
+    with settings(warn_only=False):
+        local('dropdb electris')
+        local('echo "CREATE USER electris WITH PASSWORD \'electris\';" | psql')
+    
+	local('createdb -O electris electris')
+    local('cat initial_data/initial_psql.sql | psql -q electris')
+
     write_www_files()
 
 
