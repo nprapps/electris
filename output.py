@@ -274,6 +274,7 @@ def _generate_json(house):
             district_dict['district'] = u'%s %s' % (
                 district.state_postal,
                 district.district_id)
+            district_dict['sorter'] = (district.state_postal, district.district_id)
             district_dict['candidates'] = []
             district_dict['district_slug'] = district.slug
 
@@ -383,6 +384,10 @@ def _generate_json(house):
 
             timezone_dict['districts'].append(district_dict)
 
+        timezone_dict['districts'] = sorted(
+            timezone_dict['districts'],
+            key=lambda district: district['sorter'])
+
         if races.count() > 1:
             objects.append(timezone_dict)
 
@@ -483,4 +488,3 @@ def push_results_to_s3():
             settings.SENATE_FILENAME,
             policy=policy,
             headers=headers)
-
