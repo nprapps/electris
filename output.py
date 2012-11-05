@@ -129,7 +129,7 @@ def bootstrap_bop_data():
     }
 
 
-def write_bop_json():
+def produce_bop_json():
     """
     Loops through houses/parties to count seats and calculate deltas.
     """
@@ -179,9 +179,16 @@ def write_bop_json():
                 Race.office_code == short)\
             .count()
 
+    return data
+
+
+def write_bop_json():
+    """
+    Writes BOP json to files.
+    """
+    data = produce_bop_json()
     with open('www/bop.json', 'w') as f:
         f.write(json.dumps(data))
-
     with open('www/bop_jsonp.json', 'w') as f:
         f.write('balanceOfPower(%s)' % data)
 
@@ -191,9 +198,10 @@ def write_president_json():
     Outputs the president json file for bigboard's frontend.
     """
     now = datetime.datetime.now()
-
     with open('www/president.json', 'w') as f:
-        objects = []
+        data = {}
+        data['balance_of_power'] = produce_bop_json()
+        data['results'] = []
         for timezone in time_zones.PRESIDENT_TIMES:
             timezone_dict = {}
             timezone_dict['gmt_epoch_time'] = timezone['time']
@@ -245,8 +253,8 @@ def write_president_json():
 
                         timezone_dict['states'].append(state_dict)
                 timezone_dict['states'] = sorted(timezone_dict['states'], key=lambda state: state['name'])
-            objects.append(timezone_dict)
-        f.write(json.dumps(objects))
+            data['results'].append(timezone_dict)
+        f.write(json.dumps(data))
 
 
 def _generate_json(house):
@@ -254,7 +262,9 @@ def _generate_json(house):
     Generates JSON from rows of candidates and a house of congress.
     * House is a two-tuple ('house', 'H'), e.g., URL slug and DB representation.
     """
-    objects = []
+    data = {}
+    data['balance_of_power'] = produce_bop_json()
+    data['results'] = []
     now = datetime.datetime.now()
 
     for timezone in settings.CLOSING_TIMES:
@@ -389,9 +399,9 @@ def _generate_json(house):
             key=lambda district: district['sorter'])
 
         if races.count() > 1:
-            objects.append(timezone_dict)
+            data['results'].append(timezone_dict)
 
-    return json.dumps(objects)
+    return json.dumps(data)
 
 
 def write_house_json():
@@ -415,7 +425,7 @@ def write_electris_json():
     Rewrites JSON files from the DB for president.
     """
     with open(settings.PRESIDENT_FILENAME, 'w') as f:
-        output = []
+        output_states = []
 
         for state in State.select().order_by(State.electoral_votes.desc(), State.name.asc()):
             state = state._data
@@ -443,7 +453,12 @@ def write_electris_json():
             del state['rowid']
             del state['prediction']
 
-            output.append(state)
+            output_states.append(state)
+
+        output = {
+            'balance_of_power': produce_bop_json(),
+            'states': output_states
+        }
 
         f.write(json.dumps(output))
 
