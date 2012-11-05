@@ -1,10 +1,12 @@
 $(function(){
     function fetchData(){
-        $.getJSON('../../president.json', function(data) {
+        $.getJSON('../../president.json?t=' + (new Date()).getTime(), function(data) {
             // Prep some template code.
             var TIMEZONE_TEMPLATE = _.template($("#timezone-template").html());
             var FEATURED_TEMPLATE = _.template($("#featured-template").html());
             var BOP_TEMPLATE = _.template($("#banner-template").html());
+            
+            $('#candidates .weighted, #page-1, #page-2, #page-3').html('');
 
             // Set up an array for featured states.
             var featured_array = [];
@@ -46,21 +48,6 @@ $(function(){
         });
     }
 
-    // On page load, fetch data.
     fetchData();
-
-    // Poll every 15 seconds.
-    var polling_interval = 15;
-    var countdown = polling_interval;
-
-    // Blank our target divs and refresh data every 15 seconds.
-    function refresh_countdown() {
-        countdown -= 1;
-        if (countdown === 0) {
-            $(target).html('#candidates .weighted, #page-1, #page-2, #page-3');
-            fetchData();
-            countdown = polling_interval + 1;
-        }
-    }
-    setInterval(refresh_countdown, 1000);
+    setInterval(fetchData, 15000);
 });

@@ -1,7 +1,9 @@
 $(function(){
     function fetchData(){
-        $.getJSON('../../senate.json', function(data) {
+        $.getJSON('../../senate.json?t=' + (new Date()).getTime(), function(data) {
             var TIMEZONE_TEMPLATE = _.template($("#timezone-template").html());
+
+            $('#candidates').html('');
 
             _.each(data.results, function(timezone){
                 var html = TIMEZONE_TEMPLATE({ timezone: timezone });
@@ -16,17 +18,5 @@ $(function(){
     }
 
     fetchData();
-
-    var polling_interval = 15;
-    var countdown = polling_interval;
-
-    function refresh_countdown() {
-        countdown -= 1;
-        if (countdown === 0) {
-            $('#candidates').html('');
-            fetchData();
-            countdown = polling_interval + 1;
-        }
-    }
-    setInterval(refresh_countdown, 1000);
+    setInterval(fetchData, 15000);
 });

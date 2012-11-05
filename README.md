@@ -30,14 +30,15 @@ Cron jobs:
 * * * * * cd /home/ubuntu/apps/electris/repository && ../virtualenv/bin/fab production update_backchannel deploy_local_data backup_electris_db
 ```
 
-Deploying prediction data
--------------------------
+Deploying from the Bitbucket backup repo
+----------------------------------------
 
-Changes to the election predictions should be made in ``states_bootstrap.csv`` first. You can then regenerate your local database by running:
+In the event Github is down, you can deploy from Bitbucket with the following:
 
-```fab reset_local_data```
+```
+git push bitbucket master
+fab production master deploy:bitbucket
+```
 
-Finally, you can deploy your local data file by running:
-
-```fab [staging|production] master deploy_local_data```
+You must have had a user configured on Bitbucket for this to work!
 
