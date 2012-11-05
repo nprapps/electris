@@ -206,10 +206,10 @@ def backup_electris_db():
     """
     Backup the running electris database to S3.
     """
-    local('sudo -u postgres pg_dump -f electris_backup.sql -Fp -E UTF8 --inserts electris')
-    local('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris_backup.psql s3://%(s3_bucket)s/' % env)
+    local('sudo -u postgres pg_dump -f /tmp/electris_backup.sql -Fp -E UTF8 --inserts electris')
+    local('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put /tmp/electris_backup.psql s3://%(s3_bucket)s/' % env)
     if env.alt_s3_bucket:
-        local('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put electris_backup.psql s3://%(alt_s3_bucket)s/' % env)
+        local('s3cmd -P  --add-header=Cache-control:max-age=5 --guess-mime-type put /tmp/electris_backup.psql s3://%(alt_s3_bucket)s/' % env)
 
 
 def update_backchannel():
