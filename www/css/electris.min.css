@@ -1243,10 +1243,11 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 
 #adhesion #adhesionClose {
     float: right;
-    img {
-        width: 33px;
-        float: right;
-    }
+}
+
+#adhesion #adhesionClose img {
+    width: 33px;
+    float: right;
 }
 
 #adhesion .expand {
