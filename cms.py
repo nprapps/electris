@@ -141,7 +141,7 @@ def president(featured=None):
         # If all of the pieces are here, do something.
         if race_slug != None and party != None:
             update_dict['npr_call'] = party,
-            update_dict['npr_called_at'] = datetime.datetime.now(tz=pytz.utc)
+            update_dict['npr_called_at'] = datetime.datetime.utcnow()
 
         if update_dict:
             uq = State.update(**update_dict).where(State.id == race_slug)
@@ -260,7 +260,7 @@ def house(house, featured=None):
             race_update['npr_called'] = True
             if race.accept_ap_call == False:
                 if race.npr_called_time == None:
-                    race_update['npr_called_time'] = datetime.datetime.now(tz=pytz.utc)
+                    race_update['npr_called_time'] = datetime.datetime.utcnow()
 
             rq2 = Race.update(**race_update).where(Race.slug == race_slug)
             rq2.execute()
