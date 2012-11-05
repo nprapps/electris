@@ -425,7 +425,7 @@ def write_electris_json():
     Rewrites JSON files from the DB for president.
     """
     with open(settings.PRESIDENT_FILENAME, 'w') as f:
-        output = []
+        output_states = []
 
         for state in State.select().order_by(State.electoral_votes.desc(), State.name.asc()):
             state = state._data
@@ -453,7 +453,12 @@ def write_electris_json():
             del state['rowid']
             del state['prediction']
 
-            output.append(state)
+            output_states.append(state)
+
+        output = {
+            'balance_of_power': produce_bop_json(),
+            'states': output_states
+        }
 
         f.write(json.dumps(output))
 

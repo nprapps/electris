@@ -842,7 +842,8 @@ $(function() {
         /*
          * Load initial state data from JSON.
          */
-        states = data;
+        var bop = data.balance_of_power;
+        states = data.states;
 
         var called_ul = called_el.find("ul");
         var incoming_ul = incoming_el.find("ul");
@@ -971,6 +972,7 @@ $(function() {
         update_next_closing();
         setInterval(update_next_closing, UPDATE_CLOSING_INTERVAL);
 
+        update_bop(bop);
         add_states();
         compute_stats(true);
     }
@@ -1002,6 +1004,8 @@ $(function() {
          */
         var changes = false;
         var states_length = states.length;
+        var bop = data.balance_of_power;
+        var data = data.states;
 
         for (var i = 0; i < states_length; i++) {
             var old_state = states[i];
@@ -1120,6 +1124,8 @@ $(function() {
                 changes = true;
             }
         }
+        
+        update_bop(bop);
 
         if (changes) {
             called_el.toggle(called_count > 0);
@@ -1342,23 +1348,21 @@ $(function() {
 
 
     /* BALANCE OF POWER */
-    function update_bop() {
-        $.getJSON('bop.json?t=' + (new Date()).getTime(), {}, function(bop) {
-        	$('#pres-d-total').text(bop.president.democrats.total);
-            $("#pres-header .blue").toggleClass("winner", bop.president.democrats.total >= ELECTORAL_VOTES_TO_WIN)
-        	$('#pres-r-total').text(bop.president.republicans.total);
-            $("#pres-header .red").toggleClass("winner", bop.president.republicans.total >= ELECTORAL_VOTES_TO_WIN)
-        	$('#pres-d-towin').text(bop.president.democrats.needed_for_majority);
-        	$('#pres-r-towin').text(bop.president.republicans.needed_for_majority);
-        	$('#sen-d-total').text(bop.senate.democrats.total);
-        	$('#sen-r-total').text(bop.senate.republicans.total);
-        	$('#sen-d-majority').text(bop.senate.democrats.needed_for_majority);
-        	$('#sen-r-majority').text(bop.senate.republicans.needed_for_majority);
-        	$('#house-d-total').text(bop.house.democrats.total);
-        	$('#house-r-total').text(bop.house.republicans.total);
-        	$('#house-d-majority').text(bop.house.democrats.needed_for_majority);
-        	$('#house-r-majority').text(bop.house.republicans.needed_for_majority);
-        });
+    function update_bop(bop) {
+        $('#pres-d-total').text(bop.president.democrats.total);
+        $("#pres-header .blue").toggleClass("winner", bop.president.democrats.total >= ELECTORAL_VOTES_TO_WIN)
+        $('#pres-r-total').text(bop.president.republicans.total);
+        $("#pres-header .red").toggleClass("winner", bop.president.republicans.total >= ELECTORAL_VOTES_TO_WIN)
+        $('#pres-d-towin').text(bop.president.democrats.needed_for_majority);
+        $('#pres-r-towin').text(bop.president.republicans.needed_for_majority);
+        $('#sen-d-total').text(bop.senate.democrats.total);
+        $('#sen-r-total').text(bop.senate.republicans.total);
+        $('#sen-d-majority').text(bop.senate.democrats.needed_for_majority);
+        $('#sen-r-majority').text(bop.senate.republicans.needed_for_majority);
+        $('#house-d-total').text(bop.house.democrats.total);
+        $('#house-r-total').text(bop.house.republicans.total);
+        $('#house-d-majority').text(bop.house.democrats.needed_for_majority);
+        $('#house-r-majority').text(bop.house.republicans.needed_for_majority);
     }
 
 
@@ -1367,7 +1371,4 @@ $(function() {
     fetch_news();
     update_memetracker(true);
     setInterval(update_memetracker, MEME_UPDATE_SECS * 1000);
-    update_bop();
-    setInterval(update_bop, POLLING_INTERVAL);
-
 });
