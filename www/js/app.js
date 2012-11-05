@@ -11,7 +11,7 @@ $(function() {
     var SHOW_TOOLTIPS = !('ontouchstart' in document.documentElement);
     var MAX_STATES_FOR_WIDE_MODE = 12;
     var MAX_COMBO_GROUP = 7;
-    var POLLING_INTERVAL = 30000;
+    var POLLING_INTERVAL = 1000;
     var UPDATE_CLOSING_INTERVAL = 60000;
     var RIVER_TIMER = null;
 
@@ -1017,7 +1017,7 @@ $(function() {
             var old_state = states[i];
             var state = data[i];
 
-           if (old_state["call"] != state["call"] ||
+            if (old_state["call"] != state["call"] ||
                 old_state["dem_vote_count"] != state["dem_vote_count"] ||
                 old_state["rep_vote_count"] != state["rep_vote_count"] ||
                 old_state["precincts_reporting"] != state["precincts_reporting"]) {
@@ -1121,6 +1121,13 @@ $(function() {
                                 side: side
                             });
                         }
+                    }
+                } else {
+                    if (state["precincts_reporting"] && !old_state["precincts_reporting"]) {
+                        state_els.filter(".incoming." + state.id).show();
+                        incoming_count += 1;
+
+                        incoming_el.toggle(incoming_count > 0);
                     }
                 }
 
