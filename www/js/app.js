@@ -69,25 +69,41 @@ $(function() {
 
     /* DATA PROCESSING & RENDERING */
     
-    function add_state(state) {
+    function add_state(state,animate) {
         /*
          * Render a single state and add it to the correct bucket(s).
          */
         var el = $(STATE_TEMPLATE({
             state: state
         }));
+        //setting up a second element so that our styles get applied properly when we drop the boxes
+        var el2 = $(STATE_TEMPLATE({
+            state: state
+        }));
 
         // Called states
         if (state.call) {
             if (state.call === "r") {
-                red_bucket_el.append(el);
+                $(red_bucket_el[0]).append(el);
+                //like i said above, for some reason, we need to be explicit about these elements for the box dropping styles
+                $(red_bucket_el[1]).append(el2);
             } else if (state.call === "d") {
-                blue_bucket_el.append(el);
-            } 
-            
+                $(blue_bucket_el[0]).append(el);
+                $(blue_bucket_el[1]).append(el2);
+            }
             if (SHOW_TOOLTIPS) {
                 el.find("i").tooltip({});
             }
+            
+            //happens when we're adding a new state to an existing stack of states
+            if(animate){
+                //IE can't swing this, so don't bother
+                if(!$.browser.msie) {
+                    el.addClass('fall');   
+                    el2.addClass('fall');   
+                }
+            }
+            
         // Reporting states
         } else if (state.precincts_reporting > 0 || moment() > state.polls_close) {
             if (state.id in tossup_picks) {
@@ -364,6 +380,11 @@ $(function() {
 				line_left = bucket_pos.left;
 				line_width = (bucket2_pos.left + red_bucket_el.width()) - bucket_pos.left + 'px';
 			}
+
+            // Reinitialize bootstrap tooltips for wide bucket
+            if (SHOW_TOOLTIPS) {
+                $('[rel="tooltip"]').tooltip();
+            }
         }
 
 		if ($.browser.msie) {
@@ -992,7 +1013,7 @@ $(function() {
                 old_state["precincts_reporting"] != state["precincts_reporting"]) {
 
                 $(".state." + state.id).remove();
-                add_state(state);
+                add_state(state, true);
 
                 var red_pct = Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
                 var blue_pct = Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
