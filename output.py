@@ -190,7 +190,7 @@ def write_bop_json():
     with open('www/bop.json', 'w') as f:
         f.write(json.dumps(data))
     with open('www/bop_jsonp.json', 'w') as f:
-        f.write(json.dumps('balanceOfPower(%s)' % data))
+        f.write('balanceOfPower(%s)' % json.dumps(data))
 
 
 def write_president_json():
@@ -412,7 +412,7 @@ def write_house_json():
     Calls generate_json() to build the house json file.
     """
     output = _generate_json((u'house', u'H'))
-    
+
     with open(settings.HOUSE_FILENAME, 'w') as f:
         f.write(output)
 
