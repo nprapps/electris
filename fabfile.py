@@ -81,6 +81,7 @@ def _deploy_to_s3():
     """
     Deploy the gzipped stuff to S3
     """
+    build()
     local(('\
         s3cmd -P\
         --add-header=Cache-control:max-age=5\
@@ -172,15 +173,6 @@ def deploy():
     sudo('service electris_cron start')
     
     
-def deploy_to_s3():
-    require('settings', provided_by=[production, staging])
-    answer = prompt("You should probably deploy everything, not just the s3 stuff.\nDo you know what you're doing?" % env, default="Not at all")
-    if answer not in ('y', 'Y', 'yes', 'Yes', 'buzz off', 'screw you'):
-        exit()
-    _gzip_www()
-    build()
-    _deploy_to_s3()
-
 def deploy_local_data():
     """
     Deploy the local data files to S3.
