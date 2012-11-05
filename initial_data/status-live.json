@@ -4,7 +4,7 @@
     "flashStreamer": "rtmp://cp150999.live.edgefcs.net/live/",
     "flashFile":"live3audio@52188",
     "htmlUrl":"http://npr.ic.llnwd.net/stream/npr_live3",
-    "title":"NPR Special Coverage:",
-    "prompt":"Listen Now",
+    "title":"NPR Special Coverage",
+    "prompt":"LIVE: Listen Now",
     "feedback":"Live"
 }
