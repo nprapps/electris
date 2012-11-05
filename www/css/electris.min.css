@@ -786,6 +786,11 @@ a.btn { color: #fff; cursor: pointer; }
 .touch-device .tossups .spinner b { text-indent: -9999px; background-position: center center; }
 
 
+/* WIDE MODE */
+#wide-button { display: none; }
+body.wide-mode #wide-button { display: block; }
+
+
 /* ALERTS */
 .electris-alert {
     display: none;
