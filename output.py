@@ -6,6 +6,7 @@ import gzip
 import shutil
 import boto
 import time
+import pytz
 import datetime
 
 from datetime import timedelta
@@ -203,6 +204,9 @@ def write_president_json():
     data['balance_of_power'] = produce_bop_json()
     data['results'] = []
 
+    utc = pytz.timezone('UTC')
+    eastern = pytz.timezone('US/Eastern')
+
     for timezone in time_zones.PRESIDENT_TIMES:
         timezone_dict = {}
         timezone_dict['gmt_epoch_time'] = timezone['time']
@@ -235,11 +239,12 @@ def write_president_json():
                     call_time = None
                     if state_dict['called_at'] != None:
                         call_time = datetime.datetime.strptime(state_dict['called_at'].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+                        call_time = utc.localize(call_time)
 
                     if datetime.datetime.fromtimestamp(timezone['time']) > etnow:
                         if state_dict['called_at'] != None:
                             state_dict['status_tag'] = 'Called time.'
-                            state_dict['status'] = call_time.strftime('%I:%M').lstrip('0')
+                            state_dict['status'] = call_time.astimezone(eastern).strftime('%I:%M').lstrip('0')
                         else:
                             state_dict['status_tag'] = 'Poll closing time.'
                             state_dict['status'] = '&nbsp;'
@@ -247,7 +252,7 @@ def write_president_json():
                     if datetime.datetime.fromtimestamp(timezone['time']) < etnow:
                         if state_dict['called_at'] != None:
                             state_dict['status_tag'] = 'Called time.'
-                            state_dict['status'] = call_time.strftime('%I:%M').lstrip('0')
+                            state_dict['status'] = call_time.astimezone(eastern).strftime('%I:%M').lstrip('0')
                         else:
                             state_dict['status_tag'] = 'Percent reporting.'
                             state_dict['status'] = u'%s' % state.percent_reporting()
