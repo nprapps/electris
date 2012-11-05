@@ -1003,8 +1003,6 @@ $(function() {
         var changes = false;
         var states_length = states.length;
 
-        console.log(states_length);
-
         for (var i = 0; i < states_length; i++) {
             var old_state = states[i];
             var state = data[i];
@@ -1014,10 +1012,6 @@ $(function() {
                 old_state["rep_vote_count"] != state["rep_vote_count"] ||
                 old_state["precincts_reporting"] != state["precincts_reporting"]) {
 
-                console.log(state.name);
-                console.log('old: ' + old_state["call"]);
-                console.log('new: ' + state["call"]);
- 
                 $(".state." + state.id).remove();
                 add_state(state, true);
 
