@@ -198,62 +198,65 @@ def write_president_json():
     Outputs the president json file for bigboard's frontend.
     """
     now = datetime.datetime.now()
-    with open('www/president.json', 'w') as f:
-        data = {}
-        data['balance_of_power'] = produce_bop_json()
-        data['results'] = []
-        for timezone in time_zones.PRESIDENT_TIMES:
-            timezone_dict = {}
-            timezone_dict['gmt_epoch_time'] = timezone['time']
-            timezone_dict['states'] = []
-            for s in timezone['states']:
-                for state in State.select():
-                    if state.id == s.lower():
-                        state_dict = state._data
-                        state_dict['rep_vote_percent'] = state.rep_vote_percent()
-                        state_dict['dem_vote_percent'] = state.dem_vote_percent()
-                        state_dict['human_gop_vote_count'] = state.human_rep_vote_count()
-                        state_dict['human_dem_vote_count'] = state.human_dem_vote_count()
-                        state_dict['called'] = state.called
-                        state_dict['winner'] = state.winner
 
-                        if state_dict['npr_call'] != 'n' and state_dict['npr_call'] != 'u':
-                            state_dict['call'] = state_dict['npr_call']
-                            state_dict['called_at'] = state_dict['npr_called_at']
-                            state_dict['called_by'] = 'npr'
-                        elif state_dict['accept_ap_call'] and state_dict['ap_call'] != 'u':
-                            state_dict['call'] = state_dict['ap_call']
-                            state_dict['called_at'] = state_dict['ap_called_at']
-                            state_dict['called_by'] = 'ap'
-                        else:
-                            state_dict['call'] = None
-                            state_dict['called_at'] = None
-                            state_dict['called_by'] = None
+    data = {}
+    data['balance_of_power'] = produce_bop_json()
+    data['results'] = []
 
-                        etnow = now - timedelta(hours=5)
-                        call_time = None
+    for timezone in time_zones.PRESIDENT_TIMES:
+        timezone_dict = {}
+        timezone_dict['gmt_epoch_time'] = timezone['time']
+        timezone_dict['states'] = []
+        for s in timezone['states']:
+            for state in State.select():
+                if state.id == s.lower():
+                    state_dict = state._data
+                    state_dict['rep_vote_percent'] = state.rep_vote_percent()
+                    state_dict['dem_vote_percent'] = state.dem_vote_percent()
+                    state_dict['human_gop_vote_count'] = state.human_rep_vote_count()
+                    state_dict['human_dem_vote_count'] = state.human_dem_vote_count()
+                    state_dict['called'] = state.called
+                    state_dict['winner'] = state.winner
+
+                    if state_dict['npr_call'] != 'n' and state_dict['npr_call'] != 'u':
+                        state_dict['call'] = state_dict['npr_call']
+                        state_dict['called_at'] = state_dict['npr_called_at']
+                        state_dict['called_by'] = 'npr'
+                    elif state_dict['accept_ap_call'] and state_dict['ap_call'] != 'u':
+                        state_dict['call'] = state_dict['ap_call']
+                        state_dict['called_at'] = state_dict['ap_called_at']
+                        state_dict['called_by'] = 'ap'
+                    else:
+                        state_dict['call'] = None
+                        state_dict['called_at'] = None
+                        state_dict['called_by'] = None
+
+                    etnow = now - timedelta(hours=5)
+                    call_time = None
+                    if state_dict['called_at'] != None:
+                        call_time = datetime.datetime.strptime(state_dict['called_at'].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+
+                    if datetime.datetime.fromtimestamp(timezone['time']) > etnow:
                         if state_dict['called_at'] != None:
-                            call_time = datetime.datetime.strptime(state_dict['called_at'].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+                            state_dict['status_tag'] = 'Called time.'
+                            state_dict['status'] = call_time.strftime('%I:%M').lstrip('0')
+                        else:
+                            state_dict['status_tag'] = 'Poll closing time.'
+                            state_dict['status'] = '&nbsp;'
 
-                        if datetime.datetime.fromtimestamp(timezone['time']) > etnow:
-                            if state_dict['called_at'] != None:
-                                state_dict['status_tag'] = 'Called time.'
-                                state_dict['status'] = call_time.strftime('%I:%M').lstrip('0')
-                            else:
-                                state_dict['status_tag'] = 'Poll closing time.'
-                                state_dict['status'] = '&nbsp;'
+                    if datetime.datetime.fromtimestamp(timezone['time']) < etnow:
+                        if state_dict['called_at'] != None:
+                            state_dict['status_tag'] = 'Called time.'
+                            state_dict['status'] = call_time.strftime('%I:%M').lstrip('0')
+                        else:
+                            state_dict['status_tag'] = 'Percent reporting.'
+                            state_dict['status'] = u'%s' % state.percent_reporting()
 
-                        if datetime.datetime.fromtimestamp(timezone['time']) < etnow:
-                            if state_dict['called_at'] != None:
-                                state_dict['status_tag'] = 'Called time.'
-                                state_dict['status'] = call_time.strftime('%I:%M').lstrip('0')
-                            else:
-                                state_dict['status_tag'] = 'Percent reporting.'
-                                state_dict['status'] = u'%s' % state.percent_reporting()
+                    timezone_dict['states'].append(state_dict)
+            timezone_dict['states'] = sorted(timezone_dict['states'], key=lambda state: state['name'])
+        data['results'].append(timezone_dict)
 
-                        timezone_dict['states'].append(state_dict)
-                timezone_dict['states'] = sorted(timezone_dict['states'], key=lambda state: state['name'])
-            data['results'].append(timezone_dict)
+    with open('www/president.json', 'w') as f:
         f.write(json.dumps(data))
 
 
@@ -408,59 +411,63 @@ def write_house_json():
     """
     Calls generate_json() to build the house json file.
     """
+    output = _generate_json((u'house', u'H'))
+    
     with open(settings.HOUSE_FILENAME, 'w') as f:
-        f.write(_generate_json((u'house', u'H')))
+        f.write(output)
 
 
 def write_senate_json():
     """
     Calls generate_json to build the senatejson file.
     """
+    output = _generate_json((u'senate', u'S'))
+
     with open(settings.SENATE_FILENAME, 'w') as f:
-        f.write(_generate_json((u'senate', u'S')))
+        f.write(output)
 
 
 def write_electris_json():
     """
     Rewrites JSON files from the DB for president.
     """
+    output_states = []
+
+    for state in State.select().order_by(State.electoral_votes.desc(), State.name.asc()):
+        state = state._data
+
+        if state['npr_call'] != 'n' and state['npr_call'] != 'u':
+            state['call'] = state['npr_call']
+            state['called_at'] = state['npr_called_at']
+            state['called_by'] = 'npr'
+        elif state['accept_ap_call'] and state['ap_call'] != 'u':
+            state['call'] = state['ap_call']
+            state['called_at'] = state['ap_called_at']
+            state['called_by'] = 'ap'
+        else:
+            state['call'] = None
+            state['called_at'] = None
+            state['called_by'] = None
+
+        del state['npr_call']
+        del state['npr_called_at']
+        del state['ap_call']
+        del state['ap_called_at']
+
+        del state['called_by']
+        del state['accept_ap_call']
+        del state['rowid']
+        del state['prediction']
+
+        output_states.append(state)
+
+    output = json.dumps({
+        'balance_of_power': produce_bop_json(),
+        'states': output_states
+    })
+
     with open(settings.PRESIDENT_FILENAME, 'w') as f:
-        output_states = []
-
-        for state in State.select().order_by(State.electoral_votes.desc(), State.name.asc()):
-            state = state._data
-
-            if state['npr_call'] != 'n' and state['npr_call'] != 'u':
-                state['call'] = state['npr_call']
-                state['called_at'] = state['npr_called_at']
-                state['called_by'] = 'npr'
-            elif state['accept_ap_call'] and state['ap_call'] != 'u':
-                state['call'] = state['ap_call']
-                state['called_at'] = state['ap_called_at']
-                state['called_by'] = 'ap'
-            else:
-                state['call'] = None
-                state['called_at'] = None
-                state['called_by'] = None
-
-            del state['npr_call']
-            del state['npr_called_at']
-            del state['ap_call']
-            del state['ap_called_at']
-
-            del state['called_by']
-            del state['accept_ap_call']
-            del state['rowid']
-            del state['prediction']
-
-            output_states.append(state)
-
-        output = {
-            'balance_of_power': produce_bop_json(),
-            'states': output_states
-        }
-
-        f.write(json.dumps(output))
+        f.write(output)
 
 
 def push_results_to_s3():
