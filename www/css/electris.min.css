@@ -1031,6 +1031,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 }
 @media (max-width: 979px) {
 	#audio { margin-right: 10px; width: 50%; }
+	body.audio.not-coming #header h1 { margin-top: 0; }
 
 	#header-promos { 
 		padding: 15px;
