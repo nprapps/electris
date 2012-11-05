@@ -319,7 +319,7 @@ a.btn { color: #fff; cursor: pointer; }
 .candidate.red .combos { float: right; }
 
 .buckets { position: relative; }
-.bucket { width: 10em; }
+.bucket { width: 10em; overflow:hidden; }
 #electris-skinny .bucket { background-color: #f1f1f1; }
 
 .state {
@@ -329,11 +329,16 @@ a.btn { color: #fff; cursor: pointer; }
 @-webkit-keyframes fall {
     100% { margin-top:0; clear:none; }
 }
+@-moz-keyframes fall {
+    100% { margin-top:0; clear:none; }
+}
 
-.state.fall25 {
-    margin-top:25em;
-    -webkit-animation: fall 12.5s steps(25, end);
+.state.fall {
+    margin-top:26em;
+    -webkit-animation: fall 13s steps(26, end);
+    -moz-animation: fall 13s steps(26, end);
     -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
 }
 
 .state i {
@@ -678,7 +683,7 @@ a.btn { color: #fff; cursor: pointer; }
     display: none;
 	position: absolute; top: 16%; left: 20%; width: 60%;
 	z-index: 2100;
-	background-color: #B39429;
+/*    background-color: #B39429;*/
 	text-align: center;
 	font-size: 12px;
 	color: #fff;
@@ -690,8 +695,8 @@ a.btn { color: #fff; cursor: pointer; }
 	        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
 .electris-alert .alert-wrapper { padding: 15px; }
-.electris-alert.blue { background-color: #28556F; }
-.electris-alert.red { background-color: #6C2315; }
+/*.electris-alert.blue { background-color: #28556F; }
+.electris-alert.red { background-color: #6C2315; }*/
 .electris-alert strong { display: block; font-size: 18px; margin: 6px 0; }
 .electris-alert b {
 	font: normal 50px/50px StateFaceRegular;
