@@ -136,6 +136,13 @@ li#ind_sec{width:120px;}
 .candidate.alt {
     color:#85c65e;
 }
+
+
+.candidate.alt.winner{
+	background-color:#85c65e;
+	color:#fff;
+}
+
 .candidate.incumbent {
     text-transform:uppercase;
 }
