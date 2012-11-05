@@ -50,4 +50,5 @@ $(function(){
 
     fetchData();
     setInterval(fetchData, 15000);
+    
 });

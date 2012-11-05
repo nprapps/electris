@@ -33,6 +33,7 @@
 }
 
 h4{margin:0; padding:0;}
+ul {list-style-type: none;padding: 0px; margin: 0px;}
 
 body {
     font-family:ArmataRegular;
@@ -41,10 +42,11 @@ body {
     background-color:#111;
     color:#fff;
     font-weight: bold;
-    overflow: hidden;
     margin-left:auto;
     margin-right:auto;
 }
+
+body.studio{height:600px; width:800px; overflow: hidden;}
 
 #banner {
     background-color:#efefef;
@@ -244,17 +246,18 @@ li.status{
 		h1 a:hover {color:#666;}
 		
 		ul.rows-general{
-			float:left;	width:384px; border-right: 1px #999 solid; padding-right:15px;
+			float:left;	width:345px; border-right: 1px #999 solid; padding-right:15px;
 		}
 		
-		ul.more-markers{position: relative;float:left; width:385px; padding-left:15px;}
+		ul.more-markers{position: relative;float:left; width:345px; padding-left:15px;}
 		
 		.examples {display:block;clear:both;}
 		
 		.examples p {margin-top:5px;}
 		
-		.example2, .example3 {border-top:1px dotted #999; padding-top:10px;}
+		.example2, .example3 {border-top:1px dotted #999; padding-top:11px;}
 		
+		.cntrl{float:right;font-size: 10px; color:#999;}
 	
 	
 	
