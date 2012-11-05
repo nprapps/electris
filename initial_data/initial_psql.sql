@@ -9,14 +9,14 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -29,7 +29,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: house_senate_candidates; Type: TABLE; Schema: public; Owner: electris; Tablespace: 
+-- Name: house_senate_candidates; Type: TABLE; Schema: public; Owner: electris; Tablespace:
 --
 
 CREATE TABLE house_senate_candidates (
@@ -54,7 +54,7 @@ CREATE TABLE house_senate_candidates (
 ALTER TABLE public.house_senate_candidates OWNER TO electris;
 
 --
--- Name: races; Type: TABLE; Schema: public; Owner: electris; Tablespace: 
+-- Name: races; Type: TABLE; Schema: public; Owner: electris; Tablespace:
 --
 
 CREATE TABLE races (
@@ -95,7 +95,7 @@ CREATE TABLE races (
 ALTER TABLE public.races OWNER TO electris;
 
 --
--- Name: states; Type: TABLE; Schema: public; Owner: electris; Tablespace: 
+-- Name: states; Type: TABLE; Schema: public; Owner: electris; Tablespace:
 --
 
 CREATE TABLE states (
@@ -1971,7 +1971,7 @@ INSERT INTO states VALUES (1, 'al', 'B', 'Alabama', 'Ala.', 9, '2012-11-06 08:00
 
 
 --
--- Name: house_senate_candidates_pkey; Type: CONSTRAINT; Schema: public; Owner: electris; Tablespace: 
+-- Name: house_senate_candidates_pkey; Type: CONSTRAINT; Schema: public; Owner: electris; Tablespace:
 --
 
 ALTER TABLE ONLY house_senate_candidates
@@ -1979,7 +1979,7 @@ ALTER TABLE ONLY house_senate_candidates
 
 
 --
--- Name: races_pkey; Type: CONSTRAINT; Schema: public; Owner: electris; Tablespace: 
+-- Name: races_pkey; Type: CONSTRAINT; Schema: public; Owner: electris; Tablespace:
 --
 
 ALTER TABLE ONLY races
@@ -1987,7 +1987,7 @@ ALTER TABLE ONLY races
 
 
 --
--- Name: states_pkey; Type: CONSTRAINT; Schema: public; Owner: electris; Tablespace: 
+-- Name: states_pkey; Type: CONSTRAINT; Schema: public; Owner: electris; Tablespace:
 --
 
 ALTER TABLE ONLY states
@@ -1995,12 +1995,12 @@ ALTER TABLE ONLY states
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: onyxfish
+-- Name: public; Type: ACL; Schema: -; Owner: electris
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM onyxfish;
-GRANT ALL ON SCHEMA public TO onyxfish;
+REVOKE ALL ON SCHEMA public FROM electris;
+GRANT ALL ON SCHEMA public TO electris;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
