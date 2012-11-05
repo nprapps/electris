@@ -6,6 +6,7 @@ import gzip
 import shutil
 import boto
 import time
+import pytz
 import datetime
 
 from datetime import timedelta
@@ -16,6 +17,8 @@ import cms_settings as settings
 from initial_data import time_zones
 from models import Race, Candidate, State
 
+utc = pytz.timezone('UTC')
+eastern = pytz.timezone('US/Eastern')
 
 def gzip_www():
     """
@@ -203,6 +206,7 @@ def write_president_json():
     data['balance_of_power'] = produce_bop_json()
     data['results'] = []
 
+
     for timezone in time_zones.PRESIDENT_TIMES:
         timezone_dict = {}
         timezone_dict['gmt_epoch_time'] = timezone['time']
@@ -235,11 +239,12 @@ def write_president_json():
                     call_time = None
                     if state_dict['called_at'] != None:
                         call_time = datetime.datetime.strptime(state_dict['called_at'].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+                        call_time = utc.normalize(utc.localize(call_time))
 
                     if datetime.datetime.fromtimestamp(timezone['time']) > etnow:
                         if state_dict['called_at'] != None:
                             state_dict['status_tag'] = 'Called time.'
-                            state_dict['status'] = call_time.strftime('%I:%M').lstrip('0')
+                            state_dict['status'] = call_time.astimezone(eastern).strftime('%I:%M').lstrip('0')
                         else:
                             state_dict['status_tag'] = 'Poll closing time.'
                             state_dict['status'] = '&nbsp;'
@@ -247,7 +252,7 @@ def write_president_json():
                     if datetime.datetime.fromtimestamp(timezone['time']) < etnow:
                         if state_dict['called_at'] != None:
                             state_dict['status_tag'] = 'Called time.'
-                            state_dict['status'] = call_time.strftime('%I:%M').lstrip('0')
+                            state_dict['status'] = call_time.astimezone(eastern).strftime('%I:%M').lstrip('0')
                         else:
                             state_dict['status_tag'] = 'Percent reporting.'
                             state_dict['status'] = u'%s' % state.percent_reporting()
@@ -299,11 +304,15 @@ def _generate_json(house):
             if district.accept_ap_call == True:
                 district_dict['called'] = district.ap_called
                 if district.ap_called_time != None:
-                    district_dict['called_time'] = district.ap_called_time.strftime('%I:%M').lstrip('0')
+                    call_time = utc.normalize(utc.localize(district.ap_called_time))
+                    call_time = call_time.astimezone(eastern)
+                    district_dict['called_time'] = call_time.strftime('%I:%M').lstrip('0')
             elif district.accept_ap_call == False:
                 district_dict['called'] = district.npr_called
                 if district.npr_called_time != None:
-                    district_dict['called_time'] = district.npr_called_time.strftime('%I:%M').lstrip('0')
+                    call_time = utc.normalize(utc.localize(district.npr_called_time))
+                    call_time = call_time.astimezone(eastern)
+                    district_dict['called_time'] = call_time.strftime('%I:%M').lstrip('0')
 
             # Status field.
             if district.poll_closing_time > now:
