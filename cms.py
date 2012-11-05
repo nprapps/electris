@@ -260,7 +260,7 @@ def house(house, featured=None):
             race_update['npr_called'] = True
             if race.accept_ap_call == False:
                 if race.npr_called_time == None:
-                    race_update['npr_called_time'] = datetime.datetime.now()
+                    race_update['npr_called_time'] = datetime.datetime.now(tz=pytz.utc)
 
             rq2 = Race.update(**race_update).where(Race.slug == race_slug)
             rq2.execute()
