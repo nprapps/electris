@@ -159,7 +159,7 @@ def install_requirements():
     run('%(virtualenv_path)s/bin/pip install -r %(repo_path)s/requirements.txt' % env)
 
 
-def deploy():
+def deploy(remote='origin'):
     require('settings', provided_by=[production, staging])
     require('branch', provided_by=[stable, master, branch])
     _confirm_branch()
@@ -170,7 +170,7 @@ def deploy():
             sudo('service electris_cms stop')
             sudo('service electris_cron stop')
 
-    checkout_latest()
+    checkout_latest(remote)
 
     sudo('service electris_cms start')
     sudo('service electris_cron start')
