@@ -347,6 +347,8 @@ def reset():
         sudo('service electris_cron stop')
 
     with cd(env.repo_path):
+        sudo('dropdb electris', user='postgres')
+        sudo('createdb -O electris electris', user='postgres')
         sudo('cat initial_data/initial_psql.sql | psql -q electris', user='postgres')
         write_www_files()
         sudo('service electris_cms start')
@@ -357,7 +359,10 @@ def local_reset():
     """
     Resets the local environment to a fresh copy of the db and data.
     """
-    bootstrap_races()
+    local('dropdb electris')
+    local('createdb -O electris electris')
+    local('cat initial_data/initial_psql.sql | psql -q electris')
+
     write_www_files()
 
 

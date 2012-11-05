@@ -412,7 +412,7 @@ def write_electris_json():
     with open(settings.PRESIDENT_FILENAME, 'w') as f:
         output = []
 
-        for state in State.select().order_by(State.electoral_votes.desc()):
+        for state in State.select().order_by(State.electoral_votes.desc(), State.name.asc()):
             state = state._data
 
             if state['npr_call'] != 'n' and state['npr_call'] != 'u':
