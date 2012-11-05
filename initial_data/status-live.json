@@ -1,9 +1,9 @@
 {
     "audio": "true",
     "streaming": "true",
-    "flashStreamer": "rtmp://cp42183.live.edgefcs.net/live/",
-    "flashFile":"Live1@1094",
-    "htmlUrl":"http://npr.ic.llnwd.net/stream/npr_live24",
+    "flashStreamer": "rtmp://cp150999.live.edgefcs.net/live/",
+    "flashFile":"live3audio@52188",
+    "htmlUrl":"http://npr.ic.llnwd.net/stream/npr_live3",
     "title":"NPR Special Coverage:",
     "prompt":"Listen Now",
     "feedback":"Live"

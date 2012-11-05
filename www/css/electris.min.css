@@ -141,6 +141,7 @@ a.btn { color: #fff; cursor: pointer; }
 .modal-header { background-color: #f1f1f1; border-radius: 4px 4px 0 0; }
 .modal-header h3 { font: normal 20px Georgia, serif; }
 .modal-header .close { margin-top: -3px; }
+.modal-body { -webkit-overflow-scrolling: touch; }
 .modal .modal-col { width: 48%; float: left; margin-left: 4%; }
 .modal .modal-col:first-child { margin-left: 0; }
 
