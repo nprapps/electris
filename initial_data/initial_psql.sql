@@ -1996,12 +1996,12 @@ ALTER TABLE ONLY states
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: onyxfish
+-- Name: public; Type: ACL; Schema: -; Owner: electris 
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM onyxfish;
-GRANT ALL ON SCHEMA public TO onyxfish;
+REVOKE ALL ON SCHEMA public FROM electris;
+GRANT ALL ON SCHEMA public TO electris;
 GRANT ALL ON SCHEMA public TO electris;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
