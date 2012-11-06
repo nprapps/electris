@@ -1331,6 +1331,15 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
   width:100%;
 }
 
+/* Get rid of stupid twitter tracking images
+   so android adhesion sits right. */
+body > img[src^="//r"],
+body > img[src^="//p"] {
+    display: none !important;
+    line-height: 0;
+    height: 0 !important;
+}
+
 @media only screen and (min-width: 1025px) {
     #adhesion {
         display: none;
