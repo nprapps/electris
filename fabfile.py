@@ -234,7 +234,7 @@ def update_backchannel():
             policy='public-read',
             headers={'Cache-Control': 'max-age=5 no-cache no-store must-revalidate'}
         )
-        if env.alt_s3.bucket:
+        if env.alt_s3_bucket:
             conn = boto.connect_s3()
             bucket = conn.get_bucket(env.alt_s3_bucket)
             key = Key(bucket)
