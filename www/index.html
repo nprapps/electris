@@ -634,7 +634,7 @@
 
     <script id="meme-photo-template" type="text/template">
         <div id="post-<%= post['id'] %>" class="post photo"> 
-        	<div class="themedia"><img src="<%= post['photo-url-250'] %>" /></div> 
+        	<div class="themedia"><a href="<%= post['url-with-slug'] %>"><img src="<%= post['photo-url-250'] %>" /></a></div> 
             <p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p> 
         	<a href="<%= post['url-with-slug'] %>"><%= post["photo-caption"] %></a>
         </div>
