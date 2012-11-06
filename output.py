@@ -20,6 +20,7 @@ from models import Race, Candidate, State
 utc = pytz.timezone('UTC')
 eastern = pytz.timezone('US/Eastern')
 
+
 def gzip_www():
     """
     Moved from gzip_www.py.
@@ -200,12 +201,10 @@ def write_president_json():
     """
     Outputs the president json file for bigboard's frontend.
     """
-    now = datetime.datetime.now()
 
     data = {}
     data['balance_of_power'] = produce_bop_json()
     data['results'] = []
-
 
     for timezone in time_zones.PRESIDENT_TIMES:
         timezone_dict = {}
@@ -235,27 +234,21 @@ def write_president_json():
                         state_dict['called_at'] = None
                         state_dict['called_by'] = None
 
-                    etnow = now - timedelta(hours=5)
                     call_time = None
                     if state_dict['called_at'] != None:
                         call_time = datetime.datetime.strptime(state_dict['called_at'].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
                         call_time = utc.normalize(utc.localize(call_time))
 
-                    if datetime.datetime.fromtimestamp(timezone['time']) > etnow:
-                        if state_dict['called_at'] != None:
-                            state_dict['status_tag'] = 'Called time.'
-                            state_dict['status'] = call_time.astimezone(eastern).strftime('%I:%M').lstrip('0')
-                        else:
-                            state_dict['status_tag'] = 'Poll closing time.'
-                            state_dict['status'] = '&nbsp;'
-
-                    if datetime.datetime.fromtimestamp(timezone['time']) < etnow:
-                        if state_dict['called_at'] != None:
-                            state_dict['status_tag'] = 'Called time.'
-                            state_dict['status'] = call_time.astimezone(eastern).strftime('%I:%M').lstrip('0')
-                        else:
+                    if state_dict['called_at'] != None:
+                        state_dict['status_tag'] = 'Called time.'
+                        state_dict['status'] = call_time.astimezone(eastern).strftime('%I:%M').lstrip('0')
+                    else:
+                        if state.precincts_reporting > 0:
                             state_dict['status_tag'] = 'Percent reporting.'
                             state_dict['status'] = u'%s' % state.percent_reporting()
+                        else:
+                            state_dict['status_tag'] = 'No precincts reporting.'
+                            state_dict['status'] = u'&nbsp;'
 
                     timezone_dict['states'].append(state_dict)
             timezone_dict['states'] = sorted(timezone_dict['states'], key=lambda state: state['name'])
@@ -273,7 +266,6 @@ def _generate_json(house):
     data = {}
     data['balance_of_power'] = produce_bop_json()
     data['results'] = []
-    now = datetime.datetime.now()
 
     for timezone in settings.CLOSING_TIMES:
         timezone_dict = {}
@@ -315,20 +307,16 @@ def _generate_json(house):
                     district_dict['called_time'] = call_time.strftime('%I:%M').lstrip('0')
 
             # Status field.
-            if district.poll_closing_time > now:
-                if district_dict['called'] == True:
-                    district_dict['status_tag'] = 'Called time.'
-                    district_dict['status'] = district_dict['called_time']
-                else:
-                    district_dict['status_tag'] = 'Poll closing time.'
-                    district_dict['status'] = '&nbsp;'
-            if district.poll_closing_time < now:
-                if district_dict['called'] == True:
-                    district_dict['status_tag'] = 'Called time.'
-                    district_dict['status'] = district_dict['called_time']
-                else:
+            if district_dict['called'] == True:
+                district_dict['status_tag'] = 'Called time.'
+                district_dict['status'] = district_dict['called_time']
+            else:
+                if district.precincts_reporting > 0:
                     district_dict['status_tag'] = 'Percent reporting.'
                     district_dict['status'] = u'%s' % district.percent_reporting()
+                else:
+                    district_dict['status_tag'] = 'No precincts reporting.'
+                    district_dict['status'] = u'&nbsp;'
 
             # Flips.
             district_dict['swap'] = False
