@@ -104,7 +104,7 @@ def president(featured=None):
         # Next, try to get the AP call.
         accept_ap_call = request.form.get('accept_ap_call', None)
 
-        if accept_ap_call:
+        if accept_ap_call != None:
             # Figure out which direction we're going and send an appropriate message.
             if accept_ap_call.lower() == 'true':
                 accept_ap_call = True
@@ -122,7 +122,7 @@ def president(featured=None):
             sq.execute()
 
             # Clear the NPR winner status of candidates who we accept AP calls for.
-            if accept_ap_call == False:
+            if accept_ap_call == True:
                 update_dict['npr_call'] = 'n',
                 update_dict['npr_called_at'] = None
 
@@ -217,8 +217,8 @@ def house(house, featured=None):
 
         # 1.) Perhaps we're trying to set the accept_ap_call flag on some races?
         accept_ap_call = request.form.get('accept_ap_call', None)
-        if accept_ap_call:
-
+        
+        if accept_ap_call != None:
             if accept_ap_call.lower() == 'true':
                 accept_ap_call = True
             else:
@@ -228,7 +228,7 @@ def house(house, featured=None):
             aq = Race.update(accept_ap_call=accept_ap_call).where(Race.slug == race.slug)
             aq.execute()
 
-            if accept_ap_call == False:
+            if accept_ap_call == True:
                 rq = Candidate.update(npr_winner=False).where(Candidate.race == race)
                 rq.execute()
 
