@@ -2,6 +2,9 @@
 <html lang="en">
     <head>
         <title>The President</title>
+
+        <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script> <!-- FOR CHARTBEAT -->
+
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.7.3/build/cssreset/cssreset-min.css">
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/app.css" />
@@ -115,17 +118,17 @@
         
         <div class="module">
     		<div class="module-body">
-    			<p class="cntrl">Press "Control +" to magnify</p>
+    			<p class="cntrl">Press <span class="keyout">CTRL</span> + <span class="keyout">+</span> to magnify (<span class="keyout">&#8984;</span> + <span class="keyout">+</span> on Mac)</p>
     			<a href="http://www.npr.org" title="npr.org" id="npr-logo">NPR</a>
 
     		<div class="desc">
     			<h1>Big Board: President</h1>
     			
-    			<p>Welcome to the NPR Elections Big Board. This board shows the same results that hosts and election staff are watching in NPR's Studio 4A. The board updates every 15 seconds.
-    			</p>
+    			<p>Welcome to the NPR Elections Big Board. This board shows the same results that hosts and election staff are watching in NPR's Studio 4A. The board updates every 15 seconds.</p>
     			
-    			<p class="boardType">The President board displays the total electoral votes projected for each candidate in the top gray bar, along with how many more votes are necessary to get to 270 -- the number needed to win the election. The eight states listed in two columns at the top, below the gray bar, are those NPR has identified as swing states. Under the swing states, all state results are listed in order of poll closing time.
-    			</p>
+    			<p class="boardType">The President board displays the total electoral votes projected for each candidate in the top gray bar, along with how many more votes are necessary to get to 270 -- the number needed to win the election. The eight states listed in two columns at the top, below the gray bar, are those NPR has identified as swing states. Under the swing states, all state results are listed in order of poll closing time.</p>
+    			
+    			<p><strong><a href="http://election2012.npr.org/">Live Coverage</a></strong> | Other Big Boards: <a href="http://election2012.npr.org/bigboard/senate.html">Senate</a> | <a href="http://election2012.npr.org/bigboard/house.html">House</a>
     		</div>
     		<div class="key">
     			<h1>Big Board Key <a href="http://www.npr.org/buckets/agg/series/2012/elections/big-board-key.pdf" target=_blank>download the key pdf &raquo;</a></h1>
@@ -145,7 +148,7 @@
     				<li><strong>Candidate in all caps:</strong> Incumbent candidate</li>
 					<li><strong>Blue/green/red highlighted box:</strong> Projected winner</li>
 					<li><strong>White-highlighted state and white-outlined candidate:</strong> Seat has switched parties</li>
-					<li><strong>Number in parentheses, following state (president board only):</strong>Number of total electoral votes the state has </li>
+					<li><strong>Number in parentheses, following state (President board only): </strong>Number of total electoral votes the state has </li>
     			</ul>
     			
     			<div class="examples">
@@ -171,6 +174,45 @@
       		</div>
     	
     	</div>
+
+        <!-- GOOGLE ANALYTICS -->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-5828686-4']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+
+
+        <!-- CHARTBEAT -->
+        <script type="text/javascript">
+            var _sf_async_config={};
+            /** CONFIGURATION START **/
+            _sf_async_config.uid = 18888;
+            _sf_async_config.domain = "npr.org";
+            /** CONFIGURATION END **/
+            (function(){
+                function loadChartbeat() {
+                    window._sf_endpt=(new Date()).getTime();
+                    var e = document.createElement("script");
+                    e.setAttribute("language", "javascript");
+                    e.setAttribute("type", "text/javascript");
+                    e.setAttribute("src",
+                        (("https:" == document.location.protocol) ?
+                         "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" :
+                         "http://static.chartbeat.com/") +
+                        "js/chartbeat.js");
+                    document.body.appendChild(e);
+                }
+                var oldonload = window.onload;
+                window.onload = (typeof window.onload != "function") ?
+                    loadChartbeat : function() { oldonload(); loadChartbeat(); };
+            })();
+        </script>
 
        </body>
 </html>

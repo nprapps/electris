@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
+        <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script> <!-- FOR CHARTBEAT -->
         <title>The U.S. House</title>
 
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css" />
@@ -91,7 +92,7 @@
 		
 		<div class="module">
     		<div class="module-body">
-    			<p class="cntrl">Press "Control +" to magnify</p>
+    			<p class="cntrl">Press <span class="keyout">CTRL</span> + <span class="keyout">+</span> to magnify (<span class="keyout">&#8984;</span> + <span class="keyout">+</span> on Mac)</p>
     			<a href="http://www.npr.org" title="npr.org" id="npr-logo">NPR</a>
 
     		<div class="desc">
@@ -102,6 +103,8 @@
     			
     			<p class="boardType">The House board displays the 50 top races to watch, picked by NPR's Ken Rudin and arranged by poll closing time. The top gray bar shows the total number of seats won by each party across all 435 races, along with the number of seats needed to take the majority in the House.
     			</p>
+    			
+    			<p><strong><a href="http://election2012.npr.org/">Live Coverage</a></strong> | Other Big Boards: <a href="http://election2012.npr.org/bigboard/president.html">President</a> | <a href="http://election2012.npr.org/bigboard/senate.html">Senate</a>
     		</div>
     		<div class="key">
     			<h1>Big Board Key <a href="http://www.npr.org/buckets/agg/series/2012/elections/big-board-key.pdf" target=_blank>download the key pdf &raquo;</a></h1>
@@ -121,7 +124,7 @@
     				<li><strong>Candidate in all caps:</strong> Incumbent candidate</li>
 					<li><strong>Blue/green/red highlighted box:</strong> Projected winner</li>
 					<li><strong>White-highlighted state and white-outlined candidate:</strong> Seat has switched parties</li>
-					<li><strong>Number in parentheses, following state (president board only):</strong>Number of total electoral votes the state has </li>
+					<li><strong>Number in parentheses, following state (President board only): </strong>Number of total electoral votes the state has </li>
     			</ul>
     			
     			<div class="examples">
@@ -147,5 +150,45 @@
       		</div>
     	
     	</div>
+
+        <!-- GOOGLE ANALYTICS -->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-5828686-4']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+
+
+        <!-- CHARTBEAT -->
+        <script type="text/javascript">
+            var _sf_async_config={};
+            /** CONFIGURATION START **/
+            _sf_async_config.uid = 18888;
+            _sf_async_config.domain = "npr.org";
+            /** CONFIGURATION END **/
+            (function(){
+                function loadChartbeat() {
+                    window._sf_endpt=(new Date()).getTime();
+                    var e = document.createElement("script");
+                    e.setAttribute("language", "javascript");
+                    e.setAttribute("type", "text/javascript");
+                    e.setAttribute("src",
+                        (("https:" == document.location.protocol) ?
+                         "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" :
+                         "http://static.chartbeat.com/") +
+                        "js/chartbeat.js");
+                    document.body.appendChild(e);
+                }
+                var oldonload = window.onload;
+                window.onload = (typeof window.onload != "function") ?
+                    loadChartbeat : function() { oldonload(); loadChartbeat(); };
+            })();
+        </script>
+
     </body>
 </html>
