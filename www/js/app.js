@@ -985,6 +985,16 @@ $(function() {
         update_bop(bop);
         add_states();
         compute_stats(true);
+
+        if (called_count == 0) {
+           alerts.push({
+                body: '<p class="early-alert-info">Results will appear here as they arrive, around 7 p.m. ET.</p><p class="early-alert-info">Polls close at varying times throughout the U.S. &mdash; check out <a href="http://www.npr.org/blogs/itsallpolitics/2012/11/06/164344457/guide-for-the-day-an-election-day-timeline">our Election Day timeline</a>. <img src="img/early-alert.png" /></p>',
+                side: null,
+                no_calls: true
+            });
+
+           update_alerts();
+        }
     }
 
     function update_next_closing() {
@@ -1100,6 +1110,11 @@ $(function() {
 
                             called_el.toggle(called_count > 0);
                             incoming_el.toggle(incoming_count > 0);
+
+                            // Unfreeze initial alert once a state is called
+                            if (called_count == 1) {
+                                freeze_alerts = false;
+                            }
                             
                             var candidate = (state["call"] == "d" ? "Barack Obama" : "Mitt Romney");
                         
@@ -1184,9 +1199,14 @@ $(function() {
             alert_el.removeClass("red blue");
             alert_el.addClass(new_alert.side);
             alert_el.show();
-            
-            if ('winner' in new_alert && new_alert.winner) {
+
+            if ('no_calls' in new_alert && new_alert.no_calls) {
                 freeze_alerts = true;
+                $(".results-row .electris-alert").hide();
+            } else if ('winner' in new_alert && new_alert.winner) {
+                freeze_alerts = true;
+            } else {
+                $(".results-row .electris-alert").show();
             }
 
             // Kill this alert and possibly start the next one

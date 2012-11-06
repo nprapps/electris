@@ -843,7 +843,7 @@ body.wide-mode #wide-message { display: block; }
 /* ALERTS */
 .electris-alert {
     display: none;
-	position: absolute; top: 40%; left: 20%; width: 60%;
+	position: absolute; top: 20%; left: 20%; width: 60%;
 	z-index: 2100;
 	background: #B39429;
 	background: rgba(69,69,69,.9);
@@ -869,6 +869,23 @@ body.wide-mode #wide-message { display: block; }
 #electris-skinny .electris-alert.blue, #electris .electris-alert.blue { background: rgba(40,85,111,.9); }
 #electris-skinny .electris-alert.red, #electris .electris-alert.red { background: rgba(108,35,21,.9); }
 #electris-skinny h3 { padding: 0; margin: -10px 0 15px 0; font-weight: normal; color: #999; font-size: 13px; }
+
+.electris-alert .early-alert-info {
+    text-align: left;
+    font-size: 1.4em;
+    line-height: 1.3em;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.electris-alert .early-alert-info a {
+    color: #fff;
+    text-decoration: underline;
+}
+.electris-alert .early-alert-info img {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
 
 /* Memetracker */
 #backchannel { margin-top:20px; float:left; }
@@ -1131,6 +1148,14 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 	.blue .vote-tallies span { text-align: left; }
 
 	.combos { width: auto; height: auto; border: none; }
+
+    .electris-alert .early-alert-info {
+        font-size: 1.2em;
+        margin: 0 0 10px 0;
+    }
+    .electris-alert .early-alert-info img {
+        display: none;
+    }
 }
 
 @media (max-width: 979px) and (min-width: 768px) {
