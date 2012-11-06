@@ -143,7 +143,7 @@
             </div>
             <div class="results-row">
 				<div class="span4 results-group" id="pres-header">
-					<h2>President <!--<span><a href="results-map.html" target="_blank">see results map &raquo;</a></span>--></h2>
+					<h2>President <span><a href="results-map.html" target="_blank">see results map &raquo;</a></span></h2>
 					<div class="blue">
 						<div class="wrapper">
 							<h3><i>Barack </i><strong>Obama</strong></h3>
@@ -428,10 +428,11 @@
                 
                 <div id="electris-skinny">
                 	<h2>Race For The White House</h2>
+                    <h3>Each block represents one Electoral College vote</h3>
                 	
                 	<div id="wide-message">
 	                	<button class="btn btn-small btn-inverse" id="wide-button">Predict The Outcome &raquo;</button>
-                		There are only a few states left to call!
+                		There are only a few states left!
 	                </div>
 
                     <div class="states">
@@ -634,7 +635,7 @@
 
     <script id="meme-photo-template" type="text/template">
         <div id="post-<%= post['id'] %>" class="post photo"> 
-        	<div class="themedia"><img src="<%= post['photo-url-250'] %>" /></div> 
+        	<div class="themedia"><a href="<%= post['url-with-slug'] %>"><img src="<%= post['photo-url-250'] %>" /></a></div> 
             <p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p> 
         	<a href="<%= post['url-with-slug'] %>"><%= post["photo-caption"] %></a>
         </div>
