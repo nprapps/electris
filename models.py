@@ -228,6 +228,7 @@ class State(Model):
     precincts_reporting = IntegerField(null=True)
     rep_vote_count = IntegerField(null=True)
     dem_vote_count = IntegerField(null=True)
+    total_vote_count = IntegerField(null=True)
 
     class Meta:
         """
@@ -282,17 +283,17 @@ class State(Model):
             return 0
 
     def rep_vote_percent(self):
-        if self.rep_vote_count > 0:
+        if self.total_vote_count > 0:
             getcontext().prec = 3
-            percent = Decimal(self.rep_vote_count) / Decimal(self.dem_vote_count + self.rep_vote_count)
+            percent = Decimal(self.rep_vote_count) / Decimal(self.total_vote_count)
             return round(float(percent) * 100, 1)
         else:
             return 0
 
     def dem_vote_percent(self):
-        if self.dem_vote_count > 0:
+        if self.total_vote_count > 0:
             getcontext().prec = 3
-            percent = Decimal(self.dem_vote_count) / Decimal(self.dem_vote_count + self.rep_vote_count)
+            percent = Decimal(self.dem_vote_count) / Decimal(self.total_vote_count)
             return round(float(percent) * 100, 1)
         else:
             return 0

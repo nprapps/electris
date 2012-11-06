@@ -9,14 +9,14 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -29,7 +29,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: house_senate_candidates; Type: TABLE; Schema: public; Owner: electris; Tablespace:
+-- Name: house_senate_candidates; Type: TABLE; Schema: public; Owner: electris; Tablespace: 
 --
 
 CREATE TABLE house_senate_candidates (
@@ -54,7 +54,7 @@ CREATE TABLE house_senate_candidates (
 ALTER TABLE public.house_senate_candidates OWNER TO electris;
 
 --
--- Name: races; Type: TABLE; Schema: public; Owner: electris; Tablespace:
+-- Name: races; Type: TABLE; Schema: public; Owner: electris; Tablespace: 
 --
 
 CREATE TABLE races (
@@ -95,7 +95,7 @@ CREATE TABLE races (
 ALTER TABLE public.races OWNER TO electris;
 
 --
--- Name: states; Type: TABLE; Schema: public; Owner: electris; Tablespace:
+-- Name: states; Type: TABLE; Schema: public; Owner: electris; Tablespace: 
 --
 
 CREATE TABLE states (
@@ -115,7 +115,8 @@ CREATE TABLE states (
     total_precincts integer,
     precincts_reporting integer,
     rep_vote_count integer,
-    dem_vote_count integer
+    dem_vote_count integer,
+    total_vote_count integer
 );
 
 
@@ -1912,66 +1913,66 @@ INSERT INTO races VALUES (468, 'wy0', 'WY', 'Wyoming', 'S', 'U.S. Senate', 0, NU
 -- Data for Name: states; Type: TABLE DATA; Schema: public; Owner: electris
 --
 
-INSERT INTO states VALUES (2, 'ak', 'A', 'Alaska', 'Alaska', 3, '2012-11-07 01:00 AM', 'sr', 'u', NULL, true, 'u', NULL, 438, 0, 0, 0);
-INSERT INTO states VALUES (3, 'az', 'D', 'Arizona', 'Ariz.', 11, '2012-11-06 10:00 PM', 'lr', 'u', NULL, true, 'u', NULL, 1667, 0, 0, 0);
-INSERT INTO states VALUES (4, 'ar', 'C', 'Arkansas', 'Ark.', 6, '2012-11-06 08:30 PM', 'sr', 'u', NULL, true, 'u', NULL, 2393, 0, 0, 0);
-INSERT INTO states VALUES (5, 'ca', 'E', 'California', 'Calif.', 55, '2012-11-06 11:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 24490, 0, 0, 0);
-INSERT INTO states VALUES (6, 'co', 'F', 'Colorado', 'Colo.', 9, '2012-11-06 09:00 PM', 't', 'u', NULL, true, 'u', NULL, 9231, 0, 0, 0);
-INSERT INTO states VALUES (7, 'ct', 'G', 'Connecticut', 'Conn.', 7, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 704, 0, 0, 0);
-INSERT INTO states VALUES (8, 'de', 'H', 'Delaware', 'Del.', 3, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 348, 0, 0, 0);
-INSERT INTO states VALUES (9, 'dc', 'y', 'District of Columbia', 'D.C.', 3, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 143, 0, 0, 0);
-INSERT INTO states VALUES (10, 'fl', 'I', 'Florida', 'Fla.', 29, '2012-11-06 07:00 PM', 't', 'u', NULL, true, 'u', NULL, 6632, 0, 0, 0);
-INSERT INTO states VALUES (11, 'ga', 'J', 'Georgia', 'Ga.', 16, '2012-11-06 07:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 2856, 0, 0, 0);
-INSERT INTO states VALUES (12, 'hi', 'K', 'Hawaii', 'Hawaii', 4, '2012-11-06 11:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 250, 0, 0, 0);
-INSERT INTO states VALUES (13, 'id', 'M', 'Idaho', 'Idaho', 4, '2012-11-06 11:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 943, 0, 0, 0);
-INSERT INTO states VALUES (14, 'il', 'N', 'Illinois', 'Ill.', 20, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 10448, 0, 0, 0);
-INSERT INTO states VALUES (15, 'in', 'O', 'Indiana', 'Ind.', 11, '2012-11-06 06:00 PM', 'lr', 'u', NULL, true, 'u', NULL, 5329, 0, 0, 0);
-INSERT INTO states VALUES (16, 'ia', 'L', 'Iowa', 'Iowa', 6, '2012-11-06 10:00 PM', 't', 'u', NULL, true, 'u', NULL, 1688, 0, 0, 0);
-INSERT INTO states VALUES (17, 'ks', 'P', 'Kansas', 'Kan.', 6, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 3206, 0, 0, 0);
-INSERT INTO states VALUES (18, 'ky', 'Q', 'Kentucky', 'Ky.', 8, '2012-11-06 06:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 3632, 0, 0, 0);
-INSERT INTO states VALUES (19, 'la', 'R', 'Louisiana', 'La.', 8, '2012-11-06 09:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 4267, 0, 0, 0);
-INSERT INTO states VALUES (20, 'me', 'U', 'Maine', 'Maine', 2, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 599, 0, 0, 0);
-INSERT INTO states VALUES (21, 'me1', 'U', 'Maine District 1', 'Maine 1st', 1, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 0, 0, 0, 0);
-INSERT INTO states VALUES (22, 'me2', 'U', 'Maine District 2', 'Maine 2nd', 1, '2012-11-06 08:00 PM', 'ld', 'u', NULL, true, 'u', NULL, 0, 0, 0, 0);
-INSERT INTO states VALUES (23, 'md', 'T', 'Maryland', 'Md.', 10, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 1863, 0, 0, 0);
-INSERT INTO states VALUES (24, 'ma', 'S', 'Massachusetts', 'Mass.', 11, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 2172, 0, 0, 0);
-INSERT INTO states VALUES (25, 'mi', 'V', 'Michigan', 'Mich.', 16, '2012-11-06 08:00 PM', 'ld', 'u', NULL, true, 'u', NULL, 4992, 0, 0, 0);
-INSERT INTO states VALUES (26, 'mn', 'W', 'Minnesota', 'Minn.', 10, '2012-11-06 09:00 PM', 'ld', 'u', NULL, true, 'u', NULL, 4102, 0, 0, 0);
-INSERT INTO states VALUES (27, 'ms', 'Y', 'Mississippi', 'Miss.', 6, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 1889, 0, 0, 0);
-INSERT INTO states VALUES (28, 'mo', 'X', 'Missouri', 'Mo.', 10, '2012-11-06 08:00 PM', 'lr', 'u', NULL, true, 'u', NULL, 3428, 0, 0, 0);
-INSERT INTO states VALUES (29, 'mt', 'Z', 'Montana', 'Mont.', 3, '2012-11-06 10:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 794, 0, 0, 0);
-INSERT INTO states VALUES (30, 'ne', 'c', 'Nebraska', 'Neb.', 2, '2012-11-06 09:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 1594, 0, 0, 0);
-INSERT INTO states VALUES (31, 'ne1', 'c', 'Nebraska District 1', 'Neb. 1st', 1, '2012-11-06 09:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 0, 0, 0, 0);
-INSERT INTO states VALUES (32, 'ne2', 'c', 'Nebraska District 2', 'Neb. 2nd', 1, '2012-11-06 09:00 PM', 'lr', 'u', NULL, true, 'u', NULL, 0, 0, 0, 0);
-INSERT INTO states VALUES (33, 'ne3', 'c', 'Nebraska District 3', 'Neb. 3rd', 1, '2012-11-06 09:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 0, 0, 0, 0);
-INSERT INTO states VALUES (34, 'nv', 'g', 'Nevada', 'Nev.', 6, '2012-11-06 10:00 PM', 't', 'u', NULL, true, 'u', NULL, 1845, 0, 0, 0);
-INSERT INTO states VALUES (35, 'nh', 'd', 'New Hampshire', 'N.H.', 4, '2012-11-06 07:00 PM', 't', 'u', NULL, true, 'u', NULL, 301, 0, 0, 0);
-INSERT INTO states VALUES (36, 'nj', 'e', 'New Jersey', 'N.J.', 14, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 6330, 0, 0, 0);
-INSERT INTO states VALUES (37, 'nm', 'f', 'New Mexico', 'N.M.', 5, '2012-11-06 09:00 PM', 'ld', 'u', NULL, true, 'u', NULL, 1510, 0, 0, 0);
-INSERT INTO states VALUES (38, 'ny', 'h', 'New York', 'N.Y.', 29, '2012-11-06 09:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 14888, 0, 0, 0);
-INSERT INTO states VALUES (39, 'nc', 'a', 'North Carolina', 'N.C.', 15, '2012-11-06 07:30 PM', 'lr', 'u', NULL, true, 'u', NULL, 2895, 0, 0, 0);
-INSERT INTO states VALUES (40, 'nd', 'b', 'North Dakota', 'N.D.', 3, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 426, 0, 0, 0);
-INSERT INTO states VALUES (41, 'oh', 'i', 'Ohio', 'Ohio', 18, '2012-11-06 07:30 PM', 't', 'u', NULL, true, 'u', NULL, 9254, 0, 0, 0);
-INSERT INTO states VALUES (42, 'ok', 'j', 'Oklahoma', 'Okla.', 7, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 1960, 0, 0, 0);
-INSERT INTO states VALUES (43, 'or', 'k', 'Oregon', 'Ore.', 7, '2012-11-06 11:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 1000, 0, 0, 0);
-INSERT INTO states VALUES (44, 'pa', 'l', 'Pennsylvania', 'Pa.', 20, '2012-11-06 08:00 PM', 'ld', 'u', NULL, true, 'u', NULL, 9247, 0, 0, 0);
-INSERT INTO states VALUES (45, 'ri', 'm', 'Rhode Island', 'R.I.', 4, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 413, 0, 0, 0);
-INSERT INTO states VALUES (46, 'sc', 'n', 'South Carolina', 'S.C.', 9, '2012-11-06 07:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 2148, 0, 0, 0);
-INSERT INTO states VALUES (47, 'sd', 'o', 'South Dakota', 'S.D.', 3, '2012-11-06 09:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 727, 0, 0, 0);
-INSERT INTO states VALUES (48, 'tn', 'p', 'Tennessee', 'Tenn.', 11, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 2072, 0, 0, 0);
-INSERT INTO states VALUES (49, 'tx', 'q', 'Texas', 'Texas', 38, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 8971, 0, 0, 0);
-INSERT INTO states VALUES (50, 'ut', 'r', 'Utah', 'Utah', 6, '2012-11-06 10:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 2335, 0, 0, 0);
-INSERT INTO states VALUES (51, 'vt', 't', 'Vermont', 'Vt.', 3, '2012-11-06 07:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 275, 0, 0, 0);
-INSERT INTO states VALUES (52, 'va', 's', 'Virginia', 'Va.', 13, '2012-11-06 07:00 PM', 't', 'u', NULL, true, 'u', NULL, 2542, 0, 0, 0);
-INSERT INTO states VALUES (53, 'wa', 'u', 'Washington', 'Wash.', 12, '2012-11-06 11:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 2000, 0, 0, 0);
-INSERT INTO states VALUES (54, 'wv', 'w', 'West Virginia', 'W.Va.', 5, '2012-11-06 07:30 PM', 'sr', 'u', NULL, true, 'u', NULL, 1846, 0, 0, 0);
-INSERT INTO states VALUES (55, 'wi', 'v', 'Wisconsin', 'Wis.', 10, '2012-11-06 09:00 PM', 't', 'u', NULL, true, 'u', NULL, 3540, 0, 0, 0);
-INSERT INTO states VALUES (56, 'wy', 'x', 'Wyoming', 'Wyo.', 3, '2012-11-06 09:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 481, 0, 0, 0);
-INSERT INTO states VALUES (1, 'al', 'B', 'Alabama', 'Ala.', 9, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'n', NULL, 2711, 0, 0, 0);
+INSERT INTO states VALUES (2, 'ak', 'A', 'Alaska', 'Alaska', 3, '2012-11-07 01:00 AM', 'sr', 'u', NULL, true, 'u', NULL, 438, 0, 0, 0, NULL);
+INSERT INTO states VALUES (3, 'az', 'D', 'Arizona', 'Ariz.', 11, '2012-11-06 10:00 PM', 'lr', 'u', NULL, true, 'u', NULL, 1667, 0, 0, 0, NULL);
+INSERT INTO states VALUES (4, 'ar', 'C', 'Arkansas', 'Ark.', 6, '2012-11-06 08:30 PM', 'sr', 'u', NULL, true, 'u', NULL, 2393, 0, 0, 0, NULL);
+INSERT INTO states VALUES (5, 'ca', 'E', 'California', 'Calif.', 55, '2012-11-06 11:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 24490, 0, 0, 0, NULL);
+INSERT INTO states VALUES (6, 'co', 'F', 'Colorado', 'Colo.', 9, '2012-11-06 09:00 PM', 't', 'u', NULL, true, 'u', NULL, 9231, 0, 0, 0, NULL);
+INSERT INTO states VALUES (7, 'ct', 'G', 'Connecticut', 'Conn.', 7, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 704, 0, 0, 0, NULL);
+INSERT INTO states VALUES (8, 'de', 'H', 'Delaware', 'Del.', 3, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 348, 0, 0, 0, NULL);
+INSERT INTO states VALUES (9, 'dc', 'y', 'District of Columbia', 'D.C.', 3, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 143, 0, 0, 0, NULL);
+INSERT INTO states VALUES (10, 'fl', 'I', 'Florida', 'Fla.', 29, '2012-11-06 07:00 PM', 't', 'u', NULL, true, 'u', NULL, 6632, 0, 0, 0, NULL);
+INSERT INTO states VALUES (11, 'ga', 'J', 'Georgia', 'Ga.', 16, '2012-11-06 07:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 2856, 0, 0, 0, NULL);
+INSERT INTO states VALUES (12, 'hi', 'K', 'Hawaii', 'Hawaii', 4, '2012-11-06 11:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 250, 0, 0, 0, NULL);
+INSERT INTO states VALUES (13, 'id', 'M', 'Idaho', 'Idaho', 4, '2012-11-06 11:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 943, 0, 0, 0, NULL);
+INSERT INTO states VALUES (14, 'il', 'N', 'Illinois', 'Ill.', 20, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 10448, 0, 0, 0, NULL);
+INSERT INTO states VALUES (15, 'in', 'O', 'Indiana', 'Ind.', 11, '2012-11-06 06:00 PM', 'lr', 'u', NULL, true, 'u', NULL, 5329, 0, 0, 0, NULL);
+INSERT INTO states VALUES (16, 'ia', 'L', 'Iowa', 'Iowa', 6, '2012-11-06 10:00 PM', 't', 'u', NULL, true, 'u', NULL, 1688, 0, 0, 0, NULL);
+INSERT INTO states VALUES (17, 'ks', 'P', 'Kansas', 'Kan.', 6, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 3206, 0, 0, 0, NULL);
+INSERT INTO states VALUES (18, 'ky', 'Q', 'Kentucky', 'Ky.', 8, '2012-11-06 06:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 3632, 0, 0, 0, NULL);
+INSERT INTO states VALUES (19, 'la', 'R', 'Louisiana', 'La.', 8, '2012-11-06 09:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 4267, 0, 0, 0, NULL);
+INSERT INTO states VALUES (20, 'me', 'U', 'Maine', 'Maine', 2, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 599, 0, 0, 0, NULL);
+INSERT INTO states VALUES (21, 'me1', 'U', 'Maine District 1', 'Maine 1st', 1, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 0, 0, 0, 0, NULL);
+INSERT INTO states VALUES (22, 'me2', 'U', 'Maine District 2', 'Maine 2nd', 1, '2012-11-06 08:00 PM', 'ld', 'u', NULL, true, 'u', NULL, 0, 0, 0, 0, NULL);
+INSERT INTO states VALUES (23, 'md', 'T', 'Maryland', 'Md.', 10, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 1863, 0, 0, 0, NULL);
+INSERT INTO states VALUES (24, 'ma', 'S', 'Massachusetts', 'Mass.', 11, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 2172, 0, 0, 0, NULL);
+INSERT INTO states VALUES (25, 'mi', 'V', 'Michigan', 'Mich.', 16, '2012-11-06 08:00 PM', 'ld', 'u', NULL, true, 'u', NULL, 4992, 0, 0, 0, NULL);
+INSERT INTO states VALUES (26, 'mn', 'W', 'Minnesota', 'Minn.', 10, '2012-11-06 09:00 PM', 'ld', 'u', NULL, true, 'u', NULL, 4102, 0, 0, 0, NULL);
+INSERT INTO states VALUES (27, 'ms', 'Y', 'Mississippi', 'Miss.', 6, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 1889, 0, 0, 0, NULL);
+INSERT INTO states VALUES (28, 'mo', 'X', 'Missouri', 'Mo.', 10, '2012-11-06 08:00 PM', 'lr', 'u', NULL, true, 'u', NULL, 3428, 0, 0, 0, NULL);
+INSERT INTO states VALUES (29, 'mt', 'Z', 'Montana', 'Mont.', 3, '2012-11-06 10:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 794, 0, 0, 0, NULL);
+INSERT INTO states VALUES (30, 'ne', 'c', 'Nebraska', 'Neb.', 2, '2012-11-06 09:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 1594, 0, 0, 0, NULL);
+INSERT INTO states VALUES (31, 'ne1', 'c', 'Nebraska District 1', 'Neb. 1st', 1, '2012-11-06 09:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 0, 0, 0, 0, NULL);
+INSERT INTO states VALUES (32, 'ne2', 'c', 'Nebraska District 2', 'Neb. 2nd', 1, '2012-11-06 09:00 PM', 'lr', 'u', NULL, true, 'u', NULL, 0, 0, 0, 0, NULL);
+INSERT INTO states VALUES (33, 'ne3', 'c', 'Nebraska District 3', 'Neb. 3rd', 1, '2012-11-06 09:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 0, 0, 0, 0, NULL);
+INSERT INTO states VALUES (34, 'nv', 'g', 'Nevada', 'Nev.', 6, '2012-11-06 10:00 PM', 't', 'u', NULL, true, 'u', NULL, 1845, 0, 0, 0, NULL);
+INSERT INTO states VALUES (35, 'nh', 'd', 'New Hampshire', 'N.H.', 4, '2012-11-06 07:00 PM', 't', 'u', NULL, true, 'u', NULL, 301, 0, 0, 0, NULL);
+INSERT INTO states VALUES (36, 'nj', 'e', 'New Jersey', 'N.J.', 14, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 6330, 0, 0, 0, NULL);
+INSERT INTO states VALUES (37, 'nm', 'f', 'New Mexico', 'N.M.', 5, '2012-11-06 09:00 PM', 'ld', 'u', NULL, true, 'u', NULL, 1510, 0, 0, 0, NULL);
+INSERT INTO states VALUES (38, 'ny', 'h', 'New York', 'N.Y.', 29, '2012-11-06 09:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 14888, 0, 0, 0, NULL);
+INSERT INTO states VALUES (39, 'nc', 'a', 'North Carolina', 'N.C.', 15, '2012-11-06 07:30 PM', 'lr', 'u', NULL, true, 'u', NULL, 2895, 0, 0, 0, NULL);
+INSERT INTO states VALUES (40, 'nd', 'b', 'North Dakota', 'N.D.', 3, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 426, 0, 0, 0, NULL);
+INSERT INTO states VALUES (41, 'oh', 'i', 'Ohio', 'Ohio', 18, '2012-11-06 07:30 PM', 't', 'u', NULL, true, 'u', NULL, 9254, 0, 0, 0, NULL);
+INSERT INTO states VALUES (42, 'ok', 'j', 'Oklahoma', 'Okla.', 7, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 1960, 0, 0, 0, NULL);
+INSERT INTO states VALUES (43, 'or', 'k', 'Oregon', 'Ore.', 7, '2012-11-06 11:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 1000, 0, 0, 0, NULL);
+INSERT INTO states VALUES (44, 'pa', 'l', 'Pennsylvania', 'Pa.', 20, '2012-11-06 08:00 PM', 'ld', 'u', NULL, true, 'u', NULL, 9247, 0, 0, 0, NULL);
+INSERT INTO states VALUES (45, 'ri', 'm', 'Rhode Island', 'R.I.', 4, '2012-11-06 08:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 413, 0, 0, 0, NULL);
+INSERT INTO states VALUES (46, 'sc', 'n', 'South Carolina', 'S.C.', 9, '2012-11-06 07:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 2148, 0, 0, 0, NULL);
+INSERT INTO states VALUES (47, 'sd', 'o', 'South Dakota', 'S.D.', 3, '2012-11-06 09:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 727, 0, 0, 0, NULL);
+INSERT INTO states VALUES (48, 'tn', 'p', 'Tennessee', 'Tenn.', 11, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 2072, 0, 0, 0, NULL);
+INSERT INTO states VALUES (49, 'tx', 'q', 'Texas', 'Texas', 38, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 8971, 0, 0, 0, NULL);
+INSERT INTO states VALUES (50, 'ut', 'r', 'Utah', 'Utah', 6, '2012-11-06 10:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 2335, 0, 0, 0, NULL);
+INSERT INTO states VALUES (51, 'vt', 't', 'Vermont', 'Vt.', 3, '2012-11-06 07:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 275, 0, 0, 0, NULL);
+INSERT INTO states VALUES (52, 'va', 's', 'Virginia', 'Va.', 13, '2012-11-06 07:00 PM', 't', 'u', NULL, true, 'u', NULL, 2542, 0, 0, 0, NULL);
+INSERT INTO states VALUES (53, 'wa', 'u', 'Washington', 'Wash.', 12, '2012-11-06 11:00 PM', 'sd', 'u', NULL, true, 'u', NULL, 2000, 0, 0, 0, NULL);
+INSERT INTO states VALUES (54, 'wv', 'w', 'West Virginia', 'W.Va.', 5, '2012-11-06 07:30 PM', 'sr', 'u', NULL, true, 'u', NULL, 1846, 0, 0, 0, NULL);
+INSERT INTO states VALUES (55, 'wi', 'v', 'Wisconsin', 'Wis.', 10, '2012-11-06 09:00 PM', 't', 'u', NULL, true, 'u', NULL, 3540, 0, 0, 0, NULL);
+INSERT INTO states VALUES (56, 'wy', 'x', 'Wyoming', 'Wyo.', 3, '2012-11-06 09:00 PM', 'sr', 'u', NULL, true, 'u', NULL, 481, 0, 0, 0, NULL);
+INSERT INTO states VALUES (1, 'al', 'B', 'Alabama', 'Ala.', 9, '2012-11-06 08:00 PM', 'sr', 'u', NULL, true, 'n', NULL, 2711, 0, 0, 0, NULL);
 
 
 --
--- Name: house_senate_candidates_pkey; Type: CONSTRAINT; Schema: public; Owner: electris; Tablespace:
+-- Name: house_senate_candidates_pkey; Type: CONSTRAINT; Schema: public; Owner: electris; Tablespace: 
 --
 
 ALTER TABLE ONLY house_senate_candidates
@@ -1979,7 +1980,7 @@ ALTER TABLE ONLY house_senate_candidates
 
 
 --
--- Name: races_pkey; Type: CONSTRAINT; Schema: public; Owner: electris; Tablespace:
+-- Name: races_pkey; Type: CONSTRAINT; Schema: public; Owner: electris; Tablespace: 
 --
 
 ALTER TABLE ONLY races
@@ -1987,7 +1988,7 @@ ALTER TABLE ONLY races
 
 
 --
--- Name: states_pkey; Type: CONSTRAINT; Schema: public; Owner: electris; Tablespace:
+-- Name: states_pkey; Type: CONSTRAINT; Schema: public; Owner: electris; Tablespace: 
 --
 
 ALTER TABLE ONLY states
@@ -1995,11 +1996,12 @@ ALTER TABLE ONLY states
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: electris
+-- Name: public; Type: ACL; Schema: -; Owner: onyxfish
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM electris;
+REVOKE ALL ON SCHEMA public FROM onyxfish;
+GRANT ALL ON SCHEMA public TO onyxfish;
 GRANT ALL ON SCHEMA public TO electris;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 

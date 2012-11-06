@@ -200,11 +200,13 @@ def parse_house(row):
 
 def parse_president(row):
     race_data = dict(zip(RACE_FIELDS, row[:len(RACE_FIELDS)]))
-    candidate_count = (len(row) - len(RACE_FIELDS)) / len(CANDIDATE_FIELDS)
 
+    candidate_count = (len(row) - len(RACE_FIELDS)) / len(CANDIDATE_FIELDS)
+    
     i = 0
     obama_data = None
     romney_data = None
+    total_vote_count = 0
 
     while i < candidate_count:
         first_field = len(RACE_FIELDS) + (i * len(CANDIDATE_FIELDS))
@@ -217,8 +219,7 @@ def parse_president(row):
         elif candidate_data['last_name'] == 'Romney':
             romney_data = candidate_data
 
-        if obama_data and romney_data:
-            break
+        total_vote_count += int(candidate_data['vote_count'])
 
         i += 1
 
@@ -238,6 +239,7 @@ def parse_president(row):
     state.precincts_reporting = race_data['precincts_reporting']
     state.rep_vote_count = romney_data['vote_count']
     state.dem_vote_count = obama_data['vote_count']
+    state.total_vote_count = total_vote_count
 
     state.save()
 
@@ -249,6 +251,7 @@ def parse_president_district(state_code, row):
     i = 0
     obama_data = None
     romney_data = None
+    total_vote_count = 0
 
     while i < candidate_count:
         first_field = len(DISTRICT_RACE_FIELDS) + (i * len(DISTRICT_CANDIDATE_FIELDS))
@@ -261,8 +264,7 @@ def parse_president_district(state_code, row):
         elif candidate_data['last_name'] == 'Romney':
             romney_data = candidate_data
 
-        if obama_data and romney_data:
-            break
+        total_vote_count += int(candidate_data['vote_count'])
 
         i += 1
 
@@ -288,6 +290,7 @@ def parse_president_district(state_code, row):
     state.precincts_reporting = race_data['precincts_reporting']
     state.rep_vote_count = romney_data['vote_count']
     state.dem_vote_count = obama_data['vote_count']
+    state.total_vote_count = total_vote_count
 
     state.save()
 

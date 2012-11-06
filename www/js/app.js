@@ -891,8 +891,8 @@ $(function() {
         var incoming_state_els = [];
 
         _.each(alpha_states, function(state) {
-            var red_pct = Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
-            var blue_pct = Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
+            var red_pct = Math.round(state.rep_vote_count / (state.total_vote_count) * 100);
+            var blue_pct = Math.round(state.dem_vote_count / (state.total_vote_count) * 100);
             
             if (red_pct) {
                 red_pct = red_pct.toString() + "%";
@@ -1026,8 +1026,8 @@ $(function() {
                 old_state["rep_vote_count"] != state["rep_vote_count"] ||
                 old_state["precincts_reporting"] != state["precincts_reporting"]) {
 
-                var red_pct = Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
-                var blue_pct = Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
+                var red_pct = Math.round(state.rep_vote_count / (state.total_vote_count) * 100);
+                var blue_pct = Math.round(state.dem_vote_count / (state.total_vote_count) * 100);
                 
                 if (red_pct) {
                     red_pct = red_pct.toString() + "%";
