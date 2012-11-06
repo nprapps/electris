@@ -1279,7 +1279,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 	.modal-header .close { margin-top: -10px; }
 	
 	#comingsoon { background: none; background-color: #e31c1c; }
-	body.audio.comingsoon #comingsoon .message { font-size: 10px; padding-left: 15px; padding-top: 6px; padding-bottom: 6px; }
+	body.audio.comingsoon #comingsoon .message { font-size: 9px; padding-left: 15px; padding-top: 6px; padding-bottom: 6px; }
 }
 
  /* .adhesion { */
