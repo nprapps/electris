@@ -1044,7 +1044,7 @@ $(function() {
                 var state_els = $("." + state.id);
                 state_els.find(".red").html(red_pct); 
                 state_els.find(".blue").html(blue_pct); 
-                state_els.find(".precincts").html(Math.round(state.precincts_reporting / state.total_precincts * 100)); 
+                state_els.find(".precincts").html(Math.round(state.precincts_reporting / state.total_precincts * 100) + "% rept."); 
 
                 if (old_state["call"] != state["call"]) {
                     $(".state." + state.id).remove();
