@@ -682,15 +682,53 @@ a.btn { color: #fff; cursor: pointer; }
 /* WIDE MODE */
 #wide-message { 
 	display: none;
-	background-color: #F7E39B;
 	padding: 10px;
 	margin-bottom: 18px;
 	border-radius: 4px;
 	font-weight: bold;
 	color: #77631B;
+	background: #f7e39b;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f7e39b), to(#f4db82));
+	background-image: -webkit-linear-gradient(top, #f7e39b, #f4db82);
+	background-image: -o-linear-gradient(top, #f7e39b, #f4db82);
+	background-image: linear-gradient(to bottom, #f7e39b, #f4db82);
+	background-image: -moz-linear-gradient(top, #f7e39b, #f4db82);
+	background-repeat: repeat-x;
+	border: 1px solid #f4db82;
+	*border: 0;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border-color: #faeab2 #f4db82 #e5bf57;
+	border-bottom-color: #e5bf57;
+	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+	filter: progid:dximagetransform.microsoft.gradient(startColorstr='#FBF1CD', endColorstr='#f4db82', GradientType=0);
+	filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+	*zoom: 1;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+	   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+	        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+	height: 35px;
 }
 body.wide-mode #wide-message { display: block; }
-#wide-button { display: inline-block; float: right; margin-top: -5px; }
+#wide-button, #skinny-button {
+	background: #876c11;
+	text-shadow: 0 1px 1px rgba(179, 148, 41, 0.75);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#b8932e), to(#876c11));
+	background-image: -webkit-linear-gradient(top, #b8932e, #876c11);
+	background-image: -o-linear-gradient(top, #b8932e, #876c11);
+	background-image: linear-gradient(to bottom, #b8932e, #876c11);
+	background-image: -moz-linear-gradient(top, #b8932e, #876c11);
+	filter: progid:dximagetransform.microsoft.gradient(startColorstr='#b8932e', endColorstr='#876c11', GradientType=0);
+	border-color: #b8932e;
+	border-bottom-color: #876c11;
+	-webkit-box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(0, 0, 0, 0.15);
+	   -moz-box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(0, 0, 0, 0.15);
+	        box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+#wide-button { 
+	display: inline-block; float: right; 
+	margin-top: -5px; margin-left: 10px;
+	width: 100px;
+}
 #skinny-button { position: absolute; top: 10px; right: 0; }
 
 
@@ -920,6 +958,9 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
     #results-bar.affix div.results-row { margin-left: 30px; margin-right: 0; }
 	#pres-header i { display: inline; }
 	
+	#wide-message { height: auto; }
+	#wide-button { width: auto; }
+
 	#electris .pres-results { height: 693px; }
 
 	.states { font-size: 23px; }
@@ -936,7 +977,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 	.histogram h4 { height: 22px; }
 	.histogram .title { padding: 5px 12px 0 12px; font-size: 12px; }
 	.histogram .bar { height: 24px; margin-top: -20px; }
-	.bucket-header h3 { font-size: 23px; padding-top: 16px; }
+	.bucket-header h3 { font-size: 18px; padding-top: 21px; }
 	.vote-tallies { top: 10px; }
 	.vote-tallies .bignum { font-size: 24px; }
 	.vote-tallies span { padding-top: 16px; }
@@ -1030,9 +1071,13 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 	#header h1 { margin-bottom: 0; }
 	#audio { width: auto; }
 	body.audio.comingsoon #comingsoon { width: 100%; margin: 0; }
+	body.comingsoon.audio #header h1 { margin-top: 41px; }
 	
 	.results-group { margin-bottom: 18px; }
 	#pres-header i { display: inline; }
+
+	#wide-message { height: auto; }
+	#wide-button { width: auto; }
 
     #the-stuff { margin-top:0; }
     #ad { display:none; }
@@ -1087,7 +1132,6 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 		height: 45px;
 		margin: 0 7px 7px 7px;
 	}
-	body.comingsoon.audio #header h1 { margin-top: 41px; }
 	
 	#header-promos { padding: 15px; }
 	
@@ -1097,6 +1141,9 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 	#pres-header i { font-style: normal; display: none; }
 
 	#tabs .nav-tabs { margin: 0 -10px 0 -10px; padding: 2px 5px 4px 5px; }
+	
+	#wide-message { height: 35px; }
+	#wide-button { width: 100px; }
 
 	.state i {
         text-indent: -9999px;
