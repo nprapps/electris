@@ -15,6 +15,7 @@ h3 { font: bold 1.1em Arial, Helvetica, sans-serif; color: #333; }
 h5 { font: bold 14px Arial, Helvetica, sans-serif; color: #333; margin-bottom: 3px; }
 
 #electris-skinny h2,
+#electris h2,
 #incoming h2,
 #backchannel h2,
 #live-blog h2,
@@ -406,7 +407,7 @@ a.btn { color: #fff; cursor: pointer; }
 }
 
 .bucket-header {
-	border-top: 3px solid #000;
+	border-top: 1px solid #ccc;
 	overflow: hidden;
 	height: 3em;
 	position: relative;
@@ -679,8 +680,18 @@ a.btn { color: #fff; cursor: pointer; }
 
 
 /* WIDE MODE */
-#wide-button { display: none; }
-body.wide-mode #wide-button { display: block; }
+#wide-message { 
+	display: none;
+	background-color: #F7E39B;
+	padding: 10px;
+	margin-bottom: 18px;
+	border-radius: 4px;
+	font-weight: bold;
+	color: #77631B;
+}
+body.wide-mode #wide-message { display: block; }
+#wide-button { display: inline-block; float: right; margin-top: -5px; }
+#skinny-button { position: absolute; top: 10px; right: 0; }
 
 
 /* ALERTS */
