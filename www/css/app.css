@@ -292,7 +292,7 @@ a.btn { color: #fff; cursor: pointer; }
 /* Electris */
 #electris-skinny { margin-top: 20px; }
 #electris { 
-	margin-top: 30px; display: none;
+	margin-top: 20px; display: none;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
@@ -1111,7 +1111,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
         height:9px;
     }
     
-    .candidate.blue .combos, .candidate.red .combos { float: none; }
+    .candidate.blue .combos, .candidate.red .combos { float: none; margin-bottom: 30px; }
 
 	.line b {background: url('../img/270-line-767.png') no-repeat center center; height: 42px;margin-top: -10px;}
 
