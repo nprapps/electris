@@ -372,6 +372,13 @@ def _generate_json(house):
                         # without a winner.
                         if candidate_dict['winner'] == True:
 
+                            # Hardcoding an edge-case for IA3 and OH16.
+                            if district_dict['district_slug'] == 'ia3':
+                                candidate_dict['swap'] = True
+
+                            if district_dict['district_slug'] == 'oh16':
+                                candidate_dict['swap'] = True
+
                             # Second, check if this is the incumbent. Can't have
                             # an incumbent win AND this be a swap.
                             if candidate_dict['incumbent'] == False:
