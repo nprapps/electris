@@ -92,7 +92,7 @@ function blog_template(post,sticky) {
 	if (post.link) {
 		blogItem += ' <span class="more">more &raquo;</span></a>';
 	}
-	blogItem += '<span class="timeago" title="' + post.created + '">' + post.created + '</span>';
+	blogItem += '<span class="timeago" title="' + post.created + '-05:00">' + post.created + '</span>';
 	blogItem += '</p>';
 	blogItem += '</div>';
 	return blogItem;
