@@ -251,10 +251,13 @@ def write_president_json():
                             elif pct > 99 and pct < 100:
                                 state_dict['status'] = u'99%'
                             else:
-                                state_dict['status'] = u'%.0f%%' % pct 
+                                state_dict['status'] = u'%.0f%%' % pct
                         else:
                             state_dict['status_tag'] = 'No precincts reporting.'
-                            state_dict['status'] = u'&nbsp;'
+                            if state_dict['dem_vote_count'] + state_dict['rep_vote_count'] > 0:
+                                state_dict['status'] = u'< 1%'
+                            else:
+                                state_dict['status'] = u'&nbsp;'
 
                     timezone_dict['states'].append(state_dict)
             timezone_dict['states'] = sorted(timezone_dict['states'], key=lambda state: state['name'])
@@ -329,8 +332,10 @@ def _generate_json(house):
                         district_dict['status'] = u'%.0f%%' % district.percent_reporting()
                 else:
                     district_dict['status_tag'] = 'No precincts reporting.'
-                    district_dict['status'] = u'&nbsp;'
-
+                    if district.total_votes() > 0:
+                        district_dict['status'] = u'< 1%'
+                    else:
+                        district_dict['status'] = u'&nbsp;'
             # Flips.
             district_dict['swap'] = False
             if district.has_flipped:
