@@ -244,7 +244,14 @@ def write_president_json():
                     else:
                         if state.precincts_reporting > 0:
                             state_dict['status_tag'] = 'Percent reporting.'
-                            state_dict['status'] = u'%.0f%%' % state.percent_reporting()
+                            pct = state.percent_reporting()
+
+                            if pct < 1:
+                                state_dict['status'] = u'< 1%'
+                            elif pct > 99 and pct < 100:
+                                state_dict['status'] = u'99%'
+                            else:
+                                state_dict['status'] = u'%.0f%%' % pct 
                         else:
                             state_dict['status_tag'] = 'No precincts reporting.'
                             state_dict['status'] = u'&nbsp;'
@@ -312,7 +319,14 @@ def _generate_json(house):
             else:
                 if district.precincts_reporting > 0:
                     district_dict['status_tag'] = 'Percent reporting.'
-                    district_dict['status'] = u'%.0f%%' % district.percent_reporting()
+                    pct = district.percent_reporting()
+
+                    if pct < 1:
+                        district_dict['status'] = u'< 1%'
+                    elif pct > 99 and pct < 100:
+                        district_dict['status'] = u'99%'
+                    else:
+                        district_dict['status'] = u'%.0f%%' % district.percent_reporting()
                 else:
                     district_dict['status_tag'] = 'No precincts reporting.'
                     district_dict['status'] = u'&nbsp;'
