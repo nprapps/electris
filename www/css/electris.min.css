@@ -176,7 +176,8 @@ a.btn { color: #fff; cursor: pointer; }
 /* MAIN HEADER */
 .navbar { margin-bottom: 1px; }
 #big-header {
-	background: #151515 url('../img/bg-election-night.jpg') no-repeat top left;
+/*	background: #151515 url('../img/bg-election-night.jpg') no-repeat top left; */
+	background: #151515 url('../img/bg-election-night-stickers.jpg') no-repeat top left;
 	margin-left: 0;
 	padding-top: 12px;
 }
