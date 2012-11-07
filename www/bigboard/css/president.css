@@ -88,3 +88,5 @@ p {margin:0;}
 .weighted .last.column {border-left:solid #ccc 2px;width:49% !important;}
 
 .state_row { height:20px!important; display:block!important; width:100%!important; }
+
+p.tweetmsg {width:780px; background:#efefef; margin: 10px 0; clear: both; font: bold 18px Arial, Helvetica, sans-serif; color:#333;padding:10px;border-top: 10px #111 solid}
