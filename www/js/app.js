@@ -944,7 +944,7 @@ $(function() {
                 percent_reporting: percent_reporting
             }));
 
-            if (state.call || state.total_vote_count == 0 ) {
+            if (state.call || !state.total_vote_count) {
                 incoming_state_el.hide();
             } else {
                 incoming_count += 1; 
@@ -1161,10 +1161,12 @@ $(function() {
                     }
                 } else {
                     if (state["total_vote_count"] > 0 && old_state["total_vote_count"] == 0) {
-                        state_els.filter(".incoming." + state.id).show();
-                        incoming_count += 1;
+                        if (!state["call"]) {
+                            state_els.filter(".incoming." + state.id).show();
+                            incoming_count += 1;
 
-                        incoming_el.toggle(incoming_count > 0);
+                            incoming_el.toggle(incoming_count > 0);
+                        }
                     }
                 }
 
