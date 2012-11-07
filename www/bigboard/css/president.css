@@ -57,7 +57,7 @@ span.neednum{color:#fff; line-height:20px;padding:0 4px;}
 .gopPercent{ text-indent:4px; color:#f8a199; width:14%; overflow:hidden;}
 .swing .demPercent { text-indent:8px; }
 .swing .gopPercent { text-indent:8px; }
-.percentTime{ border-right:solid #666 1px; width:12%; overflow:hidden; font-size:13px; text-align:left; color:#f9e8af;}
+.percentTime{ border-right:solid #666 1px; width:12%; overflow:hidden; font-size:13px; text-align:right; color:#f9e8af;}
 .percentTime.called { background-color:#f2d15f; color:#000; }
 .full .percentTime.called { height:21px;}
 .weighted li.demPercent{width:15%;overflow:hidden;}
