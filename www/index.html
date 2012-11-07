@@ -608,7 +608,7 @@
             <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
             <span class="blue <% if (state.call === "d") { %>winner<% } %>"><%= blue_pct %></span>
             <span class="red <% if (state.call === "r") { %>winner<% } %>"><%= red_pct %></span>
-            <span class="precincts"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% rept.</span>
+            <span class="precincts"><%= percent_reporting(state) %></span>
         </li>
     </script>
 
@@ -617,7 +617,7 @@
             <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
             <span class="blue"><%= blue_pct %></span>
             <span class="red"><%= red_pct %></span>
-            <span class="precincts"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% rept.</span>
+            <span class="precincts"><%= percent_reporting(state) %></span>
         </li>
     </script>
 
