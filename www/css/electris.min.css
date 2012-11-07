@@ -178,7 +178,8 @@ a.btn { color: #fff; cursor: pointer; }
 #big-header {
 /*	background: #151515 url('../img/bg-election-night.jpg') no-repeat top left; */
 /*	background: #151515 url('../img/bg-election-night-stickers.jpg') no-repeat top left; */
-	background: #151515 url('../img/bg-election-night-voters.jpg') no-repeat top left;
+/*	background: #151515 url('../img/bg-election-night-voters.jpg') no-repeat top left; */
+	background: #151515 url('../img/bg-election-night-celebration.jpg') no-repeat top left;
 	margin-left: 0;
 	padding-top: 12px;
 }
