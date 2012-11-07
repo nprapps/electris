@@ -9,7 +9,6 @@ import time
 import pytz
 import datetime
 
-from datetime import timedelta
 from boto.s3.key import Key
 
 import cms_settings as settings
@@ -245,7 +244,7 @@ def write_president_json():
                     else:
                         if state.precincts_reporting > 0:
                             state_dict['status_tag'] = 'Percent reporting.'
-                            state_dict['status'] = u'%s' % state.percent_reporting()
+                            state_dict['status'] = u'%.0f%%' % state.percent_reporting()
                         else:
                             state_dict['status_tag'] = 'No precincts reporting.'
                             state_dict['status'] = u'&nbsp;'
@@ -313,7 +312,7 @@ def _generate_json(house):
             else:
                 if district.precincts_reporting > 0:
                     district_dict['status_tag'] = 'Percent reporting.'
-                    district_dict['status'] = u'%s' % district.percent_reporting()
+                    district_dict['status'] = u'%.0f%%' % district.percent_reporting()
                 else:
                     district_dict['status_tag'] = 'No precincts reporting.'
                     district_dict['status'] = u'&nbsp;'
