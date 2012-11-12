@@ -202,7 +202,7 @@ def parse_president(row):
     race_data = dict(zip(RACE_FIELDS, row[:len(RACE_FIELDS)]))
 
     candidate_count = (len(row) - len(RACE_FIELDS)) / len(CANDIDATE_FIELDS)
-    
+
     i = 0
     obama_data = None
     romney_data = None
