@@ -11,7 +11,7 @@
     <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script> <!-- FOR CHARTBEAT -->
 
     <link rel="stylesheet" type="text/css" href="css/electris.min.css" />
-    
+
     <!--[if IE]>
     <style>
         .state i { border-radius: 0px; }
@@ -63,9 +63,54 @@
 	<meta property="og:site_name" content="NPR.org" />
 	<meta property="fb:app_id" content="138837436154588" />
 
+    <style>
+        .remote {
+            width:70px;
+            position:fixed;
+            top:200px;
+            left:5px;
+        }
+        .remote .time {
+            text-align:center;
+            font-weight:bold;
+            color:#333;
+            display:block;
+            width:70px;
+            font-size:12px;
+        }
+        .fakebutton {
+            cursor:pointer;
+            color:#fff!important;
+            font-weight:bold;
+            display:block;
+            width:70px;
+            text-align:center;
+            padding:5px 0;
+            background-color:red;
+            border-radius:15px;
+            margin:5px 0 0 0;
+        }
+        .fakebutton:hover {
+            background-color:#666;
+            text-decoration:none!important;
+        }
+        .remote .active {
+            background-color:green;
+        }
+        .remote .hidden {
+            display:none;
+        }
+    </style>
+
 </head>
 <body>
-
+    <div class="remote">
+        <span class="time">7:00 pm Nov 6th</span>
+        <span class="fakebutton" id="startReplay" data-status="initial">START</span>
+        <span class="fakebutton" id="pauseReplay">PAUSE</span>
+        <span class="fakebutton" id="stopReplay">STOP</span>
+        <a class="fakebutton" href="javascript:var%20s%3Ddocument.createElement(%27link%27)%3Bs.rel%3D%27stylesheet%27%3Bs.type%3D%27text/css%27%3Bs.href%3D%27http://jeremygilbert.com/extras/12FA-NPR-8Bit/css/app-8bit.css%27%3Bdocument.body.appendChild(s)%3Bvar%20t%3Ddocument.createElement(%27script%27)%3Bt.type%3D%27text/javascript%27%3Bt.src%3D%27http://www.tylerjfisher.com/media/bookmarklet.js%27%3Bdocument.body.appendChild(t)%3Bvoid(0)%3Bvar%20d%3Ddocument.createElement(%27div%27)%3Bd.id%3D%27audio%27%3Bdocument.body.appendChild(d)%3Bvoid(0)%3BsetTimeout(%27audioPlay()%27,%202000)%3B">8-BIT</a>
+    </div>
     <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
@@ -92,7 +137,7 @@
         <div class="row" id="big-header">
             <div class="span8" id="header">
                 <h1>NPR Election Night 2012</h1>
-                
+
         		<div id="comingsoon">
                     <b></b>
         			<div id="comingsoon-message" class="message"></div>
@@ -112,13 +157,13 @@
             			<h3><a href="bigboard/president.html" target="_blank">The Big Boards</a></h3>
             			<p>Watch the results come in on the same displays that NPR is using in the studio.</p>
             			<p class="links">
-            				<a href="bigboard/president.html" target="_blank">President</a> | 
-            				<a href="bigboard/senate.html" target="_blank">Senate</a> | 
+            				<a href="bigboard/president.html" target="_blank">President</a> |
+            				<a href="bigboard/senate.html" target="_blank">Senate</a> |
             				<a href="bigboard/house.html" target="_blank">House</a>
             			</p>
             		</div>
             	</div>
-                
+
             </div>
             <div class="span4" id="bigbox">
                 <div class="adwrapper sponsor300">
@@ -136,7 +181,7 @@
 				</div>
             </div>
 		</div>
-        
+
         <div class="row" id="results-bar" data-spy="affix" data-offset-top="350">
             <div class="span12" id="small-header">
                 <h1>NPR Election Night 2012</h1>
@@ -215,7 +260,7 @@
 					</div>
 				</div>
             </div>
-            
+
             <div id="tabs">
                 <ul class="nav nav-tabs">
                     <li id="tab0" class="active"><a id="results-tab" href="#results" data-toggle="tab">Results</a></li>
@@ -223,11 +268,11 @@
                     <li id="tab2"><a href="#backchannel" data-toggle="tab">The Back<br />Channel</a></li>
                 </ul>
             </div>
-            
+
         </div>
-                
+
         <div class="row" id="creamy-filling">
-            
+
             <div id="results-wide" class="tab-pane">
             <div id="electris">
                 <div class="states span9">
@@ -237,7 +282,7 @@
                 	<div class="electris-alert">
                 		<div class="alert-wrapper"></div>
                 	</div>
-            
+
                     <div class="buckets">
 
                         <div class="candidate blue">
@@ -333,7 +378,7 @@
                                 <!-- chicklets -->
                                 <h5>Predict Races</h5>
                                 <ul class="tossups red"></ul>
-                            
+
                                 <!-- HISTOGRAM -->
                                 <h5>Ways He Can Win</h5>
                                 <p class="robotext"></p>
@@ -401,7 +446,7 @@
     						</li>
     					</ul>
     				</div>
-				
+
     				<div class="pres-closing results">
     					<h5>Coming Up</h5>
     					<ul>
@@ -419,17 +464,17 @@
     						</li>
     					</ul>
     				</div>
-				
+
             	</div> <!-- end .pres-results -->
             </div> <!-- end #electris -->
             </div>
-            
+
             <div class="span5 tab-pane active" id="results">
-                
+
                 <div id="electris-skinny">
                 	<h2>Race For The White House</h2>
                     <h3>Each block represents one Electoral College vote</h3>
-                	
+
                 	<div id="wide-message">
 	                	<button class="btn btn-small btn-inverse" id="wide-button">Predict The Outcome &raquo;</button>
                 		There are only a few states left!
@@ -466,14 +511,14 @@
 							</li>
 						</ul>
 					</div>
-					
+
 					<div class="pres-closing results">
 						<h5>Coming Up</h5>
 						<ul>
 						</ul>
 						<a class="btn btn-mini btn-inverse show-poll-closings" type="button" role="button" href="#closing-modal">Show All States</a>
 					</div>
-	
+
 					<div class="pres-called results">
 						<h5>Called Races</h5>
 						<ul>
@@ -502,7 +547,7 @@
 				</div>
             </div>
         </div>
-        
+
 
 		<div id="footer" class="row">
 			<div class="span12">
@@ -546,7 +591,7 @@
                 // error
             }
             // -->
-            </script>   
+            </script>
         </div>
 
     <div id="closing-modal" class="modal hide">
@@ -585,7 +630,7 @@
             <button type="button" class="btn" data-dismiss="modal">Close</button>
         </div>
     </div>
-        
+
     <script id="state-template" type="text/template">
         <div class="state <%= state.id %> call-<%= state.call %>" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>
@@ -634,21 +679,21 @@
     </script>
 
     <script id="meme-photo-template" type="text/template">
-        <div id="post-<%= post['id'] %>" class="post photo"> 
-        	<div class="themedia"><a href="<%= post['url-with-slug'] %>"><img src="<%= post['photo-url-250'] %>" /></a></div> 
-            <p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p> 
+        <div id="post-<%= post['id'] %>" class="post photo">
+        	<div class="themedia"><a href="<%= post['url-with-slug'] %>"><img src="<%= post['photo-url-250'] %>" /></a></div>
+            <p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p>
         	<a href="<%= post['url-with-slug'] %>"><%= post["photo-caption"] %></a>
         </div>
     </script>
-    
+
     <script id="meme-video-template" type="text/template">
-        <div id="post-<%= post['id'] %>" class="post video"> 
-        	<div class="themedia"><%= post['video-player-250'] %></div> 
-        	<p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p> 
+        <div id="post-<%= post['id'] %>" class="post video">
+        	<div class="themedia"><%= post['video-player-250'] %></div>
+        	<p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p>
         	<a href="<%= post['url-with-slug'] %>"><%= post["video-caption"] %></a>
         </div>
     </script>
-    
+
     <script id="meme-quote-template" type="text/template">
         <div id="post-<%= post['id'] %>" class="post quote"><p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p>  <a href="<%= post['url-with-slug'] %>">&quot;<%= post["quote-text"] %>&quot; &mdash;<%= post["quote-source"] %></a></div>
     </script>
@@ -656,7 +701,7 @@
     <script id="meme-regular-template" type="text/template">
         <div id="post-<%= post['id'] %>" class="post regular"> <p class="tstamp" title="<%= isodate %>"><%= post["date"] %></p> <a href="<%= post['url-with-slug'] %>"><%= post["regular-body"] %></a></div>
     </script>
-    
+
     <script id="blog-post-template" type="text/template">
     	<div class="post <%= sticky %>">
     		<p class="tstamp timeago" title="<%= post.created %>-05:00"><%= post.created %></p>

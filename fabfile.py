@@ -267,6 +267,16 @@ def write_www_files():
     o.write_bop_json()
 
 
+def write_replay_files():
+    """
+    Function to write the replay JSON for the app in post-election mode.
+    """
+    with settings(warn_only=True):
+        local('rm www/replay.json')
+
+    o.write_replay_json()
+
+
 def update_ap_data():
     """
     Gets actual AP data from the AP's top-of-ticket file.

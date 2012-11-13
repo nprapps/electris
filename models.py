@@ -1,7 +1,10 @@
 import re
+import pytz
 from decimal import *
 from peewee import *
 import cms_settings as settings
+from dateutil.parser import *
+from datetime import timedelta
 
 database = PostgresqlDatabase(settings.DATABASE_NAME, user=settings.DATABASE_USER, password=settings.DATABASE_PASSWORD)
 
@@ -239,6 +242,18 @@ class State(Model):
 
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.electoral_votes)
+
+    @property
+    def called_time(self):
+        def _time_format(time_string):
+            t = parse(time_string, ignoretz=True)
+            t = t - timedelta(hours=5)
+            return t
+
+        if self.accept_ap_call == True:
+            return _time_format(self.ap_called_at)
+        else:
+            return _time_format(self.npr_called_at)
 
     @property
     def winner(self):
