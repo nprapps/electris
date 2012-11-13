@@ -21,8 +21,6 @@ From 2012 Associated Press FTP docs:
 * Clients may connect once per minute.
 * Clients must disconnect after each request.
 
-Our contact at the AP is Tracy Lewis <tllewis@ap.org> (the two l's are not a typo).
-
 Cron jobs:
 
 ```
