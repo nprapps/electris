@@ -70,7 +70,7 @@ $(function() {
     var tossup_picks = {};
 
     /* DATA PROCESSING & RENDERING */
-    
+
     function add_state(state,animate) {
         /*
          * Render a single state and add it to the correct bucket(s).
@@ -96,7 +96,7 @@ $(function() {
             if (SHOW_TOOLTIPS) {
                 el.find("i").tooltip({});
             }
-            
+
             //happens when we're adding a new state to an existing stack of states
             if(animate){
                 //IE can't swing this, so don't bother
@@ -111,7 +111,7 @@ $(function() {
                     });
                 }
             }
-            
+
         // toss-up states
         } else if (state.id in tossup_picks) {
 			if (tossup_picks[state.id] === "r") {
@@ -141,7 +141,7 @@ $(function() {
         // Group states together
         for (var i = 0; i < states_length; i++) {
             var state = states[i];
-            
+
             if (state.call === "r") {
                 red_called.push(state)
             } else if (state.call === "d") {
@@ -154,7 +154,7 @@ $(function() {
                 }
             }
         }
-        
+
         // Clear old state graphics
         $(".state").remove();
 
@@ -236,7 +236,7 @@ $(function() {
         if (winner && !old_winner) {
             var alert_text = null;
             var side = null;
-            
+
             if (winner === "d") {
                 alert_text = 'NPR projects that <strong class="alert-name">Barack Obama</strong> will win re-election. <strong><b>z</b></strong>';
                 side = "blue";
@@ -262,13 +262,13 @@ $(function() {
             } else {
                 alert_text = 'NPR has retracted its earlier projection that <strong class="alert-name">Mitt Romney</strong> will win the presidency.';
             }
-           
+
             // Replace any lingering alerts with just the one we care about
             alerts = [];
             alerts.push({
                 body: alert_text,
                 side: null,
-                winner: false 
+                winner: false
             });
 
             freeze_alerts = false;
@@ -284,15 +284,15 @@ $(function() {
             } else {
                 alert_text = 'NPR has retracted its earlier projection that <strong class="alert-name">Mitt Romney</strong> will win the presidency.';
             }
-           
+
             // Replace any lingering alerts with just the one we care about
             alerts = [];
             alerts.push({
                 body: alert_text,
                 side: null,
-                winner: false 
+                winner: false
             });
-            
+
             if (winner === "d") {
                 alert_text = 'NPR projects that <strong class="alert-name">President Obama</strong> will win re-election.';
                 side = "blue";
@@ -327,14 +327,14 @@ $(function() {
             $("body").removeClass('wide-mode');
             flip_skinny_mode();
         }
-        
+
         resize_buckets();
 
         if (wide_mode && generate_combos) {
             generate_winning_combinations(states_not_called);
         }
     }
-    
+
     function flip_wide_mode() {
 		electris_skinny_el.hide();
 		results_el.hide();
@@ -344,7 +344,7 @@ $(function() {
 		$("#results-wide").addClass('active');
 		$("#results-tab").attr('href','#results-wide');
     }
-    
+
     function flip_skinny_mode() {
 		electris_skinny_el.show();
 		results_el.show();
@@ -354,10 +354,10 @@ $(function() {
 		$("#results").addClass('active');
 		$("#results-tab").attr('href','#results');
     }
-    
+
     $('#wide-button').click( flip_wide_mode );
     $('#skinny-button').click( flip_skinny_mode );
-    
+
     function resize_buckets() {
         /*
          * Resize state buckets.
@@ -374,7 +374,7 @@ $(function() {
         var header_height = 0;
 
         if (wide_mode) {
-            
+
             //using the actual window.height instead of the variable we set up top
             //cuz this is based on our media queries
             header_height = 3;
@@ -384,12 +384,12 @@ $(function() {
             if ($(window).width() <= 767) {
                 header_height = 8;
             }
-            
+
 			var bucket_pos = blue_bucket_el.position();
 			var bucket2_pos = red_bucket_el.position();
 			var line_left = 0;
 			var line_width = '100%';
-	
+
 			if (window_width >= 724) {
 				line_left = bucket_pos.left;
 				line_width = (bucket2_pos.left + red_bucket_el.width()) - bucket_pos.left + 'px';
@@ -402,7 +402,7 @@ $(function() {
         }
 
 		if ($.browser.msie) {
-			var line_top = header_height + default_height; 
+			var line_top = header_height + default_height;
 		} else {
 			var line_top = header_height + height - default_height + line_height;
 		}
@@ -425,13 +425,13 @@ $(function() {
         /*
          * Compute all possible combinations of a given array.
          *
-         * Algorithm via http://stackoverflow.com/a/4061167 
+         * Algorithm via http://stackoverflow.com/a/4061167
          */
         var result = [];
         var size = min_size || 1;
         var max_size = max_size || superset.length
 
-        while (size <= max_size) {          
+        while (size <= max_size) {
             var done = false;
             var current_combo = null;
             var distance_back = null;
@@ -510,7 +510,7 @@ $(function() {
         var blue_keys = [];
         var red_groups = {};
         var blue_groups = {};
-         
+
         var state_ids = _.pluck(undecided_states, "id");
 
         // NB: A sorted input list generates a sorted output list
@@ -579,7 +579,7 @@ $(function() {
         var max_blue_combo_group = _.max(_.values(blue_groups), function(combo_group) {
             return combo_group.length;
         }) || 0;
-        
+
         max_red_combo_group = max_red_combo_group.length || 0;
         max_blue_combo_group = max_blue_combo_group.length || 0;
 
@@ -587,7 +587,7 @@ $(function() {
 
         function show_combos(keys, groups, side, base_votes) {
             var combo_groups_el = combinations_modal_el.find("ul." + side);
-            var max_group_count = 0; 
+            var max_group_count = 0;
             combo_groups_el.empty();
 
             for (var key = 1; key < MAX_COMBO_GROUP + 1; key++) {
@@ -620,7 +620,7 @@ $(function() {
                         var combo = group[i];
                         var combo_length = combo.combo.length;
                         var state_text = "";
-                        
+
                         for (var j = 0; j < combo_length; j++) {
                             var state = states_by_id[combo.combo[j]];
 
@@ -630,13 +630,13 @@ $(function() {
                                 state_text += " + ";
                             }
                         };
-						
-                        var el = $("<li>" + state_text + " = " + (base_votes + combo.votes) + "</li>"); 
+
+                        var el = $("<li>" + state_text + " = " + (base_votes + combo.votes) + "</li>");
                         combo_els.push(el);
 
                         var el = null;
                     };
-                        
+
                     combo_list_el.append(combo_els);
                     combo_groups_el.append(combo_group_el);
 
@@ -661,7 +661,7 @@ $(function() {
 
         var red_states_won = [];
         var blue_states_won = [];
-        
+
         _.each(tossup_picks, function(winner, state_id) {
             if (winner === "r") {
                 red_states_won.push(states_by_id[state_id]);
@@ -777,11 +777,11 @@ $(function() {
         if (states_won.length == 0) {
             return candidate + " must win <strong>at least " + simplest_combo_length + " more</strong> state" + (simplest_combo_length > 1 ? "s" : "") + ".";
         }
-        
+
         // Path w/ picks
         return "If " + candidate + " wins the states you have selected then he must win <strong>at least " + simplest_combo_length  + " more</strong> state" + (simplest_combo_length > 1 ? "s" : "") + ".";
     }
-     
+
     var tossup_click_handler = function(event) {
         /*
          * Select or unselect a tossup state.
@@ -795,8 +795,8 @@ $(function() {
         $(this).addClass("active");
 
         other_chiclet.removeClass("active");
-        other_chiclet.addClass("taken"); 
-                
+        other_chiclet.addClass("taken");
+
         $(".state." + state_id).remove();
 
         if (state_id in tossup_picks) {
@@ -820,7 +820,7 @@ $(function() {
         }
 
         compute_stats(true);
-        
+
         $(this).removeClass("spinner");
 
         return false;
@@ -844,7 +844,7 @@ $(function() {
             target = target.parent().parent();
             offset = -45;
         }
-        
+
         modal_body.animate({
             scrollTop: target.position().top + offset
         }, 1000);
@@ -859,7 +859,7 @@ $(function() {
         } else if (pct > 99 && pct < 100) {
             return "> 99% rept.";
         }
-            
+
         return pct + "% rept."
     }
 
@@ -881,8 +881,8 @@ $(function() {
             return false;
         });
 
-        _.each(states, function(state) { 
-            // Convert poll closing time to a moment() 
+        _.each(states, function(state) {
+            // Convert poll closing time to a moment()
             state.polls_close = moment(state.polls_close + " -0500", "YYYY-MM-DD hh:mm a Z");
 
             // Build lookup table
@@ -908,7 +908,7 @@ $(function() {
         _.each(alpha_states, function(state) {
             var red_pct = Math.round(state.rep_vote_count / (state.total_vote_count) * 100);
             var blue_pct = Math.round(state.dem_vote_count / (state.total_vote_count) * 100);
-            
+
             if (red_pct) {
                 red_pct = red_pct.toString() + "%";
             } else {
@@ -927,7 +927,7 @@ $(function() {
                 blue_pct: blue_pct,
                 percent_reporting: percent_reporting
             }));
-            
+
             if (!state.call) {
                 called_state_el.hide();
             } else {
@@ -947,12 +947,12 @@ $(function() {
             if (state.call || !state.total_vote_count) {
                 incoming_state_el.hide();
             } else {
-                incoming_count += 1; 
+                incoming_count += 1;
             }
 
             incoming_state_els.push(incoming_state_el)
             incoming_state_el = null;
-            
+
             var isodate = state.polls_close.format("YYYY-MM-DDTHH:mm:ss Z");
 
             if (!(isodate in closing_times)) {
@@ -961,7 +961,7 @@ $(function() {
 
             closing_times[isodate].push(state);
         });
-            
+
         called_ul.append(called_state_els);
         called_state_els = null;
 
@@ -1055,7 +1055,7 @@ $(function() {
 
                 var red_pct = Math.round(state.rep_vote_count / (state.total_vote_count) * 100);
                 var blue_pct = Math.round(state.dem_vote_count / (state.total_vote_count) * 100);
-                
+
                 if (red_pct) {
                     red_pct = red_pct.toString() + "%";
                 } else {
@@ -1069,9 +1069,9 @@ $(function() {
                 }
 
                 var state_els = $("." + state.id);
-                state_els.find(".red").html(red_pct); 
-                state_els.find(".blue").html(blue_pct); 
-                state_els.find(".precincts").html(percent_reporting(state)); 
+                state_els.find(".red").html(red_pct);
+                state_els.find(".blue").html(blue_pct);
+                state_els.find(".precincts").html(percent_reporting(state));
 
                 if (old_state["call"] != state["call"]) {
                     $(".state." + state.id).remove();
@@ -1080,7 +1080,7 @@ $(function() {
                     // Uncalled
                     if (!state["call"]) {
                         // Show chiclet
-                        $(".tossup." + state.id).show(); 
+                        $(".tossup." + state.id).show();
 
                         state_els.find(".red,.blue").removeClass("winner");
 
@@ -1104,12 +1104,12 @@ $(function() {
                         // Called
                         if (!old_state["call"]) {
                             // Hide chiclet
-                            $(".tossup." + state.id).hide(); 
+                            $(".tossup." + state.id).hide();
 
                             if (state.id in tossup_picks) {
                                 delete tossup_picks[state.id];
                             }
-                        
+
                             if (state["call"] === "r") {
                                 var side = "red";
                                 state_els.find(".red").addClass("winner");
@@ -1117,10 +1117,10 @@ $(function() {
                                 var side = "blue";
                                 state_els.find(".blue").addClass("winner");
                             }
-                        
+
                             state_els.filter(".called").show();
                             state_els.filter(".incoming").hide();
-        
+
                             called_count += 1;
                             incoming_count -= 1;
                             total_tossup_states -= 1;
@@ -1132,9 +1132,9 @@ $(function() {
                             if (called_count == 1) {
                                 freeze_alerts = false;
                             }
-                            
+
                             var candidate = (state["call"] == "d" ? "Barack Obama" : "Mitt Romney");
-                        
+
                             alerts.push({
                                 body: 'NPR projects that <strong class="alert-name">' + candidate + '</strong> will win <strong class="alert-state"><b>' + state.stateface + '</b> ' + state.name + ' (' + state.electoral_votes + ')</strong>',
                                 side: side
@@ -1150,9 +1150,9 @@ $(function() {
                                 state_els.find(".red").removeClass("winner");
                                 state_els.find(".blue").addClass("winner");
                             }
-             
+
                             var candidate = (state["call"] == "d" ? "Barack Obama" : "Mitt Romney");
-                        
+
                             alerts.push({
                                 body: 'NPR now projects that <strong class="alert-name">' + candidate + '</strong> will win <strong class="alert-state"><b>' + state.stateface + '</b> ' + state.name + ' (' + state.electoral_votes + ')</strong>',
                                 side: side
@@ -1176,7 +1176,7 @@ $(function() {
                 changes = true;
             }
         }
-        
+
         update_bop(bop);
 
         if (changes) {
@@ -1232,7 +1232,7 @@ $(function() {
             alert_timer = setTimeout(function() {
                 alert_timer = null;
                 update_alerts();
-            }, 5000);
+            }, 825);
         } else {
             alert_el.hide();
         }
@@ -1397,7 +1397,7 @@ $(function() {
 
         new_news = null;
 	}
-	
+
 	live_blog_more_el.click(function() {
 		RIVER_INCREMENT += 25;
 		if (RIVER_INCREMENT > RIVER_DATA.news.regular.length) {
@@ -1426,6 +1426,124 @@ $(function() {
         $('#house-r-majority').text(bop.house.republicans.needed_for_majority);
     }
 
+
+    /* REPLAY */
+
+    var replay_states = [];
+    var replay_timer = 0;
+    var replay_datetime = 1352246661;
+    var play_time = null;
+
+    function pause_timer(timer){
+        clearInterval(timer);
+    }
+
+    function restart_timer(timer){
+        pause_timer(timer);
+        replay_timer = 0;
+        replay_datetime = 1352246661;
+        $('.remote .time').text('7:00 pm Nov 6th');
+    }
+
+    function status_reset(){
+        $('div.bucket').html('');
+        freeze_alerts = false;
+        alerts = [];
+        update_alerts();
+    }
+
+    function replay_drop(klass){
+        $(klass).attr('data-status', 'playing');
+        $('.fakebutton').removeClass('active');
+        $(klass).addClass('active');
+        play_time = setInterval(function(){ play_replay(klass); }, 1000);
+    }
+
+    function play_replay(klass){
+        _.each(replay_states, function(state){
+            if (state.scaled_time == replay_timer) {
+                add_state(state, true);
+                if (state["call"] === "r") {
+                    var side = "red";
+                } else {
+                    var side = "blue";
+                }
+                var candidate = (state["call"] == "d" ? "Barack Obama" : "Mitt Romney");
+                if (state.name != 'Wisconsin') {
+                    alerts.push({
+                        body: 'NPR now projects that <strong class="alert-name">' + candidate + '</strong> will win <strong class="alert-state"><b>' + state.stateface + '</b> ' + state.name + ' (' + state.electoral_votes + ')</strong>',
+                        side: side,
+                    });
+                    update_alerts();
+                }
+            }
+        });
+        replay_timer += 1000;
+        $('.remote .time').text(moment.unix(replay_datetime).format('h:mm a MMM Do'));
+        replay_datetime += 312;
+
+        if (replay_timer == 61000) {
+            replay_timer = 200000;
+            replay_datetime = 1352569221;
+        }
+        if (replay_timer == 51000) {
+            alert_text = 'NPR projects that <strong class="alert-name">Barack Obama</strong> will win re-election. <strong><b>z</b></strong>';
+            side = "blue";
+            console.log(alerts);
+            alerts = [];
+            alerts.push({body:alert_text, side: side, winner: true});
+            update_alerts();
+        }
+        if (replay_timer == 52000) {
+            freeze_alerts = true;
+        }
+        if (replay_timer == 206000) {
+            $('.fakebutton').removeClass('active');
+            $(klass).attr('data-status', 'initial');
+            pause_timer(play_time);
+        }
+    }
+
+    function parse_replay_data() {
+        replay_states = [];
+        $.getJSON("replay.json?t=" + (new Date()).getTime(), function(states){
+            _.each(states, function(state){
+                replay_states.push(state);
+            });
+        });
+    }
+
+    $('#stopReplay').click(function(){
+        $('.fakebutton').removeClass('active');
+        $('#startReplay').attr('data-status', 'initial');
+        restart_timer(play_time);
+        status_reset();
+        states = []
+        fetch_states();
+    });
+
+    $('#pauseReplay').click(function(){
+        $('.fakebutton').removeClass('active');
+        $(this).addClass('active');
+        $('#startReplay').attr('data-status', 'paused');
+        $('.fall').addClass('fallfast').removeClass('fall');
+        pause_timer(play_time);
+    });
+
+    $('#startReplay').click(function(){
+        if ($(this).attr('data-status') == 'initial') {
+            status_reset();
+            restart_timer(play_time);
+            parse_replay_data();
+            $(this).attr('data-status', 'ready');
+        }
+        if ($(this).attr('data-status') == 'paused') {
+            $(this).attr('data-status', 'ready');
+        }
+        if ($(this).attr('data-status') == 'ready'){
+            replay_drop(this);
+        }
+    });
 
 	// Kickoff!
     fetch_states();

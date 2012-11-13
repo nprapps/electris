@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import datetime
-import pytz
 import json
 
 from flask import Flask
@@ -217,7 +216,7 @@ def house(house, featured=None):
 
         # 1.) Perhaps we're trying to set the accept_ap_call flag on some races?
         accept_ap_call = request.form.get('accept_ap_call', None)
-        
+
         if accept_ap_call != None:
             if accept_ap_call.lower() == 'true':
                 accept_ap_call = True
