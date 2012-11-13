@@ -17,3 +17,4 @@ git+https://github.com/jyr/python-tumblr.git@b91d98257
 poster==0.8.1
 webassets==0.7.1
 psycopg2==2.4.5
+requests==0.14.2

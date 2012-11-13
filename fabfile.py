@@ -9,6 +9,7 @@ from boto.s3.key import Key
 from fabric.api import *
 from peewee import *
 from tumblr import Api
+import requests
 
 import input as i
 from models import Candidate, Race, State
@@ -174,8 +175,8 @@ def deploy(remote='origin'):
 
     sudo('service electris_cms start')
     sudo('service electris_cron start')
-    
-    
+
+
 def deploy_local_data():
     """
     Deploy the local data files to S3.
@@ -357,11 +358,28 @@ def local_reset():
     with settings(warn_only=False):
         local('dropdb electris')
         local('echo "CREATE USER electris WITH PASSWORD \'electris\';" | psql')
-    
-	local('createdb -O electris electris')
+
+    local('createdb -O electris electris')
     local('cat initial_data/initial_psql.sql | psql -q electris')
 
     write_www_files()
+
+
+def local_latest():
+    """
+    Resets the local DB to the latest version from S3.
+    """
+    db_text = requests.get('http://election2012.npr.org.s3.amazonaws.com/electris_backup.sql')
+    if db_text.status_code == 200:
+        with open('initial_data/electris_backup.sql', 'w') as f:
+            f.write(db_text.content)
+
+    with settings(warn_only=False):
+        local('dropdb electris')
+        local('echo "CREATE USER electris WITH PASSWORD \'electris\';" | psql')
+
+    local('createdb -O electris electris')
+    local('cat initial_data/electris_backup.sql | psql -q electris')
 
 
 def save_ap_data():
