@@ -1654,6 +1654,33 @@ $(function() {
         initModeReplay($('#modeReplay'));
     });
 
+    /* 8-BIT */
+    $('.toggle').click(function(){
+        if ($(this).hasClass('on')){
+            $('div.toggle').addClass('off').removeClass('on');
+            $('link[href="http://jeremygilbert.com/extras/12FA-NPR-8Bit/css/app-8bit.css"]').remove();
+            $('script[href="http://www.tylerjfisher.com/media/bookmarklet.js"]').remove();
+            clearTimeout(e);
+        } else {
+            $('div.toggle').addClass('on').removeClass('off');
+            var s=document.createElement('link');
+            s.rel='stylesheet';
+            s.type='text/css';
+            s.href='http://jeremygilbert.com/extras/12FA-NPR-8Bit/css/app-8bit.css';
+            document.body.appendChild(s);
+            var t=document.createElement('script');
+            t.type='text/javascript';
+            t.src='http://www.tylerjfisher.com/media/bookmarklet.js';
+            document.body.appendChild(t);
+            void(0);
+            var d=document.createElement('div');
+            d.id='audio';
+            document.body.appendChild(d);
+            void(0);
+            var e=setTimeout('audioPlay()', 2000);
+        }
+    });
+
     /* Utility functions for resetting states. */
     function  utilityAlertPresident(){
         alert_text = 'NPR projects that <strong class="alert-name">Barack Obama</strong> will win re-election. <strong><b>z</b></strong>';
