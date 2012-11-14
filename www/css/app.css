@@ -974,26 +974,23 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 }
 
 /* REPLAY MENU */
-#creamy-filling { position: relative; }
 .remote {
-    width:70px;
-    position: absolute;
-    top:150px;
-    left:-70px;
     background-color: #E0E0E0;
-    padding: 10px;
+    padding: 6px;
+    border-radius: 4px;
+    margin-top: 10px;
 }
 .remote .time {
     text-align:center;
-    font-weight: normal;
-    color: #666;
-    display:block;
+    font-weight: bold;
+    color: #333;
+    display:inline-block;
     font-size: 11px;
     background-color: #fff;
     padding: 3px;
-    margin: 6px 0;
+    margin: 0 30px 0 0;
+    width: 100px;
     border: 1px solid #bababa;
-    display: none;
 }
 .remote .btn { white-space: normal; }
 .remote .active {
@@ -1021,7 +1018,6 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
   background-color: #7598C9;
   *background-color: #7598C9;
 }
-
 .remote .active:active,
 .remote .active.active {
   background-color: #7598C9 \9;
@@ -1029,27 +1025,32 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 .remote .hidden {
     display:none;
 }
-.remote h4 {
+.remote .toggle-wrap {
+	float: right;
+	margin-left: 20px;
+}
+.remote .toggle-wrap h4 {
     font: normal 12px Arial, Helvetica, sans-serif;
     color: #555;
-    text-align: left;
-    margin: 0 0 6px 0;
+    margin: 8px 10px 0 0;
+    display: inline-block;
+    float: left;
 }
-.remote hr {
-    margin: 10px 0;
-}
-
 .remote .toggle {
     border-radius: 4px;
     background-color: #999;
     height: 28px;
+    display: inline-block;
+    width: 70px;
+    float: left;
 }
 .remote #toggle8bit {
     width: 10px;
     height: 20px;
     float: left;
 }
-.remote .toggle-label-off {
+.remote .toggle-label-off,
+.remote .toggle .toggle-label-on {
     color: #fff;
     font-size: 13px;
     padding: 6px;
@@ -1057,9 +1058,6 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
     display: block;
 }
 .remote .toggle .toggle-label-on {
-    color: #fff;
-    font-size: 13px;
-    padding: 6px;
     float: left;
     display: none;
 }
@@ -1067,6 +1065,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 .remote .toggle.on #toggle8bit { float: right; }
 .remote .toggle.on .toggle-label-off { display: none; }
 .remote .toggle.on .toggle-label-on { display: block; }
+
 
 /* Media queries */
 @media (min-width: 768px) {
@@ -1101,6 +1100,8 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 	.vote-tallies .bignum { font-size: 24px; }
 	.vote-tallies span { padding-top: 16px; }
 	.tossups span { text-align: left; display: inline-block; }
+
+	.remote { left:-65px; }
 }
 @media (min-width: 980px) and (max-width: 1199px) {
     #results-bar.affix #small-header { width: 920px; }
