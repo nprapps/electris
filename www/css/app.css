@@ -973,6 +973,100 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 	display: block;
 }
 
+/* REPLAY MENU */
+#creamy-filling { position: relative; }
+.remote {
+    width:70px;
+    position: absolute;
+    top:150px;
+    left:-70px;
+    background-color: #E0E0E0;
+    padding: 10px;
+}
+.remote .time {
+    text-align:center;
+    font-weight: normal;
+    color: #666;
+    display:block;
+    font-size: 11px;
+    background-color: #fff;
+    padding: 3px;
+    margin: 6px 0;
+    border: 1px solid #bababa;
+    display: none;
+}
+.remote .btn { white-space: normal; }
+.remote .active {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #7598C9;
+  *background-color: #7598C9;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#9db6dc), to(#7598C9));
+  background-image: -webkit-linear-gradient(top, #9db6dc, #7598C9);
+  background-image: -o-linear-gradient(top, #9db6dc, #7598C9);
+  background-image: linear-gradient(to bottom, #9db6dc, #7598C9);
+  background-image: -moz-linear-gradient(top, #9db6dc, #7598C9);
+  background-repeat: repeat-x;
+  border-color: #9db6dc #7598C9 #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#9db6dc', endColorstr='#7598C9', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+.remote .active:hover,
+.remote .active:active,
+.remote .active.active,
+.remote .active.disabled,
+.remote .active[disabled] {
+  color: #ffffff;
+  background-color: #7598C9;
+  *background-color: #7598C9;
+}
+
+.remote .active:active,
+.remote .active.active {
+  background-color: #7598C9 \9;
+}
+.remote .hidden {
+    display:none;
+}
+.remote h4 {
+    font: normal 12px Arial, Helvetica, sans-serif;
+    color: #555;
+    text-align: left;
+    margin: 0 0 6px 0;
+}
+.remote hr {
+    margin: 10px 0;
+}
+
+.remote .toggle {
+    border-radius: 4px;
+    background-color: #999;
+    height: 28px;
+}
+.remote #toggle8bit {
+    width: 10px;
+    height: 20px;
+    float: left;
+}
+.remote .toggle-label-off {
+    color: #fff;
+    font-size: 13px;
+    padding: 6px;
+    float: right;
+    display: block;
+}
+.remote .toggle .toggle-label-on {
+    color: #fff;
+    font-size: 13px;
+    padding: 6px;
+    float: left;
+    display: none;
+}
+.remote .toggle.on { background-color: #eb3e17; }
+.remote .toggle.on #toggle8bit { float: right; }
+.remote .toggle.on .toggle-label-off { display: none; }
+.remote .toggle.on .toggle-label-on { display: block; }
 
 /* Media queries */
 @media (min-width: 768px) {

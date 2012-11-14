@@ -336,23 +336,23 @@ $(function() {
     }
 
     function flip_wide_mode() {
-		electris_skinny_el.hide();
-		results_el.hide();
-		electris_el.show();
+        electris_skinny_el.hide();
+        results_el.hide();
+        electris_el.show();
         resize_buckets();
         // for mobile tabs
-		$("#results-wide").addClass('active');
-		$("#results-tab").attr('href','#results-wide');
+        $("#results-wide").addClass('active');
+        $("#results-tab").attr('href','#results-wide');
     }
 
     function flip_skinny_mode() {
-		electris_skinny_el.show();
-		results_el.show();
-		electris_el.hide();
+        electris_skinny_el.show();
+        results_el.show();
+        electris_el.hide();
         resize_buckets();
         // for mobile tabs
-		$("#results").addClass('active');
-		$("#results-tab").attr('href','#results');
+        $("#results").addClass('active');
+        $("#results-tab").attr('href','#results');
     }
 
     $('#wide-button').click( flip_wide_mode );
@@ -1194,8 +1194,6 @@ $(function() {
         $.getJSON("states.json?t=" + (new Date()).getTime(), function(data) {
             if (states.length == 0) {
                 init_states(data);
-
-                window.setInterval(fetch_states, POLLING_INTERVAL);
             } else {
                 update_states(data);
             }
@@ -1426,40 +1424,164 @@ $(function() {
         $('#house-r-majority').text(bop.house.republicans.needed_for_majority);
     }
 
+/* POST-ELECTION MODES */
 
-    /* REPLAY */
+    var game_states = []
+    var game_states_number = 44
+
+    /* GAME MODE FUNCTIONS */
+    function initModeGame(){
+        $("body").addClass('wide-mode');
+        $("#results").addClass('active');
+        $("#results-tab").attr('href','#results');
+
+        states = [];
+        $('div.bucket').html('');
+
+        $.getJSON("replay.json?t=" + (new Date()).getTime(), function(list_of_states){
+            _.each(list_of_states, function(state, index, list){
+                if (index >= game_states_number) {
+                    state.call = null;
+
+                    // RENDERS TEMPLATE FOR CHICLET
+                    var html = TOSSUP_TEMPLATE({
+                        state: state
+                    });
+
+                    // ADDS TO TOSSUP HTML (CHICLETS)
+                    red_tossups_el.append(html);
+                    blue_tossups_el.append(html);
+                }
+                states.push(state);
+            });
+
+            // TODO: sort array in reverse order
+            states = states.reverse();
+            add_states();
+            compute_stats(true);
+
+            // INITIALIZE CLICK HANDLERS
+            $(".tossups li").touchClick(tossup_click_handler);
+            if (SHOW_TOOLTIPS) {
+                $(".tossups li").tooltip();
+            }
+        });
+    }
+
+    function clearModeGame(){
+        $("body").removeClass('wide-mode');
+        flip_skinny_mode();
+    }
+
+    /* FINAL MODE FUNCTIONS */
+
+    function initModeFinal(initial) {
+        // if we're switching between modes, blank the states array.
+        if (initial == false) {
+            states = []
+            utilityAlertPresident();
+        }
+
+        // fetch the states from the results json.
+        fetch_states();
+
+        // if this is the first page load, get news and the memes.
+        if (initial == true) {
+            fetch_news();
+            // update_memetracker(true);
+            // setInterval(update_memetracker, MEME_UPDATE_SECS * 1000);
+        }
+    }
+
+    function clearModeFinal() {
+        states = []
+    }
+
+    /* REPLAY MODE FUNCTIONS */
 
     var replay_states = [];
     var replay_timer = 0;
     var replay_datetime = 1352246661;
     var play_time = null;
 
-    function pause_timer(timer){
+    function clearModeReplay(){
+        $('#modeReplay').attr('data-status', 'initial');
+        resetModeReplayTimer(play_time);
+        resetModeReplayStatus();
+        $('#modeReplay').attr('data-status', 'initial');
+        $('#modeReplayPause').attr('data-status', 'playing');
+    }
+
+    function initModeReplay(button) {
+        $('.time').show();
+        $('#modeReplay').hide();
+        $('#modeReplayPause').show();
+
+        console.log('play ' + $(button).attr('data-status') );
+
+        if ($(button).attr('data-status') == 'initial') {
+            resetModeReplayStatus();
+            resetModeReplayTimer(play_time);
+            replay_states = [];
+            $.getJSON("replay.json?t=" + (new Date()).getTime(), function(states){
+                _.each(states, function(state){
+                    replay_states.push(state);
+                });
+            });
+            beginModeReplay();
+        }
+
+        if ($(button).attr('data-status') == 'paused'){
+            beginModeReplay();
+        }
+    }
+
+    function pauseModeReplay(button) {
+        console.log('pause ' + $(button).attr('data-status') );
+
+        if ($(button).attr('data-status') == 'paused') {
+            $('#modeReplayPause').hide()
+            $('#modeReplay').show()
+            beginModeReplay();
+        }
+
+        if ($(button).attr('data-status') == 'playing'){
+            $('#modeReplayPause').hide()
+            $('#modeReplay').show()
+            $('.fall').addClass('fallfast').removeClass('fall');
+            pauseModeReplayTimer(play_time);
+        }
+    }
+
+    function pauseModeReplayTimer(timer){
+        $('#modeReplayPause').attr('data-status', 'paused');
+        $('#modeReplay').attr('data-status', 'paused');
         clearInterval(timer);
     }
 
-    function restart_timer(timer){
-        pause_timer(timer);
+    function resetModeReplayTimer(timer){
+        pauseModeReplayTimer(timer);
         replay_timer = 0;
         replay_datetime = 1352246661;
         $('.remote .time').text('7:00 pm Nov 6th');
     }
 
-    function status_reset(){
+    function resetModeReplayStatus(){
         $('div.bucket').html('');
         freeze_alerts = false;
         alerts = [];
         update_alerts();
     }
 
-    function replay_drop(klass){
-        $(klass).attr('data-status', 'playing');
-        $('.fakebutton').removeClass('active');
-        $(klass).addClass('active');
-        play_time = setInterval(function(){ play_replay(klass); }, 1000);
+    function beginModeReplay(){
+        $('#modeReplayPause').show()
+        $('#modeReplay').hide()
+        $('#modeReplayPause').attr('data-status', 'playing');
+        $('#modeReplay').attr('data-status', 'playing');
+        play_time = setInterval(function(){ getModeReplayStates(); }, 1000);
     }
 
-    function play_replay(klass){
+    function getModeReplayStates(){
         _.each(replay_states, function(state){
             if (state.scaled_time == replay_timer) {
                 add_state(state, true);
@@ -1487,67 +1609,56 @@ $(function() {
             replay_datetime = 1352569221;
         }
         if (replay_timer == 51000) {
-            alert_text = 'NPR projects that <strong class="alert-name">Barack Obama</strong> will win re-election. <strong><b>z</b></strong>';
-            side = "blue";
-            console.log(alerts);
-            alerts = [];
-            alerts.push({body:alert_text, side: side, winner: true});
-            update_alerts();
+            utilityAlertPresident();
         }
         if (replay_timer == 52000) {
             freeze_alerts = true;
         }
         if (replay_timer == 206000) {
-            $('.fakebutton').removeClass('active');
-            $(klass).attr('data-status', 'initial');
-            pause_timer(play_time);
+            pauseModeReplayTimer(play_time);
+            $('#modeReplayPause').hide()
+            $('#modeReplay').show()
+            $('#modeReplay').attr('data-status', 'initial');
+            $('#modeReplayPause').attr('data-status', 'playing');
+            initModeFinal(false);
         }
     }
 
-    function parse_replay_data() {
-        replay_states = [];
-        $.getJSON("replay.json?t=" + (new Date()).getTime(), function(states){
-            _.each(states, function(state){
-                replay_states.push(state);
-            });
-        });
+    /* CLICK EVENTS FOR VARIOUS MODES */
+
+    $('#modeGame').click(function(){
+        clearModeReplay();
+        clearModeFinal();
+        initModeGame();
+    });
+
+    $('#modeFinal').click(function(){
+        clearModeReplay();
+        initModeFinal(false);
+    });
+
+    $('#modeReplay').click(function(){
+        clearModeGame();
+        clearModeFinal();
+        initModeReplay(this);
+    });
+    $('#modeReplayPause').click(function(){
+        pauseModeReplay(this);
+    });
+    $('#modeReplayRestart').click(function(){
+        $('#modeReplay').attr('data-status', 'initial');
+        initModeReplay($('#modeReplay'));
+    });
+
+    /* Utility functions for resetting states. */
+    function  utilityAlertPresident(){
+        alert_text = 'NPR projects that <strong class="alert-name">Barack Obama</strong> will win re-election. <strong><b>z</b></strong>';
+        side = "blue";
+        alerts = [];
+        alerts.push({body:alert_text, side: side, winner: true});
+        update_alerts();
     }
 
-    $('#stopReplay').click(function(){
-        $('.fakebutton').removeClass('active');
-        $('#startReplay').attr('data-status', 'initial');
-        restart_timer(play_time);
-        status_reset();
-        states = []
-        fetch_states();
-    });
-
-    $('#pauseReplay').click(function(){
-        $('.fakebutton').removeClass('active');
-        $(this).addClass('active');
-        $('#startReplay').attr('data-status', 'paused');
-        $('.fall').addClass('fallfast').removeClass('fall');
-        pause_timer(play_time);
-    });
-
-    $('#startReplay').click(function(){
-        if ($(this).attr('data-status') == 'initial') {
-            status_reset();
-            restart_timer(play_time);
-            parse_replay_data();
-            $(this).attr('data-status', 'ready');
-        }
-        if ($(this).attr('data-status') == 'paused') {
-            $(this).attr('data-status', 'ready');
-        }
-        if ($(this).attr('data-status') == 'ready'){
-            replay_drop(this);
-        }
-    });
-
-	// Kickoff!
-    fetch_states();
-    fetch_news();
-    update_memetracker(true);
-    setInterval(update_memetracker, MEME_UPDATE_SECS * 1000);
+	// Initialize the page in final mode.
+    initModeFinal(true);
 });
