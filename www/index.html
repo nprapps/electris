@@ -63,54 +63,8 @@
 	<meta property="og:site_name" content="NPR.org" />
 	<meta property="fb:app_id" content="138837436154588" />
 
-    <style>
-        .remote {
-            width:70px;
-            position:fixed;
-            top:200px;
-            left:5px;
-        }
-        .remote .time {
-            text-align:center;
-            font-weight:bold;
-            color:#333;
-            display:block;
-            width:70px;
-            font-size:12px;
-        }
-        .fakebutton {
-            cursor:pointer;
-            color:#fff!important;
-            font-weight:bold;
-            display:block;
-            width:70px;
-            text-align:center;
-            padding:5px 0;
-            background-color:red;
-            border-radius:15px;
-            margin:5px 0 0 0;
-        }
-        .fakebutton:hover {
-            background-color:#666;
-            text-decoration:none!important;
-        }
-        .remote .active {
-            background-color:green;
-        }
-        .remote .hidden {
-            display:none;
-        }
-    </style>
-
 </head>
 <body>
-    <div class="remote">
-        <span class="time">7:00 pm Nov 6th</span>
-        <span class="fakebutton" id="startReplay" data-status="initial">START</span>
-        <span class="fakebutton" id="pauseReplay">PAUSE</span>
-        <span class="fakebutton" id="stopReplay">STOP</span>
-        <a class="fakebutton" href="javascript:var%20s%3Ddocument.createElement(%27link%27)%3Bs.rel%3D%27stylesheet%27%3Bs.type%3D%27text/css%27%3Bs.href%3D%27http://jeremygilbert.com/extras/12FA-NPR-8Bit/css/app-8bit.css%27%3Bdocument.body.appendChild(s)%3Bvar%20t%3Ddocument.createElement(%27script%27)%3Bt.type%3D%27text/javascript%27%3Bt.src%3D%27http://www.tylerjfisher.com/media/bookmarklet.js%27%3Bdocument.body.appendChild(t)%3Bvoid(0)%3Bvar%20d%3Ddocument.createElement(%27div%27)%3Bd.id%3D%27audio%27%3Bdocument.body.appendChild(d)%3Bvoid(0)%3BsetTimeout(%27audioPlay()%27,%202000)%3B">8-BIT</a>
-    </div>
     <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
@@ -270,9 +224,29 @@
             </div>
 
         </div>
+        
+        <div class="row">
+        	<div class="span12">
+        		<div class="remote">
+					<span class="btn btn-small btn-inverse" id="modeReplay" data-status="initial"><b class="icon-play icon-white"></b> Replay Election Night</span>
+					<span class="btn btn-small btn-inverse" style="display:none;" id="modeReplayPause" data-status="playing"><b class="icon-pause icon-white"></b> Pause Election Night</span>
+					<span class="time" style="display:none;">7:00 pm Nov 6th</span>
+	
+					<span class="btn btn-small btn-inverse" id="modeGame">Try Game Mode</span>
+					
+					<div class="toggle-wrap">
+						<h4>8-Bit Mode</h4>
+						<div class="toggle">
+							<span class="btn btn-small" id="toggle8bit">&nbsp;</span>
+							<span class="toggle-label-off">OFF</span>
+							<span class="toggle-label-on">ON</span>
+						</div>
+					</div>
+				</div>
+        	</div>
+        </div>
 
         <div class="row" id="creamy-filling">
-
             <div id="results-wide" class="tab-pane">
             <div id="electris">
                 <div class="states span9">
