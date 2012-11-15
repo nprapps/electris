@@ -25,6 +25,7 @@ $(function() {
     var window_width = 0;
     var winner = null;
     var freeze_alerts = false;
+    var game_mode = false;
 
     /* Elements */
     var electris_el = $("#electris");
@@ -1437,7 +1438,7 @@ $(function() {
         $("body").addClass('wide-mode');
         $("#results").addClass('active');
         $("#results-tab").attr('href','#results');
-
+        
         states = [];
         $('div.bucket').html('');
 
@@ -1470,11 +1471,20 @@ $(function() {
                 $(".tossups li").tooltip();
             }
         });
+        
+		alerts.push({
+			body: '<p class="early-alert-info">On Election Night, when there were 12 or fewer states left to call, election-watchers could game out the remaining electoral possibilities. This view simulates the state of the race at about 11:01 p.m. ET. Click the "Predict The Outcome" button to enter game mode.</p>',
+			side: null,
+			no_calls: true
+		});
+	   update_alerts();
     }
 
     function clearModeGame(){
         $("body").removeClass('wide-mode');
         flip_skinny_mode();
+		$('#modeGame').removeClass('active').text('Try Game Mode');
+		game_mode = false;
     }
 
     /* FINAL MODE FUNCTIONS */
@@ -1512,8 +1522,9 @@ $(function() {
         $('#modeReplay').attr('data-status', 'initial');
         resetModeReplayTimer(play_time);
         resetModeReplayStatus();
-        $('#modeReplay').attr('data-status', 'initial');
-        $('#modeReplayPause').attr('data-status', 'playing');
+        $('#modeReplay').attr('data-status', 'initial').removeClass('active').show();
+        $('#modeReplayPause').attr('data-status', 'initial').removeClass('active').hide();
+		$('.remote .time').hide();
     }
 
     function initModeReplay(button) {
@@ -1532,6 +1543,8 @@ $(function() {
                     replay_states.push(state);
                 });
             });
+			$('#modeReplay').addClass('active');
+			$('#modeReplayPause').addClass('active');
             beginModeReplay();
         }
 
@@ -1568,6 +1581,7 @@ $(function() {
         replay_timer = 0;
         replay_datetime = 1352246661;
         $('.remote .time').text('7:00 pm Nov 6th');
+        console.log('resetModeReplayTimer');
     }
 
     function resetModeReplayStatus(){
@@ -1576,7 +1590,7 @@ $(function() {
         alerts = [];
         update_alerts();
     }
-
+    
     function beginModeReplay(){
         $('#modeReplayPause').show()
         $('#modeReplay').hide()
@@ -1619,21 +1633,27 @@ $(function() {
             freeze_alerts = true;
         }
         if (replay_timer == 206000) {
-            pauseModeReplayTimer(play_time);
-            $('#modeReplayPause').hide()
-            $('#modeReplay').show()
-            $('#modeReplay').attr('data-status', 'initial');
-            $('#modeReplayPause').attr('data-status', 'playing');
-            initModeFinal(false);
+			pauseModeReplayTimer(play_time);
+			$('#modeReplayPause').attr('data-status', 'playing').removeClass('active').hide()
+			$('#modeReplay').attr('data-status', 'initial').removeClass('active').show();
+			$('.remote .time').hide();
+			initModeFinal(false);
         }
     }
 
     /* CLICK EVENTS FOR VARIOUS MODES */
-
     $('#modeGame').click(function(){
-        clearModeReplay();
-        clearModeFinal();
-        initModeGame();
+    	if (!game_mode) {
+			clearModeReplay();
+			clearModeFinal();
+			initModeGame();
+			$(this).addClass('active').text('Close Game Mode');
+			game_mode = true;
+		} else {
+			clearModeReplay();
+			clearModeGame();
+			initModeFinal(false);
+		}
     });
 
     $('#modeFinal').click(function(){
