@@ -121,7 +121,7 @@ body{background:black url(../img/8bit/body-bckgrnd.png);color:#666;}
 .tossups li div b {font-size:32px;text-align:center;display:block;margin:0 auto;}
 #the-stuff{background:white;border:8px white solid;}
 .histogram .bar{background:#CCC !important;}
-.bucket-header{margin-bottom:10px !important;}
+/* .bucket-header{margin-bottom:10px !important;} */
 .btn-inverse{background:black !important;}
 .navbar-inverse .navbar-inner,#results-bar.affix #small-header{background-image:none !important;}
 .line b{background:url('../img/8bit/270-line-767-8bit.png') no-repeat center center;}
