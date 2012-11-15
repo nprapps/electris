@@ -985,7 +985,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
     font-weight: bold;
     color: #333;
     display:inline-block;
-    font-size: 11px;
+    font-size: 12px;
     background-color: #fff;
     padding: 3px;
     margin: 0 30px 0 0;
@@ -1043,6 +1043,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
     display: inline-block;
     width: 70px;
     float: left;
+    cursor:pointer;
 }
 .remote #toggle8bit {
     width: 10px;
@@ -1066,6 +1067,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 .remote .toggle.on .toggle-label-off { display: none; }
 .remote .toggle.on .toggle-label-on { display: block; }
 
+.remote .replay { width:160px; }
 
 /* Media queries */
 @media (min-width: 768px) {

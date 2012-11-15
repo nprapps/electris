@@ -222,28 +222,26 @@
                     <li id="tab2"><a href="#backchannel" data-toggle="tab">The Back<br />Channel</a></li>
                 </ul>
             </div>
-
         </div>
-        
+
         <div class="row">
-        	<div class="span12">
-        		<div class="remote">
-					<span class="btn btn-small btn-inverse" id="modeReplay" data-status="initial"><b class="icon-play icon-white"></b> Replay Election Night</span>
-					<span class="btn btn-small btn-inverse" style="display:none;" id="modeReplayPause" data-status="playing"><b class="icon-pause icon-white"></b> Pause Election Night</span>
-					<span class="time" style="display:none;">7:00 pm Nov 6th</span>
-	
-					<span class="btn btn-small btn-inverse" id="modeGame">Try Game Mode</span>
-					
-					<div class="toggle-wrap">
-						<h4>8-Bit Mode</h4>
-						<div class="toggle">
-							<span class="btn btn-small" id="toggle8bit">&nbsp;</span>
-							<span class="toggle-label-off">OFF</span>
-							<span class="toggle-label-on">ON</span>
-						</div>
-					</div>
-				</div>
-        	</div>
+            <div class="span12">
+                <div class="remote">
+                    <span class="btn btn-small btn-inverse replay" id="modeReplay" data-status="initial"><b class="icon-play icon-white"></b> Replay Election Night</span>
+                    <span class="btn btn-small btn-inverse replay" style="display:none;" id="modeReplayPause" data-status="playing"><b class="icon-pause icon-white"></b> Pause Election Night</span>
+                    <span class="btn btn-small btn-inverse" id="modeGame">Try Game Mode</span>
+                    <span class="time" style="display:none;">7:00 pm Nov 6th</span>
+
+                    <div class="toggle-wrap">
+                        <h4>8-Bit Mode</h4>
+                        <div class="toggle">
+                            <span class="btn btn-small" id="toggle8bit">&nbsp;</span>
+                            <span class="toggle-label-off">OFF</span>
+                            <span class="toggle-label-on">ON</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row" id="creamy-filling">
@@ -604,7 +602,7 @@
             <button type="button" class="btn" data-dismiss="modal">Close</button>
         </div>
     </div>
-
+    <div id="audio"></div>
     <script id="state-template" type="text/template">
         <div class="state <%= state.id %> call-<%= state.call %>" data-id="<%= state.id %>">
             <% _.times(state.electoral_votes, function(){ %>

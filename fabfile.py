@@ -259,21 +259,13 @@ def write_www_files():
         local('rm www/president.json')
         local('rm www/bop.json')
         local('rm www/bop_jsonp.json')
+        local('rm www/replay.json')
 
     o.write_electris_json()
     o.write_president_json()
     o.write_house_json()
     o.write_senate_json()
     o.write_bop_json()
-
-
-def write_replay_files():
-    """
-    Function to write the replay JSON for the app in post-election mode.
-    """
-    with settings(warn_only=True):
-        local('rm www/replay.json')
-
     o.write_replay_json()
 
 
