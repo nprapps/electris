@@ -1018,10 +1018,6 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
   background-color: #7598C9;
   *background-color: #7598C9;
 }
-.remote .active:active,
-.remote .active.active {
-  background-color: #7598C9 \9;
-}
 .remote .hidden {
     display:none;
 }
@@ -1306,6 +1302,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 	body.audio.comingsoon #comingsoon .message { font-size: 9px; padding-left: 15px; padding-top: 6px; padding-bottom: 6px; }
 
 	.remote .btn { font-size: 14px; padding: 10px; display: block; margin-bottom: 6px; }
+	.remote .replay { width: auto; }
 	.remote .toggle-wrap .btn { font-size: 12px; padding: 3px 9px; display: inline-block; margin-bottom: 0; }
 	.remote .time { display: block; width: auto; margin-right: 0; margin-bottom: 12px; font-size: 14px; padding: 10px; }
 	.remote .toggle-wrap { float: right; clear: both; margin-top: 6px; margin-left: 0; }
