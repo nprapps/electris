@@ -343,6 +343,7 @@ $(function() {
     }
 
     function flip_wide_mode() {
+        wide_mode = true;
         electris_skinny_el.hide();
         results_el.hide();
         electris_el.show();
@@ -353,6 +354,7 @@ $(function() {
     }
 
     function flip_skinny_mode() {
+        wide_mode = false;
         electris_skinny_el.show();
         results_el.show();
         electris_el.hide();
@@ -373,11 +375,11 @@ $(function() {
         var bucket_columns = 10;
 
         var default_height = ELECTORAL_VOTES_TO_WIN / bucket_columns;
-        var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns)
+        var vote_height = Math.ceil(Math.max(red_votes, blue_votes) / bucket_columns);
         var height = Math.max(default_height, vote_height);
         bucket_els.css("height", height + "em");
 
-		var line_height = .1;
+		var line_height = 0.1;
         var header_height = 0;
 
         if (wide_mode) {
@@ -1483,6 +1485,8 @@ $(function() {
             if (SHOW_TOOLTIPS) {
                 $(".tossups li").tooltip();
             }
+            wide_mode = false;
+            resize_buckets();
         });
 
     }
