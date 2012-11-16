@@ -610,8 +610,8 @@
     <script id="called-template" type="text/template">
         <li class="called <%= state.id %>">
             <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
-            <span class="blue <% if (state.call === "d") { %>winner<% } %>"><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
-            <span class="red <% if (state.call === "r") { %>winner<% } %>"><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) %>%</span>
+            <span class="blue <% if (state.call === "d") { %>winner<% } %>"><%= blue_pct %></span>
+            <span class="red <% if (state.call === "r") { %>winner<% } %>"><%= red_pct %></span>
             <span class="precincts"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% rept.</span>
         </li>
     </script>
@@ -619,8 +619,8 @@
     <script id="incoming-template" type="text/template">
         <li class="incoming <%= state.id %>">
             <span class="st"><b><%= state.stateface %></b><%= state.abbr %></span>
-            <span class="blue"><% if (state.dem_vote_count) { %><%= Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) || 0 %>%<% } else { %>&mdash;<% } %></span>
-            <span class="red"><% if (state.rep_vote_count) { %><%= Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100) || 0 %>%<% } else { %>&mdash;<% } %></span>
+            <span class="blue"><%= blue_pct %></span>
+            <span class="red"><%= red_pct %></span>
             <span class="precincts"><%= Math.round(state.precincts_reporting / state.total_precincts * 100) %>% rept.</span>
         </li>
     </script>

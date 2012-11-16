@@ -625,8 +625,25 @@ $(function() {
         var incoming_state_els = [];
 
         _.each(alpha_states, function(state) {
+            var red_pct = Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
+            var blue_pct = Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
+            
+            if (red_pct) {
+                red_pct = red_pct.toString() + "%";
+            } else {
+                red_pct = "&mdash;";
+            }
+
+            if (blue_pct) {
+                blue_pct = blue_pct.toString() + "%";
+            } else {
+                blue_pct = "&mdash;";
+            }
+
             var called_state_el = $(CALLED_TEMPLATE({
-                state: state
+                state: state,
+                red_pct: red_pct,
+                blue_pct: blue_pct
             }));
             
             if (!state.call) {
@@ -639,7 +656,9 @@ $(function() {
             called_state_el = null;
 
             var incoming_state_el = $(INCOMING_TEMPLATE({
-                state: state
+                state: state,
+                red_pct: red_pct,
+                blue_pct: blue_pct
             }));
 
             if (state.call || state.polls_close > moment()) {
@@ -753,10 +772,25 @@ $(function() {
 
                 $(".state." + state.id).remove();
                 add_state(state);
+
+                var red_pct = Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
+                var blue_pct = Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100);
                 
+                if (red_pct) {
+                    red_pct = red_pct.toString() + "%";
+                } else {
+                    red_pct = "&mdash;";
+                }
+
+                if (blue_pct) {
+                    blue_pct = blue_pct.toString() + "%";
+                } else {
+                    blue_pct = "&mdash;";
+                }
+
                 var state_els = $("." + state.id);
-                state_els.find(".red").text(Math.round(state.rep_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100)); 
-                state_els.find(".blue").text(Math.round(state.dem_vote_count / (state.rep_vote_count + state.dem_vote_count) * 100)); 
+                state_els.find(".red").html(red_pct); 
+                state_els.find(".blue").html(blue_pct); 
 
                 if (old_state["call"] != state["call"]) {
                     // Uncalled
@@ -768,7 +802,7 @@ $(function() {
 
                         state_els.filter(".called").hide();
 
-                        if (state.polls_close > moment()) {
+                        if (old_state.polls_close < moment()) {
                             state_els.filter(".incoming").show();
                         }
 
