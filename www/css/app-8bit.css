@@ -143,6 +143,8 @@ body{background:black url(../img/8bit/body-bckgrnd.png);color:#666;}
 #bigbox,.btn i {display:none;}
 #results-bar.affix .results-group .total span{letter-spacing:0;}
 
+.combos.robotext { height: 80px; }
+
 .remote .replay { width: 235px; }
 .remote .btn.active { background-color: #7598C9; }
 
@@ -171,4 +173,13 @@ body{background:black url(../img/8bit/body-bckgrnd.png);color:#666;}
     .state.call-r i {background: #a23520;}
     .state.call-d i {background: #3d7fa6;}
 	.remote .replay { width: auto; }
+}
+@media (max-width: 480px) {
+	#skinny-button {
+		position: relative; top: auto; right: auto;
+		margin: -10px 0 10px 0;
+	}
+	#results-bar .results-row {
+		margin-left: 0 !important;
+	}
 }
