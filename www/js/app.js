@@ -1583,7 +1583,7 @@ $(function() {
         pauseModeReplayTimer(timer);
         replay_timer = 0;
         replay_datetime = 1352246661;
-        $replay_time.text('6:00 pm ET');
+        $replay_time.text('6:00 pm ET (Nov 6th)');
     }
 
     function resetModeReplayStatus(){
@@ -1621,7 +1621,8 @@ $(function() {
             }
         });
         replay_timer += 1000;
-        $replay_time.text(moment.unix(replay_datetime).format('h:mm a ET'));
+        var m = moment.unix(replay_datetime);
+        $replay_time.text(m.format('h:mm a ET (MMM Do)'));
         replay_datetime += 312;
 
         if (replay_timer == 61000) {
