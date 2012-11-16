@@ -132,7 +132,7 @@ body{background:black url(../img/8bit/body-bckgrnd.png);color:#666;}
 .pres-results .results li.hdr, .pres-results .pres-closing strong, #closing-modal strong { font-size: 15px; }
 .btn-mini { font-size: 14px; }
 #footer .credits { font-size: 13px; }
-#footer #attrCredit{padding-bottom:12px;background:url(../img/8bit/8bit-credits.png) bottom left no-repeat;}
+/*#footer #attrCredit{padding-bottom:12px;background:url(../img/8bit/8bit-credits.png) bottom left no-repeat;} */
 #audio #audio-htmlcontrol {background-image:url(../img/8bit/playButtonOver-8bit.png);}
 .state.call-r i {background: #a23520 url(../img/8bit/state-bckgrnd-15x15.png) no-repeat;}
 .state.call-d i {background: #3d7fa6 url(../img/8bit/state-bckgrnd-15x15.png) no-repeat;}
