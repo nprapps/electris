@@ -28,7 +28,6 @@ h5 { font: bold 16px; color: #333; }
 .results-row h2 { font: normal 22px/1.4em "Silkscreen", serif; }
 .modal-header h3 { font: normal 22px "Silkscreen", monospace; }
 
-
 #header h1{text-indent:-9999px;background:url('../img/8bit/electionnight2012-white.png') no-repeat;width:432px;height:54px;}
 #header-promos .promo h3 { font: 18px "Silkscreen", monospace; }
 #header-promos .promo p { font-size: 16px; }
@@ -77,9 +76,7 @@ h5 { font: bold 16px; color: #333; }
 #audio #audio-prompt { font-size:18px; }
 #comingsoon .message { font:bold 14px "Silkscreen", monospace; }
 
-.credits {
-    font-family: "Silkscreen", monospace !important;
-}
+.credits { font-family: "Silkscreen", monospace !important; }
 
 #social span {
     font-family: "Silkscreen", monospace !important;
@@ -147,6 +144,8 @@ body{background:black url(../img/8bit/body-bckgrnd.png);color:#666;}
 
 .remote .replay { width: 235px; }
 .remote .btn.active { background-color: #7598C9; }
+.remote .time { width: 190px; }
+
 
 /* Adaptive Styles */
 @media (min-width: 1200px) {
@@ -181,5 +180,8 @@ body{background:black url(../img/8bit/body-bckgrnd.png);color:#666;}
 	}
 	#results-bar .results-row {
 		margin-left: 0 !important;
+	}
+	.remote .time { 
+		width: auto;
 	}
 }

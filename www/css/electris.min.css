@@ -1087,6 +1087,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
     padding: 6px;
     border-radius: 4px;
     margin-top: 10px;
+    float: left;
 }
 .remote .time {
     text-align:center;
@@ -1172,6 +1173,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 .remote .toggle.on .toggle-label-on { display: block; }
 
 .remote .replay { width:160px; }
+
 
 /* Media queries */
 @media (min-width: 768px) {
