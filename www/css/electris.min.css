@@ -1148,6 +1148,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
     width: 70px;
     float: left;
     cursor:pointer;
+    margin-top:-1px;
 }
 .remote #toggle8bit {
     width: 10px;
@@ -1166,7 +1167,7 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
     float: left;
     display: none;
 }
-.remote .toggle.on { background-color: #eb3e17; }
+.remote .toggle.on { background-color: #eb3e17; margin-top:-2px; }
 .remote .toggle.on #toggle8bit { float: right; }
 .remote .toggle.on .toggle-label-off { display: none; }
 .remote .toggle.on .toggle-label-on { display: block; }
