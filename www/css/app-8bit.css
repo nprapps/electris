@@ -142,10 +142,12 @@ body{background:black url(../img/8bit/body-bckgrnd.png);color:#666;}
 
 .combos.robotext { height: 80px; }
 
+.remote { padding-top:8px; }
 .remote .replay { width: 235px; }
 .remote .btn.active { background-color: #7598C9; }
-.remote .time { width: 190px; }
-
+.remote .toggle-wrap h4 { font-size: 12px; font-family: "Silkscreen", monospace; }
+.remote .time { width:190px; padding-top:4px; padding-bottom:2px; }
+#wide-button { font-size:10px; }
 
 /* Adaptive Styles */
 @media (min-width: 1200px) {
@@ -171,7 +173,8 @@ body{background:black url(../img/8bit/body-bckgrnd.png);color:#666;}
     .results-group .total span {font-size:2.15em;}
     .state.call-r i {background: #a23520;}
     .state.call-d i {background: #3d7fa6;}
-	.remote .replay { width: auto; }
+	.remote .btn { width: auto; }
+    .remote .time { width:auto; }
 }
 @media (max-width: 480px) {
 	#skinny-button {
