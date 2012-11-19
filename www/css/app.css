@@ -976,10 +976,11 @@ body.no-audio.comingsoon #comingsoon .message { padding-top: 27px; }
 /* REPLAY MENU */
 .remote {
     background-color: #E0E0E0;
-    padding: 6px;
+    padding: 6px 1%;
     border-radius: 4px;
     margin-top: 10px;
     float: left;
+    width: 98%;
 }
 .remote .time {
     text-align:center;
