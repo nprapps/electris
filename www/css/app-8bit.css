@@ -1,0 +1,190 @@
+/* Fonts */
+@font-face {
+     font-family: 'StateFaceRegular';
+     src: url('../fonts/stateface-regular-webfont.eot');
+     src: url('../fonts/stateface-regular-webfont.eot?#iefix') format('embedded-opentype'),
+          url('../fonts/stateface-regular-webfont.woff') format('woff'),
+          url('../fonts/stateface-regular-webfont.ttf') format('truetype'),
+          url('../fonts/stateface-regular-webfont.svg#StateFaceRegular') format('svg');
+     font-weight: normal;
+}
+
+@font-face {
+    font-family: "Silkscreen";
+    src: url('http://www.tylerjfisher.com/fonts/slkscr.eot');
+    src: url('http://www.tylerjfisher.com/fonts/slkscr.ttf');
+    font-weight: normal;
+}
+
+/* NPR Election Night 2012 | 8-bit Edition  */
+/* Created by @jeremygilbert and @euphonos  */
+/* Updated by @jeremybowers                 */
+
+body, h2, h3, h5, button, .twt-buffer-button, .twt-o, .twt-o div, .twt-o blockquote, .twt-o .author, .twt-o .footer, .twt-border, .twt-o p, .twt-o ul, .twt-o ol, .twt-o li, .twt-o dl, .twt-o dt, .twt-o dd, .twt-o img, .twt-o a img, .twt-o a, .twt-o b, .twt-o i, .twt-o span, .twt-o time, .twt-o abbr, .twt-o iframe, .twt-timeline, .twt-timeline li,.twt-tweet .entry-title, .twt-o .entry-title a, .twt-o .entry-title b { font-family: "Silkscreen", monospace !important; }
+h2 { font-size: 1.4em; }
+h3 { font-size: 1.2em; }
+h5 { font: bold 16px; color: #333; }
+
+.results-row h2 { font: normal 22px/1.4em "Silkscreen", serif; }
+.modal-header h3 { font: normal 22px "Silkscreen", monospace; }
+
+#header h1{text-indent:-9999px;background:url('../img/8bit/electionnight2012-white.png') no-repeat;width:432px;height:54px;}
+#header-promos .promo h3 { font: 18px "Silkscreen", monospace; }
+#header-promos .promo p { font-size: 16px; }
+
+.results-group { font: 15px "Silkscreen", monospace; }
+.results-group h2 span { font: 14px "Silkscreen", monospace; color: #666; padding-left: 5px; }
+.results-group h3 { font-size: 12px; }
+.results-group .total span { font-size: 24px; line-height: 26px; }
+.results-group .towin span { font-size: 19px; line-height: 23px; }
+
+.pres-results .results li, #closing-modal li { font-size: 14px;}
+.pres-results .precincts { font-size: 14px; }
+
+/*.states { font-size: 22px; position: relative; } */
+#electris-skinny .state i { font-size: 1em; }
+.bucket-header p { font-size: 14px; }
+
+.vote-tallies span { font-size: 13px; }
+
+.bucket-header h3 { font: normal normal 20px "Silkscreen", monospace; }
+
+.histogram h4 { font: 15px "Silkscreen", monospace; }
+.histogram .title { font-size: 14px; }
+
+#combinations-modal h4 { font: bold 15px "Silkscreen", monospace; }
+#combinations-modal h4 span { font-size: 13px; }
+#combinations-model h4 a { font-size: 13px; }
+
+.tossups li div { font-size: 20px; }
+.tossups span { font: normal 13px "Silkscreen", monospace; }
+
+.electris-alert { font-size: 14px; }
+
+#memehead h3 { font-size: 15px; }
+#memetracker .post a { font: 15px/1.2em "Silkscreen", monospace; }
+#memetracker .post.quote a { font-size: 22px; font-family: "Silkscreen", monospace; }
+#memetracker p { font: 15px/1.2em "Silkscreen", monospace; }
+#memetracker .tstamp { font: 14px "Silkscreen", monospace; }
+#memetracker p.more { font-size: 14px; }
+
+#live-blog h2 span { font: normal 14px/1 "Silkscreen", monospace; }
+#live-blog p { font: 16px/1.35em "Silkscreen", monospace; }
+#live-blog p.tstamp, #live-blog .sticky p.tstamp { font-size: 12px; }
+#audio { font-family:"Silkscreen", monospace; }
+#audio #audio-title { font-size:14px; }
+#audio #audio-prompt { font-size:18px; }
+#comingsoon .message { font:bold 14px "Silkscreen", monospace; }
+
+.credits { font-family: "Silkscreen", monospace !important; }
+
+#social span {
+    font-family: "Silkscreen", monospace !important;
+    font-size: 1.3em !important;
+}
+
+#results-bar.affix .results-row h2 { font: bold 15px "Silkscreen", monospace; }
+#results-bar.affix .results-row h2 span { font-size: 14px; text-transform: none; }
+#results-bar.affix .results-group { padding-bottom: 4px; font-size: 14px; }
+#results-bar.affix .results-group h3 { font-size: 15px; }
+#results-bar.affix .results-group .total span { font-size: 15px; line-height: 18px; }
+#results-bar.affix ~ #creamy-filling { font-size: 17px; }
+#results-bar.affix .electris-alert { font-size: 15px; line-height: 15px; }
+#results-bar.affix .electris-alert b { font-size: 15px; line-height: 15px; }
+
+#social a{background:url('../img/8bit/social_tools_sprite.png') no-repeat}
+
+body{background:black url(../img/8bit/body-bckgrnd.png);color:#666;}
+.navbar .nav li.npr {background:url('../img/8bit/npr_55x38.png') no-repeat center left;}
+.navbar .navbar-inner .container ul.nav li a {font-size:1.55em !important;}
+.results-group .total span{font-size:2.5em;position:relative;top:-3px;letter-spacing:-6px;}
+.pres-results ul {background:#F1F1F1;}
+.pres-results .results li, #closing-modal li{color:#000;padding-left:10px;}
+#pres-header .blue { background: url('../img/8bit/silo-obama-45-8bit.png') no-repeat left 6px; }
+#pres-header .red  { background: url('../img/8bit/silo-romney-45-8bit.png') no-repeat left 6px; }
+#results-bar .results-row {background:white !important;margin-left:30px !important;}
+#results-bar .results-row .results-group {background:white;padding: 0 5px 10px 5px;margin-left:0;}
+#big-header {background: #151515 url('../img/8bit/bg-election-night-8bit.jpg') no-repeat top left;}
+#footer{background:white;margin:60px 0 0 0 !important;font-size:15px !important;}
+#live-blog h2 span,#memehead h3 strong a,#memetracker p.more a{color:#CCCCCC;}
+#memetracker .posts .post {background:white;overflow:auto;}
+#social a {background:url('../img/8bit/social_tools_sprite.png') no-repeat;}
+#comingsoon {background: url('../img/8bit/coming-soon-bg-wide-8bit.png') no-repeat right bottom;}
+.state i{border-radius:0;}
+#results-bar.affix #small-header h1 {background:url('../img/8bit/hd-sticky-8bit.png') no-repeat left -1px}
+#live-blog p.tstamp, #live-blog .sticky p.tstamp {font-size:14px;}
+#electris-skinny h2, #incoming h2, #backchannel h2, #live-blog h2,.nav-tabs > li > a, .pres-results h5, .results-row h2,#results-bar.affix .results-group .total span,.tossups li div,.vote-tallies .bignum,.results-group .towin span,.histogram h4,.btn-inverse,.histogram .bar {border-radius:0;-moz-border-radius:0;border:none;-webkit-box-shadow:none;box-shadow:none;-moz-box-shadow:none;}
+.tossups li div{text-shadow:none;background:#F7E39B !important;height:45px;font-size:16px;text-align:center;}
+.tossups li div b {font-size:32px;text-align:center;display:block;margin:0 auto;}
+#the-stuff{background:white;border:8px white solid;}
+.histogram .bar{background:#CCC !important;}
+/* .bucket-header{margin-bottom:10px !important;} */
+.btn-inverse{background:black !important;}
+.navbar-inverse .navbar-inner,#results-bar.affix #small-header{background-image:none !important;}
+.line b{background:url('../img/8bit/270-line-767-8bit.png') no-repeat center center;}
+.sponsor300 p{font-size:15px;}
+#tabs .nav-tabs{background:#3B3B3B;}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover{background:#8E8E8E;}
+.btn-small{ font-size: 15px; }
+.pres-results .results li.hdr, .pres-results .pres-closing strong, #closing-modal strong { font-size: 15px; }
+.btn-mini { font-size: 14px; }
+#footer .credits { font-size: 13px; }
+/*#footer #attrCredit{padding-bottom:12px;background:url(../img/8bit/8bit-credits.png) bottom left no-repeat;} */
+#audio #audio-htmlcontrol {background-image:url(../img/8bit/playButtonOver-8bit.png);}
+.state.call-r i {background: #a23520 url(../img/8bit/state-bckgrnd-15x15.png) no-repeat;}
+.state.call-d i {background: #3d7fa6 url(../img/8bit/state-bckgrnd-15x15.png) no-repeat;}
+.towin{font-size:.85em;}
+.majority{font-size:1.85em;}
+#pres-header .wrapper{margin-bottom:3px;}
+/* Stuff to hide */
+#bigbox,.btn i {display:none;}
+#results-bar.affix .results-group .total span{letter-spacing:0;}
+
+.combos.robotext { height: 80px; }
+
+.remote { padding-top:8px; }
+.remote .replay { width: 235px; }
+.remote .btn.active { background-color: #7598C9; }
+.remote .toggle-wrap h4 { font-size: 12px; font-family: "Silkscreen", monospace; }
+.remote .time { width:190px; padding-top:4px; padding-bottom:2px; }
+#wide-button { font-size:10px; }
+
+/* Adaptive Styles */
+@media (min-width: 1200px) {
+    .state i span {font-size:.55em;position:relative;top:-0.25em;}
+    .state.call-r i {background: #a23520 url(../img/8bit/state-bckgrnd-18x18.png) no-repeat;}
+    .state.call-d i {background: #3d7fa6 url(../img/8bit/state-bckgrnd-18x18.png) no-repeat;}
+    .tossups .state.call-r i {background: #a23520 url(../img/8bit/state-bckgrnd-21x21.png) no-repeat;}
+    .tossups .state.call-d i {background: #3d7fa6 url(../img/8bit/state-bckgrnd-21x21.png) no-repeat;}
+}
+@media (max-width: 979px) and (min-width: 768px) {
+    #pres-header .blue { background: none;}
+    #pres-header .red  { background: none;}
+    #big-header,#tabs .nav-tabs{margin:0;}
+    .results-row {margin-left:12px}
+    .results-group .total span {font-size:2.25em;}
+    .state.call-r i {background: #a23520;}
+    .state.call-d i {background: #3d7fa6;}
+}
+@media (max-width: 767px) {
+/*    #electris .bucket{height:15em !important;} */
+    #big-header,#tabs .nav-tabs{margin:0;}
+    #header h1{background:url('../img/8bit/electionnight2012-white-small.png') no-repeat;width:162px;height:22px;}
+    .results-group .total span {font-size:2.15em;}
+    .state.call-r i {background: #a23520;}
+    .state.call-d i {background: #3d7fa6;}
+	.remote .btn { width: auto; }
+    .remote .time { width:auto; }
+}
+@media (max-width: 480px) {
+	#skinny-button {
+		position: relative; top: auto; right: auto;
+		margin: -10px 0 10px 0;
+	}
+	#results-bar .results-row {
+		margin-left: 0 !important;
+	}
+	.remote .time { 
+		width: auto;
+	}
+}

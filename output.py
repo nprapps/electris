@@ -492,6 +492,47 @@ def write_electris_json():
         f.write(output)
 
 
+def write_replay_json():
+    def _scale_time(time):
+        first_time = datetime.datetime(2012, 11, 06, 19, 04, 02)
+        delta = time - first_time
+        return round(delta.seconds * 0.00321, 0) * 1000
+
+    output = []
+    states = sorted(State.select(), key=lambda state: state.called_time)
+    for state in states:
+        state_dict = state._data
+        state_dict['scaled_time'] = _scale_time(state.called_time)
+
+        if state_dict['npr_call'] != 'n' and state_dict['npr_call'] != 'u':
+            state_dict['call'] = state_dict['npr_call']
+            state_dict['called_at'] = state_dict['npr_called_at']
+            state_dict['called_by'] = 'npr'
+        elif state_dict['accept_ap_call'] and state_dict['ap_call'] != 'u':
+            state_dict['call'] = state_dict['ap_call']
+            state_dict['called_at'] = state_dict['ap_called_at']
+            state_dict['called_by'] = 'ap'
+        else:
+            state_dict['call'] = None
+            state_dict['called_at'] = None
+            state_dict['called_by'] = None
+
+        del state_dict['npr_call']
+        del state_dict['npr_called_at']
+        del state_dict['ap_call']
+        del state_dict['ap_called_at']
+
+        del state_dict['called_by']
+        del state_dict['accept_ap_call']
+        del state_dict['rowid']
+        del state_dict['prediction']
+
+        output.append(state_dict)
+
+    with open('www/replay.json', 'w') as f:
+        f.write(json.dumps(output))
+
+
 def push_results_to_s3():
     """
     Push president and house/senate CSV files to S3.
