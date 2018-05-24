@@ -5,6 +5,23 @@ Copyright 2013 NPR.  All rights reserved.  No part of these materials may be rep
 electris
 ========
 
+How to bootstrap this project
+----------
+
+```
+cd electris
+npm install less universal-jst
+mkvirtualenv electris
+pip install -r requirements.txt
+```
+
+Run the project
+
+```
+cd www
+python -m SimpleHTTPServer
+```
+
 Server environment
 ------------------
 
@@ -43,4 +60,3 @@ fab production master deploy:bitbucket
 ```
 
 You must have had a user configured on Bitbucket for this to work!
-
