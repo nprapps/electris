@@ -7,7 +7,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://election2012.npr.org/js/lib/jquery.timeago.js"></script>
     <base target="_top">
-    
+
     <style type="text/css">
 	    body { font: 12px/1.35em Arial, Helvetica, sans-serif; color: #555; margin: 0; }
 		h1, h2, h3, h4, h5, h6 { font-family: Georgia, serif; margin: 0 0 9px 0; line-height: 1.35em; }
@@ -23,8 +23,8 @@
 		#update .post { margin-bottom: 12px; }
 		#update .timeago { color: #999; font-size: 0.9em; display: block; }
 		p.more { margin-top: 12px; }
-		p.more a { 
-			background: url(http://media.npr.org/chrome/news/ico-more-sm.gif) no-repeat right center; 
+		p.more a {
+			background: url(http://media.npr.org/chrome/news/ico-more-sm.gif) no-repeat right center;
 			padding: 0 10px 0 0;
 			font-weight: bold;
 		}
@@ -50,7 +50,7 @@ var liveblog_el = $('#update');
 
 function fetch_news() {
 	$.ajax({
-	    url: 'http://www-cf.nprdev.org/buckets/agg/series/2012/elections/riverofnews/riverofnews.jsonp',
+	    url: 'https://www.npr.org/buckets/agg/series/2012/elections/riverofnews/riverofnews.jsonp',
 	    dataType: 'jsonp',
 	    jsonpCallback: 'nprriverofnews',
 	    success: function(data){
@@ -60,23 +60,23 @@ function fetch_news() {
 
 			var new_news = '';
 			var increment = RIVER_INCREMENT;
-		
+
 			$.each(data.news.sticky, function(j, k) {
 				if (k.News.status) {
 					new_news += blog_template(k.News,'sticky');
 					increment--;
 				}
 			});
-		
+
 			$.each(data.news.regular.slice(0, increment), function(j, k) {
 				if (k.News.status) {
 					new_news += blog_template(k.News,'');
 				}
 			});
-			
+
 			liveblog_el.empty().append(new_news);
 			liveblog_el.find("span.timeago").timeago();
-		
+
 			new_news = null;
 	    }
 	})
